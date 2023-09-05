@@ -7,11 +7,7 @@
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/necessary.css?v=1">
 </head>
 
-<body class="log-sign-body">
-
-
-
-
+<body>
     <div style="text-align: center; padding-top: 1px">
         <h1><?= APP_NAME ?> | Signup</h1>
     </div>

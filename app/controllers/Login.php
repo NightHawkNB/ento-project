@@ -22,8 +22,8 @@ class Login extends Controller{
                 }
             } else {
                 $data['errors']['email'] = "Wrong email or password";
+                $data['errors']['password'] = "Wrong email or password";
                 message("Logging Failed");
-                redirect('login');
             }
         }
 

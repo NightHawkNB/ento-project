@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/necessary.css?v=1">
 </head>
 
-<body class="log-sign-body">
+<body>
 
     <?php if(message()): ?>
         <div id="alert-msg"><?= message('', true); ?></div>
@@ -22,14 +22,14 @@
             <form method="post">
                 <div class="form-input">
                     <label for="email">Email </label><br>
-                    <input value="<?= set_value('email') ?>" type="email" name="email" id="email" class="input-field" required>
+                    <input value="<?= set_value('email') ?>" type="email" name="email" id="email" class="input-field <?= !empty($errors['email']) ? 'error-border' : ''; ?>" required>
                     <?php if(!empty($errors['email'])):?>
                         <div class="error-msg"><?= $errors['email'] ?></div>
                     <?php endif; ?>
                 </div>
                 <div class="form-input">
                     <label for="password">Password </label><br>
-                    <input value="<?= set_value('password') ?>" type="password" name="password" id="password" class="input-field" required>
+                    <input value="<?= set_value('password') ?>" type="password" name="password" id="password" class="input-field <?= !empty($errors['password']) ? 'error-border' : ''; ?>" required>
                     <?php if(!empty($errors['password'])):?>
                         <div class="error-msg"><?= $errors['password'] ?></div>
                     <?php endif; ?>
