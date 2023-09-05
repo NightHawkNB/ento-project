@@ -1,0 +1,109 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Inter;
+    font-size: 1rem;
+}
+
+header {
+    margin: 0;
+    padding: 20px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10%;
+    box-shadow: 5px 5px 30px var(--dark-grey);
+    margin-bottom: 30px;
+}
+
+header div{
+    padding: 10px;
+}
+
+header div:hover{
+    cursor: pointer;
+}
+
+header nav{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+header nav a{
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+}
+
+#login{
+    background-color: var(--indigo-6);
+}
+
+#signup{
+    background-color: yellow;
+}
+
+.logsign{
+    border-radius: 5px;
+}
+
+.logsign:hover{
+    color: black;
+    box-shadow: 1px 2px 2px var(--dark-grey);
+}
+
+header nav a:hover{
+    background-color: var(--indigo-2);
+    color: white;
+    font-weight: bold;
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    background-color: #141414;
+    color: white;
+    margin-top: 50px;
+}
+
+footer div{
+    padding: 10px 20px;
+}
+
+footer .footer-top{
+    background-color: var(--dark-grey);
+    display: flex;
+    justify-content: space-between;
+}
+
+footer .footer-top .ft-left{
+    font-size: 1.5rem;
+}
+
+footer .footer-top .ft-right{
+    text-align: right;
+}
+
+footer .footer-top .ft-right .social-icons{
+    margin: 0;
+    display: inline;
+    margin: 0;
+    gap: 10px;
+}
+
+footer .footer-top .ft-right .social-icons a{
+    padding: 0;
+    text-decoration: none;
+    color: white;
+}
+
+footer .footer-bottom {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    line-height: 0;
+}
