@@ -156,3 +156,112 @@ input[type=checkbox] {
 .text-center {
     text-align: center;
 }
+
+/* User's Dashboard Structure */
+.main-container {
+    display: flex;
+}
+
+
+.sidebar {
+    min-width: 150px;
+    height: 100vh;
+    box-shadow: 2px 2px 3px 0px var(--dark-grey);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sidebar a {
+    background-color: var(--indigo-6);
+    min-width: 95px;
+    border-radius: 5px;
+    padding: 10 20px;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.sidebar a:hover {
+    background-color: var(--indigo-2);
+    color: white;
+}
+
+main {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.content {
+    flex: 1;
+    padding: 10px;
+}
+
+.profile-details {
+    background-color: lightblue;
+    border-radius: 10px;
+    font-weight: bold;
+    padding: 15px;
+    width: 30%;
+}
+
+.display-field {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    align-items: baseline;
+}
+
+.display-field > * {
+    padding: 10px;
+}
+
+.display-field > p {
+    text-align: left;
+    background-color: var(--indigo-2);
+    color: white;
+    border-radius: 5px 0 0 5px;
+}
+
+.display-field > input[type=text], .display-field > span {
+    font-weight: normal;
+    background-color: var(--indigo-6);
+    border-radius: 0 5px 5px 0;
+    border: none;
+}
+
+.resreq-details {
+    background-color: lightgray;
+    padding: 10px 20px;
+    border-radius: 5px;;
+    display: flex;
+    align-items: baseline;
+    gap: 30px;
+    margin: 10px 0;
+}
+
+.resreq-details #req-details {
+    flex: 1;
+}
+
+.resreq-details > div {
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+}
+
+.resreq-details div > p {
+    font-weight: bold;
+}
+
+.resreq-details div button {
+    border: none;
+    background-color: transparent;
+}
+
+.resreq-details div button:hover {
+    cursor: pointer;
+}

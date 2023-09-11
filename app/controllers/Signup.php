@@ -22,6 +22,6 @@ class Signup extends Controller{
 
         
         $data['title'] = "ENTO | Signup";
-        $this->view('signup', $data);
+        $this->view('includes/signup', $data);
     }
 }

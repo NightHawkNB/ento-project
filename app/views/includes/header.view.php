@@ -6,8 +6,8 @@
         <a href="#reserve">Reserve</a>
         <a href="#aboutus">About Us</a>
         <a href="#contactus">Contact Us</a>
-        <?php if(Auth::is_sp()): ?>
-            <a href="<?= ROOT ?>/dashboard">Dashboard</a>
+        <?php if(Auth::logged_in()): ?>
+            <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/dashboard">Dashboard</a>
         <?php endif; ?>
         <?php if(!Auth::logged_in()): ?>
             <a href="<?= ROOT ?>/login" id="login" class="logsign">Login</a>
@@ -15,9 +15,8 @@
         <?php else: ?>
             <a href="<?= ROOT ?>/logout" id="logout" class="logsign">Logout</a>
         <?php endif; ?>
-        <div>
-            Hi, <?= ucfirst(Auth::getFname())." ".ucfirst(Auth::getLname()) ?>
-        </div>
     </nav>
-    <a href="<?= ROOT ?>/profile"><div class="profile" id="profile">Profile</div></a>
+    <?php if(Auth::logged_in()): ?>
+        <div class="profile" id="profile">Hi, <?= ucfirst(Auth::getFname())." ".ucfirst(Auth::getLname()) ?></div>
+    <?php endif; ?>
 </header>

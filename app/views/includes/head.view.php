@@ -4,4 +4,5 @@
     <title><?= APP_NAME ?> | <?= ucfirst(App::$page) ?></title>
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/framework.css?v=1">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/necessary.css?v=1">
+    <script src="https://kit.fontawesome.com/2840cb1323.js" crossorigin="anonymous"></script>
 </head>
