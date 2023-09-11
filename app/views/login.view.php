@@ -1,12 +1,5 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $title ?></title>
-    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/framework.css?v=1">
-    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/necessary.css?v=1">
-</head>
-
+<?php $this->view('includes/head') ?>
 <body>
 
     <?php if(message()): ?>
@@ -40,6 +33,7 @@
             </form>
         </div>
     </div>
+    <p class="text-center">Don't have an Account ? <a href="/signup" class="link">Create an Account</a></p>
 </body>
 
 </html>

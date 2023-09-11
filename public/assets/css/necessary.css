@@ -2,10 +2,10 @@ body {
     margin: 0;
     padding: 0;
     font-family: Inter;
-    font-size: 1rem;
+    font-size: 14px;
 }
 
-header {
+/* header {
     margin: 0;
     padding: 20px;
     width: 100%;
@@ -59,7 +59,7 @@ header nav a:hover{
     background-color: var(--indigo-2);
     color: white;
     font-weight: bold;
-}
+} */
 
 footer {
     display: flex;
@@ -69,7 +69,7 @@ footer {
     margin-top: 50px;
 }
 
-footer div{
+footer > div{
     padding: 10px 20px;
 }
 
@@ -77,10 +77,12 @@ footer .footer-top{
     background-color: var(--dark-grey);
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    height: fit-content;
 }
 
 footer .footer-top .ft-left{
-    font-size: 1.5rem;
+    font-size: 1rem;
 }
 
 footer .footer-top .ft-right{
@@ -102,8 +104,7 @@ footer .footer-top .ft-right .social-icons a{
 
 footer .footer-bottom {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     line-height: 0;
 }

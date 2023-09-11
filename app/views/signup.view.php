@@ -1,12 +1,5 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $title ?></title>
-    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/framework.css?v=1">
-    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/necessary.css?v=1">
-</head>
-
+<?php $this->view('includes/head') ?>
 <body>
     <div style="text-align: center; padding-top: 1px">
         <h1><?= APP_NAME ?> | Signup</h1>
@@ -70,6 +63,7 @@
             </form>
         </div>
     </div>
+    <p class="text-center">Already have an Account ? <a href="/login" class="link">Login</a></p>
 </body>
 
 </html>

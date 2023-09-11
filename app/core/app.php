@@ -4,6 +4,7 @@ class App {
 
     protected $controller = '_404';
     protected $method = 'index';
+    public static $page = '_404';
 
     function __construct() {
         $arr = $this->getUrl();
@@ -12,6 +13,7 @@ class App {
         if(file_exists($filename)) {
             require $filename;
             $this->controller = $arr[0];
+            self::$page = $arr[0];
             unset($arr[0]);
         }else{
             require "../app/controllers/".$this->controller.".php";

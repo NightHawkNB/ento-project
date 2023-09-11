@@ -2,6 +2,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
+
+/* CSS FILES */
+@import "navbar.css";
+
 /* CSS COLORS */
 :root {
     --indigo-2:  #6610F2;
@@ -60,7 +64,6 @@ a {
     width: 300px;
     height: 500px;
     height: auto;
-    margin: 10px  10px 50px 10px;
     display: flex;
     border-radius: 10px;
     padding: 30px 10px;
@@ -139,4 +142,17 @@ input[type=checkbox] {
     border: 1px solid var(--indigo-2);
     font-size: small;
     padding: 10px;
+}
+
+.text-small {
+    font-size: small;
+}
+
+.link {
+    text-decoration: none;
+    color: var(--indigo-2);
+}
+
+.text-center {
+    text-align: center;
 }

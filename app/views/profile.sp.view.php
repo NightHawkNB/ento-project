@@ -3,9 +3,7 @@
 <body>
     <?php $this->view('includes/header') ?>
 
-    <div style="text-align: center; padding-top: 1px">
-        <h1>Page not Found</h1>
-    </div>
+    <h2>SP Profile</h2>
 
     <?php $this->view('includes/footer') ?>
 </body>

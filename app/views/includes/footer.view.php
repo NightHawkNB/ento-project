@@ -8,7 +8,6 @@
                 <p>Email: developer.ento@gmail.com</p>
                 <p>dasdasd</p>
                 <p>asdasdas</p>
-                <p>dsadsdadasd</p>
             </div>
             <div class="social-icons">
                 <a href="#facebook"><img src="<?= ROOT ?>/assets/images/icons/facebook.png" alt="FaceBook"></a>
@@ -19,7 +18,7 @@
         </div>
     </div>
     <div class="footer-bottom">
-        <p>&copy; Copyright 2023. All rights reserved.</p>
-        <h5>ENTO</h5>
+        <p class="text-small">&copy; Copyright 2023. All rights reserved.</p>
+        <h5 class="">ENTO</h5>
     </div>
 </footer>

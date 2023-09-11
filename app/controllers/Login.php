@@ -9,26 +9,31 @@ class Login extends Controller{
         if($_SERVER['REQUEST_METHOD'] == "POST") {
 
             $row = $user->first([
-                'email' => $_POST['email'],
-                'password' => $_POST['password']
+                'email' => $_POST['email']
             ]);
-
+            
             if($row) {
-                if($row->password === $_POST['password']) {
-                    $_SESSION['USER_DATA'] = $row;
+                $pass = $_POST['password'];
+                if(password_verify($pass, $row->password)) {
+                    // For Authentication
+                    Auth::authenticate($row);
 
                     message("Logged in Successfully");
                     redirect('home');
+                } else {
+                    $data['errors']['email'] = "Wrong email or password";
+                    $data['errors']['password'] = "Wrong email or password";
+
+                    message("Logging Failed | Incorrect Email or Password");
                 }
             } else {
                 $data['errors']['email'] = "Wrong email or password";
                 $data['errors']['password'] = "Wrong email or password";
-                message("Logging Failed");
+
+                message("Logging Failed | No User Account with the given email");
             }
         }
 
-        
-        $data['title'] = "ENTO | Login";
-        $this->view('login', $data);
+        $this->view('login');
     }
 }
