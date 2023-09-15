@@ -1,17 +1,15 @@
 <html lang="en">
 <?php $this->view('includes/head') ?>
 <body>
+    <div class="main-wrapper">
+        <?php if(message()): ?>
+            <div class="alert-msg"><?= message('', true); ?></div>
+        <?php endif; ?>
 
-    <?php if(message()): ?>
-        <div id="alert-msg"><?= message('', true); ?></div>
-    <?php endif; ?>
-
-    <div style="text-align: center; padding-top: 1px">
-        <h1><?= APP_NAME ?> | Login</h1>
-    </div>
-
-    <div class="form-container">
-        <div class="form-container-2">
+        <div class="form-heading cols-12" style="text-align: center; padding-top: 1px">
+            <h1><?= APP_NAME ?> | Login</h1>
+        </div>
+        <div class="form-container cols-12 ai-c">
             <form method="post">
                 <div class="form-input">
                     <label for="email">Email </label><br>
@@ -32,8 +30,8 @@
                 </div>
             </form>
         </div>
+        <p class="text-center cols-12">Don't have an Account ? <a href="/signup" class="link">Create an Account</a></p>
     </div>
-    <p class="text-center">Don't have an Account ? <a href="/signup" class="link">Create an Account</a></p>
 </body>
 
 </html>

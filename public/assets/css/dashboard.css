@@ -1,0 +1,46 @@
+.dashboard-main {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 10px;
+    background-color: aqua;
+}
+
+.sidebar {
+    grid-row: span 2;
+    background-color: var(--dark-bg-2);
+    margin-left: 0;
+}
+
+.tile-container {
+    grid-row: span 2;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.tile-container > a {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border-radius: 10px;
+    color: black;
+    min-width: 25%;
+    max-width: 25%;
+}
+
+.tile-container > a > div {
+    background-color: var(--indigo-6);
+    padding: 10px 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.tile-container > a > img {
+    width: 100%;
+}

@@ -1,7 +1,38 @@
 #logo {
-    font-weight: bolder;
+    font-weight: bold;
+    font-size: 1.2rem;
 }
 
-.header {
-    background-color: rgba(0, 0, 0, 0.1);
+header > a {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+header nav {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+}
+
+header div.user {
+    padding: 10px;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.logsign {
+    padding: 10px 25px;
+    border-radius: 20px;
+}
+
+#logout, #login {
+    background-color: var(--indigo-2);
+}
+
+#signup {
+    border: 2px solid var(--indigo-2);
 }
