@@ -7,6 +7,7 @@
         <main class="dashboard-main">
             <section class="cols-2 sidebar">
                 <?php $this->view('includes/sidebar') ?>
+                <?php $this->view(strtolower($_SESSION['USER_DATA']->user_type).'/sidebar'); ?>
             </section>
             <section class="tile-container cols-10">
                 <a href="#post-ads">

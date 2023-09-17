@@ -7,6 +7,7 @@
 @import "grid.css";
 @import "navbar.css";
 @import "dashboard.css";
+@import "common.css";
 
 /* CSS COLORS */
 :root {
@@ -131,46 +132,58 @@ input[type=submit]:hover {
     text-align: center;
 }
 
+.profile {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .profile-details {
     background-color: lightblue;
-    border-radius: 10px;
     font-weight: bold;
     padding: 15px;
-    width: 30%;
+    width: 40%;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
-.display-field {
+.profile-input {
     display: grid;
-    grid-template-columns: 2fr 3fr;
-    align-items: baseline;
+    grid-template-columns: 1fr 3fr;
+    align-items: center;
+    gap: 10px;
+    padding: 0;
+    font-size: 0.8rem;
 }
 
-.display-field > * {
+.profile-input > label {
+    width: 100%;
+    color: var(--indigo-2);
+}
+
+.profile-input > input {
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid transparent;
     padding: 10px;
+    font-size: 15px;
 }
 
-.display-field > p {
-    text-align: left;
-    background-color: var(--indigo-2);
-    color: white;
-    border-radius: 5px 0 0 5px;
-}
-
-.display-field > input[type=text], .display-field > span {
-    font-weight: normal;
-    background-color: var(--indigo-6);
-    border-radius: 0 5px 5px 0;
-    border: none;
+.profile-input > input[type=file] {
+    width: fit-content;
 }
 
 .resreq-details {
-    background-color: lightgray;
+    background-color:#86CAFF;
     padding: 10px 20px;
-    border-radius: 5px;;
+    border-radius: 5px;
     display: flex;
+    flex-wrap: wrap;
     align-items: baseline;
+    justify-content: center;
     gap: 30px;
-    margin: 10px 0;
+    margin: 10px;
 }
 
 .resreq-details #req-details {

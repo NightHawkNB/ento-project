@@ -1,9 +1,19 @@
 .main-wrapper {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    gap: 10px;
     justify-items: stretch;
     align-items: stretch;
+}
+
+main {
+    grid-column: span 12;
+    width: 100%;
+    max-width: var(--maxwidth);
+    margin: 0 auto;
+}
+
+main > section {
+    grid-row: span 2;
 }
 
 header {
@@ -16,7 +26,11 @@ header {
     gap: 20px;
     background-color: var(--dark-bg);
     color: white;
-    padding: 10px;
+    /* padding: 10px; */
+}
+
+header > * {
+    margin: 10px;
 }
 
 footer {
@@ -27,8 +41,12 @@ footer {
     display: flex;
     flex-direction: column;
     background-color: var(--dark-bg);
-    padding: 0 10px;
+    /* padding: 0 10px; */
     color: white;
+}
+
+footer > * {
+    margin: 10px;
 }
 
 footer > div {
@@ -50,14 +68,6 @@ footer > div {
 .user {
     display: flex;
     gap: 20px;
-}
-
-main {
-    grid-column: span 12;
-    width: 100%;
-    margin: 0 auto;
-    padding: 10px;
-    max-width: var(--maxwidth);
 }
 
 footer {

@@ -1,3 +1,6 @@
+<?php if(message()): ?>
+    <div class="alert-msg"><?= message('', true); ?></div>
+<?php endif; ?>
 <header>
     <a href="<?= ROOT ?>/home"><div class="logo" id="logo"><?= APP_NAME ?></div></a>
     <nav class="navbar cols-5">
@@ -15,10 +18,10 @@
             <div class="profile" id="profile">Hi, <?= ucfirst(Auth::getFname())." ".ucfirst(Auth::getLname()) ?></div>
         <?php endif; ?>
         <?php if(!Auth::logged_in()): ?>
-            <a href="<?= ROOT ?>/login" id="login" class="logsign">Login</a>
-            <a href="<?= ROOT ?>/signup" id="signup" class="logsign">Signup</a>
+            <a href="<?= ROOT ?>/login" id="login" class="btn-lay">Login</a>
+            <a href="<?= ROOT ?>/signup" id="signup" class="btn-lay">Signup</a>
         <?php else: ?>
-            <a href="<?= ROOT ?>/logout" id="logout" class="logsign">Logout</a>
+            <a href="<?= ROOT ?>/logout" id="logout" class="btn-lay">Logout</a>
         <?php endif; ?>
     </div>
 </header>

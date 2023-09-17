@@ -24,10 +24,7 @@ header div.user {
     align-items: center;
 }
 
-.logsign {
-    padding: 10px 25px;
-    border-radius: 20px;
-}
+
 
 #logout, #login {
     background-color: var(--indigo-2);

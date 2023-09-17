@@ -1,0 +1,29 @@
+/* Button Layout Styles */
+.btn-lay {
+    padding: 10px 25px;
+    border-radius: 20px;
+    border: none;
+}
+
+/* Sidebar Link Layout */
+.link-lay {
+    padding: 10px 25px;
+    border-radius: 5px;
+    border: none;
+}
+
+/* Styles for any Listing with uniform width */
+.listing {
+    justify-content: normal;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+/* Background Colors */
+.bg-indigo-2{background-color: var(--indigo-2)}
+.bg-indigo-6{background-color: var(--indigo-6)}
+.bg-black-2{background-color: var(--dark-bg)}
+.bg-black-1{background-color: var(--dark-bg-2)}
+.bg-gery-1{background-color: var(--dark-grey)}
+.bg-indigo-alert{background-color: var(--alert-indigo)}

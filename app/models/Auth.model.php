@@ -27,6 +27,15 @@ class Auth {
         }
         else return false;
     }
+
+    public static function is_client() {
+        if(!empty($_SESSION['USER_DATA'])) {
+            if($_SESSION['USER_DATA']->user_type == 'client') return true;
+            else return false;
+        }
+        else return false;
+    }
+
     public static function logout() {
         if(!empty($_SESSION['USER_DATA'])) {
             unset($_SESSION['USER_DATA']);

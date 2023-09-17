@@ -2,10 +2,6 @@
 <?php $this->view('includes/head') ?>
 <body>
     <div class="main-wrapper">
-        <?php if(message()): ?>
-            <div class="alert-msg"><?= message('', true); ?></div>
-        <?php endif; ?>
-        
         <?php $this->view('includes/header') ?>
 
         <main>

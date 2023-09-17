@@ -11,8 +11,8 @@
             </section>
             <section class="cols-10">
                     <?php
-                        foreach($records as $reservation) {
-                            $this->view('includes/mini-res-details', (array)$reservation);
+                        foreach($records as $requests) {
+                            $this->view('includes/reservations/res-details', (array)$requests);
                         }
                     ?>
             </section>
