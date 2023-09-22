@@ -10,7 +10,10 @@
                 <?php $this->view(strtolower($_SESSION['USER_DATA']->user_type).'/sidebar'); ?>
             </section>
             <section class="cols-10 profile">
-                <div class="profile-details">
+                <div class="profile-container">
+                    <?php $this->view('includes/profile/profile-details', (array)$user) ?>
+                </div>
+                <div class="profile-container">
                     <?php $this->view('includes/profile/profile-details', (array)$user) ?>
                 </div>
             </section>

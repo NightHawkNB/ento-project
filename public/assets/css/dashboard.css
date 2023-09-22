@@ -80,3 +80,77 @@
     cursor: pointer;
     background-color: coral;
 }
+
+.dash-comp {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+
+.comp {
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    gap: 10px;
+}
+
+.comp div:not(.comp-icon) {
+    padding-top: 10px;
+}
+
+.comp-icon {
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.comp svg {
+    height: 2.0rem;
+}
+
+.comp p {
+    color: grey;
+}
+
+.comp span {
+    font-weight: bolder;
+    font-size: large;
+}
+
+.comp-purple {
+    color: purple;
+    fill: purple;
+}
+
+.comp-purple .comp-icon {
+    background-color: var(--indigo-6);
+}
+
+.comp-red {
+    color: red;
+    fill: red;
+}
+
+.comp-red .comp-icon {
+    background-color: lightpink;
+}
+
+.comp-green {
+    color: green;
+    fill: green;
+}
+
+.comp-green .comp-icon {
+    background-color: lightgreen;
+}
+
+.comp-blue {
+    color: blue;
+    fill: blue;
+}
+
+.comp-blue .comp-icon {
+    background-color: lightblue;
+}

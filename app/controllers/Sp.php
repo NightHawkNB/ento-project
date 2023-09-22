@@ -35,10 +35,10 @@ class Sp extends Controller{
 
         $data['user'] = $user->first(['user_id' => Auth::getUser_id()]);
 
-        if(empty($method)) $this->view('sp/profile/overview', $data);
-        else if($method === 'edit-profile') $this->view('sp/profile/edit', $data);
-        else if($method === 'settings') $this->view('sp/profile/settings', $data);
-        else if($method === 'change-password') $this->view('sp/profile/change-password', $data);
+        if(empty($method)) $this->view('profile/overview', $data);
+        else if($method === 'edit-profile') $this->view('profile/edit', $data);
+        else if($method === 'settings') $this->view('profile/settings', $data);
+        else if($method === 'change-password') $this->view('profile/change-password', $data);
         else {
             message("Page not found");
             redirect('sp/profile');
@@ -58,6 +58,16 @@ class Sp extends Controller{
         } else {
             message("Page not found");
             redirect('sp/reservations');
+        }
+    }
+
+    public function advertisements($method = null) {
+        
+        if(empty($method)) $this->view('includes/advertisements/your-ads');
+        else if($method == 'all-ads') $this->view('includes/advertisements/all-ads');
+        else {
+            message("Page not found");
+            redirect('sp/advertisements');
         }
     }
 
