@@ -23,7 +23,7 @@
     --dark-bg-2: #38393b;
     --error: #F00;
     --ok: rgb(57, 251, 57);
-    --maxwidth: 1200px;
+    --maxwidth: auto;
 }
 
 a {
@@ -136,37 +136,30 @@ input[type=submit]:hover {
     text-align: center;
 }
 
-.resreq-details {
-    background-color:#86CAFF;
-    padding: 10px 20px;
-    border-radius: 5px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: center;
-    gap: 30px;
+.list-comp {
+
     margin: 10px;
 }
 
-.resreq-details #req-details {
+.list-comp #req-details {
     flex: 1;
 }
 
-.resreq-details > div {
+.list-comp > div {
     display: flex;
     gap: 10px;
     align-items: baseline;
 }
 
-.resreq-details div > p {
+.list-comp div > p {
     font-weight: bold;
 }
 
-.resreq-details div button {
+.list-comp div button {
     border: none;
     background-color: transparent;
 }
 
-.resreq-details div button:hover {
+.list-comp div button:hover {
     cursor: pointer;
 }

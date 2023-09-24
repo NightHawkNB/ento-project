@@ -84,6 +84,7 @@
 .bg-black-2{background-color: var(--dark-bg)}
 .bg-black-1{background-color: var(--dark-bg-2)}
 .bg-grey-1{background-color: var(--dark-grey)}
+.bg-lightgray {background-color: lightgray}
 .bg-indigo-alert{background-color: var(--alert-indigo)}
 
 /* Text Align */
@@ -93,16 +94,21 @@
 
 
 /* Text Color */
-.txt-red {color: red}
-.txt-black {color: black}
-.txt-white {color: white}
-.txt-cornflowerblue {color: cornflowerblue}
-.txt-indigo-2 {color: var(--indigo-2)}
-.txt-lightgreen {color:lightgreen}
+.txt-c-red {color: red}
+.txt-c-black {color: black}
+.txt-c-white {color: white}
+.txt-c-cornflowerblue {color: cornflowerblue}
+.txt-c-indigo-2 {color: var(--indigo-2)}
+.txt-c-lightgreen {color:lightgreen}
+.txt-w-bold {font-weight: bold}
+.txt-w-bolder {font-weight: bolder}
+.txt-w-normal {font-weight: normal}
+.txt-d-none {text-decoration: none}
 
 /* Display Styles */
 .dis-flex {display: flex}
 .dis-flex-col {display: flex; flex-direction: column}
+.hide {display: none}
 .al-it-ce {align-items: center}
 .al-it-ba {align-items: baseline}
 .al-co-ce {align-content: center}
@@ -110,9 +116,13 @@
 .ju-it-ce {justify-items: center}
 .ju-it-ba {justify-items: baseline}
 .ju-co-ce {justify-content: center}
-.ju-co-ba {justify-content: baseline}
+.ju-co-sa {justify-content: space-around}
+.ju-co-sb {justify-content: space-between}
 .gap-10 {gap:10px}
 .gap-20 {gap:20px}
+.flex-grow {flex-grow: 1}
+.push-right {margin-left: auto}
+
 
 /* Position Styles */
 .pos-abs {position: absolute}
@@ -120,16 +130,31 @@
 .pos-rel {position: relative}
 
 /* Margin and Padding Styles */
+.pad-0 {padding: 0}
 .pad-10 {padding: 10px}
 .pad-20 {padding: 20px}
 .pad-10-20 {padding: 10px 20px}
+.mar-0 {margin: 0}
 .mar-10 {margin: 10px}
 .mar-20 {margin: 20px}
 
+.pad-bot-0 {padding-bottom: 0}
+.pad-top-0 {padding-top: 0}
+.pad-left-0 {padding-left: 0}
+.pad-right-0 {padding-right: 0}
 .pad-bot-10 {padding-bottom: 10px}
 .pad-top-10 {padding-top: 10px}
 .pad-left-10 {padding-left: 10px}
 .pad-right-10 {padding-right: 10px}
+
+.mar-bot-0 {margin-bottom: 0}
+.mar-top-0 {margin-top: 0}
+.mar-left-0 {margin-left: 0}
+.mar-right-0 {margin-right: 0}
+.mar-bot-10 {margin-bottom: 10px}
+.mar-top-10 {margin-top: 10px}
+.mar-left-10 {margin-left: 10px}
+.mar-right-10 {margin-right: 10px}
 
 /* Border Styles */
 .bor-none {border: none}
