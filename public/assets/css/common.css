@@ -3,6 +3,64 @@
     padding: 10px 25px;
     border-radius: 20px;
     border: none;
+    max-width: 200px;
+}
+
+.btn-lay-2 {
+    padding: 10px 25px;
+    border-radius: 5px;
+    border: 2px solid cornflowerblue;
+    background-color: cornflowerblue;
+    transition: 0.5s;
+    max-width: 200px;
+    color: white;
+    font-weight: bold;
+}
+
+.btn-lay-s {
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    fill: white;
+}
+
+.btn-lay-s:hover {
+    cursor: pointer;
+}
+
+/* Dropdown Styles */
+.drop-down {
+    display: none;
+    width: 150px;
+    padding: 20px 10px;
+    border-radius: 10px;
+    gap: 5px;
+}
+
+.drop-down > a {
+    padding: 5px;
+    color: black;
+}
+
+.drop-down > a:hover {
+    box-shadow: 1px 1px 1px 1px black;
+}
+
+.notification {
+    position: relative;
+}
+
+.notification:hover .drop-down {
+    z-index: 1;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+
+.notify-red {
+    border: 1px;
+    border-left: 3px solid red;
 }
 
 /* Sidebar Link Layout */
@@ -25,5 +83,57 @@
 .bg-indigo-6{background-color: var(--indigo-6)}
 .bg-black-2{background-color: var(--dark-bg)}
 .bg-black-1{background-color: var(--dark-bg-2)}
-.bg-gery-1{background-color: var(--dark-grey)}
+.bg-grey-1{background-color: var(--dark-grey)}
 .bg-indigo-alert{background-color: var(--alert-indigo)}
+
+/* Text Align */
+.txt-ali-cen {text-align: center}
+.txt-ali-rig {text-align: right}
+.txt-ali-lef {text-align: left}
+
+
+/* Text Color */
+.txt-red {color: red}
+.txt-black {color: black}
+.txt-white {color: white}
+.txt-cornflowerblue {color: cornflowerblue}
+.txt-indigo-2 {color: var(--indigo-2)}
+.txt-lightgreen {color:lightgreen}
+
+/* Display Styles */
+.dis-flex {display: flex}
+.dis-flex-col {display: flex; flex-direction: column}
+.al-it-ce {align-items: center}
+.al-it-ba {align-items: baseline}
+.al-co-ce {align-content: center}
+.al-co-ba {align-content: baseline}
+.ju-it-ce {justify-items: center}
+.ju-it-ba {justify-items: baseline}
+.ju-co-ce {justify-content: center}
+.ju-co-ba {justify-content: baseline}
+.gap-10 {gap:10px}
+.gap-20 {gap:20px}
+
+/* Position Styles */
+.pos-abs {position: absolute}
+.pos-fix {position: fixed}
+.pos-rel {position: relative}
+
+/* Margin and Padding Styles */
+.pad-10 {padding: 10px}
+.pad-20 {padding: 20px}
+.pad-10-20 {padding: 10px 20px}
+.mar-10 {margin: 10px}
+.mar-20 {margin: 20px}
+
+.pad-bot-10 {padding-bottom: 10px}
+.pad-top-10 {padding-top: 10px}
+.pad-left-10 {padding-left: 10px}
+.pad-right-10 {padding-right: 10px}
+
+/* Border Styles */
+.bor-none {border: none}
+.bor-rad-5 {border-radius: 5px}
+.bor-rad-10 {border-radius: 10px}
+.bor-1-sol-dark {border: 1px solid black}
+.bor-2-sol-dark {border: 2px solid black}

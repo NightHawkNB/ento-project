@@ -1,34 +1,14 @@
-<div class="profile-input">
-    <label>User ID</label>
-    <input type="text" name="user_id" value=<?= esc($user_id) ?> disabled>
+<div class="avatar">
+    <img src="http://media.idownloadblog.com/wp-content/uploads/2012/04/Phil-Schiller-headshot-e1362692403868.jpg" height="150" width="150">
 </div>
 
-<div class="profile-input">
-    <label>First Name</label>
-    <input type="text" name="fname" value=<?= esc($fname) ?> disabled>
-</div>
+<h2><?= esc($fname)." ".esc($lname) ?></h2>
 
-<div class="profile-input">
-    <label>Last Name</label>
-    <input type="text" name="lname" value=<?= esc($lname) ?> disabled>
-</div>
+<h4><?= esc($email) ?></h4>
+<h4><?= esc($user_type) ?></h4>
 
-<div class="profile-input">
-    <label>Email</label> 
-    <input type="text" name="email" value=<?= esc($email) ?> disabled>
-</div>
 
-<div class="profile-input">
-    <label>NIC Num</label>
-    <input type="text" name="nic_num" value=<?= $nic_num ?? "-- Not Verified --"?> disabled>
-</div>
+<p>Details About the User - About</p>
 
-<div class="profile-input">
-    <label>Contact Num</label>
-    <input type="text" name="contact_num" value=<?= esc($contact_num) ?> disabled>
-</div>
 
-<div class="profile-input">
-    <label>User Type</label>
-    <input type="text" name="user_type" value=<?= esc($user_type) ?> disabled>
-</div>
+<button class="btn-lay"><a href="tel:+9471706">Call Now</a></button>

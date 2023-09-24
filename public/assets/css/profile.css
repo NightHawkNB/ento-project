@@ -1,0 +1,169 @@
+.profile {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Profile Details Page */
+
+.profile-container {
+  width: 400px;
+  margin: 120px auto 120px;
+  background-color: #fff;
+  padding: 0 20px 20px;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.075);
+  text-align: center;
+}
+
+.profile-container .avatar {
+  border-radius: 100px;
+  overflow: visible;
+  height: 100px;
+  width: 150px;
+  position: relative;
+  margin: 0 auto;
+  top: -70px;
+}
+
+.profile-container .avatar img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 100px;
+}
+
+.profile-container h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.profile-container h4 {
+  font-size: 0.9rem;
+  color: #00baff;
+  letter-spacing: 1px;
+  margin-bottom: 25px
+}
+
+.profile-container p {
+  font-size: 0.8rem;
+  line-height: 26px;
+  margin-bottom: 20px;
+  color: #666;
+}
+
+.profile-container button {
+    color: white;
+    background-color: cornflowerblue;
+    font-size: 1.0rem;
+    font-weight: bold;
+}
+
+
+/* Profile Edit Page */
+
+.profile-container-2 {
+  width: 100%;
+  margin: 10px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-input {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  align-items: center;
+  gap: 50px;
+  padding: 0;
+  font-size: 0.8rem;
+}
+
+.profile-container-2 div > label:first-of-type {
+  text-align: right;
+  width: 100%;
+  color: grey;
+  font-weight: bold;
+}
+
+.profile-input input {
+  padding: 10px;
+  border: 1px solid grey;
+  border-radius: 5px;
+  outline: none;
+  font-size: medium;
+  font-family: calibri;
+  transition: 0.5s;
+}
+
+.profile-input input:focus {
+  outline: none;
+  border-color: cornflowerblue;
+  box-shadow: 0 0 10px cornflowerblue;
+}
+
+.profile-container-2 input[type=submit] {
+  background-color: cornflowerblue;
+  border: 2px solid cornflowerblue;
+  border-radius: 5px;
+}
+
+.profile-container-2 input[type=submit]:hover {
+  background-color: transparent;
+  color: cornflowerblue;
+}
+
+.btn-anima-hover {
+  transition: 0.5s;
+}
+
+.btn-anima-hover:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+  color: cornflowerblue;
+  background-color: transparent;
+}
+
+
+/* Upload Button Styles */
+
+.upload-btn {
+  background-color: cornflowerblue;
+  border-radius: 5px;
+  padding: 0px;
+  fill: white;
+}
+
+.upload-btn:hover {
+  cursor: pointer;
+}
+
+/* Change Password Page Styles */
+
+.change-pass {
+  display: flex;
+  align-items: center;
+}
+
+.change-pass button {
+  color: white;
+  background-color: cornflowerblue;
+  font-weight: bold;
+  align-self: center;
+}
+
+.change-pass button:hover {
+  background-color: transparent;
+  color: cornflowerblue;
+}
+
+/* Profile Settings Page */
+
+.profile-settings > form {
+  max-width: 300px;
+}

@@ -9,10 +9,12 @@
                 <?php $this->view('includes/sidebar') ?>
                 <?php $this->view(strtolower($_SESSION['USER_DATA']->user_type).'/sidebar'); ?>
             </section>
-            <section class="cols-10 profile">
-                <div class="profile-details">
-                    <?php $this->view('includes/profile/profile-details-edit', (array)$user) ?>
-                </div>
+            <section class="cols-10">
+                    <?php
+                        foreach($records as $reservations) {
+                            $this->view('includes/reservations/res-details', (array)$reservations);
+                        }
+                    ?>
             </section>
         </main>
         <?php $this->view('includes/footer') ?>
