@@ -45,16 +45,32 @@ class Sp extends Controller{
         }
     }
 
-    public function reservations($method = null) {
+    public function reservations($method = null, $id = null) {
 
         $db = new Database();
 
         if(empty($method)) {
+//            Getting all reservations for listing
             $data['records'] = $db->query("SELECT * FROM reservations");
-            $this->view('sp/reservations/your-reservations', $data);
+            $this->view('includes/reservations/your-reservations', $data);
+        } else if(is_numeric($method)) {
+//            If instead of the method, a numeric value is given, then find the relevant reservation and show it
+            $data['reservation'] = $db->query("SELECT * FROM reservations WHERE reservation_id = $method");
+            if(empty($data['reservation'])) {
+                message("No Reservation with that ID exists");
+                redirect('sp/reservations');
+            } else {
+                $this->view('includes/reservations/res-details-individual', $data['reservation']);
+            }
         } else if($method === 'reservation-requests') {
-            $data['records'] = $db->query("SELECT * FROM resrequest");
-            $this->view('sp/reservations/reservation-requests', $data);
+//                Getting all reservation requests and if id is given in the url, fetches only the one relevant
+            if(empty($id)) {
+                $data['requests'] = $db->query("SELECT * FROM resrequest");
+                $this->view('includes/reservations/reservation-requests', $data);
+            } else {
+                $data['requests'] = $db->query("SELECT * FROM resrequest WHERE req_id = $id");
+                $this->view('includes/reservations/req-details-individual', $data['requests']);
+            }
         } else {
             message("Page not found");
             redirect('sp/reservations');
