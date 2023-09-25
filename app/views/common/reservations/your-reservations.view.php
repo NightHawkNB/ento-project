@@ -12,7 +12,7 @@
             <section class="cols-10">
                     <?php
                         foreach($records as $reservations) {
-                            $this->view('includes/reservations/res-details', (array)$reservations);
+                            $this->view('common/reservations/res-details', (array)$reservations);
                         }
                     ?>
             </section>

@@ -1,6 +1,6 @@
-<?php
+<?php /** @noinspection ALL */
 
-class Sp extends Controller{
+class Singer extends Controller{
 
     public function __construct() {
         if(!Auth::logged_in()) {
@@ -15,10 +15,10 @@ class Sp extends Controller{
     }
 
     public function index() {
-        $this->view('sp/dashboard');
+        $this->view('singer/dashboard');
     }
 
-    //! Previous sp/profile method
+    //! Previous singer/profile method
     // public function profile($id = null) {
 
     //     $id = $id ?? Auth::getUser_id();
@@ -26,7 +26,7 @@ class Sp extends Controller{
     //     $user = new User();
 
     //     $data['user'] = $user->first(['user_id' => $id]);
-    //     $this->view('sp/profile', $data);
+    //     $this->view('singer/profile', $data);
     // }
 
     public function profile($method = null) {
@@ -35,13 +35,14 @@ class Sp extends Controller{
 
         $data['user'] = $user->first(['user_id' => Auth::getUser_id()]);
 
-        if(empty($method)) $this->view('profile/overview', $data);
-        else if($method === 'edit-profile') $this->view('profile/edit', $data);
-        else if($method === 'settings') $this->view('profile/settings', $data);
-        else if($method === 'change-password') $this->view('profile/change-password', $data);
+        if(empty($method)) $this->view('common/profile/overview', $data);
+        else if($method === 'edit-profile') $this->view('common/profile/edit', $data);
+        else if($method === 'settings') $this->view('common/profile/settings', $data);
+        else if($method === 'verify') $this->view('common/profile/verify', $data);
+        else if($method === 'change-password') $this->view('common/profile/change-password', $data);
         else {
             message("Page not found");
-            redirect('sp/profile');
+            redirect('singer/profile');
         }
     }
 
@@ -52,38 +53,38 @@ class Sp extends Controller{
         if(empty($method)) {
 //            Getting all reservations for listing
             $data['records'] = $db->query("SELECT * FROM reservations");
-            $this->view('includes/reservations/your-reservations', $data);
+            $this->view('common/reservations/your-reservations', $data);
         } else if(is_numeric($method)) {
 //            If instead of the method, a numeric value is given, then find the relevant reservation and show it
             $data['reservation'] = $db->query("SELECT * FROM reservations WHERE reservation_id = $method");
             if(empty($data['reservation'])) {
                 message("No Reservation with that ID exists");
-                redirect('sp/reservations');
+                redirect('singer/reservations');
             } else {
-                $this->view('includes/reservations/res-details-individual', $data['reservation']);
+                $this->view('common/reservations/res-details-individual', $data['reservation']);
             }
         } else if($method === 'reservation-requests') {
 //                Getting all reservation requests and if id is given in the url, fetches only the one relevant
             if(empty($id)) {
                 $data['requests'] = $db->query("SELECT * FROM resrequest");
-                $this->view('includes/reservations/reservation-requests', $data);
+                $this->view('common/reservations/reservation-requests', $data);
             } else {
                 $data['requests'] = $db->query("SELECT * FROM resrequest WHERE req_id = $id");
-                $this->view('includes/reservations/req-details-individual', $data['requests']);
+                $this->view('common/reservations/req-details-individual', $data['requests']);
             }
         } else {
             message("Page not found");
-            redirect('sp/reservations');
+            redirect('singer/reservations');
         }
     }
 
     public function advertisements($method = null) {
         
-        if(empty($method)) $this->view('includes/advertisements/your-ads');
-        else if($method == 'all-ads') $this->view('includes/advertisements/all-ads');
+        if(empty($method)) $this->view('common/advertisements/your-ads');
+        else if($method == 'all-ads') $this->view('common/advertisements/all-ads');
         else {
             message("Page not found");
-            redirect('sp/advertisements');
+            redirect('singer/advertisements');
         }
     }
 
@@ -93,10 +94,10 @@ class Sp extends Controller{
 
         if(empty($method)) {
             $data['records'] = $db->query("SELECT * FROM event");
-            $this->view('sp/events/your-events', $data);
+            $this->view('singer/events/your-events', $data);
         } else {
             message("Page not found");
-            redirect('sp/events');
+            redirect('singer/events');
         }
     }
 }

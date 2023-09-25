@@ -11,10 +11,20 @@
             </section>
             <section class="cols-10 profile">
                 <div class="profile-container">
-                    <?php $this->view('includes/profile/profile-details', (array)$user) ?>
+                    <div class="avatar">
+                        <img src="http://media.idownloadblog.com/wp-content/uploads/2012/04/Phil-Schiller-headshot-e1362692403868.jpg" height="150" width="150">
+                    </div>
+
+                    <h2><?= esc($user->fname) . " " .esc($user->lname) ?></h2>
+                    <h4><?= esc($user->email) ?></h4>
+                    <h4><?= esc($user->user_type) ?></h4>
+
+                    <p>Details About the User - About</p>
+
+                    <button class="btn-lay-2"><a href="profile/verify">Verify Account</a></button>
                 </div>
                 <div class="profile-container">
-                    <?php $this->view('includes/profile/profile-details', (array)$user) ?>
+                    <?php $this->view(strtolower($_SESSION['USER_DATA']->user_type)."/profile", (array)$user) ?>
                 </div>
             </section>
         </main>

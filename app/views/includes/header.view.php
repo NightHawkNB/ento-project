@@ -5,7 +5,7 @@
     <a href="<?= ROOT ?>/home"><div class="logo" id="logo"><?= APP_NAME ?></div></a>
     <nav class="navbar cols-5">
         <a href="<?= ROOT ?>/home">Home</a>
-        <a href="#events">Events</a>
+        <a href="<?= ROOT ?>/home/events">Events</a>
         <a href="#reserve">Reserve</a>
         <a href="#aboutus">About Us</a>
         <a href="#contactus">Contact Us</a>
@@ -15,7 +15,7 @@
     </nav>
     <div class="user cols-2">
         <?php if(Auth::logged_in()): ?>
-            <div class="profile" id="profile">Hi, <?= ucfirst(Auth::getFname())." ".ucfirst(Auth::getLname()) ?></div>
+            <div class="profile" id="profile">Hi, <?= ucfirst(Auth::getFname())." ".substr(ucfirst(Auth::getLname()), 0, 1) ?></div>
         <?php endif; ?>
         <?php if(!Auth::logged_in()): ?>
             <a href="<?= ROOT ?>/login" id="login" class="btn-lay">Login</a>

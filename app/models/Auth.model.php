@@ -1,18 +1,21 @@
 <?php
 
 class Auth {
-    public static function authenticate($row) {
+    public static function authenticate($row): void
+    {
         if(is_object($row)) {
             $_SESSION['USER_DATA'] = $row;
         }
     }
 
-    public static function logged_in() {
+    public static function logged_in(): bool
+    {
         if(!empty($_SESSION['USER_DATA'])) return true;
         else return false;
     }
 
-    public static function is_admin() {
+    public static function is_admin(): bool
+    {
         if(!empty($_SESSION['USER_DATA'])) {
             if($_SESSION['USER_DATA']->user_type == 'admin') return true;
             else return false;
@@ -20,15 +23,17 @@ class Auth {
         else return false;
     }
     
-    public static function is_sp() {
+    public static function is_sp(): bool
+    {
         if(!empty($_SESSION['USER_DATA'])) {
-            if($_SESSION['USER_DATA']->user_type == 'sp') return true;
+            if($_SESSION['USER_DATA']->user_type == 'singer') return true;
             else return false;
         }
         else return false;
     }
 
-    public static function is_client() {
+    public static function is_client() : bool
+    {
         if(!empty($_SESSION['USER_DATA'])) {
             if($_SESSION['USER_DATA']->user_type == 'client') return true;
             else return false;
@@ -36,7 +41,8 @@ class Auth {
         else return false;
     }
 
-    public static function logout() {
+    public static function logout() : void
+    {
         if(!empty($_SESSION['USER_DATA'])) {
             unset($_SESSION['USER_DATA']);
 
@@ -53,5 +59,9 @@ class Auth {
         } else {
             return 'User';
         }
+    }
+
+    public static function getUser_id() {
+        return $_SESSION['USER_DATA']->user_id;
     }
 }

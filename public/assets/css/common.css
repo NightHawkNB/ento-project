@@ -79,13 +79,15 @@
 }
 
 /* Background Colors */
+.bg-white {background-color: white}
 .bg-indigo-2{background-color: var(--indigo-2)}
 .bg-indigo-6{background-color: var(--indigo-6)}
 .bg-black-2{background-color: var(--dark-bg)}
 .bg-black-1{background-color: var(--dark-bg-2)}
-.bg-grey-1{background-color: var(--dark-grey)}
+.bg-grey{background-color: var(--dark-grey)}
 .bg-lightgray {background-color: lightgray}
 .bg-indigo-alert{background-color: var(--alert-indigo)}
+.bg-trans {background-color: transparent}
 
 /* Text Align */
 .txt-ali-cen {text-align: center}
@@ -118,10 +120,20 @@
 .ju-co-ce {justify-content: center}
 .ju-co-sa {justify-content: space-around}
 .ju-co-sb {justify-content: space-between}
+.ju-co-se {justify-content: space-evenly}
 .gap-10 {gap:10px}
 .gap-20 {gap:20px}
 .flex-grow {flex-grow: 1}
+.flex-all > * {flex: 1}
+.flex-wrap {flex-wrap: wrap}
+.flex-1 {flex: 1}
 .push-right {margin-left: auto}
+
+/* Width And Height Styles */
+.wid-100 {width: 100%}
+
+/* Overflow */
+.over-hide {overflow: hidden}
 
 
 /* Position Styles */
@@ -134,9 +146,11 @@
 .pad-10 {padding: 10px}
 .pad-20 {padding: 20px}
 .pad-10-20 {padding: 10px 20px}
+.pad-5-10 {padding: 5px 10px}
 .mar-0 {margin: 0}
 .mar-10 {margin: 10px}
 .mar-20 {margin: 20px}
+.mar-10-0 {margin: 10px 0}
 
 .pad-bot-0 {padding-bottom: 0}
 .pad-top-0 {padding-top: 0}
@@ -161,4 +175,20 @@
 .bor-rad-5 {border-radius: 5px}
 .bor-rad-10 {border-radius: 10px}
 .bor-1-sol-dark {border: 1px solid black}
+.bor-1-sol-white {border: 1px solid white}
 .bor-2-sol-dark {border: 2px solid black}
+
+/* Font Styles */
+.f-mooli {font-family: Mooli, SansSerif}
+.f-poppins {font-family: Poppins, SansSerif}
+.f-inter {font-family: Inter, Calibri}
+.f-space-1 {letter-spacing: 1px}
+.f-space-2 {letter-spacing: 2px}
+.f-space-4 {letter-spacing: 4px}
+.f-space-6 {letter-spacing: 6px}
+
+/* Hover */
+.hover-pointer:hover {cursor: pointer}
+
+/* Shadow */
+.shadow {box-shadow: 3px 3px 5px slategrey}

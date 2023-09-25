@@ -9,9 +9,9 @@
             <?php $this->view('includes/sidebar') ?>
             <?php $this->view(strtolower($_SESSION['USER_DATA']->user_type).'/sidebar'); ?>
         </section>
-        <section class="cols-10 pad-20">
-            <div class="dis-flex-col ju-co-ce gap-10 bg-grey-1 pad-10 bor-rad-10 txt-white">
-                <h2>Reservation Request Details</h2>
+        <section class="cols-10 pad-20 mar-bot-10">
+            <div class="dis-flex-col gap-10 bg-grey pad-10 bor-rad-5 txt-c-white" style="height: 100%">
+                <h2 class="mar-0">Reservation Request Details</h2>
                 <div class="dis-flex gap-10">
                     <div class="dis-flex-col">
                         Reservation Request Details - 1
