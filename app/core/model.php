@@ -14,9 +14,6 @@ class Model extends Database{
                 }
             }
         }
-
-        echo "After unsetting";
-        show($data);
         
         /*
         ! Array Keys
@@ -28,9 +25,51 @@ class Model extends Database{
         $keys = array_keys($data);
 
         $query = "INSERT INTO " . $this->table;
-
         
         $query .= " (". implode(",", $keys) .") VALUES (:". implode(", :", $keys) .")";
+
+        //? $arr['date'] = date('Y-m-d H:i:s');
+
+        $this->query($query, $data);
+    }
+
+    public function update($id, $data) {
+
+        $temp_id = null;
+
+        if(!empty($this->allowed_columns)) {
+            foreach($data as $key => $value) {
+                if(!in_array($key, $this->allowed_columns)) {
+                    if(str_contains($key, 'id')) $temp_id = array($key => $value);
+                    unset($data[$key]);
+                }
+            }
+        }
+
+        /*
+        ! Array Keys
+        * arrays_keys function returns an array that contains only the keys of a given array (without the values).
+        ! Implode function
+        * implode function returns a string made by connecting the keys of the given array by the given string (",").
+        */
+
+        $keys = array_keys($data);
+
+        $query = "UPDATE " . $this->table . " SET ";
+
+
+        foreach ($data as $key => $value) {
+            $query .= $key . " = :" . $key . ", ";
+        }
+
+        $query = trim($query, ", ");
+        $query .= " WHERE ";
+        foreach ($temp_id as $key => $value) {
+            $query .= $key . " = :" . $key;
+            $data[$key] = $value;
+        }
+
+        show($query);
 
         //? $arr['date'] = date('Y-m-d H:i:s');
 

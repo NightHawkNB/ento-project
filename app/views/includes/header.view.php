@@ -1,5 +1,7 @@
 <?php if(message()): ?>
-    <div class="alert-msg"><?= message('', true); ?></div>
+    <div class="mar-0 alert-msg"><?= message('', true); ?></div>
+<?php else: ?>
+    <div><!-- Empty Div Element --></div>
 <?php endif; ?>
 <header>
     <a href="<?= ROOT ?>/home"><div class="logo" id="logo"><?= APP_NAME ?></div></a>

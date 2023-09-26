@@ -1,8 +1,9 @@
 .main-wrapper {
     display: grid;
+    height: 100vh;
     grid-template-columns: repeat(12, 1fr);
-    justify-items: stretch;
-    align-items: stretch;
+    grid-template-rows: auto auto 1fr auto;
+    background-color: lightgray;
 }
 
 main {

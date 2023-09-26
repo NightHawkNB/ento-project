@@ -11,9 +11,9 @@
             </div>
             <div class="social-icons">
                 <a href="#facebook"><img src="<?= ROOT ?>/assets/images/icons/facebook.png" alt="FaceBook"></a>
-                <a href="#whatsapp"><img src="<?= ROOT ?>/assets/images/icons/youtube.png" alt="Youtube"></a>
+                <a href="#youtube"><img src="<?= ROOT ?>/assets/images/icons/youtube.png" alt="Youtube"></a>
                 <a href="#twitter"><img src="<?= ROOT ?>/assets/images/icons/twitter.png" alt="Twitter"></a>
-                <a href="#youtube"><img src="<?= ROOT ?>/assets/images/icons/whatsapp.png" alt="WhatsApp"></a>
+                <a href="#whatsapp"><img src="<?= ROOT ?>/assets/images/icons/whatsapp.png" alt="WhatsApp"></a>
             </div>
         </div>
     </div>

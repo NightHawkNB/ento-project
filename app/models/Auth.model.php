@@ -23,7 +23,7 @@ class Auth {
         else return false;
     }
     
-    public static function is_sp(): bool
+    public static function is_singer(): bool
     {
         if(!empty($_SESSION['USER_DATA'])) {
             if($_SESSION['USER_DATA']->user_type == 'singer') return true;

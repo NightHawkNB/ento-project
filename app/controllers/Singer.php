@@ -8,7 +8,7 @@ class Singer extends Controller{
             redirect('home');
         }
 
-        if(!Auth::is_sp()) {
+        if(!Auth::is_singer()) {
             message("Access Denied");
             redirect('home');
         }
@@ -33,7 +33,12 @@ class Singer extends Controller{
 
         $user = new User();
 
-        $data['user'] = $user->first(['user_id' => Auth::getUser_id()]);
+        $data['user'] = $row = $user->first(['user_id' => Auth::getUser_id()]);
+
+        if($_SERVER['REQUEST_METHOD'] == "POST" && $row) {
+            $user->update($row->user_id, $_POST);
+            redirect("singer/profile/edit-profile/".$row->user_id);
+        }
 
         if(empty($method)) $this->view('common/profile/overview', $data);
         else if($method === 'edit-profile') $this->view('common/profile/edit', $data);
@@ -44,6 +49,8 @@ class Singer extends Controller{
             message("Page not found");
             redirect('singer/profile');
         }
+
+        $this->view('common/profile/overview');
     }
 
     public function reservations($method = null, $id = null) {

@@ -1,4 +1,9 @@
-<div class="dis-flex-col bg-white bor-rad-5 f-poppins over-hide event-card shadow">
+<!--
+    TODO Create a details page for each Event when clicking on the image
+    TODO Create ticket buying and paying interfaces
+    IMPORTANT https://mytickets.lk/https://mytickets.lk/
+-->
+<div class="dis-flex-col bg-white bor-rad-5 f-poppins over-hide event-card sh">
     <a href="#event-details">
         <img src="<?= ROOT ?>/assets/images/events/<?= $image ?>" alt="<?= $name ?>" class="event-image">
     </a>
@@ -8,7 +13,7 @@
     </div>
     <a href="#event-buy-tickets">
         <div class="dis-flex-col gap-10  pad-10 mar-0 ju-co-ce bg-indigo-alert txt-c-white flex-wrap">
-            <h4 class="flex-1 mar-0 f-space-1">Buy Tickets</h4>
+            <h5 class="flex-1 mar-0 f-space-1">Buy Tickets</h5>
             <div class="dis-flex gap-10 al-it-ce">
                 <?php
                     foreach ($ticketing_plan as $ticket) {
