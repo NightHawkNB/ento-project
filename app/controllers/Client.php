@@ -5,7 +5,6 @@ class Client extends Controller {
   }
 
   public function profile() {
-    
     $user = new User();
 
     $data['user'] = $row = $user->first(['user_id' => Auth::getUser_id()]);
