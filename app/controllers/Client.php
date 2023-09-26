@@ -4,6 +4,11 @@ class Client extends Controller {
       $this->view('client/dashboard');
   }
   public function profile() {
-    $this->view('common/profile/overview');
+
+    $user = new User();
+
+    $data['user'] = $row = $user->first(['user_id' => Auth::getUser_id()]);
+
+    $this->view('common/profile/overview', $data);
 }
 }
