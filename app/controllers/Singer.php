@@ -15,7 +15,7 @@ class Singer extends Controller{
     }
 
     public function index() {
-        $this->view('singer/dashboard');
+        $this->view('common/dashboard');
     }
 
     //! Previous singer/profile method
@@ -49,8 +49,6 @@ class Singer extends Controller{
             message("Page not found");
             redirect('singer/profile');
         }
-
-        $this->view('common/profile/overview');
     }
 
     public function reservations($method = null, $id = null) {

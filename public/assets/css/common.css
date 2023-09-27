@@ -78,6 +78,22 @@
     padding: 10px;
 }
 
+.input {
+    padding: 10px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    outline: none;
+    font-size: medium;
+    font-family: SansSerif, serif ;
+    transition: 0.7s;
+}
+
+.input:focus {
+    outline: none;
+    border-color: cornflowerblue;
+    box-shadow: 0 0 10px cornflowerblue;
+}
+
 /* Background Colors */
 .bg-white {background-color: white}
 .bg-indigo-2{background-color: var(--indigo-2)}
@@ -147,6 +163,7 @@
 .pad-20 {padding: 20px}
 .pad-10-20 {padding: 10px 20px}
 .pad-5-10 {padding: 5px 10px}
+.p-0-10 {padding: 0 10px}
 .mar-0 {margin: 0}
 .mar-10 {margin: 10px}
 .mar-20 {margin: 20px}
@@ -192,3 +209,7 @@
 
 /* Shadow */
 .sh {box-shadow: 0 2px 5px rgba(0,0,0,0.2)}
+
+
+/* SVG Fill colors */
+.fill-white {fill: white}

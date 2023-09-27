@@ -6,6 +6,10 @@
     background-color: lightgray;
 }
 
+.auth-page {
+    grid-template-rows: auto 1fr;
+}
+
 main {
     grid-column: span 12;
     width: 100%;

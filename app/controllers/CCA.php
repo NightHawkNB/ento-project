@@ -3,7 +3,7 @@
 class CCA extends Controller{
 
     public function index(){
-        $this->view("CCA/dashboard");
+        $this->view("common/dashboard");
     }
 
     public function profile(){

@@ -121,8 +121,12 @@
   width: 250px;
 }
 
+.event-cover-image {
+  height: auto;
+}
+
 .event-card {
   width: 250px;
-  height: 350px;
+  height: 400px;
   flex-wrap: wrap;
 }

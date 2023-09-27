@@ -62,8 +62,8 @@ form div{
 }
 
 .form-input label {
-    font-family: Poppins;
-    font-size: normal;
+    font-family: Poppins, serif;
+    font-size: 1em;
 }
 
 .input-field {
@@ -163,4 +163,165 @@ input[type=submit]:hover {
 
 .list-comp div button:hover {
     cursor: pointer;
+}
+
+.login-form {
+    position: relative;
+    width: 380px;
+    height: 420px;
+    border-radius: 8px;
+    background: var(--dark-bg);
+    padding: 0;
+    inset: 4px;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.login-form form {
+    position: absolute;
+    inset: 4px;
+    background: var(--dark-bg-2);
+    padding: 38px 15px;
+    margin: 0;
+    border-radius: 8px;
+    gap: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form form h2 {
+    color: white;
+    font-family: Poppins, serif;
+    font-size: 1.5em;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing:0.1em;
+}
+
+.login-form form p {
+    font-size: 0.8rem;
+    color: lightgrey;
+}
+
+.login-form form p a {
+    color: hotpink;
+}
+
+.login-form .input-box {
+    position: relative;
+    width: 300px;
+    margin-top: 35px;
+}
+
+.login-form .input-box input {
+    position: relative;
+    width: 100%;
+    padding: 20px 10px 10px;
+    background: transparent;
+    box-shadow: none;
+    outline: none;
+    color: white;
+    border: none;
+    font-size: 1em;
+    letter-spacing: 0.05em;
+    transition: 0.5s;
+    z-index: 10;
+}
+
+.login-form .input-box label {
+    position: absolute;
+    left: 0;
+    padding: 20px 10px 10px;
+    pointer-events: none;
+    color: white;
+    font-size: 1em;
+    letter-spacing: 0.05em;
+    transition: 0.5s;
+}
+
+.login-form .input-box input:valid ~ label, .login-form .input-box input:focus ~ label {
+    color: white;
+    font-size: 0.75em;
+    transform: translateY(-34px);
+}
+
+.login-form .input-box i {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: rgba(0, 255, 255, 0.5);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: 0.5s;
+    pointer-events: none;
+}
+
+.login-form .input-box input:valid ~ i, .login-form .input-box input:focus ~ i {
+    height: 40px;
+}
+
+.login-form button {
+    border: 2px solid hotpink;
+    outline: none;
+    padding: 10px 25px;
+    background: hotpink;
+    cursor: pointer;
+    font-size: 0.9em;
+    border-radius: 4px;
+    font-weight: 600;
+    width: 100px;
+    margin-top: 10px;
+    color: white;
+    transition: 0.5s;
+}
+
+.login-form button:hover {
+    background-color: transparent;
+    color: deeppink;
+    border-color: deeppink;
+    transform: scale(1.1);
+}
+
+.login-form button:active {
+    opacity: 0.8;
+}
+
+.login-form::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 380px;
+    height: 420px;
+    background: linear-gradient(0deg, transparent, transparent, aqua, aqua, aqua);
+    z-index: 1;
+    transform-origin: bottom right;
+    animation: animate 6s linear infinite;
+}
+
+.login-form::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 380px;
+    height: 420px;
+    background: linear-gradient(0deg, transparent, transparent, deeppink, deeppink, deeppink);
+    z-index: 1;
+    transform-origin: bottom right;
+    animation: animate 6s linear infinite;
+    animation-delay: -3s;
+}
+
+@keyframes animate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }

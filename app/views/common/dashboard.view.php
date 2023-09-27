@@ -7,7 +7,7 @@
         <main class="dashboard-main">
             <section class="cols-2 sidebar">
                 <?php $this->view('includes/sidebar') ?>
-                <?php $this->view(strtolower($_SESSION['USER_DATA']->user_type).'/sidebar'); ?>
+                <?php $this->view('common/sidebar'); ?>
             </section>
             <section class="cols-10">
                 <div class="dash-comp">
@@ -60,7 +60,9 @@
                         <ul class="days"></ul>
                     </div>
                 </div>
-            
+                <div class="mar-10 pad-10 bg-black-2 txt-c-white">
+                    <?php $this->view($_SESSION['USER_DATA']->user_type."/dashboard"); ?>
+                </div>
             </section>
         </main>
         <?php $this->view('includes/footer') ?>

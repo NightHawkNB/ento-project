@@ -5,7 +5,7 @@ class Home extends Controller{
         $this->view('home');
     }
 
-    public function events($id = null) {
+    public function events($id = null, $method = null) {
         $data['record'] = array(
             array(
                 'event_id' => 1,
@@ -33,6 +33,11 @@ class Home extends Controller{
             )
         );
 
-        $this->view('events', $data);
+        if(empty($id)) $this->view('events', $data);
+        else if($method == "buy") {
+            $this->view('common/events/buy-tickets');
+        } else {
+            $this->view('common/events/details');
+        }
     }
 }

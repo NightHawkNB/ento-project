@@ -6,15 +6,9 @@
   border-radius: 100px;
 }
 
-.profile-card {
-  height: 310px;
-}
-
 .profile-details {
   min-width: 400px;
 }
-
-.profile-details
 
 .profile-container {
   width: 400px;
@@ -108,7 +102,7 @@
   border-radius: 5px;
   outline: none;
   font-size: medium;
-  font-family: calibri;
+  font-family: SansSerif, serif ;
   transition: 0.5s;
 }
 

@@ -7,7 +7,7 @@
         <main class="dashboard-main">
             <section class="cols-2 sidebar">
                 <?php $this->view('includes/sidebar') ?>
-                <?php $this->view(strtolower($_SESSION['USER_DATA']->user_type).'/sidebar'); ?>
+                <?php $this->view('common/sidebar'); ?>
             </section>
             <section class="cols-10">
                     <?php

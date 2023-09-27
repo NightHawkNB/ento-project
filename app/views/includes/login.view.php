@@ -1,36 +1,35 @@
 <html lang="en">
 <?php $this->view('includes/head') ?>
 <body>
-    <div class="main-wrapper">
+    <div class="main-wrapper auth-page">
         <?php if(message()): ?>
-            <div class="alert-msg"><?= message('', true); ?></div>
+            <div class="alert-msg cols-12"><?= message('', true); ?></div>
+        <?php else: ?>
+            <div></div>
         <?php endif; ?>
 
-        <div class="form-heading cols-12" style="text-align: center; padding-top: 1px">
-            <h1><?= APP_NAME ?> | Login</h1>
+        <div class="dis-flex-col al-it-ce ju-co-ce cols-12 bg-black-2">
+            <div class="bg-trans pad-20 bor-rad-5 dis-flex-col">
+                <div class="login-form">
+                    <span class="borderline"></span>
+                    <form method="post" class="pos-abs dis-flex-col al-it-ce">
+                        <h2>Login</h2>
+                        <div class="input-box">
+                            <input type="email" name="email" required>
+                            <label for="email">Email</label>
+                            <i></i>
+                        </div>
+                        <div class="input-box">
+                            <input type="password" name="password" required>
+                            <label for="password">Password</label>
+                            <i></i>
+                        </div>
+                        <p class="">Don't have an Account ? <a href="<?= ROOT ?>/signup">Create an Account</a></p>
+                        <button type="submit">Login</button>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="form-container cols-12 ai-c">
-            <form method="post">
-                <div class="form-input">
-                    <label for="email">Email </label><br>
-                    <input value="<?= set_value('email') ?>" type="email" name="email" id="email" class="input-field <?= !empty($errors['email']) ? 'error-border' : ''; ?>" required>
-                    <?php if(!empty($errors['email'])):?>
-                        <div class="error-msg"><?= $errors['email'] ?></div>
-                    <?php endif; ?>
-                </div>
-                <div class="form-input">
-                    <label for="password">Password </label><br>
-                    <input value="<?= set_value('password') ?>" type="password" name="password" id="password" class="input-field <?= !empty($errors['password']) ? 'error-border' : ''; ?>" required>
-                    <?php if(!empty($errors['password'])):?>
-                        <div class="error-msg"><?= $errors['password'] ?></div>
-                    <?php endif; ?>
-                </div>
-                <div class="form-button">
-                    <input type="submit" value="Login">
-                </div>
-            </form>
-        </div>
-        <p class="text-center cols-12">Don't have an Account ? <a href="/signup" class="link">Create an Account</a></p>
     </div>
 </body>
 
