@@ -20,7 +20,7 @@
         <h5 class="f-inter flex-grow"><?= $details ?></h5>
     </div>
     <a href=<?= ROOT."/home/events/".$event_id."/buy" ?>>
-        <div class="dis-flex-col gap-10  pad-10 mar-0 ju-co-ce bg-indigo-alert txt-c-white flex-wrap">
+        <div class="dis-flex-col gap-10  pad-10 mar-0 ju-co-ce bg-primary txt-c-white flex-wrap">
             <h5 class="flex-1 mar-0 f-space-1">Buy Tickets</h5>
             <div class="dis-flex gap-10 al-it-ce">
                 <?php

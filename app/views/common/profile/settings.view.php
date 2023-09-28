@@ -9,7 +9,7 @@
                 <?php $this->view('includes/sidebar') ?>
                 <?php $this->view('common/sidebar'); ?>
             </section>
-            <section class="cols-10 profile">
+            <section class="cols-10 profile bg-primary dis-flex al-it-st">
                 <div class="profile-container-2 dis-flex-col gap-10 profile-settings">
                     <h2 style="color: black;">Change Notification Preferences</h2>
 

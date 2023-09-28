@@ -1,4 +1,4 @@
-<div class="txt-c-black">
+<div>
     <h2>Singer Account Verification</h2>
 
     <label for="contracts">Do you have any active contracts ?</label>

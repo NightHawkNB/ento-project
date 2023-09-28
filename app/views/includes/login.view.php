@@ -24,7 +24,7 @@
                             <label for="password">Password</label>
                             <i></i>
                         </div>
-                        <p class="">Don't have an Account ? <a href="<?= ROOT ?>/signup">Create an Account</a></p>
+                        <p>Don't have an Account ? <a href="<?= ROOT ?>/signup">Create an Account</a></p>
                         <button type="submit">Login</button>
                     </form>
                 </div>

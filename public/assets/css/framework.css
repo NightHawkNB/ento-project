@@ -11,6 +11,7 @@
 @import "templates.css";
 @import "switches.css";
 @import "profile.css";
+@import "ticket.css";
 @import "common.css";
 
 /* CSS COLORS */
@@ -273,17 +274,18 @@ input[type=submit]:hover {
 }
 
 .login-form button {
-    border: 2px solid hotpink;
+    border: 2px solid deeppink;
     outline: none;
     padding: 10px 25px;
-    background: hotpink;
+    background-color: deeppink;
     cursor: pointer;
-    font-size: 0.9em;
+    font-size: 1em;
     border-radius: 4px;
-    font-weight: 600;
+    font-weight: bold;
     width: 100px;
     margin-top: 10px;
-    color: white;
+    color: var(--dark-bg-2);
+    letter-spacing: 1px;
     transition: 0.5s;
 }
 
