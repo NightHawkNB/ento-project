@@ -6,6 +6,20 @@
   border-radius: 100px;
 }
 
+.profile-image-2 {
+  width: 125px;
+  height: 125px;
+  border-radius: 100px;
+}
+
+.card-profile {
+  transition: 0.5s;
+}
+
+.card-profile:hover {
+  transform: scale(1.025);
+}
+
 .profile-details {
   min-width: 400px;
 }

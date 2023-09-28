@@ -130,6 +130,7 @@
 .hide {display: none}
 .al-it-ce {align-items: center}
 .al-it-ba {align-items: baseline}
+.al-it-st {align-items: stretch}
 .al-co-ce {align-content: center}
 .al-co-ba {align-content: baseline}
 .ju-it-ce {justify-items: center}
@@ -138,6 +139,7 @@
 .ju-co-sa {justify-content: space-around}
 .ju-co-sb {justify-content: space-between}
 .ju-co-se {justify-content: space-evenly}
+.ju-co-st {justify-content: stretch}
 .gap-10 {gap:10px}
 .gap-20 {gap:20px}
 .flex-grow {flex-grow: 1}
