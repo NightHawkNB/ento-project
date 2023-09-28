@@ -12,12 +12,26 @@
   border-radius: 100px;
 }
 
+.venue-image {
+  width: 200px;
+  height: 125px;
+  border-radius: 20px;
+}
+
 .card-profile {
   transition: 0.5s;
 }
 
 .card-profile:hover {
   transform: scale(1.025);
+}
+
+.card-profile img {
+  transition: 0.5s;
+}
+
+.card-profile:hover img {
+  border-radius: 5px;
 }
 
 .profile-details {

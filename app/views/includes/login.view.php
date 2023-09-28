@@ -2,6 +2,7 @@
 <?php $this->view('includes/head') ?>
 <body>
     <div class="main-wrapper auth-page">
+
         <?php if(message()): ?>
             <div class="alert-msg cols-12"><?= message('', true); ?></div>
         <?php else: ?>
@@ -11,7 +12,6 @@
         <div class="dis-flex-col al-it-ce ju-co-ce cols-12 bg-black-2">
             <div class="bg-trans pad-20 bor-rad-5 dis-flex-col">
                 <div class="login-form">
-                    <span class="borderline"></span>
                     <form method="post" class="pos-abs dis-flex-col al-it-ce">
                         <h2>Login</h2>
                         <div class="input-box">

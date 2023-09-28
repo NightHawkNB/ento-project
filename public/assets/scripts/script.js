@@ -53,3 +53,11 @@ prevNextIcon.forEach(icon => { // getting prev and next icons
         renderCalendar(); // calling renderCalendar function
     });
 });
+
+
+/* Form Visibility Settings */
+function changeForm() {
+    var selected = document.getElementById("user_type")
+    if(selected.value === "Singer") document.getElementById("singer").style.display="block"
+    else document.getElementById("singer").style.display="none"
+}

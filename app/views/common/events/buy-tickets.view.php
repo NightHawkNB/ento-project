@@ -20,5 +20,3 @@
 </div>
 </body>
 </html>
-
-<!-- TODO Make the ticket buying pages -->

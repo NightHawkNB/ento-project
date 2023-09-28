@@ -214,7 +214,16 @@ input[type=submit]:hover {
     margin-top: 35px;
 }
 
-.login-form .input-box input {
+.signup-form select {
+    appearance: none;
+}
+
+.signup-form select::part(listbox) {
+    color: blue;
+    background-color: aqua;
+}
+
+.login-form .input-box input, .signup-form select {
     position: relative;
     width: 100%;
     padding: 20px 10px 10px;
@@ -259,7 +268,7 @@ input[type=submit]:hover {
     pointer-events: none;
 }
 
-.login-form .input-box input:valid ~ i, .login-form .input-box input:focus ~ i {
+.login-form .input-box input:valid ~ i, .login-form .input-box input:focus ~ i, .signup-form select:focus ~ i{
     height: 40px;
 }
 
@@ -316,6 +325,33 @@ input[type=submit]:hover {
     animation-delay: -3s;
 }
 
+.signup-form::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 1000px;
+    height: 1200px;
+    background: linear-gradient(0deg, transparent, transparent, aqua, aqua, aqua);
+    z-index: 1;
+    transform-origin: bottom right;
+    animation: animate 6s linear infinite;
+}
+
+.signup-form::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 1000px;
+    height: 1200px;
+    background: linear-gradient(0deg, transparent, transparent, deeppink, deeppink, deeppink);
+    z-index: 1;
+    transform-origin: bottom right;
+    animation: animate 6s linear infinite;
+    animation-delay: -3s;
+}
+
 @keyframes animate {
     0% {
         transform: rotate(0deg);
@@ -324,4 +360,47 @@ input[type=submit]:hover {
     100% {
         transform: rotate(360deg);
     }
+}
+
+.signup-form {
+    position: relative;
+    width: 1000px;
+    height: 1200px;
+    border-radius: 8px;
+    background: var(--dark-bg);
+    padding: 0;
+    inset: 4px;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.signup-form form {
+    width: 960px;
+}
+
+.signup-form .input-box {
+    position: relative;
+    width: auto;
+    margin-top: 20px;
+}
+
+.signup-form fieldset {
+    padding: 30px;
+    border-radius: 5px;
+    border: 2px solid grey;
+    margin: 10px 0;
+}
+
+.signup-form legend {
+    color: grey;
+    font-family: Mooli, serif;
+    padding: 10px;
+}
+
+.login-form .input-box.error input ~ i, .login-form .input-box.error input ~ i, .signup-form select ~ i{
+    background-color: orangered;
+}
+
+#singer {
+    display: none;
 }

@@ -1,7 +1,5 @@
 <!--
-    TODO Create a details page for each Event when clicking on the image
     TODO Create ticket buying and paying interfaces
-    IMPORTANT https://mytickets.lk/https://mytickets.lk/
 -->
 <div class="dis-flex-col bg-white bor-rad-5 f-poppins over-hide event-card sh">
     <a href=<?= ROOT."/home/events/".$event_id ?>>

@@ -40,10 +40,35 @@
                         </ul>
                     </p>
                 </div>
-                <div class="bg-black-2 txt-c-white">
-                    <p class="f-poppins pad-10">
-                        Details of the participating Entertainers
-                    </p>
+                <div class="bg-black-1 txt-c-white pad-10 dis-flex ju-co-ce gap-20">
+                    <a href="#user_01">
+                        <div class="card-profile bg-black-2 pad-10 bor-rad-5 dis-flex-col al-it-ce">
+                            <img src="<?= ROOT ?>/assets/images/users/user_01.jpg" alt="user-01" class="profile-image-2">
+                            <h3 class="mar-10">Charlotte Brown</h3>
+                            <h4 class="mar-10">Singer</h4>
+                        </div>
+                    </a>
+                    <a href="#user_02">
+                        <div class="card-profile bg-black-2 pad-10 bor-rad-5 dis-flex-col al-it-ce">
+                            <img src="<?= ROOT ?>/assets/images/users/user_02.jpg" alt="user-02" class="profile-image-2">
+                            <h3 class="mar-10">John Gaston</h3>
+                            <h4 class="mar-10">Singer</h4>
+                        </div>
+                    </a>
+                    <a href="#user_03">
+                        <div class="card-profile bg-black-2 pad-10 bor-rad-5 dis-flex-col al-it-ce">
+                            <img src="<?= ROOT ?>/assets/images/users/user_04.jpg" alt="user-03" class="profile-image-2">
+                            <h3 class="mar-10">Emily Johnson</h3>
+                            <h4 class="mar-10">Band</h4>
+                        </div>
+                    </a>
+                    <a href="#venue_01">
+                        <div class="card-profile bg-black-2 pad-10 bor-rad-5 dis-flex-col al-it-ce">
+                            <img src="<?= ROOT ?>/assets/images/venues/venue_01.jpg" alt="venue_01" class="venue-image">
+                            <h3 class="mar-10">Lotus Stadium</h3>
+                            <h4 class="mar-10">Venue</h4>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
