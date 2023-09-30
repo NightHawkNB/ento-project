@@ -42,6 +42,10 @@ class Home extends Controller{
     }
 
     public function ads($id = null) {
-        $this->view('pages/ads');
+
+        $db = new Database();
+        $data['ads'] = $db->query("SELECT * FROM ads");
+
+        $this->view('pages/ads', $data);
     }
 }

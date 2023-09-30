@@ -2,6 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: Inter, Calibri;
 }
 
 /* Button Layout Styles */
@@ -65,6 +66,25 @@
     box-shadow: 0 0 10px cornflowerblue;
 }
 
+/* START OF CUSTOM SCROLL BAR */
+
+body::-webkit-scrollbar {
+    width: 5px;
+}
+
+body::-webkit-scrollbar-track {
+    background: white;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: var(--indigo-2);
+    border-radius: 10px;
+}
+
+/* END OF CUSTOM SCROLL BAR */
+
+
+/* ----- START OF CSS FRAMEWORK ----- */
 
 .bg-primary {background-color: mediumpurple}
 
@@ -139,6 +159,7 @@
 .pad-20 {padding: 20px}
 .pad-10-20 {padding: 10px 20px}
 .pad-5-10 {padding: 5px 10px}
+.p-10-0 {padding: 10px 0}
 .p-0-10 {padding: 0 10px}
 .mar-0 {margin: 0}
 .mar-10 {margin: 10px}
@@ -190,3 +211,6 @@
 
 /* SVG Fill colors */
 .fill-white {fill: white}
+
+
+/* ----- END OF CSS FRAMEWORK ----- */

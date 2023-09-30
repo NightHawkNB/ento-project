@@ -7,7 +7,6 @@
         <main class="dashboard-main">
             <section class="cols-2 sidebar">
                 <?php $this->view('includes/sidebar') ?>
-                <?php $this->view('common/sidebar'); ?>
             </section>
             <section class="cols-10 dis-flex flex-wrap pad-10 gap-20 bg-primary">
 
@@ -55,7 +54,6 @@
                 </div>
             </section>
         </main>
-        <?php $this->view('includes/footer') ?>
     </div>
 </body>
 </html>

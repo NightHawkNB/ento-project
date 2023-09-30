@@ -7,7 +7,6 @@
         <main class="dashboard-main">
             <section class="cols-2 sidebar">
                 <?php $this->view('includes/sidebar') ?>
-                <?php $this->view('common/sidebar'); ?>
             </section>
             <section class="cols-10 profile bg-primary dis-flex al-it-st">
                 <div class="profile-container-2 dis-flex-col gap-10 profile-settings">
@@ -40,7 +39,6 @@
                 </div>
             </section>
         </main>
-        <?php $this->view('includes/footer') ?>
     </div>
 </body>
 </html>

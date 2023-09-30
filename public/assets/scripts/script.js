@@ -61,3 +61,13 @@ function changeForm() {
     if(selected.value === "Singer") document.getElementById("singer").style.display="block"
     else document.getElementById("singer").style.display="none"
 }
+
+/* END OF FORM VALIDITY */
+
+
+
+/* START OF DASHBOARD SIDEBAR */
+
+
+
+/* END OF DASHBOARD SIDEBAR */

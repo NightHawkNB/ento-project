@@ -7,18 +7,19 @@
         <main class="dashboard-main">
             <section class="cols-2 sidebar">
                 <?php $this->view('includes/sidebar') ?>
-                <?php $this->view('common/sidebar'); ?>
             </section>
-            <section class="tile-container cols-10">
-                <h1 style="width: 100%">Your Ads Page</h1>
+            <section class="cols-10 dis-flex-col pad-20 gap-10">
 
                 <!-- Dummy Data Start -->
-                    <?php $this->view('includes/ad-component') ?>
+                    <?php
+                        foreach ($ads as $ad) {
+                            $this->view('includes/ad-component', (array)$ad);
+                        }
+                    ?>
                 <!-- Dummy Data End -->
 
             </section>
         </main>
-        <?php $this->view('includes/footer') ?>
     </div>
 </body>
 </html>
