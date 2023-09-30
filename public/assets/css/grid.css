@@ -21,78 +21,10 @@ main > section {
     grid-row: span 2;
 }
 
-header {
-    width: 100%;
-    margin: 0 auto;
-    max-width: var(--maxwidth);
-    grid-column: span 12;
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    gap: 20px;
-    background-color: var(--dark-bg);
-    color: white;
-    /* padding: 10px; */
-}
-
-header > * {
-    margin: 10px;
-}
-
-footer {
-    width: 100%;
-    margin: 0 auto;
-    max-width: var(--maxwidth);
-    grid-column: span 12;
-    display: flex;
-    flex-direction: column;
-    background-color: var(--dark-bg);
-    /* padding: 0 10px; */
-    color: white;
-}
-
-footer > * {
-    margin: 10px;
-}
-
-footer > div {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    padding: 10px;
-}
-
-.footer-bottom {
-    border-top: 3px solid white;
-    padding: 0 10px;
-}
-
-.ft-right {
-    text-align: right;
-}
-
 .user {
     display: flex;
     gap: 20px;
 }
-
-footer {
-    grid-column: span 12;
-    width: 100%;
-    margin: 0 auto;
-}
-
-/* @media screen and (max-width: 800px) {
-    .main-wrapper {
-        display: grid;
-        position: relative;
-        grid-template-columns: repeat(12,1fr);
-        grid-template-rows: repeat(auto, 1fr);
-        gap: 10px;
-        justify-items: stretch;
-        align-items: stretch;
-    }
-} */
-
 
 .ji-c {justify-content: center}
 .ai-c {align-items: center}

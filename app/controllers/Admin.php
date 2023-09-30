@@ -38,7 +38,7 @@ Class Admin extends Controller{
 
     public function advertisements($method = null) {
         
-        if(empty($method)) $this->view('common/advertisements/your-ads');
+        if(empty($method)) $this->view('common/ads/your-ads');
 
     }
     

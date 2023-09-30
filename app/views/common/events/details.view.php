@@ -29,7 +29,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="bg-white">
+                <div class="bg-white pad-20">
                     <p class="f-poppins pad-10">
                         <ul type="none" class="mar-0 dis-flex-col gap-10">
                             <li>01. All tickets purchased are non-refundable.</li>

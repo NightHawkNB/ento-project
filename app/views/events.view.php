@@ -5,7 +5,7 @@
         <?php $this->view('includes/header') ?>
 
         <main>
-            <div class="bg-lightgray dis-flex gap-20 pad-10 flex-wrap">
+            <div class="bg-lightgray dis-flex gap-20 pad-20 flex-wrap">
                 <?php
                     foreach ($record as $event) $this->view('common/events/list-item', (array)$event);
                 ?>

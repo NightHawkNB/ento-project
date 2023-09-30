@@ -40,4 +40,8 @@ class Home extends Controller{
             $this->view('common/events/details');
         }
     }
+
+    public function ads($id = null) {
+        $this->view('pages/ads');
+    }
 }

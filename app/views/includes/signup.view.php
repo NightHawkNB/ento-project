@@ -125,63 +125,6 @@
                 </div>
             </div>
         </div>
-
-<!--        <div class="form-container cols-12">-->
-
-<!--                <form method="post">-->
-<!--                    <div class="form-input">-->
-<!--                        <label for="fname">First Name </label><br>-->
-<!--                        <input value="--><?php //= set_value('fname') ?><!--" type="text" name="fname" id="fname" class="input-field --><?php //= !empty($errors['fname']) ? 'error-border' : ''; ?><!--" >-->
-<!--                        --><?php //if(!empty($errors['fname'])):?>
-<!--                            <div class="error-msg">--><?php //= $errors['fname'] ?><!--</div>-->
-<!--                        --><?php //endif; ?>
-<!--                    </div>-->
-<!--                    <div class="form-input">-->
-<!--                        <label for="lname">Last Name </label><br>-->
-<!--                        <input value="--><?php //= set_value('lname') ?><!--" type="text" name="lname" id="lname" class="input-field --><?php //= !empty($errors['lname']) ? 'error-border' : ''; ?><!--" >-->
-<!--                        --><?php //if(!empty($errors['lname'])):?>
-<!--                            <div class="error-msg">--><?php //= $errors['lname'] ?><!--</div>-->
-<!--                        --><?php //endif; ?>
-<!--                    </div>-->
-<!--                    <div class="form-input">-->
-<!--                        <label for="email">Email </label><br>-->
-<!--                        <input value="--><?php //= set_value('email') ?><!--" type="email" name="email" id="email" class="input-field --><?php //= !empty($errors['email']) ? 'error-border' : ''; ?><!--" >-->
-<!--                        --><?php //if(!empty($errors['email'])):?>
-<!--                            <div class="error-msg">--><?php //= $errors['email'] ?><!--</div>-->
-<!--                        --><?php //endif; ?>
-<!--                    </div>-->
-<!--                    <div class="form-input">-->
-<!--                        <label for="password">Password </label><br>-->
-<!--                        <input value="--><?php //= set_value('password') ?><!--" type="password" name="password" id="password" class="input-field --><?php //= !empty($errors['password']) ? 'error-border' : ''; ?><!--" >-->
-<!--                        --><?php //if(!empty($errors['password'])):?>
-<!--                            <div class="error-msg">--><?php //= $errors['password'] ?><!--</div>-->
-<!--                        --><?php //endif; ?>
-<!--                    </div>-->
-<!--                    <div class="form-input">-->
-<!--                        <label for="password_retype">Retype Password </label><br>-->
-<!--                        <input value="--><?php //= set_value('password_retype') ?><!--" type="password" name="password_retype" id="password_retype" class="input-field --><?php //= !empty($errors['password_retype']) ? 'error-border' : ''; ?><!--" >-->
-<!--                        --><?php //if(!empty($errors['password_retype'])):?>
-<!--                            <div class="error-msg">--><?php //= $errors['password_retype'] ?><!--</div>-->
-<!--                        --><?php //endif; ?>
-<!--                    </div>-->
-<!--                    <div class="form-input">-->
-<!--                        <label for="contact_num">Contact number </label><br>-->
-<!--                        <input value="--><?php //= set_value('contact_num') ?><!--" type="text" name="contact_num" id="contact_num" class="input-field --><?php //= !empty($errors['contact_num']) ? 'error-border' : ''; ?><!--" >-->
-<!--                        --><?php //if(!empty($errors['contact_num'])):?>
-<!--                            <div class="error-msg">--><?php //= $errors['contact_num'] ?><!--</div>-->
-<!--                        --><?php //endif; ?>
-<!--                    </div>-->
-<!--                    <div class="form-input">-->
-<!--                        <input --><?php //= set_value('terms') ? 'checked' : '' ?><!-- type="checkbox" name="terms" id="terms"><label for="terms">Terms and Conditions</label>-->
-<!--                        --><?php //if(!empty($errors['terms'])):?>
-<!--                            <div class="error-msg">--><?php //= $errors['terms'] ?><!--</div>-->
-<!--                        --><?php //endif; ?>
-<!--                    </div>-->
-<!--                    <div class="form-button">-->
-<!--                        <input type="submit" value="Signup">-->
-<!--                    </div>-->
-<!--                </form>-->
-<!--        </div>-->
     </div>
 </body>
 

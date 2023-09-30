@@ -83,13 +83,13 @@ class Singer extends Controller{
         }
     }
 
-    public function advertisements($method = null) {
+    public function ads($method = null) {
         
-        if(empty($method)) $this->view('common/advertisements/your-ads');
-        else if($method == 'all-ads') $this->view('common/advertisements/all-ads');
+        if(empty($method)) $this->view('common/ads/your-ads');
+        else if($method == 'all-ads') $this->view('common/ads/all-ads');
         else {
             message("Page not found");
-            redirect('singer/advertisements');
+            redirect('singer/ads');
         }
     }
 

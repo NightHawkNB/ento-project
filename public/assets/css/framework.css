@@ -4,15 +4,14 @@
 @import "../fonts/mooli.css";
 
 /* CSS FILES */
+@import "common.css";
 @import "grid.css";
 @import "navbar.css";
 @import "dashboard.css";
-@import "ads.css";
 @import "templates.css";
 @import "switches.css";
 @import "profile.css";
 @import "ticket.css";
-@import "common.css";
 
 /* CSS COLORS */
 :root {
@@ -180,6 +179,7 @@ input[type=submit]:hover {
 
 .login-form form {
     position: absolute;
+    width: 98%;
     inset: 4px;
     background: var(--dark-bg-2);
     padding: 38px 15px;
@@ -201,6 +201,7 @@ input[type=submit]:hover {
 }
 
 .login-form form p {
+    padding: 20px 0 10px 0;
     font-size: 0.8rem;
     color: lightgrey;
 }
@@ -282,7 +283,7 @@ input[type=submit]:hover {
     font-size: 1em;
     border-radius: 4px;
     font-weight: bold;
-    width: 100px;
+    width: 120px;
     margin-top: 10px;
     color: var(--dark-bg-2);
     letter-spacing: 1px;
@@ -366,7 +367,7 @@ input[type=submit]:hover {
 
 .signup-form {
     position: relative;
-    width: 1000px;
+    width: 968px;
     height: 1200px;
     border-radius: 8px;
     background: var(--dark-bg);

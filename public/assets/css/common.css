@@ -1,3 +1,9 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
 /* Button Layout Styles */
 .btn-lay {
     padding: 10px 25px;
@@ -26,41 +32,6 @@
 
 .btn-lay-s:hover {
     cursor: pointer;
-}
-
-/* Dropdown Styles */
-.drop-down {
-    display: none;
-    width: 150px;
-    padding: 20px 10px;
-    border-radius: 10px;
-    gap: 5px;
-}
-
-.drop-down > a {
-    padding: 5px;
-    color: black;
-}
-
-.drop-down > a:hover {
-    box-shadow: 1px 1px 1px 1px black;
-}
-
-.notification {
-    position: relative;
-}
-
-.notification:hover .drop-down {
-    z-index: 1;
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-}
-
-.notify-red {
-    border: 1px;
-    border-left: 3px solid red;
 }
 
 /* Sidebar Link Layout */
@@ -173,6 +144,7 @@
 .mar-10 {margin: 10px}
 .mar-20 {margin: 20px}
 .mar-10-0 {margin: 10px 0}
+.mar-0-20 {margin: 0 20px}
 
 .pb-0 {padding-bottom: 0}
 .pt-0 {padding-top: 0}

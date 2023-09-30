@@ -23,3 +23,27 @@
     color: black;
 }
 
+/* Styling related to pages/ads */
+.ads {
+    transition: 0.5s;
+    color: black;
+}
+
+.ads:hover .profile {
+    border-radius: 5px;
+}
+
+.ads:hover {
+    cursor: pointer;
+    transform: scale(1.005);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+}
+
+.ads div p {
+    max-lines: 2;
+    overflow: hidden;
+}
+
+.profile {
+    transition: 0.4s;
+}
