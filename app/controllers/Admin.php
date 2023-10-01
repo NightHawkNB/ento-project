@@ -29,6 +29,16 @@ Class Admin extends Controller{
     
 
 
+    public function usermng($method = null) {
+        if ($method == 'CCA') {
+            $this->view('admin/ccaaccounts');
+        } else {
+            $this->view('admin/usermanagement');
+        }
+    }
+    
+
+
     public function profile($method = null){
         $user = new User();
 
