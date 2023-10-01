@@ -18,36 +18,29 @@
                     <div class="flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10">
                         <a href="#req-01">
                             <div class="bg-white txt-c-black dis-flex ju-co-sb pad-10 bor-rad-5">
-                                <p>Request 01</p>
-                                <p>Details : Something</p>
-                                <p>Date : 2023-10-15</p>
+                                <p>CCA01</p>
+                                <button class="btn-lay-2 push-right hover-pointer "  style="background-color:black; text-align:center; border: none" >View</button>
                             </div>
                         </a>
 
                         <a href="#req-02">
                             <div class="bg-white txt-c-black dis-flex ju-co-sb pad-10 bor-rad-5">
-                                <p>Request 02</p>
-                                <p>Details : Something</p>
-                                <p>Date : 2023-10-15</p>
+                                <p>CCA02</p>
+                                <button class="btn-lay-2 push-right hover-pointer "  style="background-color:black; text-align:center; border: none" >View</button>
                             </div>
                         </a>
 
                         <a href="#req-03">
                             <div class="bg-white txt-c-black dis-flex ju-co-sb pad-10 bor-rad-5">
-                                <p>Request 03</p>
-                                <p>Details : Something</p>
-                                <p>Date : 2023-10-15</p>
+                                <p>CCA03</p>
+                                <button class="btn-lay-2 push-right hover-pointer "  style="background-color:black; text-align:center; border: none" >View</button>
                             </div>
                         </a>
                     </div>
 
                     <div class="dis-flex ju-co-se">
                         <a href="profile/verify">
-                            <button class="btn-lay-2 push-right hover-pointer"  style="background-color:purple; text-align:right; border: none" >Handle Requests</button>
-                        </a>
-
-                        <a href="profile/verify">
-                            <button class="btn-lay-2 push-right hover-pointer"  style="background-color:purple; text-align:right; border: none" >Pending Requests</button>
+                            <button class="btn-lay-2 push-right hover-pointer"  style="background-color:purple; text-align:right; border: none" >+ Add New</button>
                         </a>
                     </div>
                 
