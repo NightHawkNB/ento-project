@@ -48,4 +48,23 @@ class Home extends Controller{
 
         $this->view('pages/ads', $data);
     }
+
+    public function complain($method=NULL) {
+
+        if(empty($method))
+        {
+            $this->view('pages/complains/create_complain');
+        }
+        else if($method == "list_compain")
+        {
+            $this->view('pages/complains/list_complain');
+        }
+        else if($method == "update_complain")
+        {
+            $this->view('pages/complains/update_complain'); 
+        }
+
+    }
+
+
 }
