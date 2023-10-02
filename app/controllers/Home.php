@@ -53,10 +53,15 @@ class Home extends Controller{
 
         if(empty($method))
         {
-            $this->view('pages/complains/create_complain');
-        }
-        else if($method == "create_complain")
-        {
+            if ($_SERVER['REQUEST_METHOD'] == "POST")
+            {
+                $_POST['user_id'] = Auth::getUser_id();
+                $complain = new Complain();
+                $complain->insert($_POST);
+                message("Complaint Created Successfully");
+                redirect('home');
+            }
+            
             $this->view('pages/complains/create_complain');
         }
         else if($method == "list_complain")
