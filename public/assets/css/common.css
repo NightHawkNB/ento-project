@@ -14,7 +14,7 @@
 }
 
 .btn-lay-2 {
-    padding: 10px 25px;
+    padding: 10px 15px;
     border-radius: 5px;
     border: 2px solid cornflowerblue;
     background-color: cornflowerblue;
@@ -211,6 +211,8 @@ body::-webkit-scrollbar-thumb {
 
 /* SVG Fill colors */
 .fill-white {fill: white}
+
+
 
 
 /* ----- END OF CSS FRAMEWORK ----- */

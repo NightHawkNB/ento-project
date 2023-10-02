@@ -13,8 +13,39 @@ Class Admin extends Controller{
         $this->view('admin/ccarequests');
     }
 
-    public function profile($method = null){
+    public function usermng($method = null) {
+        if ($method == 'CCA') {
+            $this->view('admin/ccaaccounts');
+        } else if ($method == 'Admin'){
+            $this->view('admin/adminaccounts');
+        }else if ($method == 'SP'){
+            $this->view('admin/spaccounts');
+        }else if ($method == 'Client'){
+            $this->view('admin/clientaccounts');
+        }else {
+            $this->view('admin/usermanagement');
+        }
+    }
+    
 
+
+    public function usermng($method = null) {
+        if ($method == 'CCA') {
+            $this->view('admin/ccaaccounts');
+        } else if ($method == 'Admin'){
+            $this->view('admin/adminaccounts');
+        }else if ($method == 'SP'){
+            $this->view('admin/spaccounts');
+        }else if ($method == 'Client'){
+            $this->view('admin/clientaccounts');
+        }else {
+            $this->view('admin/usermanagement');
+        }
+    }
+    
+
+
+    public function profile($method = null){
         $user = new User();
 
         $data['user'] = $row = $user->first(['user_id' => Auth::getUser_id()]);
