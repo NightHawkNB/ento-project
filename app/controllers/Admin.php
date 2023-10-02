@@ -13,7 +13,7 @@ Class Admin extends Controller{
         $this->view('admin/ccarequests');
     }
 
-    public function usermng($method = null) {
+    public function usermng($method = null, $id = null) {
         if ($method == 'cca') {
             $user = new User();
 
@@ -31,7 +31,6 @@ Class Admin extends Controller{
         }else if ($method == 'client'){
             $this->view('admin/clientaccounts');
         }else if ($method == 'add-user'){
-            show($_POST);
 
             if($_SERVER['REQUEST_METHOD'] == "POST"){
                 
@@ -43,6 +42,36 @@ Class Admin extends Controller{
             }
 
             $this->view('admin/add-user');
+        }else if ($method == 'update-user'){
+            show($_POST);
+
+            $user = new User();
+            $data['user'] = $user->first(['user_id'=>$id]);
+
+            if($_SERVER['REQUEST_METHOD'] == "POST"){
+                
+                $_POST['user_id'] = $id;
+                $user->update($id, $_POST);
+                message("User Account Updated Successfully");
+                redirect('admin/usermng');
+        
+            }
+
+
+            $this->view('admin/update-user', $data);
+        }else if ($method == 'delete-user'){
+
+            $user = new User();
+
+            if($_SERVER['REQUEST_METHOD'] == "GET"){
+                
+                $_POST['user_id'] = $id;
+                $user->query("DELETE FROM user WHERE user_id = :user_id", $_POST);
+                message("User Account Deleted Successfully");
+                redirect('admin/usermng');
+        
+            }
+
         }else {
             $this->view('admin/usermanagement');
         }
