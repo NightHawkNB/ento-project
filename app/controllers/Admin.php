@@ -15,14 +15,33 @@ Class Admin extends Controller{
 
     public function usermng($method = null) {
         if ($method == 'cca') {
-            $this->view('admin/ccaaccounts');
+            $user = new User();
+
+            $data['users'] = $user->where(['user_type'=>'cca']);
+
+            $this->view('admin/ccaaccounts', $data);
         } else if ($method == 'admin'){
-            $this->view('admin/adminaccounts');
+            $user = new User();
+
+            $data['users'] = $user->where(['user_type'=>'admin']);
+
+            $this->view('admin/ccaaccounts', $data);
         }else if ($method == 'sp'){
             $this->view('admin/spaccounts');
         }else if ($method == 'client'){
             $this->view('admin/clientaccounts');
         }else if ($method == 'add-user'){
+            show($_POST);
+
+            if($_SERVER['REQUEST_METHOD'] == "POST"){
+                
+                    $user = new User();
+                    $user->insert($_POST);
+                    message("User Account Created Successfully");
+                    redirect('admin/usermng');
+            
+            }
+
             $this->view('admin/add-user');
         }else {
             $this->view('admin/usermanagement');
