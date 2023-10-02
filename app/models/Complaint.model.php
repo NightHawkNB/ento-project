@@ -1,6 +1,6 @@
 <?php
 
-class Complain extends Model {
+class Complaint extends Model {
 
     protected $table = "complaints";
 

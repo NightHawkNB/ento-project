@@ -49,14 +49,14 @@ class Home extends Controller{
         $this->view('pages/ads', $data);
     }
 
-    public function complain($method=NULL) {
+    public function complain($method=NULL, $id = null) {
 
         if(empty($method))
         {
             if ($_SERVER['REQUEST_METHOD'] == "POST")
             {
                 $_POST['user_id'] = Auth::getUser_id();
-                $complain = new Complain();
+                $complain = new Complaint();
                 $complain->insert($_POST);
                 message("Complaint Created Successfully");
                 redirect('home');
@@ -66,14 +66,41 @@ class Home extends Controller{
         }
         else if($method == "list_complain")
         {
-            $complain = new Complain();
+
+            $complain = new Complaint();
             $data['complains'] = $complain->where(['user_id'=>Auth::getUser_id()]);
 
             $this->view('pages/complains/list_complain', $data);
         }
         else if($method == "update_complain")
         {
-            $this->view('pages/complains/update_complain'); 
+            if(empty($id)) redirect('home/complain/list_complain');
+
+            $complain = new Complaint();
+
+            if ($_SERVER['REQUEST_METHOD'] == "POST")
+            {
+                $db = new Database();
+                $_POST['comp_id'] = $id;
+                $db->query("UPDATE complaints SET details = :details, files = :files WHERE comp_id = :comp_id", $_POST);
+                message("Complaint Updated Successfully");
+                redirect('home/complain/list_complain');
+            }
+
+
+            $data['row'] = $complain->first(['comp_id'=>$id]);
+
+            $this->view('pages/complains/update_complain', $data);
+        }
+        else if($method == "delete_complain") {
+            if ($_SERVER['REQUEST_METHOD'] == "GET")
+            {
+                $db = new Database();
+                $_POST['comp_id'] = $id;
+                $db->query("DELETE FROM complaints WHERE comp_id = :comp_id", $_POST);
+                message("Complaint Deleted Successfully");
+                redirect('home/complain/list_complain');
+            }
         }
     }
 
