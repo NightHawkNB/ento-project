@@ -166,6 +166,15 @@
     max-width: 25%;
 }
 
+.user-mng button {
+    width: 200px;
+    height: 200px;
+}
+
+.user-mng svg {
+    fill: white;
+}
+
 .tile-container > a > div {
     background-color: var(--indigo-6);
     padding: 10px 20px;

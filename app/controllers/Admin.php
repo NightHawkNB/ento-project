@@ -14,36 +14,18 @@ Class Admin extends Controller{
     }
 
     public function usermng($method = null) {
-        if ($method == 'CCA') {
+        if ($method == 'cca') {
             $this->view('admin/ccaaccounts');
-        } else if ($method == 'Admin'){
+        } else if ($method == 'admin'){
             $this->view('admin/adminaccounts');
-        }else if ($method == 'SP'){
+        }else if ($method == 'sp'){
             $this->view('admin/spaccounts');
-        }else if ($method == 'Client'){
+        }else if ($method == 'client'){
             $this->view('admin/clientaccounts');
         }else {
             $this->view('admin/usermanagement');
         }
     }
-    
-
-
-    public function usermng($method = null) {
-        if ($method == 'CCA') {
-            $this->view('admin/ccaaccounts');
-        } else if ($method == 'Admin'){
-            $this->view('admin/adminaccounts');
-        }else if ($method == 'SP'){
-            $this->view('admin/spaccounts');
-        }else if ($method == 'Client'){
-            $this->view('admin/clientaccounts');
-        }else {
-            $this->view('admin/usermanagement');
-        }
-    }
-    
-
 
     public function profile($method = null){
         $user = new User();
@@ -51,8 +33,6 @@ Class Admin extends Controller{
         $data['user'] = $row = $user->first(['user_id' => Auth::getUser_id()]);
 
         if(empty($method)) $this->view('common/profile/overview', $data);
-
-
 
     }
 
