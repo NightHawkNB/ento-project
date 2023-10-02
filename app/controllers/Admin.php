@@ -16,7 +16,13 @@ Class Admin extends Controller{
     public function usermng($method = null) {
         if ($method == 'CCA') {
             $this->view('admin/ccaaccounts');
-        } else {
+        } else if ($method == 'Admin'){
+            $this->view('admin/adminaccounts');
+        }else if ($method == 'SP'){
+            $this->view('admin/spaccounts');
+        }else if ($method == 'Client'){
+            $this->view('admin/clientaccounts');
+        }else {
             $this->view('admin/usermanagement');
         }
     }
