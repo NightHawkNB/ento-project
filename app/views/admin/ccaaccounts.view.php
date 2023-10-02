@@ -16,30 +16,15 @@
                     </a>
 
                     <div class="flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10">
-                        <a href="#req-01">
-                            <div class="bg-white txt-c-black dis-flex ju-co-sb pad-10 bor-rad-5">
-                                <p>CCA01</p>
-                                <button class="btn-lay-2 push-right hover-pointer "  style="background-color:black; text-align:center; border: none" >View</button>
-                            </div>
-                        </a>
-
-                        <a href="#req-02">
-                            <div class="bg-white txt-c-black dis-flex ju-co-sb pad-10 bor-rad-5">
-                                <p>CCA02</p>
-                                <button class="btn-lay-2 push-right hover-pointer "  style="background-color:black; text-align:center; border: none" >View</button>
-                            </div>
-                        </a>
-
-                        <a href="#req-03">
-                            <div class="bg-white txt-c-black dis-flex ju-co-sb pad-10 bor-rad-5">
-                                <p>CCA03</p>
-                                <button class="btn-lay-2 push-right hover-pointer "  style="background-color:black; text-align:center; border: none" >View</button>
-                            </div>
-                        </a>
+                        <?php
+                            foreach ($users as $user) {
+                                $this->view('admin/user', (array)$user);
+                            }
+                        ?>
                     </div>
 
                     <div class="dis-flex ju-co-se">
-                        <a href="profile/verify">
+                        <a href="<?= ROOT ?>/admin/usermng/add-user">
                             <button class="btn-lay-2 push-right hover-pointer"  style="background-color:purple; text-align:right; border: none" >+ Add New</button>
                         </a>
                     </div>
