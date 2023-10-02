@@ -39,7 +39,7 @@
                     </div>
 
                     <div class="dis-flex ju-co-se">
-                        <a href="profile/verify">
+                        <a href="usermng/add-new">
                             <button class="btn-lay-2 push-right hover-pointer"  style="background-color:purple; text-align:right; border: none" >+ Add New</button>
                         </a>
                     </div>

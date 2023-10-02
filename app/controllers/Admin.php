@@ -22,6 +22,8 @@ Class Admin extends Controller{
             $this->view('admin/spaccounts');
         }else if ($method == 'client'){
             $this->view('admin/clientaccounts');
+        }else if ($method == 'add-user'){
+            $this->view('admin/add-user');
         }else {
             $this->view('admin/usermanagement');
         }
