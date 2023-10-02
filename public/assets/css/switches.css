@@ -60,3 +60,54 @@
   .slider.round:before {
     border-radius: 50%;
   }
+
+
+
+
+/* START OF COMPLAINT - BUTTON */
+
+  .complain-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--indigo-2);
+    fill: white;
+    color: white;
+    border-radius: 30px;
+    width: 40px;
+    height: 40px;
+    transition: 0.5s;
+    overflow: hidden;
+  }
+
+  .complain-btn div {
+    display: flex;
+    align-items: center;
+    gap:10px;
+  }
+
+  .complain-btn svg {
+    transition: 0.5s ease;
+  }
+
+  .complain-btn p {
+    transition: 0.5s;
+    display: none;
+  }
+
+  .complain-btn:hover {
+    width: 160px;
+  }
+
+  .complain-btn:hover p {
+    display: block;
+  }
+
+  .complain-btn:hover svg {
+    transform: rotate(180deg);
+  }
+
+/* END OF COMPLAINT - BUTTON */
