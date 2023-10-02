@@ -11,7 +11,7 @@
             <textarea name="details" id="details" cols="30" rows="10"></textarea>
             <label for="files">Add Files:</label>
             <input type="text" name="files"  >
-            <button class="btn-lay-s btn-anima-hover bg-indigo-2 txt-c-white" type="submit">Submit</button>
+            <button class="btn-lay-2 btn-anima-hover bg-indigo-2 txt-c-white" type="submit">Submit</button>
           </form>
         </div>
     </main>

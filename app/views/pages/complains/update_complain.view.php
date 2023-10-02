@@ -6,11 +6,12 @@
 
     <main class="bg-lightgray dis-flex al-it-ce ju-co-ce">
     <div class="bg-black-2 flex-1 pad-20">
+        <?= show($_POST) ?>
           <form method="POST">
-            <label for="complain">Type your complain:</label>
-            <textarea name="complain" id="complain" cols="30" rows="10"></textarea>
-            <label for="file">Add Files:</label>
-            <input type="text" name="file"  >
+            <label for="details">Type your complain:</label>
+            <textarea name="details" id="details" cols="30" rows="10"><?= $row->details ?></textarea>
+            <label for="files">Add Files:</label>
+            <input type="text" name="files" value=<?= $row->files ?> >
             <button class="btn-lay-s btn-anima-hover bg-indigo-2 txt-c-white" type="submit">Submit</button>
           </form>
         </div>
