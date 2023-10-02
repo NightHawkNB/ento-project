@@ -55,7 +55,11 @@ class Home extends Controller{
         {
             $this->view('pages/complains/create_complain');
         }
-        else if($method == "list_compain")
+        else if($method == "create_complain")
+        {
+            $this->view('pages/complains/create_complain');
+        }
+        else if($method == "list_complain")
         {
             $this->view('pages/complains/list_complain');
         }
@@ -63,8 +67,6 @@ class Home extends Controller{
         {
             $this->view('pages/complains/update_complain'); 
         }
-
     }
-
 
 }
