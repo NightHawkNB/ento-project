@@ -61,12 +61,15 @@ class Home extends Controller{
                 message("Complaint Created Successfully");
                 redirect('home');
             }
-            
+
             $this->view('pages/complains/create_complain');
         }
         else if($method == "list_complain")
         {
-            $this->view('pages/complains/list_complain');
+            $complain = new Complain();
+            $data['complains'] = $complain->where(['user_id'=>Auth::getUser_id()]);
+
+            $this->view('pages/complains/list_complain', $data);
         }
         else if($method == "update_complain")
         {
