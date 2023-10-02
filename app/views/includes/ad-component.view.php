@@ -22,8 +22,10 @@
             </div>
         </div>
     </a>
-    <div class="dis-flex-col gap-10 ju-co-ce al-it-ce pad-20 sh bor-rad-5">
-        <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/ads/update-ad/<?= $ad_id ?>"><button class="btn-lay-2 hover-pointer btn-anima-hover">Update</button></a>
-        <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/ads/delete-ad/<?= $ad_id ?>"><button type="submit" class="btn-lay-2 hover-pointer btn-anima-hover">Delete</button></a>
-    </div>
+    <?php if(Auth::logged_in()): ?>
+        <div class="dis-flex-col gap-10 ju-co-ce al-it-ce pad-20 sh bor-rad-5">
+            <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/ads/update-ad/<?= $ad_id ?>"><button class="btn-lay-2 hover-pointer btn-anima-hover">Update</button></a>
+            <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/ads/delete-ad/<?= $ad_id ?>"><button type="submit" class="btn-lay-2 hover-pointer btn-anima-hover">Delete</button></a>
+        </div>
+    <?php endif; ?>
 </div>
