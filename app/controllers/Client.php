@@ -23,8 +23,6 @@ class Client extends Controller {
           message("Page not found");
           redirect('client/profile');
       }
-
-      $this->view('common/profile/overview', $data);
   }
 
   public function event($page = null) {
