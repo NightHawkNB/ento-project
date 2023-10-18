@@ -126,8 +126,6 @@
 }
 
 .event-card {
-  width: 250px;
-  height: 400px;
   flex-wrap: wrap;
   transition: 0.5s;
 }

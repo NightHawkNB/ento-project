@@ -20,7 +20,7 @@
                     </div>
 
                     <div class="dis-flex-col bg-white pad-10-20 bor-rad-5 al-it-ce sh profile-details flex-1">
-                        <div class="wid-100">
+                        <div class="wid-100 dis-flex-col gap-10">
                             <div class="dis-grid-c3">
                                 <h3>Name</h3>
                                 <p class="cols-2"><?= esc($user->fname." ".$user->lname) ?></p>
