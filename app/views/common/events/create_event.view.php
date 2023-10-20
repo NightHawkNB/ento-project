@@ -1,5 +1,35 @@
 <html lang="en">
 <?php $this->view('includes/head') ?>
+
+<style>
+    input[type=file] {
+        border: none;
+    }
+
+    #svg-01 {
+        height: 1.4rem;
+    }
+
+    .add-btn {
+        height: 40px;
+        width: 40px;
+        padding: 10px;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: 1s ease;
+        bottom: 20px;
+        right: 20px;
+        position: absolute;
+        z-index: 1;
+    }
+
+    .add-btn:hover {
+        transform: rotate(90deg);
+    }
+</style>
+
 <body>
 <div class="main-wrapper">
     <?php $this->view('includes/header') ?>
@@ -9,11 +39,19 @@
             <?php $this->view('includes/sidebar') ?>
         </section>
         <section class="cols-10 pad-10 dis-flex ju-co-st al-it-st">
-            <div class="bg-primary wid-100 pad-10 gap-10 bor-rad-5 dis-flex">
-                    <form method="post" class="pad-10 wid-100 bor-rad-5">
-                        <fieldset class="pad-10 bor-rad-5 dis-flex-col">
-                            <legend class="p-0-10">General Details</legend>
+            <div class="bg-white wid-100 pad-10 bor-rad-5 dis-flex-col ju-co-ce al-it-ce gap-20">
+                    <form method="post" class="bg-lightgray txt-c-black over-hide bor-rad-5">
+                        <div class="pos-rel wid-100">
+                            <img src="<?= ROOT ?>/assets/images/events/event-01.cover.jpeg" class="wid-100 " alt="event-01 cover">
+                            <div class="add-btn bg-white hover-pointer">
+                                <label for="cover-banner" style="cursor:pointer;" class="">
+                                    <svg id="svg-01" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg>
+                                </label>
+                                <input class="input txt-ali-cen flex-1 hide" type="file" id="cover-banner" name="cover-banner">
+                            </div>
+                        </div>
 
+                        <div class="pad-10">
                             <div class="dis-flex gap-10 flex-wrap al-it-ce">
                                 <div class="dis-flex gap-10 al-it-ce">
                                     <label for="name" class="min-w-100">Name : </label>
@@ -35,81 +73,26 @@
                                 </div>
                             </div>
 
-                        </fieldset>
-
-                        <fieldset class="pad-10 bor-rad-5 gap-10 dis-flex-col">
-                            <legend class="p-0-10">Ticketing Details</legend>
-
-                            <div class="dis-flex gap-20 al-it-ce">
-                                <div class="dis-flex gap-10 al-it-ce">
-                                    <label for="price1" class="min-w-100">Ticket type 01 : </label>
-                                    <input class="input txt-ali-cen flex-1" type="number" id="price1" name="price1" placeholder="Enter the Price">
-                                </div>
-                                <div class="dis-flex gap-10 al-it-ce">
-                                    <label for="price2" class="min-w-100">Ticket type 02 : </label>
-                                    <input class="input txt-ali-cen flex-1" type="number" id="price2" name="price2" placeholder="Enter the Price">
-                                </div>
-                                <div class="dis-flex gap-10 al-it-ce">
-                                    <label for="price3" class="min-w-100">Ticket type 03 : </label>
-                                    <input class="input txt-ali-cen flex-1" type="number" id="price3" name="price3" placeholder="Enter the Price">
-                                </div>
-                            </div>
-
-                            <div class="dis-flex gap-20 al-it-ce">
-                                <div class="dis-flex gap-10 al-it-ce">
-                                    <label for="count1" class="min-w-100">Type 01 Count : </label>
-                                    <input class="input txt-ali-cen flex-1" type="number" id="count1" name="count1" placeholder="Enter the Count">
-                                </div>
-                                <div class="dis-flex gap-10 al-it-ce">
-                                    <label for="count2" class="min-w-100">Type 01 Count : </label>
-                                    <input class="input txt-ali-cen flex-1" type="number" id="count2" name="count2" placeholder="Enter the Count">
-                                </div>
-                                <div class="dis-flex gap-10 al-it-ce">
-                                    <label for="count3" class="min-w-100">Type 01 Count : </label>
-                                    <input class="input txt-ali-cen flex-1" type="number" id="count3" name="count3" placeholder="Enter the Count">
-                                </div>
-                            </div>
-
-                        </fieldset>
-
-                        <fieldset class="pad-10 bor-rad-5 gap-10 dis-flex-col">
-                            <legend class="p-0-10">Media Files</legend>
-
                             <div class="dis-flex gap-20 al-it-ce">
                                 <div>
                                     <div class="dis-flex gap-10 al-it-ce">
-                                        <label for="cover-banner" class="">Banner Image : </label>
-                                        <input class="input txt-ali-cen flex-1" type="file" id="cover-banner" name="cover-banner">
+
                                     </div>
                                     <div class="dis-flex gap-10 al-it-ce">
                                         <label for="cover" class="">Cover Image : </label>
                                         <input class="input txt-ali-cen flex-1" type="file" id="cover" name="cover">
                                     </div>
-                                    <div class="dis-flex gap-10 al-it-ce">
-                                        <label for="cover-banner" class="">Venue Image : </label>
-                                        <input class="input txt-ali-cen flex-1" type="file" id="cover-banner" name="cover-banner" placeholder="Upload Banner">
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="dis-flex gap-10 al-it-ce">
-                                        <label for="cover-banner" class="">Band Image : </label>
-                                        <input class="input txt-ali-cen flex-1" type="file" id="cover-banner" name="cover-banner" placeholder="Upload Banner">
-                                    </div>
-                                    <div class="dis-flex gap-10 al-it-ce">
-                                        <label for="cover-banner" class="">Singer 01 Image : </label>
-                                        <input class="input txt-ali-cen flex-1" type="file" id="cover-banner" name="cover-banner" placeholder="Upload Banner">
-                                    </div>
-                                    <div class="dis-flex gap-10 al-it-ce">
-                                        <label for="cover-banner" class="">Singer 02 Image : </label>
-                                        <input class="input txt-ali-cen flex-1" type="file" id="cover-banner" name="cover-banner" placeholder="Upload Banner">
-                                    </div>
                                 </div>
                             </div>
+                        </div>
 
-                        </fieldset>
-
-                        <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/event/2" class="mar-10-auto min-w-150"><span class="btn-lay-2 btn-anima-hover f-space-2 txt-w-normal min-w-150">Next</span></a>
                     </form>
+
+                    <div class="wid-100 dis-flex ju-co-ce">
+                        <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/event/2">
+                            <span class="btn-lay-2 btn-anima-hover f-space-2 txt-w-normal min-w-150">Next</span>
+                        </a>
+                    </div>
             </div>
         </section>
     </main>
