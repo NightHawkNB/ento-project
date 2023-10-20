@@ -47,7 +47,7 @@
 
                 <form method="post" class="pad-10 wid-100 bor-rad-5">
                     <div class="dis-flex gap-20 ju-co-ce al-it-ce flex-wrap">
-                        <div class="bg-lightgray pad-10 bor-rad-5 sh dis-flex-col al-it-ce gap-10" style="max-width: 200px">
+                        <div class="bg-lightgray pad-10 pad-10 bor-rad-5 sh dis-flex-col al-it-ce gap-10" style="max-width: 200px">
                             <img src="<?= ROOT ?>/assets/images/events/dev/basic.svg" style="width: 130px; height: 130px" alt="basic package">
 
                             <h3 class="txt-c-black">Basic</h3>
@@ -68,7 +68,7 @@
                             </div>
                         </div>
 
-                        <div class="bg-lightgray pad-10 bor-rad-5 sh dis-flex-col al-it-ce gap-10" style="max-width: 200px">
+                        <div class="bg-lightgray pad-10 pad-10 bor-rad-5 sh dis-flex-col al-it-ce gap-10" style="max-width: 200px">
                             <img src="<?= ROOT ?>/assets/images/events/dev/intermediate.svg" style="width: 130px; height: 130px" alt="basic package">
 
                             <h3 class="txt-c-black">Intermediate</h3>
@@ -89,7 +89,7 @@
                             </div>
                         </div>
 
-                        <div class="bg-lightgray pad-10 bor-rad-5 sh dis-flex-col al-it-ce gap-10" style="max-width: 200px">
+                        <div class="bg-lightgray pad-10 pad-10 bor-rad-5 sh dis-flex-col al-it-ce gap-10" style="max-width: 200px">
                             <img src="<?= ROOT ?>/assets/images/events/dev/advanced.svg" style="width: 130px; height: 130px" alt="basic package">
 
                             <h3 class="txt-c-black">Advanced</h3>
@@ -110,7 +110,7 @@
                             </div>
                         </div>
 
-                        <div class="bg-lightgray pad-10 bor-rad-5 sh dis-flex-col ju-co-ce al-it-ce gap-10" style="max-width: 200px; height: 100%">
+                        <div class="bg-lightgray pad-10 pad-10 bor-rad-5 sh dis-flex-col ju-co-ce al-it-ce gap-10" style="max-width: 200px; height: 100%">
                             <img src="<?= ROOT ?>/assets/images/events/dev/add.svg" style="width: 130px; height: 130px" alt="basic package">
                             <h3 class="txt-c-black">Add New</h3>
                         </div>

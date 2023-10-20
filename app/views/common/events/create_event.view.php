@@ -41,6 +41,7 @@
         <section class="cols-10 pad-10 dis-flex ju-co-st al-it-st">
             <div class="bg-white wid-100 pad-10 bor-rad-5 dis-flex-col ju-co-ce al-it-ce gap-20">
                     <form method="post" class="bg-lightgray txt-c-black over-hide bor-rad-5">
+
                         <div class="pos-rel wid-100">
                             <img src="<?= ROOT ?>/assets/images/events/event-01.cover.jpeg" class="wid-100 " alt="event-01 cover">
                             <div class="add-btn bg-white hover-pointer">

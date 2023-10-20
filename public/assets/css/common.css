@@ -16,8 +16,8 @@
 .btn-lay-2 {
     padding: 10px 15px;
     border-radius: 5px;
-    border: 2px solid cornflowerblue;
-    background-color: cornflowerblue;
+    border: 2px solid var(--indigo-6);
+    background-color: var(--indigo-6);
     transition: 0.5s;
     max-width: 200px;
     color: white;

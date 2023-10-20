@@ -158,7 +158,7 @@
 .btn-anima-hover:hover {
   transform: scale(1.1);
   cursor: pointer;
-  color: cornflowerblue;
+  color: var(--indigo-2);
   background-color: transparent;
 }
 

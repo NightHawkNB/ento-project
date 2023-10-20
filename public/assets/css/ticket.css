@@ -27,6 +27,7 @@
 .ads {
     transition: 0.5s;
     color: black;
+    border: 1px solid transparent;
 }
 
 .ads:hover .profile {
