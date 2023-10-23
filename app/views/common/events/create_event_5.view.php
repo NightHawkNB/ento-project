@@ -12,7 +12,7 @@
         <section class="cols-10 pad-10 dis-flex ju-co-st al-it-st">
             <div class="wid-100 pad-10 gap-10 bor-rad-5 dis-flex-col ju-co-ce al-it-ce gap-20">
 
-                <h2>Choose Singers</h2>
+                <h2>Choose a Venue</h2>
 
                 <form method="post" class="pad-10 wid-100 bor-rad-5 dis-flex ju-co-ce al-it-ce">
                     <style>
@@ -33,19 +33,19 @@
                     <div class="dis-flex-col gap-20 ju-co-ce al-it-ce flex-wrap txt-c-black">
 
                         <?php
-                            foreach($ads as $ad) {
-                                $this->view('includes/ad-component-2', (array)$ad);
-                            }
+                        foreach($ads as $ad) {
+                            $this->view('includes/ad-component-2', (array)$ad);
+                        }
                         ?>
 
                     </div>
                 </form>
 
                 <div class="wid-100 dis-flex ju-co-ce al-it-ce gap-20">
-                    <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/event/2">
+                    <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/event/4">
                         <span class="btn-lay-2 btn-anima-hover f-space-2 txt-w-normal">Back</span>
                     </a>
-                    <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/event/4">
+                    <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/event/confirm">
                         <span class="btn-lay-2 btn-anima-hover f-space-2 txt-w-normal">Next</span>
                     </a>
                 </div>

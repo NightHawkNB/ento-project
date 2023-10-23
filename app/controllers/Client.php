@@ -35,9 +35,9 @@ class Client extends Controller {
       else if($page == 3) {
           $this->view('common/events/create_event_3', $data);
       } else if($page == 4) {
-          $this->view('common/events/create_event_4');
+          $this->view('common/events/create_event_4', $data);
       } else if($page == 5) {
-          $this->view('common/events/create_event_5');
+          $this->view('common/events/create_event_5', $data);
       } else if($page == 'confirm') {
           $this->view('common/events/create_event_confirm');
       } else {
