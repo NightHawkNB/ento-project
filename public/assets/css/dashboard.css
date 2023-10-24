@@ -63,7 +63,7 @@
 }
 
 .nav-link svg {
-    height: 1.75em;
+    height: 1.5em;
     min-width: 1.75em;
     margin: 0 1.5em;
     fill: var(--bg-primary-2);

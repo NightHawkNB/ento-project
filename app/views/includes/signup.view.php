@@ -86,7 +86,7 @@
                                     <option value="client">Client</option>
                                     <option value="singer">Singer</option>
                                     <option value="band">Band</option>
-                                    <option value="venuem">Venue Manager</option>
+                                    <option value="venuemanager">Venue Manager</option>
                                 </select>
                                 <i></i>
                             </div>

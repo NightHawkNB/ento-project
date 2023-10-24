@@ -1,6 +1,3 @@
-<!--
-    TODO Create ticket buying and paying interfaces
--->
 <div class="dis-flex-col bg-white bor-rad-5 f-poppins over-hide event-card sh">
     <a href=<?= ROOT."/home/events/".$event_id ?>>
         <img src="<?= ROOT ?>/assets/images/events/<?= $image ?>" alt="<?= $name ?>" class="event-image">
