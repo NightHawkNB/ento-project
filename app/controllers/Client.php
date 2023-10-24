@@ -40,9 +40,27 @@ class Client extends Controller {
           $this->view('common/events/create_event_5', $data);
       } else if($page == 'confirm') {
           $this->view('common/events/create_event_confirm');
+      } else if($page == 'confirm-check') {
+          message("Event Created");
+          redirect('client/event');
       } else {
           message('No such page exists');
           $this->view('common/events/create_event');
+      }
+  }
+
+  public function manage($page = null) {
+      $event = new Event();
+
+      if(empty($page)) {
+          $data['events'] = $event->query("SELECT * FROM event");
+          $this->view('common/events/manage/list', $data);
+      } else if(is_numeric($page)) {
+          $data['events'] = $event->query("SELECT * FROM event WHERE event_id = $page");
+          $tickets = explode('/', $data['events'][0]->ticketing_plan);
+          foreach($tickets as $ticket) $ticket = explode('*', $ticket);
+          $data['events'][0]->ticketing_plan = $tickets;
+          $this->view('common/events/manage/details', $data);
       }
   }
 }
