@@ -68,7 +68,7 @@ class Home extends Controller{
         {
 
             $complain = new Complaint();
-            $data['complains'] = $complain->where(['user_id'=>Auth::getUser_id()]);
+            $data['complains'] = (Auth::is_admin() || Auth::is_cca()) ? $complain->query('SELECT * FROM complaints') : $complain->where(['user_id'=>Auth::getUser_id()]);
 
             $this->view('pages/complains/list_complain', $data);
         }

@@ -22,6 +22,15 @@ class Auth {
         }
         else return false;
     }
+
+    public static function is_cca(): bool
+    {
+        if(!empty($_SESSION['USER_DATA'])) {
+            if($_SESSION['USER_DATA']->user_type == 'cca') return true;
+            else return false;
+        }
+        else return false;
+    }
     
     public static function is_singer(): bool
     {
