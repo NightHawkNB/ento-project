@@ -21,8 +21,10 @@
             <h5 class="flex-1 mar-0 f-space-1">Buy Tickets</h5>
             <div class="dis-flex gap-10 al-it-ce">
                 <?php
+                    $ticketing_plan = explode("/", $ticketing_plan);
                     foreach ($ticketing_plan as $ticket) {
-                        echo "<div class='bor-rad-10 bor-1-sol-white bg-trans pad-5-10 hover-pointer'>$ticket</div>";
+                        $item = explode("*", $ticket);
+                        echo "<div class='bor-rad-10 bor-1-sol-white bg-trans pad-5-10 hover-pointer'>$item[0]</div>";
                     }
                 ?>
             </div>
