@@ -57,6 +57,7 @@ class Singer extends Controller
         }
     }
 
+    // Errors in the Details Page TODO
     public function reservations($method = null, $id = null)
     {
 
