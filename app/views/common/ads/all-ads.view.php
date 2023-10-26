@@ -12,8 +12,12 @@
 
                 <!-- Dummy Data Start -->
                     <?php
-                        foreach ($ads as $ad) {
-                            $this->view('includes/ad-component', (array)$ad);
+                        if(!empty($ads)) {
+                            foreach ($ads as $ad) {
+                                $this->view('includes/ad-component', (array)$ad);
+                            }
+                        } else {
+                            echo "<h4 class='txt-ali-cen pad-20'> ...No ads to show... </h4>";
                         }
                     ?>
                 <!-- Dummy Data End -->

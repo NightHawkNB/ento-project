@@ -9,6 +9,7 @@
     input {
         height: 30px;
         text-align: center;
+        border: none;
     }
 
     input:focus {

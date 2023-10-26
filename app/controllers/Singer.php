@@ -62,10 +62,11 @@ class Singer extends Controller
     {
 
         $db = new Database();
+        $reservation = new Reservation();
 
         if (empty($method)) {
             //            Getting all reservations for listing
-            $data['records'] = $db->query("SELECT * FROM reservations");
+            $data['records'] = $reservation->get_all();
             $this->view('common/reservations/your-reservations', $data);
         } else if (is_numeric($method)) {
             //            If instead of the method, a numeric value is given, then find the relevant reservation and show it

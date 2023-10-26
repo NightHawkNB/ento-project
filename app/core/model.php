@@ -95,6 +95,13 @@ class Model extends Database{
         else return false;
     }
 
+    public function get_all() {
+
+        $query = "SELECT * FROM " . $this->table;
+
+        return $this->query($query);
+    }
+
     public function first($data) {
 
         $keys = array_keys($data);
