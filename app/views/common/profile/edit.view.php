@@ -21,11 +21,6 @@
                         </div>
 
                         <div class="profile-input">
-                            <label>User ID</label>
-                            <input type="text" name="user_id" value=<?= $user->user_id ?> >
-                        </div>
-
-                        <div class="profile-input">
                             <label for="fname">First Name</label>
                             <input type="text" name="fname" value="<?= set_value('fname', $user->fname) ?>">
                         </div>
@@ -42,7 +37,7 @@
 
                         <div class="profile-input">
                             <label for="nic_num">NIC Num</label>
-                            <input type="text" name="nic_num" value=<?= $user->nic_num ?? "-- Not Verified --"?> >
+                            <input type="text" name="nic_num" value=<?= $user->nic_num ?? "Not_Verfied" ?> disabled >
                         </div>
 
                         <div class="profile-input">
@@ -51,8 +46,28 @@
                         </div>
 
                         <div class="profile-input">
-                            <label for="user_type">User Type</label>
-                            <input type="text" name="user_type" value=<?= $user->user_type ?> >
+                            <label for="city">City</label>
+                            <input type="text" name="city" value=<?= $user->city ?> >
+                        </div>
+
+                        <div class="profile-input">
+                            <label for="district">District</label>
+                            <input type="text" name="district" value=<?= $user->district ?> >
+                        </div>
+
+                        <div class="profile-input">
+                            <label for="address1">Address 01</label>
+                            <input type="text" name="address1" value=<?= $user->address1 ?> >
+                        </div>
+
+                        <div class="profile-input">
+                            <label for="address2">Address 02</label>
+                            <input type="text" name="address2" value=<?= $user->address2 ?> >
+                        </div>
+
+                        <div class="profile-input">
+                            <label for="image">Image</label>
+                            <input type="text" name="image" value=<?= $user->image ?> >
                         </div>
 
                         <div>

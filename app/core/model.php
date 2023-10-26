@@ -64,6 +64,7 @@ class Model extends Database{
 
         $query = trim($query, ", ");
         $query .= " WHERE ";
+        if(empty($temp_id)) $query .= "Empty";
         foreach ($temp_id as $key => $value) {
             $query .= $key . " = :" . $key;
             $data[$key] = $value;
