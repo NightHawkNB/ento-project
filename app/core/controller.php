@@ -39,4 +39,41 @@ class Controller {
             redirect("$row->user_type/profile");
         }
     }
+
+    public function reservations($method = null, $id = null)
+    {
+
+        $db = new Database();
+        $reservation = new Reservation();
+        $user = new User();
+        $row = $user->first(['user_id' => Auth::getUser_id()]);
+
+        if (empty($method)) {
+            //            Getting all reservations for listing
+            $data['records'] = $reservation->get_all();
+            $this->view('common/reservations/your-reservations', $data);
+        } else if (is_numeric($method)) {
+            //            If instead of the method, a numeric value is given, then find the relevant reservation and show it
+            $data['reservation'] = $reservation->where(['reservation_id' => $method]);
+
+            if (empty($data['reservation'])) {
+                message("No Reservation with that ID exists");
+                redirect("$row->user_type/reservations");
+            } else {
+                $this->view('common/reservations/res-details-individual', $data);
+            }
+        } else if ($method === 'reservation-requests') {
+            //                Getting all reservation requests and if id is given in the url, fetches only the one relevant
+            if (empty($id)) {
+                $data['requests'] = $db->query("SELECT * FROM resrequest");
+                $this->view('common/reservations/reservation-requests', $data);
+            } else {
+                $data['requests'] = $db->query("SELECT * FROM resrequest WHERE req_id = $id");
+                $this->view('common/reservations/req-details-individual', $data['requests']);
+            }
+        } else {
+            message("Page not found");
+            redirect("$row->user_type/reservations");
+        }
+    }
 }
