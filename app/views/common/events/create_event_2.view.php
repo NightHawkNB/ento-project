@@ -3,7 +3,7 @@
 
 <style>
     body {
-        font-family: Poppins, Serif;
+        font-family: Poppins;
     }
 
     input {

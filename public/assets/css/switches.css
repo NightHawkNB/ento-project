@@ -85,6 +85,7 @@
 
   .complain-btn div {
     display: flex;
+    overflow: hidden;
     align-items: center;
     gap:10px;
   }
@@ -95,6 +96,7 @@
 
   .complain-btn p {
     transition: 0.5s;
+    transition-delay: 1s;
     display: none;
   }
 

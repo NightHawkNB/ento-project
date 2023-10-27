@@ -23,18 +23,22 @@
                             }
                         }
 
-                        @media only screen and (max-width: 1000px) {
-                            form > div{
-                                min-width: 200px;
-                                max-width: 200px;
-                            }
-                        }
+                        /*@media only screen and (max-width: 1000px) {*/
+                        /*    form > div{*/
+                        /*        min-width: 200px;*/
+                        /*        max-width: 200px;*/
+                        /*    }*/
+                        /*}*/
                     </style>
-                    <div class="dis-flex-col gap-20 ju-co-ce al-it-ce flex-wrap txt-c-black">
+                    <div class="dis-flex-col gap-20 pad-20 ju-co-ce al-it-ce flex-wrap txt-c-black" style="overflow-y: scroll; overflow-x: inherit">
 
                         <?php
-                        foreach($ads as $ad) {
-                            $this->view('includes/ad-component-2', (array)$ad);
+                        if(!empty($ads)) {
+                            foreach($ads as $ad) {
+                                $this->view('includes/ad-component-2', (array)$ad);
+                            }
+                        } else {
+                            echo "<h4> No Ads to show... </h4>";
                         }
                         ?>
 
