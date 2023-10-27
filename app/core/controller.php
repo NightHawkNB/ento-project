@@ -43,6 +43,11 @@ class Controller {
     public function reservations($method = null, $id = null)
     {
 
+        if(Auth::is_client()) {
+            message("Access Denied");
+            redirect("home");
+        }
+
         $db = new Database();
         $reservation = new Reservation();
         $user = new User();
