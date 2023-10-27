@@ -12,7 +12,7 @@
         <section class="cols-10 pad-10 dis-flex ju-co-st al-it-st">
             <div class="wid-100 pad-10 gap-10 bor-rad-5 dis-flex-col ju-co-ce al-it-ce gap-20">
 
-                <h2>Choose Singers</h2>
+                <h2>Choose a Venue</h2>
 
                 <form method="post" class="pad-10 wid-100 bor-rad-5 dis-flex ju-co-ce al-it-ce">
                     <style>

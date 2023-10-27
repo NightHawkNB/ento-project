@@ -40,10 +40,10 @@
         </section>
         <section class="cols-10 pad-10 dis-flex ju-co-st al-it-st">
             <div class="bg-white wid-100 pad-10 bor-rad-5 dis-flex-col ju-co-ce al-it-ce gap-20">
-                    <form method="post" class="bg-lightgray txt-c-black over-hide bor-rad-5">
+                    <form method="post" class="bg-trans txt-c-black over-hide bor-rad-5 f-poppins">
 
                         <div class="pos-rel wid-100">
-                            <img src="<?= ROOT ?>/assets/images/events/event-01.cover.jpeg" class="wid-100 " alt="event-01 cover">
+                            <img src="<?= ROOT ?>/assets/images/events/event-01.cover.jpeg" class="wid-100 bor-rad-5" alt="event-01 cover">
                             <div class="add-btn bg-white hover-pointer">
                                 <label for="cover-banner" style="cursor:pointer;" class="">
                                     <svg id="svg-01" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg>
@@ -52,7 +52,7 @@
                             </div>
                         </div>
 
-                        <div class="pad-10">
+                        <div class="pad-20">
                             <div class="dis-flex gap-10 flex-wrap al-it-ce">
                                 <div class="dis-flex gap-10 al-it-ce">
                                     <label for="name" class="min-w-100">Name : </label>
@@ -89,7 +89,7 @@
 
                     </form>
 
-                    <div class="wid-100 dis-flex ju-co-ce">
+                    <div class="wid-100 dis-flex ju-co-ce" style="margin-bottom: 30px">
                         <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/event/2">
                             <span class="btn-lay-2 btn-anima-hover f-space-2 txt-w-normal min-w-150">Next</span>
                         </a>
