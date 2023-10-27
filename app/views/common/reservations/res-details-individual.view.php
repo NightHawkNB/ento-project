@@ -1,5 +1,6 @@
 <html lang="en">
 <?php $this->view('includes/head') ?>
+<?php $res = $reservation[0] ?>
 <body>
 <div class="main-wrapper">
     <?php $this->view('includes/header') ?>
@@ -13,10 +14,10 @@
                 <h2 class="mar-0">Reservation Details</h2>
                 <div class="dis-flex gap-10">
                     <div class="dis-flex-col">
-                        Reservation Details - 1
+                        Reservation ID - <?= $res->reservation_id ?>
                     </div>
                     <div class="dis-flex-col">
-                        Reservation Details - 2
+                        Client ID - <?= $res->vuser_id ?>
                     </div>
                 </div>
                 <div>

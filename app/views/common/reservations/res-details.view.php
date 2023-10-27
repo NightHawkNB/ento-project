@@ -19,7 +19,8 @@
             <?= $sp_id ?>
         </span>
     </div>
+
     <div class="push-right">
-        <a href="reservations/1" class="btn-lay-2 bg-grey txt-c-white txt-d-none">Details</a>
+        <a href="reservations/<?= $reservation_id ?>" class="btn-lay-2 bg-grey txt-c-white txt-d-none">Details</a>
     </div>
 </div>

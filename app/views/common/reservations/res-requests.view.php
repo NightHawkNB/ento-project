@@ -27,6 +27,6 @@
         </span>
     </div>
     <div class="push-right">
-        <a href="reservation-requests/1" class="btn-lay-2 bg-grey txt-c-white txt-d-none">Details</a>
+        <a href="reservation-requests/<?= $req_id ?>" class="btn-lay-2 bg-grey txt-c-white txt-d-none">Details</a>
     </div>
 </div>
