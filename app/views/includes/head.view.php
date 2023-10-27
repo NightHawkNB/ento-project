@@ -6,4 +6,5 @@
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/necessary.css?v=1">
     <script src="https://kit.fontawesome.com/2840cb1323.js" crossorigin="anonymous"></script>
     <script src="<?= ROOT ?>/assets/scripts/script.js" defer></script>
+    <link href="<?= ROOT ?>/assets/logo.png" rel="icon">
 </head>
