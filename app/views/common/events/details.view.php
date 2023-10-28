@@ -24,8 +24,8 @@
                     <div class="dis-flex al-it-ce gap-10  pad-10 mar-0 ju-co-ce bg-indigo-alert txt-c-white flex-wrap">
                         <h5 class="flex-1 mar-0 f-space-1">Buy Tickets</h5>
                         <div class="dis-flex gap-10 al-it-ce">
-                            <a href=<?= ROOT."/home/events/1/buy" ?>><div class='bor-rad-10 bor-1-sol-white bg-trans pad-5-10 hover-pointer'>5000</div></a>
-                            <a href=<?= ROOT."/home/events/1/buy" ?>><div class='bor-rad-10 bor-1-sol-white bg-trans pad-5-10 hover-pointer'>3000</div></a>
+                            <a href=<?= ROOT."/home/events/1/pay" ?>><div class='bor-rad-10 bor-1-sol-white bg-trans pad-5-10 hover-pointer'>5000</div></a>
+                            <a href=<?= ROOT."/home/events/1/pay" ?>><div class='bor-rad-10 bor-1-sol-white bg-trans pad-5-10 hover-pointer'>3000</div></a>
                         </div>
                     </div>
                 </div>

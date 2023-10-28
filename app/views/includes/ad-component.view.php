@@ -32,6 +32,7 @@
 
             <?php if(Auth::logged_in() && (Auth::is_singer() || Auth::is_admin() || Auth::is_cca()) && !str_contains($_SERVER['QUERY_STRING'], "home/ads") && !str_contains($_SERVER['QUERY_STRING'], "/ads/all-ads") ): ?>
                 <div class="dis-flex-col gap-10 ju-co-ce al-it-ce pad-20 bor-rad-5">
+                    <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/ads/promote-ad/<?= $ad_id ?>"><button class="btn-lay-2 hover-pointer btn-anima-hover">Promote</button></a>
                     <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/ads/update-ad/<?= $ad_id ?>"><button class="btn-lay-2 hover-pointer btn-anima-hover">Update</button></a>
                     <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/ads/delete-ad/<?= $ad_id ?>"><button type="submit" class="btn-lay-2 hover-pointer btn-anima-hover">Delete</button></a>
                 </div>
