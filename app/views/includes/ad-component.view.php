@@ -1,5 +1,5 @@
 <div class="dis-flex wid-100">
-        <div class="bg-white pad-10-20 bor-rad-5 wid-100 dis-flex gap-20 flex-wrap al-it-ce ads sh f-poppins">
+        <div class="bg-white bor-rad-5 pad-10-20 wid-100 dis-flex gap-20 al-it-ce ads sh f-poppins">
             <img src="<?= ROOT ?>/assets/images/users/<?= $image ?>" class="profile-image-2 profile" alt="user-01">
 
             <div class="dis-grid-c4 flex-1">
@@ -13,14 +13,20 @@
                 </div>
             </div>
 
-            <div class="dis-flex-col gap-10">
+            <div class="dis-flex-col gap-10 flex-1">
                 <div>
                     <p class="txt-w-bold">Rates</p>
-                    <p><?= $rates ?></p>
+                    <p>LKR <?= $rates ?></p>
                 </div>
                 <div>
                     <p class="txt-w-bold">Posted On</p>
                     <p><?= $datetime ?></p>
+                </div>
+            </div>
+
+            <div class="dis-flex ju-co-ce al-it-ce">
+                <div class="txt-ali-rig dis-flex ju-co-ce al-it-ce">
+                    <p class=""> 30% OFF </p>
                 </div>
             </div>
 

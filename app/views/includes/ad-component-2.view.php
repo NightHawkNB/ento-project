@@ -1,6 +1,6 @@
 <script>
-    myStyles = `border-color: var(--indigo-2)`
-    myStyles2 = `border-color: transparent`
+    myStyles = `border-color: var(--indigo-2); height: 120px`
+    myStyles2 = `border-color: transparent; height: 120px`
 
     function highlight(id = null) {
         // By the time the checking occurs, the value of "checked" is flipped.
@@ -13,8 +13,8 @@
         }
     }
 </script>
-<label for="ad_<?= $ad_id ?>" class="wid-100" onclick="highlight(<?= $ad_id ?>)">
-    <div id="div_<?= $ad_id ?>" class="bg-white pad-10-20 bor-rad-5 wid-100 flex-grow dis-flex gap-10 al-it-ce ads sh f-poppins" style="height: 120px">
+<label for="ad_<?= $ad_id ?>" class="wid-100 dis-flex pt-10 pb-10" onclick="highlight(<?= $ad_id ?>)">
+    <div id="div_<?= $ad_id ?>" class="bg-white pl-10 bor-rad-5 dis-flex gap-10 al-it-ce ads sh f-poppins over-hide" style="height: 120px">
 
         <input class="hide" type="checkbox" name="ad_<?= $ad_id ?>" id="ad_<?= $ad_id ?>">
 
@@ -30,12 +30,19 @@
         <div class="dis-flex-col gap-10">
             <div>
                 <p class="txt-w-bold">Rates</p>
-                <p><?= $rates ?></p>
+                <p>LKR <?= $rates ?></p>
             </div>
             <div>
                 <p class="txt-w-bold">Posted On</p>
                 <p><?= $datetime ?></p>
             </div>
         </div>
+
+        <div class="dis-flex ju-co-ce al-it-ce promotion-parent">
+            <div class="promotions txt-ali-rig dis-flex ju-co-ce al-it-ce">
+                <p class="hide"> 30% OFF </p>
+            </div>
+        </div>
     </div>
+
 </label>
