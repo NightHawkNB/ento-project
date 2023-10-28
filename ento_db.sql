@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 27, 2023 at 06:36 AM
+-- Generation Time: Oct 28, 2023 at 05:23 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -58,7 +58,8 @@ CREATE TABLE `ads` (
 
 INSERT INTO `ads` (`ad_id`, `user_id`, `title`, `details`, `image`, `views`, `rates`, `datetime`) VALUES
 (9, 37, 'Samantha', 'Details related to the services provided by the singer', 'user_01.jpg', 120, 100000, '2023-10-01 13:11:27'),
-(11, 44, 'Charley', 'Details', 'user_03.jpg', 152, 70000, '2023-10-26 07:56:20');
+(11, 44, 'Charley', 'Details', 'user_03.jpg', 152, 70000, '2023-10-26 07:56:20'),
+(12, 44, 'Singer2', 'Details Details', 'user_04.jpg', 12, 45000, '2023-10-28 15:08:17');
 
 -- --------------------------------------------------------
 
@@ -153,6 +154,21 @@ INSERT INTO `event` (`event_id`, `name`, `details`, `ticketing_plan`, `venue_id`
 CREATE TABLE `event_singer` (
   `event_id` int(11) NOT NULL,
   `singer_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payment_log`
+--
+
+CREATE TABLE `payment_log` (
+  `order_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `event_id` int(11) DEFAULT NULL,
+  `ad_id` int(11) DEFAULT NULL,
+  `datetime` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -484,6 +500,15 @@ ALTER TABLE `event_singer`
   ADD KEY `fk_singer_es_idx` (`singer_id`);
 
 --
+-- Indexes for table `payment_log`
+--
+ALTER TABLE `payment_log`
+  ADD UNIQUE KEY `payment_log_pk` (`order_id`),
+  ADD KEY `fk_payment_user` (`user_id`),
+  ADD KEY `fk_payment_ads` (`ad_id`),
+  ADD KEY `fk_payment_event` (`event_id`);
+
+--
 -- Indexes for table `reservations`
 --
 ALTER TABLE `reservations`
@@ -597,7 +622,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `ads`
 --
 ALTER TABLE `ads`
-  MODIFY `ad_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `ad_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `band`
@@ -622,6 +647,12 @@ ALTER TABLE `customer_care`
 --
 ALTER TABLE `event`
   MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `payment_log`
+--
+ALTER TABLE `payment_log`
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `reservations`
@@ -751,6 +782,14 @@ ALTER TABLE `event`
 ALTER TABLE `event_singer`
   ADD CONSTRAINT `fk_event_es` FOREIGN KEY (`event_id`) REFERENCES `event` (`event_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_singer_es` FOREIGN KEY (`singer_id`) REFERENCES `singer` (`singer_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `payment_log`
+--
+ALTER TABLE `payment_log`
+  ADD CONSTRAINT `fk_payment_ads` FOREIGN KEY (`ad_id`) REFERENCES `ads` (`ad_id`),
+  ADD CONSTRAINT `fk_payment_event` FOREIGN KEY (`event_id`) REFERENCES `event` (`event_id`),
+  ADD CONSTRAINT `fk_payment_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
 
 --
 -- Constraints for table `reservations`
