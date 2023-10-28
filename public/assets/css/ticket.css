@@ -40,6 +40,38 @@
     box-shadow: 0 3px 8px rgba(0,0,0,0.3);
 }
 
+.ads:hover .promotions > p {
+    display: block;
+}
+
+.ads:hover .promotions {
+    background-color: mediumpurple;
+    width: 100%;
+}
+
+.promotion-parent {
+    height: 100%;
+    width: 100%;
+    justify-content: right;
+}
+
+.promotions {
+    height: 100%;
+    width: 0;
+    transition: 0.5s ease-in;
+    border-radius: 20px 0 0 20px;
+}
+
+.promotions > p {
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    font-family: Poppins, serif;
+    text-align: center;
+    transition: 0.1s ease;
+    transition-delay: 0.75s;
+}
+
 .ads div p {
     max-lines: 2;
     overflow: hidden;
