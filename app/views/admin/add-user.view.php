@@ -18,42 +18,42 @@
                             <legend>Personal Details</legend>
                             <div class="dis-flex input-box mar-top-0 gap-20">
                                 <div class="input-box <?= (!empty($errors['fname'])) ? 'error' : '' ?>">
-                                    <input value="<?php set_value('fname') ?>" type="text" name="fname" required>
+                                    <input type="text" name="fname" required>
                                     <label for="fname">First Name</label>
                                     <i></i>
                                 </div>
                                 <div class="input-box <?= (!empty($errors['lname'])) ? 'error' : '' ?>">
-                                    <input value="<?php set_value('lname') ?>" type="text" name="lname" required>
+                                    <input type="text" name="lname" required>
                                     <label for="lname">Last Name</label>
                                     <i></i>
                                 </div>
                             </div>
                             <div class="input-box <?= (!empty($errors['contact_num'])) ? 'error' : '' ?>">
-                                <input value="<?php set_value('district') ?>" type="text" name="contact_num" maxlength="10" required>
+                                <input type="text" name="contact_num" maxlength="10" required>
                                 <label for="contact_num">Contact Number</label>
                                 <i></i>
                             </div>
                             <div class="dis-flex-col input-box gap-20">
                                 <div class="dis-flex gap-20 <?= (!empty($errors['address01'])) ? 'error' : '' ?>">
                                     <div class="input-box">
-                                        <input value="<?php set_value('address1') ?>" type="text" name="address1" required>
+                                        <input type="text" name="address1" required>
                                         <label for="address1">Address line 01</label>
                                         <i></i>
                                     </div>
                                     <div class="input-box <?= (!empty($errors['address2'])) ? 'error' : '' ?>">
-                                        <input value="<?php set_value('address2') ?>" type="text" name="address2" required>
+                                        <input type="text" name="address2" required>
                                         <label for="address2">Address line 02</label>
                                         <i></i>
                                     </div>
                                 </div>
                                 <div class="dis-flex gap-20">
                                     <div class="input-box <?= (!empty($errors['city'])) ? 'error' : '' ?>">
-                                        <input value="<?php set_value('city') ?>" type="text" name="city" required>
+                                        <input type="text" name="city" required>
                                         <label for="city">City</label>
                                         <i></i>
                                     </div>
                                     <div class="input-box <?= (!empty($errors['district'])) ? 'error' : '' ?>">
-                                        <input value="<?php set_value('district') ?>" type="text" name="district" required>
+                                        <input type="text" name="district" required>
                                         <label for="district">District</label>
                                         <i></i>
                                     </div>
@@ -64,17 +64,17 @@
                         <fieldset>
                             <legend>Account Details</legend>
                             <div class="input-box <?= (!empty($errors['email'])) ? 'error' : '' ?>">
-                                <input value="<?php set_value('email') ?>" type="email" name="email" required>
+                                <input type="email" name="email" required>
                                 <label for="email">Email</label>
                                 <i></i>
                             </div>
                             <div class="input-box <?= (!empty($errors['password'])) ? 'error' : '' ?>">
-                                    <input value="<?php set_value('password') ?>" type="password" name="password" required>
+                                    <input type="password" name="password" required>
                                     <label for="password">Password</label>
                                     <i></i>
                                 </div>
                                 <div class="input-box <?= (!empty($errors['confirmPass'])) ? 'error' : '' ?>">
-                                    <input value="<?php set_value('confirmPass') ?>" type="password" name="confirmPass" required>
+                                    <input type="password" name="confirmPass" required>
                                     <label for="confirmPass">Confirm Password</label>
                                     <i></i>
                                 </div>
