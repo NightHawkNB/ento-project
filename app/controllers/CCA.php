@@ -17,13 +17,16 @@ class CCA extends Controller{
     public function index(){
         $this->view("common/dashboard");
     }
-
-    public function profile(){
-
-        $user = new User();
-
-        $data['user'] = $row = $user->first(['user_id' => Auth::getUser_id()]);
-
-        $this->view("common/profile/overview", $data);
+    public function complaints(){
+        $this->view("pages/complains/list_complain");
+    }
+    public function chat(){
+        $this->view("CCA/chats");
+    }
+    public function verify(){
+        $this->view("CCA/verify");
+    }
+    public function admanage(){
+        $this->view("CCA/admanage");
     }
 }
