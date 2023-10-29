@@ -2,6 +2,19 @@
 
 Class Admin extends Controller{
 
+    public function __construct()
+    {
+        if (!Auth::logged_in()) {
+            message("Please Login");
+            redirect('home');
+        }
+
+        if (!Auth::is_admin()) {
+            message("Access Denied");
+            redirect('home');
+        }
+    }
+
 
 
 
@@ -32,14 +45,20 @@ Class Admin extends Controller{
             $this->view('admin/clientaccounts');
         }else if ($method == 'add-user'){
 
-            if($_SERVER['REQUEST_METHOD'] == "POST"){
-                
-                    $user = new User();
+            if($_SERVER['REQUEST_METHOD'] == "POST") {
+                if($user->validate($_POST)) {
+    
+                    $_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    
                     $user->insert($_POST);
-                    message("User Account Created Successfully");
-                    redirect('admin/usermng');
-            
+    
+                    message("Your profile was created successfully. Please Login");
+                    redirect('login');
+                } else {
+                    $data['errors'] = $user->errors;
+                }
             }
+    
 
             $this->view('admin/add-user');
         }else if ($method == 'update-user'){

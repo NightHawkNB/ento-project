@@ -68,6 +68,16 @@
                                 <label for="email">Email</label>
                                 <i></i>
                             </div>
+                            <div class="input-box <?= (!empty($errors['password'])) ? 'error' : '' ?>">
+                                    <input value="<?php set_value('password') ?>" type="password" name="password" required>
+                                    <label for="password">Password</label>
+                                    <i></i>
+                                </div>
+                                <div class="input-box <?= (!empty($errors['confirmPass'])) ? 'error' : '' ?>">
+                                    <input value="<?php set_value('confirmPass') ?>" type="password" name="confirmPass" required>
+                                    <label for="confirmPass">Confirm Password</label>
+                                    <i></i>
+                                </div>
                             <div class="input-box <?= (!empty($errors['user_type'])) ? 'error' : '' ?>">
                                 <select value="<?php set_value('user_type') ?>" name="user_type" id="user_type" onchange="changeForm()">
                                     <option value="" selected disabled>Account Type</option>
