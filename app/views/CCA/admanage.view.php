@@ -1,0 +1,1 @@
+<h1>admanage page</h1>
