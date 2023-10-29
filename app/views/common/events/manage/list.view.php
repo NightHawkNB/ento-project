@@ -41,7 +41,7 @@
         <section class="cols-10 pad-10 dis-flex ju-co-st al-it-st">
             <div class="bg-white wid-100 pad-10 bor-rad-5 dis-flex-col ju-co-ce al-it-ce gap-20">
 
-                <div class="bg-lightgray dis-flex gap-20 pad-20 flex-wrap">
+                <div class="bg-white dis-flex gap-20 pad-20 flex-wrap wid-100 ju-co-ce">
                     <?php
                         foreach ($events as $event) $this->view('common/events/list-item', (array)$event);
                     ?>

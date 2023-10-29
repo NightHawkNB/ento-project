@@ -159,7 +159,7 @@ body::-webkit-scrollbar-thumb {
 .wid-60 {width: 60%}
 .wid-50 {width: 50%}
 .wid-40 {width: 40%}
-
+.wid-auto {width: auto}
 /* Overflow */
 .over-hide {overflow: hidden}
 

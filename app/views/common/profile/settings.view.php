@@ -10,7 +10,7 @@
             </section>
             <section class="cols-10 profile bg-primary dis-flex al-it-st">
                 <div class="profile-container-2 dis-flex-col gap-10 profile-settings">
-                    <h2 style="color: black;">Change Notification Preferences</h2>
+                    <h2 style="color: black; padding-bottom: 20px">Change Notification Preferences</h2>
 
                     <form method="post" class="dis-flex-col al-it-ce gap-20">
                         <div class="dis-flex gap-10">

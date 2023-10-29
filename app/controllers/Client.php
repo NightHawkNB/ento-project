@@ -27,16 +27,19 @@ class Client extends Controller {
 
   public function event($page = null) {
 
-      $db = new Database();
-      $data['ads'] = $db->query("SELECT * FROM ads");
+      $ads = new Ad();
+      $data['ads'] = $ads->where(['pending' => 0]);
 
       if($page == null) $this->view('common/events/create_event');
       else if($page == 2) $this->view('common/events/create_event_2');
       else if($page == 3) {
+          $data['ads'] = $ads->where(['pending' => 0, 'category' => 'venue']);
           $this->view('common/events/create_event_3', $data);
       } else if($page == 4) {
+          $data['ads'] = $ads->where(['pending' => 0, 'category' => 'band']);
           $this->view('common/events/create_event_4', $data);
       } else if($page == 5) {
+          $data['ads'] = $ads->where(['pending' => 0, 'category' => 'singer']);
           $this->view('common/events/create_event_5', $data);
       } else if($page == 'confirm') {
           $this->view('common/events/create_event_confirm');

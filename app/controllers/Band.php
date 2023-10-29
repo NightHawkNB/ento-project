@@ -2,7 +2,7 @@
 
 /** @noinspection ALL */
 
-class Singer extends Controller {
+class Band extends Controller {
 
     public function __construct()
     {
@@ -11,7 +11,7 @@ class Singer extends Controller {
             redirect('home');
         }
 
-        if (!Auth::is_singer()) {
+        if (!Auth::is_band()) {
             message("Access Denied");
             redirect('home');
         }

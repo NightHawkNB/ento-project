@@ -8,6 +8,7 @@ class Ad extends model {
     protected $allowed_columns = [
         'user_id',
         'title',
+        'category', // Requires validation rules
         'details',
         'pending',
         'views',

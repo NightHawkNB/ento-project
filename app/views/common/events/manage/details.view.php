@@ -38,7 +38,7 @@
         <section class="cols-2 sidebar">
             <?php $this->view('includes/sidebar') ?>
         </section>
-        <section class="cols-10 pad-10 dis-flex ju-co-st al-it-st">
+        <section class="cols-10 pad-10 dis-flex-col ju-co-st al-it-ce">
             <div class="bg-white wid-100 pad-10 bor-rad-5 dis-flex-col ju-co-ce al-it-ce gap-20">
                 <form method="post" class="bg-lightgray txt-c-black over-hide bor-rad-5">
 
@@ -87,6 +87,24 @@
                         </div>
                     </div>
 
+                    <!-- Replace with dynamic data from the database -->
+                    <div class="dis-flex gap-20 ju-co-ce al-it-ce pad-10">
+                        <div class="bg-indigo-2 pad-20 txt-c-white gap-10 bor-rad-5 dis-flex al-it-ce ju-co-sb txt-ali-cen">
+                            <p>LKR 2000 X 20</p>
+                            <button class="pad-10 txt-w-bolder btn-lay-2 hover-pointer">X</button>
+                        </div>
+
+                        <div class="bg-indigo-2 pad-20 txt-c-white gap-10 bor-rad-5 dis-flex al-it-ce ju-co-sb txt-ali-cen">
+                            <p>LKR 3000 X 15</p>
+                            <button class="pad-10 txt-w-bolder btn-lay-2 hover-pointer">X</button>
+                        </div>
+
+                        <div class="bg-indigo-2 pad-20 txt-c-white gap-10 bor-rad-5 dis-flex al-it-ce ju-co-sb txt-ali-cen">
+                            <p>LKR 5000 X 10</p>
+                            <button class="pad-10 txt-w-bolder btn-lay-2 hover-pointer">X</button>
+                        </div>
+                    </div>
+
                 </form>
 
                 <p>
@@ -106,6 +124,8 @@
                     </a>
                 </div>
             </div>
+
+
         </section>
     </main>
 </div>

@@ -103,6 +103,7 @@ class Controller {
             if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 if($ads->validate($_POST)) {
                     $_POST['user_id'] = Auth::getUser_id();
+                    $_POST['category'] = $user_data->user_type;
                     $ads->insert($_POST);
                     message("Ad Creation successful");
                     redirect(strtolower($user_data->user_type)."/ads");
@@ -157,7 +158,7 @@ class Controller {
             }
 
         } else if($method == "pending") {
-            $data['ads'] = $ads->where(['pending' => 1]);
+            $data['ads'] = $ads->where(['pending' => 1, 'user_id' => $user_data->user_id]);
             $this->view("common/ads/pending", $data);
         } else {
             message("Page not found");

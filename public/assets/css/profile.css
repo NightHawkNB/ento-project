@@ -184,18 +184,6 @@
   align-items: center;
 }
 
-.change-pass button {
-  color: white;
-  background-color: cornflowerblue;
-  font-weight: bold;
-  align-self: center;
-}
-
-.change-pass button:hover {
-  background-color: transparent;
-  color: cornflowerblue;
-}
-
 /* Profile Settings Page */
 
 .profile-settings > form {
