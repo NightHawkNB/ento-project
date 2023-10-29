@@ -38,7 +38,9 @@ class Home extends Controller{
 
         if(empty($id)) $this->view('events', $data);
         else if (is_numeric($id)) {
-            if($method == "pay") {
+            if(empty($method)) {
+                $this->view('common/events/details');
+            } else if($method == "pay") {
 
                 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
@@ -118,8 +120,6 @@ class Home extends Controller{
                 }
 
                 $this->view('common/events/buy-tickets');
-            } else {
-                $this->view('common/events/details');
             }
         } else {
             message("No such page exists");
@@ -154,13 +154,16 @@ class Home extends Controller{
         {
 
             $complain = new Complaint();
-            $data['complains'] = (Auth::is_admin() || Auth::is_cca()) ? $complain->query('SELECT * FROM complaints') : $complain->where(['user_id'=>Auth::getUser_id()]);
+            $data['complains'] = (Auth::is_admin() || Auth::is_cca()) ? $complain->get_all() : $complain->where(['user_id'=>Auth::getUser_id()]);
 
             $this->view('pages/complains/list_complain', $data);
         }
         else if($method == "update_complain")
         {
-            if(empty($id)) redirect('home/complain/list_complain');
+            if(empty($id)) {
+                message("No complain selected");
+                redirect('home/complain/list_complain');
+            }
 
             $complain = new Complaint();
 
