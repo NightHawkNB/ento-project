@@ -1,6 +1,18 @@
 <?php
 
 class CCA extends Controller{
+    public function __construct()
+{
+    if (!Auth::logged_in()) {
+        message("Please Login");
+        redirect('home');
+    }
+
+    if (!Auth::is_cca()) {
+        message("Access Denied");
+        redirect('home');
+        }
+}
 
     public function index(){
         $this->view("common/dashboard");
