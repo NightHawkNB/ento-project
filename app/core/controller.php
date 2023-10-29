@@ -81,4 +81,87 @@ class Controller {
             redirect("$row->user_type/reservations");
         }
     }
+
+
+    public function ads($method = null, $id = null)
+    {
+
+        $ads = new Ad();
+        $user = new User();
+        $user_data = $user->first(['user_id' => Auth::getUser_id()]);
+
+        $data['ads'] = [];
+
+        if (empty($method)) {
+            $data['ads'] = $ads->where(['pending' => 0, 'user_id' => $user_data->user_id]);
+            $this->view('common/ads/your-ads', $data);
+        } else if ($method == 'all-ads') {
+            $data['ads'] = $ads->where(['pending' => 0]);
+            $this->view('common/ads/all-ads', $data);
+        } else if ($method == 'create-ad') {
+
+            if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                if($ads->validate($_POST)) {
+                    $_POST['user_id'] = Auth::getUser_id();
+                    $ads->insert($_POST);
+                    message("Ad Creation successful");
+                    redirect(strtolower($user_data->user_type)."/ads");
+                } else {
+                    message("Data validation failed");
+                    $data['errors'] = $ads->errors;
+                    redirect(strtolower($user_data->user_type)."/ads/create-ad", $data);
+                }
+            }
+
+            $this->view('common/ads/create-ad');
+
+        } else if ($method == 'update-ad') {
+
+            if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                if (empty($id)) {
+                    message("No id given for updating");
+                    redirect(strtolower($user_data->user_type)."/ads");
+                }
+
+                if($ads->validate($_POST)) {
+                    $_POST['ad_id'] = $id;
+                    $_POST['pending'] = 1;
+                    $ads->update($id, $_POST);
+                    message("Update successfully - Ad is now in Pending State");
+                    redirect(strtolower($user_data->user_type)."/ads");
+                }
+
+            } else if (empty($id)) {
+                message("No ad selected");
+                redirect(strtolower($user_data->user_type).'/ads');
+            } else {
+                $data['ads'] = $ads->first(['ad_id' => $id]);
+                if (empty($data['ads'])) {
+                    message("No data found");
+                }
+
+                $this->view('common/ads/update-ad', (array)$data);
+            }
+
+        } else if ($method == 'delete-ad') {
+
+            if ($_SERVER['REQUEST_METHOD'] == "GET") {
+                if (empty($id)) {
+                    message("No id given for updating");
+                    redirect(strtolower($user_data->user_type)."/ads");
+                }
+
+                $ads->query("DELETE FROM ads WHERE ad_id = $id");
+                message("Deleted successfully");
+                redirect(strtolower($user_data->user_type)."/ads");
+            }
+
+        } else if($method == "pending") {
+            $data['ads'] = $ads->where(['pending' => 1]);
+            $this->view("common/ads/pending", $data);
+        } else {
+            message("Page not found");
+            redirect(strtolower($user_data->user_type).'/ads');
+        }
+    }
 }

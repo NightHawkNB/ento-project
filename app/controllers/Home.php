@@ -127,10 +127,10 @@ class Home extends Controller{
         }
     }
 
-    public function ads($id = null) {
+    public function ads($method = null, $id = null) {
 
-        $db = new Database();
-        $data['ads'] = $db->query("SELECT * FROM ads");
+        $ads = new Ad();
+        $data['ads'] = $ads->where(['pending' => 0]);
 
         $this->view('pages/ads', $data);
     }
