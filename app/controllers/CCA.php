@@ -1,5 +1,7 @@
 <?php
-public function __construct()
+
+class CCA extends Controller{
+    public function __construct()
 {
     if (!Auth::logged_in()) {
         message("Please Login");
@@ -11,7 +13,6 @@ public function __construct()
         redirect('home');
         }
 }
-class CCA extends Controller{
 
     public function index(){
         $this->view("common/dashboard");
