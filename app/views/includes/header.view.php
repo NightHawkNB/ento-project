@@ -16,7 +16,7 @@
         <a href="<?= ROOT ?>/home/events">Events</a>
         <a href="<?= ROOT ?>/home/ads">Advertisements</a>
         <a href="#aboutus">About Us</a>
-        <a href="#contactus">Contact Us</a>
+        <a href="<?= ROOT ?>/support/overview">Support</a>
         <?php if(Auth::logged_in()): ?>
             <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/dashboard">Dashboard</a>
         <?php endif; ?>
