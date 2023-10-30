@@ -18,11 +18,7 @@ class CCA extends Controller{
         $this->view("common/dashboard");
     }
     public function complaints(){
-
-        $complaints = new Complaint();
-        $data['complaints'] = $complaints->get_all();
-
-        $this->view("CCA/list_complaint", $data);
+        $this->view("pages/complaints/list_complain");
     }
     public function chat(){
         $this->view("CCA/chats");
