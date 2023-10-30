@@ -8,10 +8,13 @@
 <!--          <h1 class="txt-c-white">complain list</h1>-->
             <div class="txt-c-white dis-flex-col gap-10">
                 <?php
-                foreach ($complains as $complain) {
-//                    show($complain);
-                    $this->view('pages/complains/single', (array)$complain);
-                }
+                    if(!empty($complaints)) {
+                        foreach ($complaints as $complaint) {
+                            $this->view('pages/complaints/single', (array)$complain);
+                        }
+                    } else {
+                        echo "No complaints to show";
+                    }
                 ?>
             </div>
         </div>
