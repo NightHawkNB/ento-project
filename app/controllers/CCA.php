@@ -18,7 +18,7 @@ class CCA extends Controller{
         $this->view("common/dashboard");
     }
     public function complaints(){
-        $this->view("pages/complains/list_complain");
+        $this->view("pages/complaints/list_complain");
     }
     public function chat(){
         $this->view("CCA/chats");
