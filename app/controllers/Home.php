@@ -109,7 +109,7 @@ class Home extends Controller{
         $this->view('pages/ads', $data);
     }
 
-    public function complain($method=NULL, $id = null) {
+    public function complaint($method=NULL, $id = null) {
 
         if(empty($method))
         {
@@ -122,21 +122,21 @@ class Home extends Controller{
                 redirect('home');
             }
 
-            $this->view('pages/complains/create_complain');
+            $this->view('pages/complaints/create_complaint');
         }
-        else if($method == "list_complain")
+        else if($method == "list_complaint")
         {
 
             $complain = new Complaint();
-            $data['complains'] = (Auth::is_admin() || Auth::is_cca()) ? $complain->get_all() : $complain->where(['user_id'=>Auth::getUser_id()]);
+            $data['complaints'] = (Auth::is_admin() || Auth::is_cca()) ? $complain->get_all() : $complain->where(['user_id'=>Auth::getUser_id()]);
 
-            $this->view('pages/complains/list_complain', $data);
+            $this->view('pages/complaints/list_complaint', $data);
         }
-        else if($method == "update_complain")
+        else if($method == "update_complaint")
         {
             if(empty($id)) {
-                message("No complain selected");
-                redirect('home/complain/list_complain');
+                message("No complaint selected");
+                redirect('home/complaint/list_complaint');
             }
 
             $complain = new Complaint();
@@ -147,22 +147,22 @@ class Home extends Controller{
                 $_POST['comp_id'] = $id;
                 $db->query("UPDATE complaints SET details = :details, files = :files WHERE comp_id = :comp_id", $_POST);
                 message("Complaint Updated Successfully");
-                redirect('home/complain/list_complain');
+                redirect('home/complaint/list_complaint');
             }
 
 
             $data['row'] = $complain->first(['comp_id'=>$id]);
 
-            $this->view('pages/complains/update_complain', $data);
+            $this->view('pages/complaints/update_complaint', $data);
         }
-        else if($method == "delete_complain") {
+        else if($method == "delete_complaint") {
             if ($_SERVER['REQUEST_METHOD'] == "GET")
             {
                 $db = new Database();
                 $_POST['comp_id'] = $id;
                 $db->query("DELETE FROM complaints WHERE comp_id = :comp_id", $_POST);
                 message("Complaint Deleted Successfully");
-                redirect('home/complain/list_complain');
+                redirect('home/complaint/list_complaint');
             }
         }
     }

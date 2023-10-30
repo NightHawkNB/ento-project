@@ -82,7 +82,7 @@ class Client extends Controller {
   public function  complaints(){
       $complaint = new Complaint();
       $data['complaints'] = $complaint->where(['user_id' => Auth::getUser_id()]);
-      $this->view('pages/complains/list_complain', $data);
+      $this->view('pages/complaints/list_complaint', $data);
   }
 
   public function settings(){
