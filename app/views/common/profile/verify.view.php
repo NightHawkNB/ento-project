@@ -14,7 +14,7 @@
 
                     <h2 class="f-mooli">Account Verification Form</h2>
 
-                    <div class="flex-1 flex-all dis-flex-col gap-20 mar-bot-10">
+                    <div class="pad-20 flex-all dis-flex-col gap-20 mar-bot-10">
                         <fieldset style="width: 100%" class="bor-rad-5 pad-10 dis-flex-col gap-20">
                             <legend class="txt-w-bold f-mooli">Personal Details</legend>
                             <div class="profile-input">
@@ -38,12 +38,12 @@
                             </div>
                         </fieldset>
 
-                        <?php if($_SESSION['USER_DATA']->user_type === 'singer'): ?>
-                            <fieldset style="width: 100%" class="bor-rad-5 pad-10">
-                                <legend class="txt-w-bold f-mooli">Professional</legend>
-                                <?php $this->view($_SESSION['USER_DATA']->user_type.'/verification') ?>
-                            </fieldset>
-                        <?php endif; ?>
+<!--                        --><?php //if($_SESSION['USER_DATA']->user_type === 'singer'): ?>
+<!--                            <fieldset style="width: 100%" class="bor-rad-5 pad-10">-->
+<!--                                <legend class="txt-w-bold f-mooli">Professional</legend>-->
+<!--                                --><?php //$this->view($_SESSION['USER_DATA']->user_type.'/verification') ?>
+<!--                            </fieldset>-->
+<!--                        --><?php //endif; ?>
                     </div>
                     
                     <button type="submit" class="btn-lay-2 btn-anima-hover">Confirm & Send Request</button>
