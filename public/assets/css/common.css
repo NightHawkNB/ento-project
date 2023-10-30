@@ -5,6 +5,11 @@
     font-family: Inter, Calibri;
 }
 
+.error {
+    color: red;
+    font-size: small;
+}
+
 /* Button Layout Styles */
 .btn-lay {
     padding: 10px 25px;
