@@ -9,7 +9,7 @@
                 <?php $this->view('includes/sidebar') ?>
             </section>
             <section class="cols-10">
-                <h1>chat page</h1>
+                <h1>complaints page</h1>
                 </section>
         </main>
     </div>
