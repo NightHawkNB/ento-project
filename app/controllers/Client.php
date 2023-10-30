@@ -75,10 +75,6 @@ class Client extends Controller {
       $this->view('client/res-other');
   }
 
-  public function buy_tickets(){
-      $this->view('client/buy-tickets');
-  }
-
   public function  complaints(){
       $complaint = new Complaint();
       $data['complaints'] = $complaint->where(['user_id' => Auth::getUser_id()]);
