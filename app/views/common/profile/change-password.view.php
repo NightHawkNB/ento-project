@@ -10,7 +10,7 @@
             </section>
             <section class="cols-10 profile bg-primary dis-flex al-it-st">
                 <div class="profile-container-2 change-pass">
-                    <form method="post">
+                    <form method="post" class="wid-50">
 
                         <h2 style="color: black;">Change your Password</h2>
 
@@ -26,7 +26,10 @@
                             <label for="inputPasswordNew2">Verify password</label>
                             <input type="password" class="form-control" id="inputPasswordNew2">
                         </div>
-                        <button type="submit" class="btn-lay-2 btn-anima-hover">Save changes</button>
+
+                        <div class="wid-100 dis-flex ju-co-ce">
+                            <button type="submit" class="btn-lay-2 btn-anima-hover">Save changes</button>
+                        </div>
                     </form>
                 </div>
             </section>

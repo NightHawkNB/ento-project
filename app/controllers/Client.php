@@ -27,16 +27,19 @@ class Client extends Controller {
 
   public function event($page = null) {
 
-      $db = new Database();
-      $data['ads'] = $db->query("SELECT * FROM ads");
+      $ads = new Ad();
+      $data['ads'] = $ads->where(['pending' => 0]);
 
       if($page == null) $this->view('common/events/create_event');
       else if($page == 2) $this->view('common/events/create_event_2');
       else if($page == 3) {
+          $data['ads'] = $ads->where(['pending' => 0, 'category' => 'venue']);
           $this->view('common/events/create_event_3', $data);
       } else if($page == 4) {
+          $data['ads'] = $ads->where(['pending' => 0, 'category' => 'band']);
           $this->view('common/events/create_event_4', $data);
       } else if($page == 5) {
+          $data['ads'] = $ads->where(['pending' => 0, 'category' => 'singer']);
           $this->view('common/events/create_event_5', $data);
       } else if($page == 'confirm') {
           $this->view('common/events/create_event_confirm');
@@ -62,5 +65,27 @@ class Client extends Controller {
           $data['events'][0]->ticketing_plan = $tickets;
           $this->view('common/events/manage/details', $data);
       }
+  }
+
+  public function event_reservations(){
+      $this->view('client/res-event');
+  }
+
+  public function other_reservations(){
+      $this->view('client/res-other');
+  }
+
+  public function  complaints(){
+      $complaint = new Complaint();
+      $data['complaints'] = $complaint->where(['user_id' => Auth::getUser_id()]);
+      $this->view('pages/complaints/list_complaint', $data);
+  }
+
+  public function settings(){
+      $this->view('client/settings');
+  }
+
+  public function chat(){
+      $this->view('client/chat');
   }
 }

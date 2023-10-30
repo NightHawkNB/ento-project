@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 29, 2023 at 04:39 AM
+-- Generation Time: Oct 30, 2023 at 09:49 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -45,8 +45,10 @@ CREATE TABLE `ads` (
   `ad_id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `title` varchar(45) DEFAULT NULL,
+  `category` varchar(128) NOT NULL,
   `details` varchar(256) DEFAULT NULL,
   `image` varchar(256) DEFAULT NULL,
+  `pending` tinyint(1) NOT NULL DEFAULT 1,
   `views` int(11) DEFAULT NULL,
   `rates` int(11) DEFAULT NULL,
   `datetime` timestamp NULL DEFAULT current_timestamp()
@@ -56,10 +58,12 @@ CREATE TABLE `ads` (
 -- Dumping data for table `ads`
 --
 
-INSERT INTO `ads` (`ad_id`, `user_id`, `title`, `details`, `image`, `views`, `rates`, `datetime`) VALUES
-(9, 37, 'Samantha', 'Details related to the services provided by the singer', 'user_01.jpg', 120, 100000, '2023-10-01 13:11:27'),
-(11, 44, 'Charley', 'Details', 'user_03.jpg', 152, 70000, '2023-10-26 07:56:20'),
-(12, 44, 'Singer2', 'Details Details', 'user_04.jpg', 12, 45000, '2023-10-28 15:08:17');
+INSERT INTO `ads` (`ad_id`, `user_id`, `title`, `category`, `details`, `image`, `pending`, `views`, `rates`, `datetime`) VALUES
+(9, 37, 'Samantha', 'singer', 'Details related to the services provided by the singer', 'user_01.jpg', 0, 120, 100000, '2023-10-01 13:11:27'),
+(11, 44, 'Charley', 'singer', 'Details', 'user_03.jpg', 0, 152, 70000, '2023-10-26 07:56:20'),
+(12, 44, 'Vivian', 'singer', 'Details Details', 'user_04.jpg', 1, 12, 45000, '2023-10-28 15:08:17'),
+(17, 44, 'Ad-test-01', 'singer', 'Details - testing 01', 'general.png', 1, NULL, 5000, '2023-10-29 14:06:25'),
+(18, 41, 'Chakablast', 'band', 'Band Advertisement', 'general.png', 0, NULL, 50000, '2023-10-29 16:36:18');
 
 -- --------------------------------------------------------
 
@@ -104,7 +108,9 @@ CREATE TABLE `complaints` (
 
 INSERT INTO `complaints` (`comp_id`, `details`, `files`, `date_time`, `user_id`, `cust_id`) VALUES
 (3, 'Complain 01', 'File 03', '2023-10-02 06:05:38', 37, NULL),
-(4, 'Complain 02', 'file 02', '2023-10-02 06:07:03', 37, NULL);
+(4, 'Complain 02', 'file 02', '2023-10-02 06:07:03', 37, NULL),
+(7, 'ds', '4', '2023-10-29 05:25:06', 40, NULL),
+(8, 'Complaints', 'File - 01', '2023-10-30 08:42:07', 44, NULL);
 
 -- --------------------------------------------------------
 
@@ -125,6 +131,7 @@ CREATE TABLE `customer_care` (
 
 CREATE TABLE `event` (
   `event_id` int(11) NOT NULL,
+  `pending` int(11) NOT NULL DEFAULT 1,
   `name` varchar(45) NOT NULL,
   `details` varchar(45) DEFAULT NULL,
   `ticketing_plan` varchar(45) NOT NULL,
@@ -142,8 +149,8 @@ CREATE TABLE `event` (
 -- Dumping data for table `event`
 --
 
-INSERT INTO `event` (`event_id`, `name`, `details`, `ticketing_plan`, `venue_id`, `band_id`, `user_id`, `venueO_id`, `DateTime`, `image`, `district`, `s_image`) VALUES
-(2, 'Yaathra', 'Musical Event', '5000*20/3000*30/2000*50', 2, 1, 2, NULL, '2023-10-31 15:00:00', 'event-01.jpeg', 'Gampaha', NULL);
+INSERT INTO `event` (`event_id`, `pending`, `name`, `details`, `ticketing_plan`, `venue_id`, `band_id`, `user_id`, `venueO_id`, `DateTime`, `image`, `district`, `s_image`) VALUES
+(2, 0, 'Yaathra', 'Musical Event', '5000*20/3000*30/2000*50', 2, 1, 2, NULL, '2023-10-31 15:00:00', 'event-01.jpeg', 'Gampaha', NULL);
 
 -- --------------------------------------------------------
 
@@ -335,15 +342,16 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `fname`, `lname`, `address1`, `address2`, `city`, `district`, `password`, `email`, `nic_num`, `contact_num`, `user_type`, `image`) VALUES
-(37, 'charllotte', 'brown', 'Colombo', '10', 'Galle', 'District', '$2y$10$3d5Ysv6/yADqn9uyj8Sb9.McnVEv1ils1XBoQT16ceTOWauzdRbdS', 'cha@ento.com', NULL, '0718456654', 'singer', NULL),
-(38, 'Chamath', 'Kalhara', 'Address01', 'Address02', 'City', 'District', '$2y$10$s.y0AIpXMs4NWxS8zc5o2.xGEGb.ApY/3Vop058YdIHxAdJ11wNlG', 'client@ento.com', NULL, '11111111', 'client', ''),
-(40, 'admin', '01', 'AD1', 'AD2', 'CT', 'DT', '$2y$10$Yaq0hYCdITLX7CGUYrDiu.v2sO7aUf79mgZmLqJT7CY013YQkWnXS', 'admin1@ento.com', NULL, '0744587584', 'admin', NULL),
-(41, 'band', '01', '5', '6', '4', '5', '$2y$10$4SbR6UUaBibEYOLWTpfRXOeZF8Qy9azix2AYaK.5cLeJ5NY5TLojW', 'band1@ento.com', NULL, '4', 'band', NULL),
-(42, 'band', '02', '6', '4', '5', '5', '$2y$10$YAhBfZBSV5s46CnpUgIA6uNz9nlvnAA8z3JQGNcHSZe2mFTgGk172', 'band2@ento.com', NULL, '2', 'band', NULL),
-(43, 'venueM', '01', '5', '5', '5', '5', '$2y$10$RypdRiBpyOyVS7pwrE5Zp.U8enFbvN1bF.fH4NmqgtoGCtZPnxfuu', 'venueM1@ento.com', NULL, '5', 'venuemanager', NULL),
-(44, 'singer', '02', 'Corrupted Fort', 'Deadland', ' Minuwangoda', 'Gampaha', '$2y$10$VYwqELysomfvQ7KnpFdJjO213El1HOsJ7wx/3CgBFKCYDtGIe7irK', 'singer2@ento.com', NULL, '0715888588', 'singer', 'user_02.jpg'),
-(45, 'singer', '03', '1', '1', '1', '1', '$2y$10$.al4y7cu4oRqadZukGqNI.M793uazXv0xKmdghLHVURqsE0UX.Oqe', 'singer3@ento.com', NULL, '1', 'singer', NULL),
-(46, 'venueO', '01', '2', '2', '2', '2', '$2y$10$pN6TUr5kl/wfWffLRqMVGuPqkqorI0auGAbVot80SR6RCYvbkCvFi', 'venueO1@ento.com', NULL, '2', 'venueoperator', NULL);
+(37, 'charllotte', 'brown', 'Colombo', '10', 'Galle', 'District', '$2y$10$3d5Ysv6/yADqn9uyj8Sb9.McnVEv1ils1XBoQT16ceTOWauzdRbdS', 'cha@ento.com', NULL, '0718456654', 'singer', 'general.png'),
+(38, 'Chamath', 'Kalhara', 'Address01', 'Address02', 'City', 'District', '$2y$10$s.y0AIpXMs4NWxS8zc5o2.xGEGb.ApY/3Vop058YdIHxAdJ11wNlG', 'client@ento.com', NULL, '11111111', 'client', 'general.png'),
+(40, 'admin', '01', 'AD1', 'AD2', 'CT', 'DT', '$2y$10$Yaq0hYCdITLX7CGUYrDiu.v2sO7aUf79mgZmLqJT7CY013YQkWnXS', 'admin1@ento.com', NULL, '0744587584', 'admin', 'general.png'),
+(41, 'band', '01', '5', '6', '4', '5', '$2y$10$4SbR6UUaBibEYOLWTpfRXOeZF8Qy9azix2AYaK.5cLeJ5NY5TLojW', 'band1@ento.com', NULL, '4', 'band', 'general.png'),
+(42, 'band', '02', '6', '4', '5', '5', '$2y$10$YAhBfZBSV5s46CnpUgIA6uNz9nlvnAA8z3JQGNcHSZe2mFTgGk172', 'band2@ento.com', NULL, '2', 'band', 'general.png'),
+(43, 'venueM', '01', '5', '5', '5', '5', '$2y$10$RypdRiBpyOyVS7pwrE5Zp.U8enFbvN1bF.fH4NmqgtoGCtZPnxfuu', 'venueM1@ento.com', NULL, '5', 'venuemanager', 'general.png'),
+(44, 'singer', '02', 'Corrupted Fort', 'Deadland', ' Minuwangoda', 'Gampaha', '$2y$10$VYwqELysomfvQ7KnpFdJjO213El1HOsJ7wx/3CgBFKCYDtGIe7irK', 'singer2@ento.com', NULL, '0715888588', 'singer', 'general.png'),
+(45, 'singer', '03', '1', '1', '1', '1', '$2y$10$.al4y7cu4oRqadZukGqNI.M793uazXv0xKmdghLHVURqsE0UX.Oqe', 'singer3@ento.com', NULL, '1', 'singer', 'general.png'),
+(46, 'venueO', '01', '2', '2', '2', '2', '$2y$10$pN6TUr5kl/wfWffLRqMVGuPqkqorI0auGAbVot80SR6RCYvbkCvFi', 'venueO1@ento.com', NULL, '2', 'venueoperator', 'general.png'),
+(48, 'cca', '01', '1', '1', '1', '1', '$2y$10$TBnI1tA8WClwpesXdZp1u.iWJwwCjGkTyPmOQ53xY3LylCC9srbxi', 'cca1@ento.com', NULL, '1', 'cca', 'general.png');
 
 -- --------------------------------------------------------
 
@@ -622,7 +630,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `ads`
 --
 ALTER TABLE `ads`
-  MODIFY `ad_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `ad_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `band`
@@ -634,7 +642,7 @@ ALTER TABLE `band`
 -- AUTO_INCREMENT for table `complaints`
 --
 ALTER TABLE `complaints`
-  MODIFY `comp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `comp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `customer_care`
@@ -700,7 +708,7 @@ ALTER TABLE `ticket`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `uservreq`

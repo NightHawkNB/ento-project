@@ -32,29 +32,39 @@ Class Admin extends Controller{
 
             $data['users'] = $user->where(['user_type'=>'cca']);
 
-            $this->view('admin/ccaaccounts', $data);
+            $this->view('admin/useraccounts', $data);
         } else if ($method == 'admin'){
             $user = new User();
 
             $data['users'] = $user->where(['user_type'=>'admin']);
 
-            $this->view('admin/ccaaccounts', $data);
-        }else if ($method == 'sp'){
-            $this->view('admin/spaccounts');
+            $this->view('admin/useraccounts', $data);
+        }else if ($method == 'singer'){
+            $user = new User();
+
+            $data['users'] = $user->where(['user_type'=>'singer']);
+
+            $this->view('admin/useraccounts', $data);
         }else if ($method == 'client'){
-            $this->view('admin/clientaccounts');
+            $user = new User();
+
+            $data['users'] = $user->where(['user_type'=>'client']);
+
+            $this->view('admin/useraccounts', $data);
         }else if ($method == 'add-user'){
 
             if($_SERVER['REQUEST_METHOD'] == "POST") {
                 $user = new User();
+                $_POST['terms']=1;
+
                 if($user->validate($_POST)) {
     
                     $_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
     
                     $user->insert($_POST);
     
-                    message("Your profile was created successfully. Please Login");
-                    redirect('login');
+                    message(msg:"Account created succesfully");
+                    redirect(link:"admin/usermng/".strtolower($_POST['user_type']));
                 } else {
                     $data['errors'] = $user->errors;
                 }
