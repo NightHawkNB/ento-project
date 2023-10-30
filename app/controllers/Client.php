@@ -66,4 +66,30 @@ class Client extends Controller {
           $this->view('common/events/manage/details', $data);
       }
   }
+
+  public function event_reservations(){
+      $this->view('client/res-event');
+  }
+
+  public function other_reservations(){
+      $this->view('client/res-other');
+  }
+
+  public function buy_tickets(){
+      $this->view('client/buy-tickets');
+  }
+
+  public function  complaints(){
+      $complaint = new Complaint();
+      $data['complaints'] = $complaint->where(['user_id' => Auth::getUser_id()]);
+      $this->view('pages/complains/list_complain', $data);
+  }
+
+  public function settings(){
+      $this->view('client/settings');
+  }
+
+  public function chat(){
+      $this->view('client/chat');
+  }
 }
