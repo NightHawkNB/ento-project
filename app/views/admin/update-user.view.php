@@ -75,6 +75,7 @@
                                     <option value="band">Band</option>
                                     <option value="venuem">Venue Manager</option>
                                     <option value="cca">CCA</option>
+                                    <option value="admin">Admin</option>
                                 </select>
                                 <i></i>
                             </div>
