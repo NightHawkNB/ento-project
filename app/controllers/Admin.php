@@ -75,12 +75,9 @@ Class Admin extends Controller{
 
             $this->view('admin/add-user');
         }else if ($method == 'update-user'){
-            show($_POST);
 
             $user = new User();
             $data['user'] = $user->first(['user_id'=>$id]);
-
-            
 
             if($_SERVER['REQUEST_METHOD'] == "POST"){
                 $_POST['terms']=1;

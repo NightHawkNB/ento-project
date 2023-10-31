@@ -12,74 +12,76 @@
             <section class="cols-10 dis-flex">
                 <div class="bg-black-2 mar-10 wid-100 dis-flex-col pad-20 gap-10 bor-rad-5" style="justify-content:stretch; align-items:stretch">
                     
-                <form method="POST" class="pos-abs dis-flex-col al-it-ce gap-20">
+                <form method="POST" class="dis-flex-col al-it-ce gap-20">
                         <h2>Register</h2>
-                        <fieldset>
+                        <fieldset class="wid-60 pad-20 bor-rad-5 dis-flex-col gap-10">
                             <legend>Personal Details</legend>
-                            <div class="dis-flex input-box mar-top-0 gap-20">
-                                <div class="input-box <?= (!empty($errors['fname'])) ? 'error' : '' ?>">
-                                    <input type="text" name="fname" required>
+                            <div class="dis-flex mar-top-0 gap-20">
+                                <div class="dis-flex-col <?= (!empty($errors['fname'])) ? 'error' : '' ?>">
                                     <label for="fname">First Name</label>
+                                    <input type="text" name="fname" class="input" required>
                                     <i></i>
                                 </div>
-                                <div class="input-box <?= (!empty($errors['lname'])) ? 'error' : '' ?>">
-                                    <input type="text" name="lname" required>
+                                <div class="dis-flex-col <?= (!empty($errors['lname'])) ? 'error' : '' ?>">
                                     <label for="lname">Last Name</label>
+                                    <input type="text" name="lname" class="input" required>
                                     <i></i>
                                 </div>
                             </div>
-                            <div class="input-box <?= (!empty($errors['contact_num'])) ? 'error' : '' ?>">
-                                <input type="text" name="contact_num" maxlength="10" required>
+                            <div class="dis-flex-col <?= (!empty($errors['contact_num'])) ? 'error' : '' ?>">
                                 <label for="contact_num">Contact Number</label>
+                                <input type="text" name="contact_num" maxlength="10" class="input" required>
                                 <i></i>
                             </div>
-                            <div class="dis-flex-col input-box gap-20">
+                            <div class="dis-flex-col gap-20">
                                 <div class="dis-flex gap-20 <?= (!empty($errors['address01'])) ? 'error' : '' ?>">
-                                    <div class="input-box">
-                                        <input type="text" name="address1" required>
+                                    <div class="dis-flex-col">
                                         <label for="address1">Address line 01</label>
+                                        <input type="text" name="address1" class="input" required>
                                         <i></i>
                                     </div>
-                                    <div class="input-box <?= (!empty($errors['address2'])) ? 'error' : '' ?>">
-                                        <input type="text" name="address2" required>
+                                    <div class="dis-flex-col <?= (!empty($errors['address2'])) ? 'error' : '' ?>">
                                         <label for="address2">Address line 02</label>
+                                        <input type="text" name="address2" class="input" required>
                                         <i></i>
                                     </div>
                                 </div>
                                 <div class="dis-flex gap-20">
-                                    <div class="input-box <?= (!empty($errors['city'])) ? 'error' : '' ?>">
-                                        <input type="text" name="city" required>
+                                    <div class="dis-flex-col <?= (!empty($errors['city'])) ? 'error' : '' ?>">
                                         <label for="city">City</label>
+                                        <input type="text" name="city" class="input" required>
                                         <i></i>
                                     </div>
-                                    <div class="input-box <?= (!empty($errors['district'])) ? 'error' : '' ?>">
-                                        <input type="text" name="district" required>
+                                    <div class="dis-flex-col <?= (!empty($errors['district'])) ? 'error' : '' ?>">
                                         <label for="district">District</label>
+                                        <input type="text" name="district" class="input" required>
                                         <i></i>
                                     </div>
                                 </div>
                             </div>
                         </fieldset>
 
-                        <fieldset>
+                        <fieldset class="wid-60 pad-20 bor-rad-5 dis-flex-col gap-10">
                             <legend>Account Details</legend>
-                            <div class="input-box <?= (!empty($errors['email'])) ? 'error' : '' ?>">
-                                <input type="email" name="email" required>
+                            <div class="dis-flex-col <?= (!empty($errors['email'])) ? 'error' : '' ?>">
                                 <label for="email">Email</label>
+                                <input type="email" name="email" class="input" required>
                                 <i></i>
                             </div>
-                            <div class="input-box <?= (!empty($errors['password'])) ? 'error' : '' ?>">
-                                    <input type="password" name="password" required>
+                            <div class="dis-flex gap-20">
+                                <div class="dis-flex-col <?= (!empty($errors['password'])) ? 'error' : '' ?>">
                                     <label for="password">Password</label>
+                                    <input type="password" name="password" class="input" required>
                                     <i></i>
                                 </div>
-                                <div class="input-box <?= (!empty($errors['confirmPass'])) ? 'error' : '' ?>">
-                                    <input type="password" name="confirmPass" required>
+                                <div class="dis-flex-col <?= (!empty($errors['confirmPass'])) ? 'error' : '' ?>">
                                     <label for="confirmPass">Confirm Password</label>
+                                    <input type="password" name="confirmPass" class="input" required>
                                     <i></i>
                                 </div>
-                            <div class="input-box <?= (!empty($errors['user_type'])) ? 'error' : '' ?>">
-                                <select value="<?php set_value('user_type') ?>" name="user_type" id="user_type" onchange="changeForm()">
+                            </div>
+                            <div class="dis-flex ju-co-ce <?= (!empty($errors['user_type'])) ? 'error' : '' ?>">
+                                <select class="input" value="<?php set_value('user_type') ?>" name="user_type" id="user_type">
                                     <option value="" selected disabled>Account Type</option>
                                     <option value="singer">Client</option>
                                     <option value="singer">Singer</option>
@@ -92,7 +94,7 @@
                             </div>
                         </fieldset>
 
-                        <button type="submit">Add user</button>
+                        <button type="submit" class="btn-lay-2 hover-pointer btn-anima-hover">Add user</button>
                     </form>   
                     
                 
