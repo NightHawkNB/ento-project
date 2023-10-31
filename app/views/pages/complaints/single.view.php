@@ -17,6 +17,9 @@
 
             <div class="dis-flex-col gap-10 ju-co-ce al-it-ce pad-20 bor-rad-5 txt-c-black">
                 <a href="<?= ROOT ?>/home/complaint/update_complaint/<?= $comp_id ?>"><button class="btn-lay-2 hover-pointer btn-anima-hover">Update</button></a>
+                <?php if (Auth::is_cca()): ?>
+                    <a href="<?= ROOT ?>/home/complaint/update_complaint/<?= $comp_id ?>"><button class="btn-lay-2 hover-pointer btn-anima-hover">handle</button></a>
+                <?php endif; ?>
                 <a href="<?= ROOT ?>/home/complaint/delete_complaint/<?= $comp_id ?>"><button class="btn-lay-2 hover-pointer btn-anima-hover">Delete</button></a>
             </div>
         </div>
