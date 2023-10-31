@@ -88,4 +88,8 @@ class Client extends Controller {
   public function chat(){
       $this->view('client/chat');
   }
+
+  public function tickets(){
+      $this->view('client/tickets');
+  }
 }
