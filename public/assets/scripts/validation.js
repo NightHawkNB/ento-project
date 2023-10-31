@@ -13,6 +13,19 @@ const clearError = (element) => {
 
 let errors = []
 
+function validation_complaint() {
+    errors = []
+
+    console.log("validation occured - complaints")
+    const details = document.getElementById('details')
+
+    if(details.value === "") {
+        setError(details, "Details cannot be empty")
+        errors.push("title")
+    }
+
+    return errors.length <= 0;
+}
 
 function validation_ad() {
 
@@ -61,9 +74,25 @@ function validation_ad() {
     return errors.length <= 0;
 }
 
-const form = document.getElementById('ad_form')
-form.addEventListener('submit', e => {
-    if(!validation_ad()) {
-        e.preventDefault()
-    }
-})
+
+
+const ad_form = document.getElementById('ad_form')
+
+if(ad_form) {
+    ad_form.addEventListener('submit', e => {
+        if(!validation_ad()) {
+            e.preventDefault()
+        }
+    })
+}
+
+
+const complaint_form = document.getElementById('complaint-form')
+
+if(complaint_form) {
+    complaint_form.addEventListener('submit', e => {
+        if(!validation_complaint()) {
+            e.preventDefault()
+        }
+    })
+}

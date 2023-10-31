@@ -4,8 +4,6 @@
 <div class="main-wrapper">
     <?php $this->view('includes/header') ?>
 
-    <script src="<?= ROOT ?>/assets/scripts/validation.js" defer></script>
-
     <main class="dashboard-main">
         <section class="cols-2 sidebar">
             <?php $this->view('includes/sidebar') ?>
