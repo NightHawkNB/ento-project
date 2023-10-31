@@ -93,7 +93,7 @@
                             </div>
                         </fieldset>
 
-                        <button type="submit">Add New</button>
+                        <button type="submit">Add user</button>
                     </form>   
                     
                 
