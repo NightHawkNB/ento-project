@@ -85,9 +85,8 @@
                                     <option value="singer">Singer</option>
                                     <option value="band">Band</option>
                                     <option value="venuem">Venue Manager</option>
-                                    <option value="cca">Admin</option>
-                                    
-                        
+                                    <option value="admin">Admin</option>
+                                    <option value="cca">Customer Care</option>
                                 </select>
                                 <i></i>
                             </div>

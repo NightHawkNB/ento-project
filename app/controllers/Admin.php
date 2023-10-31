@@ -55,8 +55,10 @@ Class Admin extends Controller{
 
             if($_SERVER['REQUEST_METHOD'] == "POST") {
                 $user = new User();
+                show($_POST);
                 $_POST['terms']=1;
-
+                if($user->validate($_POST)) echo "Valid";
+                else show($user->errors);
                 if($user->validate($_POST)) {
     
                     $_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);

@@ -36,7 +36,7 @@
                 </a>
             <?php endif; ?>
 
-            <?php if(Auth::logged_in() && (Auth::is_singer() || Auth::is_admin() || Auth::is_cca()) && !str_contains($_SERVER['QUERY_STRING'], "home/ads") && !str_contains($_SERVER['QUERY_STRING'], "/ads/all-ads") ): ?>
+            <?php if(Auth::logged_in() && (!Auth::is_client()) && !str_contains($_SERVER['QUERY_STRING'], "home/ads") && !str_contains($_SERVER['QUERY_STRING'], "/ads/all-ads") ): ?>
                 <?php if($pending != 1): ?>
                     <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/ads/promote-ad/<?= $ad_id ?>">
                         <button class="btn-lay-2 hover-pointer btn-anima-hover">Promote</button>

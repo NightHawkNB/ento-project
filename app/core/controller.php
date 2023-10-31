@@ -76,6 +76,10 @@ class Controller {
                 $data['requests'] = $db->query("SELECT * FROM resrequest WHERE req_id = $id");
                 $this->view('common/reservations/req-details-individual', $data['requests']);
             }
+        } else if($method == 'event-list') {
+            $this->view("common/reservations/event-list");
+        } else if($method == 'event-details') {
+            $this->view("common/reservations/event-details");
         } else {
             message("Page not found");
             redirect("$row->user_type/reservations");
