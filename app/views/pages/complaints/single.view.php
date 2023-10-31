@@ -1,4 +1,4 @@
-<a href="#">
+
     <div class="dis-flex wid-100">
         <div class="bg-white txt-c-black pad-10-20 bor-rad-5 wid-100 dis-flex gap-20 al-it-ce ju-co-sb ads sh f-poppins">
             <div class="txt-c-black">
@@ -21,4 +21,3 @@
             </div>
         </div>
     </div>
-</a>
