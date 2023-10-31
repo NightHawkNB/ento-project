@@ -68,19 +68,30 @@
                                 <label for="email">Email</label>
                                 <i></i>
                             </div>
+                            <div class="input-box <?= (!empty($errors['password'])) ? 'error' : '' ?>">
+                                    <input type="password"  name="password" required>
+                                    <label for="password">Password</label>
+                                    <i></i>
+                                </div>
+                                <div class="input-box <?= (!empty($errors['confirmPass'])) ? 'error' : '' ?>">
+                                    <input type="password" name="confirmPass" required>
+                                    <label for="confirmPass">Confirm Password</label>
+                                    <i></i>
+                                </div>
                             <div class="input-box <?= (!empty($errors['user_type'])) ? 'error' : '' ?>">
-                                <select value=<?= $user->user_type ?> name="user_type" id="user_type" onchange="changeForm()">
+                                <select name="user_type" id="user_type" onchange="changeForm()">
                                     <option value="" selected disabled>Account Type</option>
-                                    <option value="singer">Singer</option>
-                                    <option value="band">Band</option>
-                                    <option value="venuem">Venue Manager</option>
-                                    <option value="cca">CCA</option>
+                                    <option <?php if($user->user_type == 'singer') echo "selected" ?> value="singer">Singer</option>
+                                    <option <?php if($user->user_type == 'band') echo "selected" ?> value="band">Band</option>
+                                    <option <?php if($user->user_type == 'venuem') echo "selected" ?> value="venuem">Venue Manager</option>
+                                    <option <?php if($user->user_type == 'cca') echo "selected" ?> value="cca">CCA</option>
+                                    <option <?php if($user->user_type == 'admin') echo "selected" ?> value="admin">Admin</option>
                                 </select>
                                 <i></i>
                             </div>
                         </fieldset>
 
-                        <button type="submit">Add New</button>
+                        <button type="submit">Update user</button>
                     </form>   
                     
                 
