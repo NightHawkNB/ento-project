@@ -136,7 +136,7 @@ class Home extends Controller{
         {
             if(empty($id)) {
                 message("No complaint selected");
-                redirect('home/complaint/list_complaint');
+                redirect('support');
             }
 
             $complain = new Complaint();
@@ -147,7 +147,7 @@ class Home extends Controller{
                 $_POST['comp_id'] = $id;
                 $db->query("UPDATE complaints SET details = :details, files = :files WHERE comp_id = :comp_id", $_POST);
                 message("Complaint Updated Successfully");
-                redirect('home/complaint/list_complaint');
+                redirect('support');
             }
 
 
@@ -162,7 +162,7 @@ class Home extends Controller{
                 $_POST['comp_id'] = $id;
                 $db->query("DELETE FROM complaints WHERE comp_id = :comp_id", $_POST);
                 message("Complaint Deleted Successfully");
-                redirect('home/complaint/list_complaint');
+                redirect('support');
             }
         }
     }
