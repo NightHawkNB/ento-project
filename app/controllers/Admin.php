@@ -84,7 +84,8 @@ Class Admin extends Controller{
 
             if($_SERVER['REQUEST_METHOD'] == "POST"){
                 $_POST['terms']=1;
-
+                if($user->validate($_POST)) echo "valid";
+                else show($user->errors);
                 if($user->validate($_POST)){
                     $_POST['user_id'] = $id;
                     $user->update($id, $_POST);
