@@ -90,7 +90,7 @@
                     </form>
 
                     <div class="wid-100 dis-flex ju-co-ce" style="margin-bottom: 30px">
-                        <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/event/2">
+                        <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/event/3">
                             <span class="btn-lay-2 btn-anima-hover f-space-2 txt-w-normal min-w-150">Next</span>
                         </a>
                     </div>

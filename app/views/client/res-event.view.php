@@ -9,6 +9,24 @@
             width: 100px;
             height: 100px;
         }
+
+        .events > div {
+            padding: 10px 20px;
+            width: 70%;
+        }
+
+        .events div > div {
+            border-radius: 5px;
+        }
+
+        .events div > div:nth-child(1) {
+            margin-bottom: 20px;
+        }
+
+        .events {
+            align-items: center;
+            gap: 100px;
+        }
     </style>
 
     <main class="dashboard-main">
@@ -16,7 +34,7 @@
             <?php $this->view('includes/sidebar') ?>
         </section>
 
-        <section class="dis-flex-col gap-20 pad-20">
+        <section class="dis-flex-col gap-20 pad-20 events">
             <!--        Event 01-->
                 <div class="dis-flex-col gap-10 bg-grey pad-10 bor-rad-5 txt-c-white" style="height: auto">
                     <h2 class="mar-0 al-it-ce" >Event 01 Reservation Details</h2>

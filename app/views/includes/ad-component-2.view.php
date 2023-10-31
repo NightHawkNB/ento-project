@@ -38,6 +38,15 @@
             </div>
         </div>
 
+        <?php if($category == "venue"): ?>
+            <div class="dis-flex-col gap-10">
+                <div>
+                    <p class="txt-w-bold">No. of Seats</p>
+                    <p><?= $details ?></p>
+                </div>
+            </div>
+        <?php endif; ?>
+
         <div class="dis-flex ju-co-ce al-it-ce promotion-parent">
             <div class="promotions txt-ali-rig dis-flex ju-co-ce al-it-ce">
                 <p class="hide"> 30% OFF </p>

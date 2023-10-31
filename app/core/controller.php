@@ -107,7 +107,11 @@ class Controller {
             if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 if($ads->validate($_POST)) {
                     $_POST['user_id'] = Auth::getUser_id();
-                    $_POST['category'] = $user_data->user_type;
+                    if($user_data->user_type == "venuem") {
+                        $_POST['category'] = "venue";
+                    } else {
+                        $_POST['category'] = $user_data->user_type;
+                    }
                     $ads->insert($_POST);
                     message("Ad Creation successful");
                     redirect(strtolower($user_data->user_type)."/ads");

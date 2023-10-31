@@ -119,10 +119,10 @@
                 </form>
 
                 <div class="wid-100 dis-flex ju-co-ce gap-20">
-                    <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/event">
+                    <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/event/5">
                         <span class="btn-lay-2 btn-anima-hover f-space-2 txt-w-normal min-w-150">Back</span>
                     </a>
-                    <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/event/3">
+                    <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/event/confirm">
                         <span class="btn-lay-2 btn-anima-hover f-space-2 txt-w-normal min-w-150">Next</span>
                     </a>
                 </div>

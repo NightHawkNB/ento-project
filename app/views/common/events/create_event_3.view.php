@@ -46,7 +46,7 @@
                 </form>
 
                 <div class="wid-100 dis-flex ju-co-ce al-it-ce gap-20">
-                    <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/event/2">
+                    <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/event">
                         <span class="btn-lay-2 btn-anima-hover f-space-2 txt-w-normal">Back</span>
                     </a>
                     <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/event/4">
