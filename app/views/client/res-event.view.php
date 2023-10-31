@@ -66,6 +66,7 @@
                                     <p>Date:</p>
                                     <P><?php echo $VenueDetails['Date']; ?></P>
                                 </div>
+                                <button class="btn-lay-2 hover-pointer btn-anima-hover">New Reservation</button>
 
                             </div>
                         </div>
