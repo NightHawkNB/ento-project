@@ -145,7 +145,7 @@ class Home extends Controller{
             {
                 $db = new Database();
                 $_POST['comp_id'] = $id;
-                $db->query("UPDATE complaints SET details = :details, files = :files WHERE comp_id = :comp_id", $_POST);
+                $db->query("UPDATE complaints SET details = :details WHERE comp_id = :comp_id", $_POST);
                 message("Complaint Updated Successfully");
                 redirect('support');
             }
