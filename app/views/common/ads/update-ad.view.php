@@ -20,10 +20,10 @@
                     <textarea style="height: 100px; padding: 10px" name="details"><?= set_value('details', $ads->details) ?></textarea>
                 </div>
 
-                <div class="profile-input">
-                    <label for="image">Image</label>
-                    <input type="text" name="image" value="<?= set_value('image', $ads->image) ?>">
-                </div>
+<!--                <div class="profile-input">-->
+<!--                    <label for="image">Image</label>-->
+<!--                    <input type="text" name="image" value="--><?php //= set_value('image', $ads->image) ?><!--">-->
+<!--                </div>-->
 
                 <div class="profile-input">
                     <label for="views">Views</label>

@@ -29,11 +29,11 @@
                     <div class="error"></div>
                 </div>
 
-                <div class="profile-input-2 <?= (!empty($errors['image'])) ? 'error' : '' ?>">
-                    <label for="image">Image</label>
-                    <input type="text" id="image" name="image" value="<?php if(!empty($errors['image'])) echo $errors->image ?>">
-                    <div class="error"></div>
-                </div>
+<!--                <div class="profile-input-2 --><?php //= (!empty($errors['image'])) ? 'error' : '' ?><!--">-->
+<!--                    <label for="image">Image</label>-->
+<!--                    <input type="text" id="image" name="image" value="--><?php //if(!empty($errors['image'])) echo $errors->image ?><!--">-->
+<!--                    <div class="error"></div>-->
+<!--                </div>-->
 
                 <div class="wid-100 dis-flex ju-co-ce">
                     <button type="submit" class="btn-lay-2 btn-anima-hover">Create Ad</button>

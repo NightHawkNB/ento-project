@@ -38,6 +38,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="calander-component wid-100" style="">
                     <div class="calender-header">
                         <p class="current-date"></p>
@@ -45,18 +46,6 @@
                             <span id="prev"><img src="<?= ROOT ?>/assets/images/icons/left-arrow.svg" alt="left-arrow"></span>
                             <span id="next"><img src="<?= ROOT ?>/assets/images/icons/right-arrow.svg" alt="right-arrow"></span>
                         </div>
-                    </div>
-                    <div class="calendar">
-                        <ul class="weeks">
-                            <li>Sun</li>
-                            <li>Mon</li>
-                            <li>Tue</li>
-                            <li>Wed</li>
-                            <li>Thu</li>
-                            <li>Fri</li>
-                            <li>Sat</li>
-                        </ul>
-                        <ul class="days"></ul>
                     </div>
                 </div>
                 <div class="mar-10 pad-10 bg-black-2 txt-c-white">

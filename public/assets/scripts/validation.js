@@ -100,20 +100,15 @@ const ad_form = document.getElementById('ad_form')
 
 if(ad_form) {
     ad_form.addEventListener('submit', e => {
-        if(!validation_ad()) {
-            e.preventDefault()
-        }
+        if(!validation_ad()) e.preventDefault()
     })
 }
-
 
 const complaint_form = document.getElementById('complaint-form')
 
 if(complaint_form) {
     complaint_form.addEventListener('submit', e => {
-        if(!validation_complaint()) {
-            e.preventDefault()
-        }
+        if(!validation_complaint()) e.preventDefault()
     })
 }
 
@@ -121,8 +116,6 @@ const assist_form = document.getElementById('assist-form')
 
 if(assist_form) {
     assist_form.addEventListener('submit', e => {
-        if(!validation_assists()) {
-            e.preventDefault()
-        }
+        if(!validation_assists()) e.preventDefault()
     })
 }
