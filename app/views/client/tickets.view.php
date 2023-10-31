@@ -16,7 +16,6 @@
                         <?php
                         // Example ticket details
                         $ticketDetails = [
-                            'QRCode' => 'https://ekimmobilier.com/images/qrcode-immobilier.png',
                             'Name' => 'KUWENI',
                             'SerialNumber' => '123456789',
                             'Date' => '2023-11-15',
@@ -24,7 +23,7 @@
                             'Price' => 'RS.5000'
                         ];
                         ?>
-                        <img  src="<?php echo $ticketDetails['QRCode']; ?>" alt="QR Code">
+                        <img  src="<?= ROOT ?>/assets/images/QR/QR.png" alt="QR Code">
                         <div class="txt-c-black">
                             <P><?php echo $ticketDetails['Name']; ?></P>
                         </div>
