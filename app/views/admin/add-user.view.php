@@ -81,16 +81,18 @@
                             <div class="input-box <?= (!empty($errors['user_type'])) ? 'error' : '' ?>">
                                 <select value="<?php set_value('user_type') ?>" name="user_type" id="user_type" onchange="changeForm()">
                                     <option value="" selected disabled>Account Type</option>
+                                    <option value="singer">Client</option>
                                     <option value="singer">Singer</option>
                                     <option value="band">Band</option>
                                     <option value="venuem">Venue Manager</option>
-                                    <option value="cca">CCA</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="cca">Customer Care</option>
                                 </select>
                                 <i></i>
                             </div>
                         </fieldset>
 
-                        <button type="submit">Add New</button>
+                        <button type="submit">Add user</button>
                     </form>   
                     
                 

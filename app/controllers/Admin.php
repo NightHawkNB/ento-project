@@ -55,8 +55,10 @@ Class Admin extends Controller{
 
             if($_SERVER['REQUEST_METHOD'] == "POST") {
                 $user = new User();
+                show($_POST);
                 $_POST['terms']=1;
-
+                if($user->validate($_POST)) echo "Valid";
+                else show($user->errors);
                 if($user->validate($_POST)) {
     
                     $_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
@@ -78,12 +80,19 @@ Class Admin extends Controller{
             $user = new User();
             $data['user'] = $user->first(['user_id'=>$id]);
 
+            
+
             if($_SERVER['REQUEST_METHOD'] == "POST"){
-                
-                $_POST['user_id'] = $id;
-                $user->update($id, $_POST);
-                message("User Account Updated Successfully");
-                redirect('admin/usermng');
+                $_POST['terms']=1;
+
+                if($user->validate($_POST)){
+                    $_POST['user_id'] = $id;
+                    $user->update($id, $_POST);
+                    message("User Account Updated Successfully");
+                    redirect('admin/usermng');
+                }
+
+
         
             }
 

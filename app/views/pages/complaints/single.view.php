@@ -1,5 +1,5 @@
 <a href="#">
-    <div class="dis-flex wid-100 bg-white">
+    <div class="dis-flex wid-100">
         <div class="bg-white txt-c-black pad-10-20 bor-rad-5 wid-100 dis-flex gap-20 al-it-ce ju-co-sb ads sh f-poppins">
             <div class="txt-c-black">
                 <h4>Details:</h4>
@@ -15,7 +15,7 @@
                 <p><?= $date_time ?></p>
             </div>
 
-            <div class="dis-flex-col gap-10 ju-co-ce al-it-ce pad-20 sh bor-rad-5 bg-lightgray txt-c-black">
+            <div class="dis-flex-col gap-10 ju-co-ce al-it-ce pad-20 bor-rad-5 txt-c-black">
                 <a href="<?= ROOT ?>/home/complaint/update_complaint/<?= $comp_id ?>"><button class="btn-lay-2 hover-pointer btn-anima-hover">Update</button></a>
                 <a href="<?= ROOT ?>/home/complaint/delete_complaint/<?= $comp_id ?>"><button class="btn-lay-2 hover-pointer btn-anima-hover">Delete</button></a>
             </div>

@@ -119,7 +119,7 @@ class Home extends Controller{
                 $complain = new Complaint();
                 $complain->insert($_POST);
                 message("Complaint Created Successfully");
-                redirect('home');
+                redirect('support');
             }
 
             $this->view('pages/complaints/create_complaint');

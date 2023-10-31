@@ -50,6 +50,24 @@ class Auth {
         else return false;
     }
 
+    public static function is_venuem(): bool
+    {
+        if(!empty($_SESSION['USER_DATA'])) {
+            if($_SESSION['USER_DATA']->user_type == 'venuem') return true;
+            else return false;
+        }
+        else return false;
+    }
+
+    public static function is_venueo(): bool
+    {
+        if(!empty($_SESSION['USER_DATA'])) {
+            if($_SESSION['USER_DATA']->user_type == 'venueo') return true;
+            else return false;
+        }
+        else return false;
+    }
+
     public static function is_client() : bool
     {
         if(!empty($_SESSION['USER_DATA'])) {

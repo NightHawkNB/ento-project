@@ -38,7 +38,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="calander-component">
+                <div class="calander-component wid-100" style="">
                     <div class="calender-header">
                         <p class="current-date"></p>
                         <div class="icons">
