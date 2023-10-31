@@ -115,6 +115,7 @@ class Model extends Database{
 
         //* Trim removes characters from the end and the beginning of a string
         $query = trim($query, "&& ");
+
         $query .= " ORDER BY user_id DESC LIMIT 1";
         $result = $this->query($query, $data);
 

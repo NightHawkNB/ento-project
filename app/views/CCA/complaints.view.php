@@ -10,7 +10,17 @@
             </section>
             <section class="cols-10">
                 <h1>complaints page</h1>
-                </section>
+                <?php
+                if(!empty($complaints)) {
+                    foreach ($complaints as $complaint) {
+                        $this->view('pages/complaints/single', (array)$complaint);
+                    }
+                } else {
+                    echo "No complaints to show";
+                }
+                ?>
+                <p><?php show($complaints) ?></p>
+            </section>
         </main>
     </div>
 </body>
