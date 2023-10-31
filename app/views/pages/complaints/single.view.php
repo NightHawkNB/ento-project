@@ -14,11 +14,16 @@
                 <p class="txt-w-bold">Date and Time</p>
                 <p><?= $date_time ?></p>
             </div>
-
+            
             <div class="dis-flex-col gap-10 ju-co-ce al-it-ce pad-20 bor-rad-5 txt-c-black">
+            <?php if (Auth::is_cca()): ?>
+                    <a href="#"><button class="btn-lay-2 hover-pointer btn-anima-hover">handle</button></a>
+                <?php endif; ?>
+                <?php if (!Auth::is_cca()): ?>
                 <a href="<?= ROOT ?>/home/complaint/update_complaint/<?= $comp_id ?>"><button class="btn-lay-2 hover-pointer btn-anima-hover">Update</button></a>
+                <?php endif; ?>
                 <?php if (Auth::is_cca()): ?>
-                    <a href="<?= ROOT ?>/home/complaint/update_complaint/<?= $comp_id ?>"><button class="btn-lay-2 hover-pointer btn-anima-hover">handle</button></a>
+                    <a href="<?= ROOT ?>/cca/request_assistance/<?= $comp_id ?>"><button class="btn-lay-2 hover-pointer btn-anima-hover">assist request</button></a>
                 <?php endif; ?>
                 <a href="<?= ROOT ?>/home/complaint/delete_complaint/<?= $comp_id ?>"><button class="btn-lay-2 hover-pointer btn-anima-hover">Delete</button></a>
             </div>

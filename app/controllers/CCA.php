@@ -32,4 +32,12 @@ class CCA extends Controller{
     public function admanage(){
         $this->view("CCA/admanage");
     }
+    public function request_assistance($id = null){
+        $req = new Comp_assist();
+        $req->insert(['comp_id' => $id]);
+
+        message("Assistance Request Created");
+        redirect("cca/complaints");
+        
+    } 
 }
