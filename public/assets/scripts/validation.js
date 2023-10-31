@@ -21,7 +21,7 @@ function validation_complaint() {
 
     if(details.value === "") {
         setError(details, "Details cannot be empty")
-        errors.push("title")
+        errors.push("details")
     }
 
     return errors.length <= 0;
@@ -74,6 +74,26 @@ function validation_ad() {
     return errors.length <= 0;
 }
 
+function validation_assists() {
+    errors = []
+
+    console.log("validation occured - Assistance Requests")
+    const comment = document.getElementById('comment')
+    console.log(comment.value);
+
+    if(comment.value === "" ) {
+        setError(comment, "Comments cannot be empty")
+        errors.push("comment")
+    }
+
+    if(comment.value.length < 5 ) {
+        setError(comment, "Comments should be longer than 5 characters")
+        errors.push("comment")
+    }
+
+    return errors.length <= 0;
+}
+
 
 
 const ad_form = document.getElementById('ad_form')
@@ -92,6 +112,16 @@ const complaint_form = document.getElementById('complaint-form')
 if(complaint_form) {
     complaint_form.addEventListener('submit', e => {
         if(!validation_complaint()) {
+            e.preventDefault()
+        }
+    })
+}
+
+const assist_form = document.getElementById('assist-form')
+
+if(assist_form) {
+    assist_form.addEventListener('submit', e => {
+        if(!validation_assists()) {
             e.preventDefault()
         }
     })
