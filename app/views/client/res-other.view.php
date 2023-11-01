@@ -27,7 +27,7 @@
                                 $VenueDetails = [
                                     'Name' => 'Nelum Pokuna',
                                     'Date' => '2023-11-15',
-                                    'State' => 'Denied'
+                                    'State' => 'Pending'
                                 ];
                                 ?>
                                 <img  src="<?= ROOT ?>/assets/images/venues/venue1.png" alt="venue pic">
@@ -35,7 +35,7 @@
                                     <p>Reserve venue:</p>
                                     <P><?php echo $VenueDetails['Name']; ?></P>
                                 </div>
-                                <div class="txt-c-red">
+                                <div class="txt-c-lightgreen">
                                     <p class="txt-c-black">State:</p>
                                     <P><?php echo $VenueDetails['State']; ?></P>
                                 </div>
