@@ -30,7 +30,6 @@
         </section>
     </main>
 
-    <?php $this->view('includes/footer') ?>
 </div>
 </body>
 </html>

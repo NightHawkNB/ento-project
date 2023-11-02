@@ -4,6 +4,7 @@
 @import "../fonts/mooli.css";
 
 /* CSS FILES */
+@import "style.css";
 @import "common.css";
 @import "grid.css";
 @import "navbar.css";

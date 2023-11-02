@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+.sidebar{
+  padding: 10px;
+  height: 100vh;
+  width: 56px;
+  background-color: var(--indigo-2);
+  transition: all .5s ease;
+  display: flex;
+  flex-direction: column;
+  z-index: 0;
+  position: sticky;
+  top: 0;
+}
+
+.sidebar.open{
+  width: 200px;
+}
+
+.sidebar .nav-list{
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 2;
+}
+
+.sidebar li{
+  list-style: none;
+}
+
+.sidebar li a{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: all .5s ease;
+  z-index: 12;
+  background-color: transparent;
+}
+
+.sidebar li a span{
+  color: white;
+  margin-left: 10px;
+  font-size: 15px;
+  font-weight: 400;
+  white-space: nowrap;
+  pointer-events: auto;
+  transition: all 0.4s ease;
+  opacity: 0;
+}
+
+.sidebar li a:hover span,
+.sidebar li a:hover svg{
+  transition: all 0.5s ease;
+  color:var(--indigo-2)
+}
+
+.sidebar li a:hover {
+  background-color: white;
+}
+
+.sidebar.open li a span{
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sidebar li svg{
+  padding: 4px;
+  height: 35px;
+  min-width: 35px;
+  line-height: 35px;
+  font-size: 18px;
+  border-radius: 5px;
+}

@@ -30,7 +30,7 @@ class Client extends Controller {
       $ads = new Ad();
       $data['ads'] = $ads->where(['pending' => 0]);
 
-      if($page == null) $this->view('common/events/create_event');
+      if($page == "create-event") $this->view('common/events/create_event');
       else if($page == 2) $this->view('common/events/create_event_2');
       else if($page == 3) {
           $data['ads'] = $ads->where(['pending' => 0, 'category' => 'venue']);
@@ -46,6 +46,8 @@ class Client extends Controller {
       } else if($page == 'confirm-check') {
           message("Event Created");
           redirect('client/event');
+      } else if($page == null) {
+          redirect('client/manage');
       } else {
           message('No such page exists');
           $this->view('common/events/create_event');

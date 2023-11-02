@@ -13,8 +13,8 @@
                 <div class="profile-container-2">
                     <form method="post" class="wid-50 dis-flex-col al-it-ce ju-co-ce">
                         <div class="profile-input" style="width: fit-content">
-                            <label class="bg-lightgray dis-flex gap-20 fill-white pad-10 bor-rad-5 hover-pointer">
-                                <p>User Profile</p>
+                            <label for="file">User Profile</label>
+                            <label style="max-width: fit-content" class="bg-indigo-6 dis-flex gap-20 fill-white pad-10 bor-rad-5 hover-pointer">
                                 <svg xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M246.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 109.3V320c0 17.7 14.3 32 32 32s32-14.3 32-32V109.3l73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32v64c0 53 43 96 96 96H352c53 0 96-43 96-96V352c0-17.7-14.3-32-32-32s-32 14.3-32 32v64c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V352z"/></svg>
                                 <input type="file" name="image" style="display: none">
                             </label>
