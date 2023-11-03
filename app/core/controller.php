@@ -97,10 +97,10 @@ class Controller {
         $data['ads'] = [];
 
         if (empty($method)) {
-            $data['ads'] = $ads->where(['pending' => 0, 'user_id' => $user_data->user_id]);
+            $data['ads'] = $ads->where(['pending' => 0, 'deleted' => 0, 'user_id' => $user_data->user_id]);
             $this->view('common/ads/your-ads', $data);
         } else if ($method == 'all-ads') {
-            $data['ads'] = $ads->where(['pending' => 0]);
+            $data['ads'] = $ads->where(['pending' => 0, 'deleted' => 0]);
             $this->view('common/ads/all-ads', $data);
         } else if ($method == 'create-ad') {
 
@@ -112,6 +112,14 @@ class Controller {
                     } else {
                         $_POST['category'] = $user_data->user_type;
                     }
+
+                    // Code for inserting data to the ad_singer table
+                    // Insert data to ad and ad_singer table separately
+                    if($_POST['category'] == "singer") {
+                        $ad_singer = new Ad_singer();
+                        $ad_singer->insert($_POST);
+                    }
+
                     $ads->insert($_POST);
                     message("Ad Creation successful");
                     redirect(strtolower($user_data->user_type)."/ads");
@@ -160,13 +168,13 @@ class Controller {
                     redirect(strtolower($user_data->user_type)."/ads");
                 }
 
-                $ads->query("DELETE FROM ads WHERE ad_id = $id");
+                $ads->update($id, ['ad_id' => $id, 'deleted' => 1]);
                 message("Deleted successfully");
                 redirect(strtolower($user_data->user_type)."/ads");
             }
 
         } else if($method == "pending") {
-            $data['ads'] = $ads->where(['pending' => 1, 'user_id' => $user_data->user_id]);
+            $data['ads'] = $ads->where(['pending' => 1, 'deleted' => 0, 'user_id' => $user_data->user_id]);
             $this->view("common/ads/pending", $data);
         } else {
             message("Page not found");

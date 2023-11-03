@@ -19,7 +19,7 @@ class Login extends Controller{
                     Auth::authenticate($row);
 
                     message("Logged in Successfully");
-                    redirect('home');
+                    redirect("$row->user_type");
                 } else {
                     $data['errors']['email'] = "Wrong email or password";
                     $data['errors']['password'] = "Wrong email or password";

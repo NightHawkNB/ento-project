@@ -3,13 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 31, 2023 at 10:02 AM
+-- Generation Time: Nov 03, 2023 at 07:51 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
-
-DROP DATABASE ento_db;
-CREATE DATABASE ento_db;
-USE ento_db;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -52,20 +48,33 @@ CREATE TABLE `ads` (
   `pending` tinyint(1) NOT NULL DEFAULT 1,
   `views` int(11) DEFAULT NULL,
   `rates` int(11) DEFAULT NULL,
-  `datetime` timestamp NULL DEFAULT current_timestamp()
+  `datetime` timestamp NULL DEFAULT current_timestamp(),
+  `deleted` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `ads`
 --
 
-INSERT INTO `ads` (`ad_id`, `user_id`, `title`, `category`, `details`, `image`, `pending`, `views`, `rates`, `datetime`) VALUES
-(9, 37, 'Samantha', 'singer', 'Details related to the services provided by the singer', 'user_01.jpg', 0, 120, 100000, '2023-10-01 13:11:27'),
-(11, 44, 'Charley', 'singer', 'Details', 'user_03.jpg', 0, 152, 70000, '2023-10-26 07:56:20'),
-(12, 44, 'Vivian', 'singer', 'Details Details', 'user_04.jpg', 1, 12, 45000, '2023-10-28 15:08:17'),
-(17, 44, 'Ad-test-01', 'singer', 'Details - testing 01', 'general.png', 1, NULL, 5000, '2023-10-29 14:06:25'),
-(18, 41, 'Chakablast', 'band', 'Band Advertisement', 'general.png', 0, NULL, 50000, '2023-10-29 16:36:18'),
-(21, 58, 'Venue 01', 'venuem', 'Seating 200', 'general.png', 0, NULL, 40000, '2023-10-31 04:34:08');
+INSERT INTO `ads` (`ad_id`, `user_id`, `title`, `category`, `details`, `image`, `pending`, `views`, `rates`, `datetime`, `deleted`) VALUES
+(9, 37, 'Samantha', 'singer', 'Details related to the services provided by the singer', 'user_01.jpg', 0, 120, 100000, '2023-10-01 13:11:27', 0),
+(12, 44, 'Vivian', 'singer', 'Details Details', 'user_04.jpg', 1, 12, 45000, '2023-10-28 15:08:17', 0),
+(18, 41, 'Sunflower Band', 'band', 'Band Advertisement', 'sunflower.jpg', 0, NULL, 50000, '2023-10-29 16:36:18', 0),
+(21, 58, 'Nelum Pokuna', 'venue', 'Seating 200', 'venue_01.jpg', 0, NULL, 40000, '2023-10-31 04:34:08', 0),
+(24, 44, 'ad test', 'singer', 'details', 'general.png', 1, NULL, 5555, '2023-11-01 06:13:48', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ad_singer`
+--
+
+CREATE TABLE `ad_singer` (
+  `ad_id` int(11) NOT NULL,
+  `contact_email` varchar(64) DEFAULT NULL,
+  `contact_num` varchar(10) DEFAULT NULL,
+  `sample_audio` varchar(512) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -102,19 +111,19 @@ CREATE TABLE `complaints` (
   `date_time` timestamp NOT NULL DEFAULT current_timestamp(),
   `user_id` int(11) NOT NULL,
   `cust_id` int(11) DEFAULT NULL,
-  `assist` tinyint(1) DEFAULT 0
+  `status` varchar(20) DEFAULT 'Idle',
+  `deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `complaints`
 --
 
-INSERT INTO `complaints` (`comp_id`, `details`, `files`, `date_time`, `user_id`, `cust_id`, `assist`) VALUES
-(3, 'Complain 01', 'File 03', '2023-10-02 06:05:38', 37, NULL, 0),
-(4, 'Complain 02', 'file 02', '2023-10-02 06:07:03', 37, NULL, 0),
-(7, 'ds', '4', '2023-10-29 05:25:06', 40, NULL, 0),
-(8, 'Complaints', 'File - 01', '2023-10-30 08:42:07', 44, NULL, 0),
-(10, 'Hellow World', 'File_02', '2023-10-31 08:09:18', 38, NULL, 0);
+INSERT INTO `complaints` (`comp_id`, `details`, `files`, `date_time`, `user_id`, `cust_id`, `status`, `deleted`) VALUES
+(8, 'Complaints', 'File - 01', '2023-10-30 08:42:07', 44, NULL, 'Accepted', 0),
+(10, 'Hellow World', 'File_02', '2023-10-31 08:09:18', 38, NULL, 'Accepted', 0),
+(21, 'Something Something\r\n', NULL, '2023-10-31 15:26:53', 48, NULL, 'Idle', 0),
+(22, 'UI not working', NULL, '2023-11-01 03:59:40', 44, NULL, 'Idle', 0);
 
 -- --------------------------------------------------------
 
@@ -125,7 +134,9 @@ INSERT INTO `complaints` (`comp_id`, `details`, `files`, `date_time`, `user_id`,
 CREATE TABLE `complaint_assist` (
   `comp_id` int(11) NOT NULL,
   `date_time` datetime NOT NULL DEFAULT current_timestamp(),
-  `handled` tinyint(1) NOT NULL DEFAULT 0
+  `status` varchar(20) NOT NULL DEFAULT 'Idle',
+  `comment` varchar(512) DEFAULT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -367,7 +378,9 @@ INSERT INTO `user` (`user_id`, `fname`, `lname`, `address1`, `address2`, `city`,
 (45, 'singer', '03', '1', '1', '1', '1', '$2y$10$.al4y7cu4oRqadZukGqNI.M793uazXv0xKmdghLHVURqsE0UX.Oqe', 'singer3@ento.com', NULL, '1', 'singer', 'general.png'),
 (46, 'venueO', '01', '2', '2', '2', '2', '$2y$10$pN6TUr5kl/wfWffLRqMVGuPqkqorI0auGAbVot80SR6RCYvbkCvFi', 'venueO1@ento.com', NULL, '2', 'venueoperator', 'general.png'),
 (48, 'cca', '01', '1', '1', '1', '1', '$2y$10$TBnI1tA8WClwpesXdZp1u.iWJwwCjGkTyPmOQ53xY3LylCC9srbxi', 'cca1@ento.com', NULL, '1', 'cca', 'general.png'),
-(58, 'venue', 'm', 'j', 'j', 'j', 'j', '$2y$10$EBZqpefKzVObk8mtX2MwzuIjzhkQ2T0bPuk77FCNe8N9HztzQIUsu', 'venuem1@ento.com', NULL, 'j', 'venuem', 'general.png');
+(58, 'venue', 'm', 'j', 'j', 'j', 'j', '$2y$10$EBZqpefKzVObk8mtX2MwzuIjzhkQ2T0bPuk77FCNe8N9HztzQIUsu', 'venuem1@ento.com', NULL, 'j', 'venuem', 'general.png'),
+(63, 'a', 'b', '11', '1', '1', '1', '$2y$10$d8FjeU6ypsYdotlWIitkn.obad32KYHAOjZUjpB8jVSJE8TeSR/di', 'A@ENTO.COM', NULL, '1', 'client', NULL),
+(64, 'alila', 'milinda', '345', 'mulleriyawa', 'colombo', 'western', '$2y$10$LvELfmOhnQNtyfbRbZb5b.QY8R5r0.rk4h66hPS3da/S3Vzn3YDy2', 'akila@ento.com', NULL, '0757825509', 'client', NULL);
 
 -- --------------------------------------------------------
 
@@ -474,6 +487,12 @@ ALTER TABLE `admin`
 ALTER TABLE `ads`
   ADD PRIMARY KEY (`ad_id`),
   ADD KEY `fk_user_ad` (`user_id`);
+
+--
+-- Indexes for table `ad_singer`
+--
+ALTER TABLE `ad_singer`
+  ADD PRIMARY KEY (`ad_id`);
 
 --
 -- Indexes for table `band`
@@ -645,7 +664,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `ads`
 --
 ALTER TABLE `ads`
-  MODIFY `ad_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `ad_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `band`
@@ -657,7 +676,7 @@ ALTER TABLE `band`
 -- AUTO_INCREMENT for table `complaints`
 --
 ALTER TABLE `complaints`
-  MODIFY `comp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `comp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `customer_care`
@@ -723,7 +742,7 @@ ALTER TABLE `ticket`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `uservreq`
@@ -772,6 +791,12 @@ ALTER TABLE `ads`
   ADD CONSTRAINT `fk_user_ad` FOREIGN KEY (`user_id`) REFERENCES `serviceprovider` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `ad_singer`
+--
+ALTER TABLE `ad_singer`
+  ADD CONSTRAINT `fk_ads_adSinger` FOREIGN KEY (`ad_id`) REFERENCES `ads` (`ad_id`);
+
+--
 -- Constraints for table `band`
 --
 ALTER TABLE `band`
@@ -783,6 +808,12 @@ ALTER TABLE `band`
 ALTER TABLE `complaints`
   ADD CONSTRAINT `fk_complaint_cust` FOREIGN KEY (`cust_id`) REFERENCES `customer_care` (`cust_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_complaint_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `complaint_assist`
+--
+ALTER TABLE `complaint_assist`
+  ADD CONSTRAINT `complaint_assist_complaints_comp_id_fk` FOREIGN KEY (`comp_id`) REFERENCES `complaints` (`comp_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `customer_care`

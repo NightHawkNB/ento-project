@@ -13,7 +13,8 @@ class Ad extends model {
         'pending',
         'views',
         'rates',
-        'image'
+        'image',
+        'deleted'
     ];
 
     public function validate($data) {
