@@ -7,8 +7,6 @@ class Ad_singer extends model {
 
     protected $allowed_columns = [
         'ad_id',
-        'contact_email',
-        'contact_num',
         'sample_audio'
     ];
 }

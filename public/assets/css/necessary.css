@@ -6,3 +6,35 @@ body {
     color: black;
     background-color: white;
 }
+
+/* START OF STYLES FOR ALL AD COMPONENTS */
+@media screen and (max-width: 700px) {
+    #sub-container > div {
+        width: 100%;
+    }
+
+    #sub-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #sub-container div {
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    #main-container {
+        align-items: center;
+        justify-content: center;
+    }
+
+}
+
+@media screen and (min-width: 700px) {
+    #sub-container {
+        display: flex;
+    }
+
+}
+/* END OF STYLES FOR ALL AD COMPONENTS */

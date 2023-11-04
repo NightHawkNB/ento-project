@@ -34,12 +34,8 @@
         </div>
 
         <div class="dis-flex-col gap-10 flex-1 wid-200px">
-<!--            <p class="txt-w-bold">Sample Audio</p>-->
-            Audio Samples
-<!--            <audio controls>-->
-<!--                 <source src="--><?php //= ROOT ?><!--/assets/audio/sample.mp3" type="audio/mpeg">-->
-<!--                 No audio tag supported-->
-<!--            </audio>-->
+            <p class="txt-w-bold">Seat Count</p>
+            <p><?= $seat_count ?></p>
         </div>
 
         <div class="dis-flex ju-co-ce al-it-ce">

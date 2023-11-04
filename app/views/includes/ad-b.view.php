@@ -1,36 +1,5 @@
 <div class="dis-flex wid-100" id="main-container">
 
-    <style>
-        @media screen and (max-width: 700px) {
-            #sub-container > div {
-                width: 100%;
-            }
-
-            #sub-container {
-                display: flex;
-                flex-direction: column;
-            }
-
-            #sub-container div {
-                justify-content: center;
-                align-items: center;
-                text-align: center;
-            }
-
-            #main-container {
-                align-items: center;
-                justify-content: center;
-            }
-
-        }
-
-        @media screen and (min-width: 700px) {
-            #sub-container {
-                display: flex;
-            }
-        }
-    </style>
-
     <div id="sub-container" class="bg-white bor-rad-5 pad-10-20 wid-100 gap-20 al-it-ce ads sh f-poppins">
         <div class="dis-flex ju-co-ce al-it-ce">
             <img src="<?= ROOT ?>/assets/images/users/<?= $image ?>" class="profile-image-2 profile" alt="user-01">
@@ -42,11 +11,6 @@
             <img src="<?= ROOT ?>/assets/images/stars.png" alt="rating in stars" style="width: 100px; height: auto; margin: 0">
         </div>
 
-        <!--        <div class="flex-1 cols-3 dis-flex-col gap-10">-->
-        <!--            <h4>Details</h4>-->
-        <!--            <p class="flex-1">--><?php //= $details ?><!--</p>-->
-        <!--        </div>-->
-
         <div class="dis-flex-col gap-10 flex-1 wid-200px">
             <div>
                 <p class="txt-w-bold">Rates</p>
@@ -55,6 +19,17 @@
             <div>
                 <p class="txt-w-bold">Posted On</p>
                 <p><?= $datetime ?></p>
+            </div>
+        </div>
+
+        <div class="dis-flex-col gap-10 flex-1 wid-200px">
+            <div>
+                <p class="txt-w-bold">Email</p>
+                <p><?= $contact_email ?></p>
+            </div>
+            <div>
+                <p class="txt-w-bold">Phone</p>
+                <p><?= $contact_num ?></p>
             </div>
         </div>
 

@@ -25,7 +25,7 @@
                     }
 
                     foreach ($ad_venue as $ad) {
-                        $this->view('includes/ad-component', (array)$ad);
+                        $this->view('includes/ad-v', (array)$ad);
                     }
                 ?>
             </div>

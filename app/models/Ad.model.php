@@ -16,7 +16,9 @@ class Ad extends model {
         'views',
         'rates',
         'image',
-        'deleted'
+        'deleted',
+        'contact_email',
+        'contact_num'
     ];
 
     public function validate($data) {
