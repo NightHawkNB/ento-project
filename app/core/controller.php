@@ -126,6 +126,14 @@ class Controller {
                         $ad_singer = new Ad_singer();
 
                         $ad_singer->insert($_POST);
+                    } else if($_POST['category'] == "band") {
+                        $ad_band = new Ad_band();
+
+                        $ad_band->insert($_POST);
+                    } else if($_POST['category'] == "venue") {
+                        $ad_venue = new Ad_venue();
+
+                        $ad_venue->insert($_POST);
                     }
 
                     message("Ad Creation successful");
