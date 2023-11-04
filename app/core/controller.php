@@ -117,14 +117,13 @@ class Controller {
                     $direct_folder = getcwd()."\assets\images\ads".DIRECTORY_SEPARATOR;
                     $remote_folder = ROOT."/assets/images/ads/";
 
-//                    if(!file_exists($folder)) {
-//                        mkdir($folder, 0777, true);
-//                        file_put_contents($folder."index.php", "<?php //silence");
-//                        file_put_contents("images/index.php", "<?php //silence");
-//                    }
-
-//                    show($_FILES);
-//                    die;
+                    /*  IMPORTANT
+                     *  When saving a file, we have to use a static path since we can't save files via a remote path (url)
+                     *  Viewing a file cannot be done using a static path and can only be done by remote path
+                     *  So save the file using the static path
+                     *  But save the remote path to the database so it can be viewed
+                     *  TODO deleting an ad doesn't delete the image stored
+                     */
 
                     if(!empty($_FILES['image']['name'])) {
                         if($_FILES['image']['error'] == 0) {
