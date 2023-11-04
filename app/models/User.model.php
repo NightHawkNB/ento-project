@@ -3,7 +3,7 @@
 class User extends Model{
 
     protected $table = "user";
-    public $errors = [];
+    protected $pk = "user_id";
     
     protected $allowed_columns = [
         'fname',

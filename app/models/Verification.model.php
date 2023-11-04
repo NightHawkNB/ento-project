@@ -3,7 +3,7 @@
 class Verification extends Model{
 
     protected $table = "spvreq";
-    public $errors = [];
+    protected $pk = "userVreq_id";
 
     protected $allowed_columns = [
         'vuser_id',

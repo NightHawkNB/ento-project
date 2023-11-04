@@ -3,9 +3,11 @@
 class Ad extends model {
 
     protected $table = "ads";
+    protected $pk = "ad_id";
     public $errors = [];
 
     protected $allowed_columns = [
+        'ad_id',
         'user_id',
         'title',
         'category', // Requires validation rules

@@ -9,7 +9,7 @@
             <div class="bg-lightgray txt-c-black pad-10 wid-100 flex-1 dis-flex-col gap-10">
                 <?php
                     foreach ($ads as $ad) {
-                        $this->view('includes/ad-component', (array)$ad);
+                        $this->view('includes/ad-s', (array)$ad);
                     }
                 ?>
             </div>

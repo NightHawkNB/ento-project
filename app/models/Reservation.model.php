@@ -3,7 +3,7 @@
 class Reservation extends Model{
 
     protected $table = "reservations";
-    public $errors = [];
+    protected $pk = "reservation_id";
     
     protected $allowed_columns = [
         'reservation_id',

@@ -3,6 +3,7 @@
 class Payment extends Model {
 
     protected $table = "payment_log";
+    protected $pk = "order_id";
 
     protected $allowed_columns = [
         'order_id',

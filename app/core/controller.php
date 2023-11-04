@@ -107,20 +107,27 @@ class Controller {
             if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 if($ads->validate($_POST)) {
                     $_POST['user_id'] = Auth::getUser_id();
+
+                    // Setting the ad category
                     if($user_data->user_type == "venuem") {
                         $_POST['category'] = "venue";
                     } else {
                         $_POST['category'] = $user_data->user_type;
                     }
 
+                    // Generating a unique ad_id
+                    $_POST['ad_id'] = "AD_S_".rand(10, 100000)."_".date("Z");
+
+                    $ads->insert($_POST);
+
                     // Code for inserting data to the ad_singer table
-                    // Insert data to ad and ad_singer table separately
+                    // Insert data to ads and ad_singer table separately
                     if($_POST['category'] == "singer") {
                         $ad_singer = new Ad_singer();
+
                         $ad_singer->insert($_POST);
                     }
 
-                    $ads->insert($_POST);
                     message("Ad Creation successful");
                     redirect(strtolower($user_data->user_type)."/ads");
                 } else {
@@ -164,9 +171,11 @@ class Controller {
 
             if ($_SERVER['REQUEST_METHOD'] == "GET") {
                 if (empty($id)) {
-                    message("No id given for updating");
+                    message("No id given for deleting");
                     redirect(strtolower($user_data->user_type)."/ads");
                 }
+
+                show($id);
 
                 $ads->update($id, ['ad_id' => $id, 'deleted' => 1]);
                 message("Deleted successfully");

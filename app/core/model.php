@@ -3,6 +3,7 @@
 class Model extends Database{
 
     protected $table = "";
+    protected $pk = "";
     protected $allowed_columns = [];
 
     public function insert($data) {
@@ -39,8 +40,9 @@ class Model extends Database{
 
         if(!empty($this->allowed_columns)) {
             foreach($data as $key => $value) {
+                if(str_contains($key, $this->pk)) $temp_id = array($key => $value);
                 if(!in_array($key, $this->allowed_columns)) {
-                    if(str_contains($key, 'id')) $temp_id = array($key => $value);
+//                    if(str_contains($key, 'id')) $temp_id = array($key => $value);
                     unset($data[$key]);
                 }
             }
@@ -71,7 +73,6 @@ class Model extends Database{
         }
 
         show($query);
-
         //? $arr['date'] = date('Y-m-d H:i:s');
 
         $this->query($query, $data);
