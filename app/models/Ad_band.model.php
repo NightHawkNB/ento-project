@@ -1,14 +1,14 @@
 <?php
 
-class Ad_singer extends model {
+class Ad_band extends model {
 
-    protected $table = "ad_singer";
+    protected $table = "ad_band";
     protected $pk = "ad_id";
 
     protected $allowed_columns = [
         'ad_id',
-        'contact_email',
-        'contact_num',
+        'packages',
+        'sample_video',
         'sample_audio'
     ];
 }
