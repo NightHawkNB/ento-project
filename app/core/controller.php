@@ -109,14 +109,14 @@ class Controller {
                     $_POST['user_id'] = Auth::getUser_id();
 
                     // Setting the ad category
-                    if($user_data->user_type == "venuem") {
-                        $_POST['category'] = "venue";
-                    } else {
-                        $_POST['category'] = $user_data->user_type;
-                    }
+//                    if($user_data->user_type == "venuem") {
+//                        $_POST['category'] = "venue";
+//                    } else {
+//                        $_POST['category'] = $user_data->user_type;
+//                    }
 
                     // Generating a unique ad_id
-                    $_POST['ad_id'] = "AD_S_".rand(10, 100000)."_".date("Z");
+                    $_POST['ad_id'] = "AD_".rand(10, 100000)."_".date("sdy");
 
                     $ads->insert($_POST);
 
