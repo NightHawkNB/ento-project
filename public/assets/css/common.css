@@ -156,11 +156,12 @@ body::-webkit-scrollbar-thumb {
 .mar-10-auto {margin: 0 auto}
 
 /* Width And Height Styles */
-.wid-100 {width: 100%}
+.wid-200px {width: 200px}
 .min-w-400 {min-width: 400px}
 .min-w-300 {min-width: 300px}
 .min-w-150 {min-width: 150px}
 .min-w-100 {min-width: 100px}
+.wid-100 {width: 100%}
 .wid-60 {width: 60%}
 .wid-50 {width: 50%}
 .wid-40 {width: 40%}

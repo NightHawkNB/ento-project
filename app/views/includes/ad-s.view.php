@@ -1,7 +1,7 @@
 <div class="dis-flex wid-100" id="main-container">
 
     <style>
-        @media screen and (max-width: 500px) {
+        @media screen and (max-width: 700px) {
             #sub-container > div {
                 width: 100%;
             }
@@ -24,7 +24,7 @@
 
         }
 
-        @media screen and (min-width: 501px) {
+        @media screen and (min-width: 700px) {
             #sub-container {
                 display: flex;
             }
@@ -37,7 +37,7 @@
         </div>
 
 
-        <div class="dis-flex-col gap-10 mar-0-20">
+        <div class="dis-flex-col gap-10 mar-0-20 wid-200px">
             <h2 class="f-poppins"><?= $title ?></h2>
             <img src="<?= ROOT ?>/assets/images/stars.png" alt="rating in stars" style="width: 100px; height: auto; margin: 0">
         </div>
@@ -47,7 +47,7 @@
 <!--            <p class="flex-1">--><?php //= $details ?><!--</p>-->
 <!--        </div>-->
 
-        <div class="dis-flex-col gap-10 flex-1">
+        <div class="dis-flex-col gap-10 flex-1 wid-200px">
             <div>
                 <p class="txt-w-bold">Rates</p>
                 <p>LKR <?= $rates ?></p>
@@ -56,6 +56,25 @@
                 <p class="txt-w-bold">Posted On</p>
                 <p><?= $datetime ?></p>
             </div>
+        </div>
+
+        <div class="dis-flex-col gap-10 flex-1 wid-200px">
+            <div>
+                <p class="txt-w-bold">Email</p>
+                <p>LKR <?= $contact_email ?></p>
+            </div>
+            <div>
+                <p class="txt-w-bold">Phone</p>
+                <p><?= $contact_num ?></p>
+            </div>
+        </div>
+
+        <div class="dis-flex-col gap-10 mar-0-20">
+<!--            <p class="txt-w-bold">Sample Audio</p>-->
+            <audio controls>
+                 <source src="<?= ROOT ?>/assets/audio/sample.mp3" type="audio/mpeg">
+                 No audio tag supported
+            </audio>
         </div>
 
         <div class="dis-flex ju-co-ce al-it-ce">
@@ -71,11 +90,13 @@
         <?php endif; ?>
 
         <?php if(Auth::logged_in() && (!Auth::is_client()) && !str_contains($_SERVER['QUERY_STRING'], "home/ads") && !str_contains($_SERVER['QUERY_STRING'], "/ads/all-ads") ): ?>
-            <?php if($pending != 1): ?>
-                <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/ads/promote-ad/<?= $ad_id ?>">
-                    <button class="btn-lay-2 hover-pointer btn-anima-hover">Promote</button>
-                </a>
-            <?php endif; ?>
+            <div>
+                <?php if($pending != 1): ?>
+                    <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/ads/promote-ad/<?= $ad_id ?>">
+                        <button class="btn-lay-2 hover-pointer btn-anima-hover">Promote</button>
+                    </a>
+                <?php endif; ?>
+            </div>
             <div class="dis-flex-col gap-10 ju-co-ce al-it-ce pad-20 bor-rad-5">
                 <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/ads/update-ad/<?= $ad_id ?>">
                     <button class="btn-lay-2 hover-pointer btn-anima-hover">Update</button>
