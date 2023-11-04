@@ -31,8 +31,6 @@ class Ad extends model {
         if(empty($data['rates'])) $this->errors['rates'] = "Cannot be empty";
         if($data['rates'] == 0) $this->errors['rates'] = "Cannot be Zero";
 
-        if(empty($data['image'])) $_POST['image'] = "general.png";
-
         if(empty($this->errors)) return true;
         else return false;
     }

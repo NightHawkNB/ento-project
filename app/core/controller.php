@@ -106,17 +106,43 @@ class Controller {
 
             if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 if($ads->validate($_POST)) {
+
                     $_POST['user_id'] = Auth::getUser_id();
 
-                    // Setting the ad category
-//                    if($user_data->user_type == "venuem") {
-//                        $_POST['category'] = "venue";
-//                    } else {
-//                        $_POST['category'] = $user_data->user_type;
+                    // Generating a unique ad_id
+                    $_POST['ad_id'] = "AD_".rand(10, 100000)."_".time();
+
+                    // Checking for valid file and moving to public folder
+                    $allowed_types = ['image/jpeg'];
+                    $direct_folder = getcwd()."\assets\images\ads".DIRECTORY_SEPARATOR;
+                    $remote_folder = ROOT."/assets/images/ads/";
+
+//                    if(!file_exists($folder)) {
+//                        mkdir($folder, 0777, true);
+//                        file_put_contents($folder."index.php", "<?php //silence");
+//                        file_put_contents("images/index.php", "<?php //silence");
 //                    }
 
-                    // Generating a unique ad_id
-                    $_POST['ad_id'] = "AD_".rand(10, 100000)."_".date("sdy");
+//                    show($_FILES);
+//                    die;
+
+                    if(!empty($_FILES['image']['name'])) {
+                        if($_FILES['image']['error'] == 0) {
+                            if(in_array($_FILES['image']['type'], $allowed_types)) {
+                                $temp_name = explode(".", $_FILES['image']['name']);
+                                $destination = $direct_folder.$_POST['ad_id'].".".end($temp_name);
+                                move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+
+                                $_POST['image'] = $remote_folder.$_POST['ad_id'].".".end($temp_name);
+                            } else {
+                                echo "Image type should be JPG/JPEG";
+                            }
+                        } else {
+                            echo "Error occurred - Couldn't upload the file";
+                        }
+                    } else {
+                        echo "Cannot have empty file name";
+                    }
 
                     $ads->insert($_POST);
 
