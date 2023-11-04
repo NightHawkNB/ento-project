@@ -71,7 +71,6 @@ Class Admin extends Controller{
                     $data['errors'] = $user->errors;
                 }
             }
-    
 
             $this->view('admin/add-user');
         }else if ($method == 'update-user'){
