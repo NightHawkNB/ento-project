@@ -3,9 +3,13 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 03, 2023 at 07:51 AM
+-- Generation Time: Nov 04, 2023 at 08:40 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
+
+DROP DATABASE ento_db;
+CREATE DATABASE ento_db;
+USE ento_db;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -39,7 +43,7 @@ CREATE TABLE `admin` (
 --
 
 CREATE TABLE `ads` (
-  `ad_id` int(11) NOT NULL,
+  `ad_id` varchar(32) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `title` varchar(45) DEFAULT NULL,
   `category` varchar(128) NOT NULL,
@@ -49,19 +53,39 @@ CREATE TABLE `ads` (
   `views` int(11) DEFAULT NULL,
   `rates` int(11) DEFAULT NULL,
   `datetime` timestamp NULL DEFAULT current_timestamp(),
-  `deleted` tinyint(1) DEFAULT 0
+  `deleted` tinyint(1) DEFAULT 0,
+  `contact_num` varchar(12) DEFAULT NULL,
+  `contact_email` varchar(64) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `ads`
 --
 
-INSERT INTO `ads` (`ad_id`, `user_id`, `title`, `category`, `details`, `image`, `pending`, `views`, `rates`, `datetime`, `deleted`) VALUES
-(9, 37, 'Samantha', 'singer', 'Details related to the services provided by the singer', 'user_01.jpg', 0, 120, 100000, '2023-10-01 13:11:27', 0),
-(12, 44, 'Vivian', 'singer', 'Details Details', 'user_04.jpg', 1, 12, 45000, '2023-10-28 15:08:17', 0),
-(18, 41, 'Sunflower Band', 'band', 'Band Advertisement', 'sunflower.jpg', 0, NULL, 50000, '2023-10-29 16:36:18', 0),
-(21, 58, 'Nelum Pokuna', 'venue', 'Seating 200', 'venue_01.jpg', 0, NULL, 40000, '2023-10-31 04:34:08', 0),
-(24, 44, 'ad test', 'singer', 'details', 'general.png', 1, NULL, 5555, '2023-11-01 06:13:48', 0);
+INSERT INTO `ads` (`ad_id`, `user_id`, `title`, `category`, `details`, `image`, `pending`, `views`, `rates`, `datetime`, `deleted`, `contact_num`, `contact_email`) VALUES
+('AD_14940_1699126571', 44, 'Sunflower Band', 'band', 'Sunflower musical band', 'http://localhost/ento-project/public/assets/images/ads/AD_14940_1699126571.png', 0, NULL, 45000, '2023-11-04 19:36:11', 0, '071-8888888', 'sunflower@yahoo.com'),
+('AD_16114_1699126637', 44, 'Nelum Pokuna', 'venue', 'Stadium ', 'http://localhost/ento-project/public/assets/images/ads/AD_16114_1699126637.jpg', 0, NULL, 100000, '2023-11-04 19:37:17', 0, '011-8963125', 'nelum@gmail.com'),
+('AD_75958_1699126761', 44, 'Kasun Perera', 'singer', 'Musician', 'http://localhost/ento-project/public/assets/images/ads/AD_75958_1699126761.png', 0, NULL, 45000, '2023-11-04 19:39:21', 0, '071-5564541', 'kasun@gmail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ad_band`
+--
+
+CREATE TABLE `ad_band` (
+  `ad_id` varchar(32) NOT NULL,
+  `packages` varchar(32) DEFAULT NULL,
+  `sample_video` varchar(512) DEFAULT NULL,
+  `sample_audio` varchar(512) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `ad_band`
+--
+
+INSERT INTO `ad_band` (`ad_id`, `packages`, `sample_video`, `sample_audio`) VALUES
+('AD_14940_1699126571', 'Premium', '', NULL);
 
 -- --------------------------------------------------------
 
@@ -70,11 +94,35 @@ INSERT INTO `ads` (`ad_id`, `user_id`, `title`, `category`, `details`, `image`, 
 --
 
 CREATE TABLE `ad_singer` (
-  `ad_id` int(11) NOT NULL,
-  `contact_email` varchar(64) DEFAULT NULL,
-  `contact_num` varchar(10) DEFAULT NULL,
+  `ad_id` varchar(32) NOT NULL,
   `sample_audio` varchar(512) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `ad_singer`
+--
+
+INSERT INTO `ad_singer` (`ad_id`, `sample_audio`) VALUES
+('AD_75958_1699126761', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ad_venue`
+--
+
+CREATE TABLE `ad_venue` (
+  `ad_id` varchar(32) NOT NULL,
+  `seat_count` int(11) NOT NULL DEFAULT 0,
+  `seat_image` varchar(512) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `ad_venue`
+--
+
+INSERT INTO `ad_venue` (`ad_id`, `seat_count`, `seat_image`) VALUES
+('AD_16114_1699126637', 500, NULL);
 
 -- --------------------------------------------------------
 
@@ -201,7 +249,7 @@ CREATE TABLE `payment_log` (
   `user_id` int(11) NOT NULL,
   `amount` int(11) NOT NULL,
   `event_id` int(11) DEFAULT NULL,
-  `ad_id` int(11) DEFAULT NULL,
+  `ad_id` varchar(32) DEFAULT NULL,
   `datetime` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -489,9 +537,21 @@ ALTER TABLE `ads`
   ADD KEY `fk_user_ad` (`user_id`);
 
 --
+-- Indexes for table `ad_band`
+--
+ALTER TABLE `ad_band`
+  ADD PRIMARY KEY (`ad_id`);
+
+--
 -- Indexes for table `ad_singer`
 --
 ALTER TABLE `ad_singer`
+  ADD PRIMARY KEY (`ad_id`);
+
+--
+-- Indexes for table `ad_venue`
+--
+ALTER TABLE `ad_venue`
   ADD PRIMARY KEY (`ad_id`);
 
 --
@@ -547,8 +607,8 @@ ALTER TABLE `event_singer`
 ALTER TABLE `payment_log`
   ADD UNIQUE KEY `payment_log_pk` (`order_id`),
   ADD KEY `fk_payment_user` (`user_id`),
-  ADD KEY `fk_payment_ads` (`ad_id`),
-  ADD KEY `fk_payment_event` (`event_id`);
+  ADD KEY `fk_payment_event` (`event_id`),
+  ADD KEY `fk_payment_ads` (`ad_id`);
 
 --
 -- Indexes for table `reservations`
@@ -661,12 +721,6 @@ ALTER TABLE `admin`
   MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `ads`
---
-ALTER TABLE `ads`
-  MODIFY `ad_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
-
---
 -- AUTO_INCREMENT for table `band`
 --
 ALTER TABLE `band`
@@ -742,7 +796,7 @@ ALTER TABLE `ticket`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `uservreq`
@@ -791,10 +845,22 @@ ALTER TABLE `ads`
   ADD CONSTRAINT `fk_user_ad` FOREIGN KEY (`user_id`) REFERENCES `serviceprovider` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `ad_band`
+--
+ALTER TABLE `ad_band`
+  ADD CONSTRAINT `fk_ads_adBand` FOREIGN KEY (`ad_id`) REFERENCES `ads` (`ad_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `ad_singer`
 --
 ALTER TABLE `ad_singer`
-  ADD CONSTRAINT `fk_ads_adSinger` FOREIGN KEY (`ad_id`) REFERENCES `ads` (`ad_id`);
+  ADD CONSTRAINT `fk_ads_adSinger` FOREIGN KEY (`ad_id`) REFERENCES `ads` (`ad_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `ad_venue`
+--
+ALTER TABLE `ad_venue`
+  ADD CONSTRAINT `fk_ads_adVenue` FOREIGN KEY (`ad_id`) REFERENCES `ads` (`ad_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `band`
