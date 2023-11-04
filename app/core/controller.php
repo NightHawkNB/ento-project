@@ -113,7 +113,7 @@ class Controller {
                     $_POST['ad_id'] = "AD_".rand(10, 100000)."_".time();
 
                     // Checking for valid file and moving to public folder
-                    $allowed_types = ['image/jpeg'];
+                    $allowed_types = ['image/jpeg', 'image/png'];
                     $direct_folder = getcwd()."\assets\images\ads".DIRECTORY_SEPARATOR;
                     $remote_folder = ROOT."/assets/images/ads/";
 
@@ -134,13 +134,16 @@ class Controller {
 
                                 $_POST['image'] = $remote_folder.$_POST['ad_id'].".".end($temp_name);
                             } else {
-                                echo "Image type should be JPG/JPEG";
+                                message("Image type should be JPG/JPEG/PNG");
+                                redirect(strtolower($user_data->user_type)."/ads");
                             }
                         } else {
-                            echo "Error occurred - Couldn't upload the file";
+                            message("Error occurred - Couldn't upload the file");
+                            redirect(strtolower($user_data->user_type)."/ads");
                         }
                     } else {
-                        echo "Cannot have empty file name";
+                        message("Cannot have empty file name");
+                        redirect(strtolower($user_data->user_type)."/ads");
                     }
 
                     $ads->insert($_POST);
