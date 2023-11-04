@@ -8,6 +8,7 @@
         <div class="dis-flex-col al-it-ce bg-trans wid-100 mar-10 bor-rad-5 over-hide">
             <div class="bg-lightgray txt-c-black pad-10 wid-100 flex-1 dis-flex-col gap-10">
                 <?php
+
                     foreach ($ad_singer as $ad) {
                         $this->view('includes/ad-s', (array)$ad);
                     }

@@ -61,7 +61,7 @@
         <div class="dis-flex-col gap-10 flex-1 wid-200px">
             <div>
                 <p class="txt-w-bold">Email</p>
-                <p>LKR <?= $contact_email ?></p>
+                <p><?= $contact_email ?></p>
             </div>
             <div>
                 <p class="txt-w-bold">Phone</p>

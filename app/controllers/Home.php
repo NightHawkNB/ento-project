@@ -104,8 +104,9 @@ class Home extends Controller{
     public function ads($method = null, $id = null) {
 
         $ads = new Ad();
+        $db = new Database();
         $temp_arr = ['deleted' => 0, 'pending' => 0, 'category' => 'singer'];
-        $data['ad_singer'] = $ads->query("SELECT * FROM ads LEFT JOIN ad_singer ON ads.ad_id = ad_singer.ad_id WHERE deleted = :deleted and PENDING = :pending and category = :category", $temp_arr);
+        $data['ad_singer'] = $db->query("SELECT * FROM ads LEFT JOIN ad_singer ON ads.ad_id = ad_singer.ad_id WHERE deleted = :deleted and PENDING = :pending and category = :category", $temp_arr);
         //show($data['ad_singer']);
         //die;
 
