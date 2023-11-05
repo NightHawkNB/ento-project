@@ -115,14 +115,13 @@ class Home extends Controller{
 
         // Getting Band Ads
         $temp_arr_2 = ['deleted' => 0, 'pending' => 0, 'category' => 'band'];
-        // LEFT join is set since we haven't added any data to the ad_band table
-        $data['ad_band'] = $db->query("SELECT * FROM ads LEFT JOIN ad_band ON ads.ad_id = ad_band.ad_id WHERE deleted = :deleted and PENDING = :pending and category = :category", $temp_arr_2);
+        $data['ad_band'] = $db->query("SELECT * FROM ads JOIN ad_band ON ads.ad_id = ad_band.ad_id WHERE deleted = :deleted and PENDING = :pending and category = :category", $temp_arr_2);
 
 
         // Getting Venue Ads
         $temp_arr_3 = ['deleted' => 0, 'pending' => 0, 'category' => 'venue'];
         // LEFT join is set since we haven't added any data to the ad_band table
-        $data['ad_venue'] = $db->query("SELECT * FROM ads LEFT JOIN ad_venue ON ads.ad_id = ad_venue.ad_id WHERE deleted = :deleted and PENDING = :pending and category = :category", $temp_arr_3);
+        $data['ad_venue'] = $db->query("SELECT * FROM ads JOIN ad_venue ON ads.ad_id = ad_venue.ad_id WHERE deleted = :deleted and PENDING = :pending and category = :category", $temp_arr_3);
 
 
         $this->view('pages/ads', $data);

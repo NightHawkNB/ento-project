@@ -187,6 +187,26 @@ class Controller {
                     $_POST['ad_id'] = $id;
                     $_POST['pending'] = 1;
                     $ads->update($id, $_POST);
+
+                    switch ($_POST['category']) {
+                        case 'singer' :
+                            $ad_singer = new Ad_singer();
+                            $ad_singer->update($id, $_POST);
+                            break;
+                        case 'band' :
+                            $ad_band = new Ad_band();
+                            $ad_band->update($id, $_POST);
+                            break;
+                        case 'venue' :
+                            $ad_venue = new Ad_venue();
+                            $ad_venue->update($id, $_POST);
+                            break;
+                        default :
+                            message("Error Occured");
+                            redirect(strtolower($user_data->user_type)."/ads");
+                            break;
+                    }
+
                     message("Update successfully - Ad is now in Pending State");
                     redirect(strtolower($user_data->user_type)."/ads");
                 }
@@ -195,12 +215,30 @@ class Controller {
                 message("No ad selected");
                 redirect(strtolower($user_data->user_type).'/ads');
             } else {
-                $data['ads'] = $ads->first(['ad_id' => $id]);
+                $temp = $ads->first(['ad_id' => $id]);
+
+                $db = new Database();
+
+                if($temp->category == "singer") {
+                    // Getting Singer Ads
+                    $temp_arr_1 = ['deleted' => 0, 'category' => 'singer', 'ad_id' => $id];
+                    $data['ads'] = $db->query("SELECT * FROM ads JOIN ad_singer ON ads.ad_id = ad_singer.ad_id WHERE deleted = :deleted and category = :category and ads.ad_id = :ad_id", $temp_arr_1)[0];
+                } else if ($temp->category == "band") {
+                    // Getting Band Ads
+                    $temp_arr_2 = ['deleted' => 0, 'category' => 'band', 'ad_id' => $id];
+                    $data['ads'] = $db->query("SELECT * FROM ads JOIN ad_band ON ads.ad_id = ad_band.ad_id WHERE deleted = :deleted and category = :category and ads.ad_id = :ad_id", $temp_arr_2)[0];
+                } else if ($temp->category == "venue") {
+                    // Getting Venue Ads
+                    $temp_arr_3 = ['deleted' => 0, 'category' => 'venue', 'ad_id' => $id];
+                    // LEFT join is set since we haven't added any data to the ad_band table
+                    $data['ads'] = $db->query("SELECT * FROM ads JOIN ad_venue ON ads.ad_id = ad_venue.ad_id WHERE deleted = :deleted and category = :category and ads.ad_id = :ad_id", $temp_arr_3)[0];
+                }
+
                 if (empty($data['ads'])) {
                     message("No data found");
                 }
 
-                $this->view('common/ads/update-ad', (array)$data);
+                $this->view('common/ads/update-ad', $data);
             }
 
         } else if ($method == 'delete-ad') {
