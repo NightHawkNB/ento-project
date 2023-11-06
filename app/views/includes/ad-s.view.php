@@ -5,7 +5,6 @@
             <img src="<?= $image ?>" class="profile-image-2 profile" alt="user-01">
         </div>
 
-
         <div class="dis-flex-col gap-10 mar-0-20 wid-200px">
             <h2 class="f-poppins"><?= $title ?></h2>
             <img src="<?= ROOT ?>/assets/images/stars.png" alt="rating in stars" style="width: 100px; height: auto; margin: 0">
@@ -54,6 +53,10 @@
             </a>
         <?php endif; ?>
 
+        <?php if(Auth::logged_in()): ?>
+            <button class="btn-lay-2 btn-anima-hover hover-pointer" data-modal-target="#modal">More Info</button>
+        <?php endif; ?>
+
         <?php if(Auth::logged_in() && (!Auth::is_client()) && !str_contains($_SERVER['QUERY_STRING'], "home/ads") && !str_contains($_SERVER['QUERY_STRING'], "/ads/all-ads") ): ?>
             <div>
                 <?php if($pending != 1): ?>
@@ -73,3 +76,22 @@
         <?php endif; ?>
     </div>
 </div>
+
+<div class="modal" id="modal">
+    <div class="modal-header">
+        <div class="title">Title</div>
+        <button data-close-btn class="modal-close-btn">&times;</button>
+    </div>
+    <div class="modal-body">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto atque distinctio excepturi fuga illum iste iusto odio sequi similique voluptatum!
+    </div>
+</div>
+
+<div class="" id="overlay">
+
+</div>
+
+<style>
+
+
+</style>

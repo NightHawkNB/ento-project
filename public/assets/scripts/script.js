@@ -41,6 +41,7 @@ const create_ad = () => {
 /* END OF AD CREATION FORM */
 
 
+
 /* START OF DASHBOARD SIDEBAR */
 window.onload = function(){
 
@@ -69,3 +70,41 @@ window.onload = function(){
     }
 }
 /* END OF DASHBOARD SIDEBAR */
+
+
+
+/* START OF THE POPUP SCRIPT */
+
+const openModalButtons = document.querySelectorAll('[data-modal-target]')
+const closeModalButtons = document.querySelectorAll('[data-close-btn]')
+const overlay = document.getElementById('overlay')
+
+openModalButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const modal = document.querySelector(button.dataset.modalTarget)
+        openModal(modal)
+    })
+})
+
+closeModalButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        // Gets the closest parent with the class modal
+        const modal = button.closest('.modal')
+        closeModal(modal)
+    })
+})
+
+function openModal(modal) {
+    if (modal == null) return
+    modal.classList.add('active')
+    overlay.classList.add(('active'))
+}
+
+
+function closeModal(modal) {
+    if (modal == null) return
+    modal.classList.remove('active')
+    overlay.classList.remove(('active'))
+}
+
+/* END OF THE POPUP SCRIPT */

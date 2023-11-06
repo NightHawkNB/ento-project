@@ -162,6 +162,8 @@ body::-webkit-scrollbar-thumb {
 .min-w-150 {min-width: 150px}
 .min-w-100 {min-width: 100px}
 .wid-100 {width: 100%}
+.wid-90 {width: 90%}
+.wid-80 {width: 80%}
 .wid-60 {width: 60%}
 .wid-50 {width: 50%}
 .wid-40 {width: 40%}
