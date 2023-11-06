@@ -13,7 +13,7 @@
         <div class="dis-flex-col gap-10 flex-1 wid-200px">
             <div>
                 <p class="txt-w-bold">Rates</p>
-                <p>LKR <?= $rates ?></p>
+                <p>LKR <?= number_format($rates) ?></p>
             </div>
             <div>
                 <p class="txt-w-bold">Posted On</p>
@@ -33,12 +33,7 @@
         </div>
 
         <div class="dis-flex-col gap-10 flex-1 wid-200px">
-<!--            <p class="txt-w-bold">Sample Audio</p>-->
-            Audio Samples
-<!--            <audio controls>-->
-<!--                 <source src="--><?php //= ROOT ?><!--/assets/audio/sample.mp3" type="audio/mpeg">-->
-<!--                 No audio tag supported-->
-<!--            </audio>-->
+            <p class="txt-w-bold">Sample Audio</p>
         </div>
 
         <div class="dis-flex ju-co-ce al-it-ce">
@@ -79,19 +74,35 @@
 
 <div class="modal" id="modal">
     <div class="modal-header">
-        <div class="title">Title</div>
+        <div class="title"><?= $title ?></div>
         <button data-close-btn class="modal-close-btn">&times;</button>
     </div>
     <div class="modal-body">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto atque distinctio excepturi fuga illum iste iusto odio sequi similique voluptatum!
+        <div class="dis-flex-col al-it-ce ju-co-ce gap-10">
+
+            <div class="">
+                <img src="<?= $image ?>" alt="Ad image" style="width: 150px; height: 150px" class="bor-rad-5">
+            </div>
+            
+            <div>
+                <audio controls>
+                    <source src="<?= ROOT ?>/assets/audio/sample.mp3" type="audio/mpeg">
+                    No audio tag supported
+                </audio>
+            </div>
+
+            <div class="pad-20 wid-100 dis-flex-col gap-10">
+                <h4 class="f-mooli">Details</h4>
+                <?= $details ?>
+            </div>
+
+            <div class="pad-20 wid-100 dis-flex gap-10 ju-co-sb">
+                <p><span class="txt-w-bold f-mooli">Average rate : </span> <?= number_format($rates) ?></p>
+                <p><span class="txt-w-bold f-mooli">Posted Date Time : </span> <?= $datetime ?></p>
+            </div>
+
+        </div>
     </div>
 </div>
 
-<div class="" id="overlay">
-
-</div>
-
-<style>
-
-
-</style>
+<div class="" id="overlay"></div>
