@@ -91,7 +91,17 @@ class Client extends Controller {
       $this->view('client/chat');
   }
 
-  public function tickets(){
-      $this->view('client/tickets');
+  public function tickets($method = NULL, $id = NULL){
+      $db = new Database();
+      if (empty($method)){
+          $data['tickets'] = $db->query("SELECT * FROM tickets JOIN event ON tickets.event_id = event.event_id JOIN venue ON event.venue_id = venue.venue_id");
+          $this->view('common/events/tickets/view_tickets', $data);
+      }
+      else if ($method == "delete"){
+          $ticket = new Tickets();
+          $ticket->update($id, ['ticket_id' => $id, 'deleted' => 1]);
+          message("Deleted successful.");
+          redirect("client/tickets");
+      }
   }
 }
