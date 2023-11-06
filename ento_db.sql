@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 04, 2023 at 08:40 PM
+-- Generation Time: Nov 06, 2023 at 10:08 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -63,9 +63,11 @@ CREATE TABLE `ads` (
 --
 
 INSERT INTO `ads` (`ad_id`, `user_id`, `title`, `category`, `details`, `image`, `pending`, `views`, `rates`, `datetime`, `deleted`, `contact_num`, `contact_email`) VALUES
+('AD_10301_1699247541', 66, 'Ancient Saga', 'band', 'Traditional Musical Band', 'http://localhost/ento-project/public/assets/images/ads/AD_10301_1699247541.png', 0, NULL, 50000, '2023-11-06 05:12:21', 0, '011-2532223', 'tradband@gmail.com'),
 ('AD_14940_1699126571', 44, 'Sunflower Band', 'band', 'Sunflower musical band', 'http://localhost/ento-project/public/assets/images/ads/AD_14940_1699126571.png', 0, NULL, 45000, '2023-11-04 19:36:11', 0, '071-8888888', 'sunflower@yahoo.com'),
 ('AD_16114_1699126637', 44, 'Nelum Pokuna', 'venue', 'Stadium ', 'http://localhost/ento-project/public/assets/images/ads/AD_16114_1699126637.jpg', 0, NULL, 100000, '2023-11-04 19:37:17', 0, '011-8963125', 'nelum@gmail.com'),
-('AD_75958_1699126761', 44, 'Kasun Perera', 'singer', 'Musician', 'http://localhost/ento-project/public/assets/images/ads/AD_75958_1699126761.png', 0, NULL, 45000, '2023-11-04 19:39:21', 0, '071-5564541', 'kasun@gmail.com');
+('AD_69573_1699245724', 44, 'Sampath', 'singer', 'Singer test 02', 'http://localhost/ento-project/public/assets/images/ads/AD_69573_1699245724.png', 1, NULL, 500000, '2023-11-06 04:42:04', 0, '071-8551121', 'singer@ento.com'),
+('AD_75958_1699126761', 44, 'Kasun Perera', 'singer', '                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus beatae dicta dignissimos, doloremque eveniet, incidunt molestias nemo, odit quaerat quos repellendus similique veniam vitae. Adipisci incidunt nostrum reiciendis rem vel!', 'http://localhost/ento-project/public/assets/images/ads/AD_75958_1699126761.png', 0, NULL, 45000, '2023-11-04 19:39:21', 0, '071-5564541', 'kasun@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -85,7 +87,8 @@ CREATE TABLE `ad_band` (
 --
 
 INSERT INTO `ad_band` (`ad_id`, `packages`, `sample_video`, `sample_audio`) VALUES
-('AD_14940_1699126571', 'Premium', '', NULL);
+('AD_10301_1699247541', 'Premium', '', NULL),
+('AD_14940_1699126571', 'Premium and Family', '', NULL);
 
 -- --------------------------------------------------------
 
@@ -103,6 +106,7 @@ CREATE TABLE `ad_singer` (
 --
 
 INSERT INTO `ad_singer` (`ad_id`, `sample_audio`) VALUES
+('AD_69573_1699245724', NULL),
 ('AD_75958_1699126761', NULL);
 
 -- --------------------------------------------------------
@@ -336,7 +340,8 @@ INSERT INTO `serviceprovider` (`sp_id`, `user_id`, `verified`, `sp_type`) VALUES
 (7, 44, 1, 'singer'),
 (8, 45, 1, 'singer'),
 (9, 46, 1, 'venueoperator'),
-(10, 58, 1, 'venuem');
+(10, 58, 1, 'venuem'),
+(11, 66, 1, 'singer');
 
 -- --------------------------------------------------------
 
@@ -379,16 +384,27 @@ CREATE TABLE `spvreq` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ticket`
+-- Table structure for table `tickets`
 --
 
-CREATE TABLE `ticket` (
+CREATE TABLE `tickets` (
   `ticket_id` int(11) NOT NULL,
-  `type` varchar(45) DEFAULT NULL,
   `event_id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
-  `qr_code` varchar(45) NOT NULL
+  `serial_num` varchar(64) NOT NULL,
+  `qr_code` varchar(512) NOT NULL,
+  `type` varchar(16) NOT NULL,
+  `price` int(11) NOT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `tickets`
+--
+
+INSERT INTO `tickets` (`ticket_id`, `event_id`, `user_id`, `serial_num`, `qr_code`, `type`, `price`, `deleted`) VALUES
+(1, 2, 38, '123456785', 'qr_code', 'Normal', 5000, 0),
+(2, 2, 38, '123451234', 'qr_code', 'Platinum', 10000, 0);
 
 -- --------------------------------------------------------
 
@@ -423,12 +439,13 @@ INSERT INTO `user` (`user_id`, `fname`, `lname`, `address1`, `address2`, `city`,
 (41, 'band', '01', '5', '6', '4', '5', '$2y$10$4SbR6UUaBibEYOLWTpfRXOeZF8Qy9azix2AYaK.5cLeJ5NY5TLojW', 'band1@ento.com', NULL, '4', 'band', 'general.png'),
 (42, 'band', '02', '6', '4', '5', '5', '$2y$10$YAhBfZBSV5s46CnpUgIA6uNz9nlvnAA8z3JQGNcHSZe2mFTgGk172', 'band2@ento.com', NULL, '2', 'band', 'general.png'),
 (44, 'singer', '02', 'Corrupted Fort', 'Deadland', ' Minuwangoda', 'Gampaha', '$2y$10$VYwqELysomfvQ7KnpFdJjO213El1HOsJ7wx/3CgBFKCYDtGIe7irK', 'singer2@ento.com', NULL, '0715888588', 'singer', 'general.png'),
-(45, 'singer', '03', '1', '1', '1', '1', '$2y$10$.al4y7cu4oRqadZukGqNI.M793uazXv0xKmdghLHVURqsE0UX.Oqe', 'singer3@ento.com', NULL, '1', 'singer', 'general.png'),
+(45, 'singer', '03', '1', '1', '1', '1', 'singer', 'singer3@ento.com', NULL, '1', 'singer', 'general.png'),
 (46, 'venueO', '01', '2', '2', '2', '2', '$2y$10$pN6TUr5kl/wfWffLRqMVGuPqkqorI0auGAbVot80SR6RCYvbkCvFi', 'venueO1@ento.com', NULL, '2', 'venueoperator', 'general.png'),
 (48, 'cca', '01', '1', '1', '1', '1', '$2y$10$TBnI1tA8WClwpesXdZp1u.iWJwwCjGkTyPmOQ53xY3LylCC9srbxi', 'cca1@ento.com', NULL, '1', 'cca', 'general.png'),
 (58, 'venue', 'm', 'j', 'j', 'j', 'j', '$2y$10$EBZqpefKzVObk8mtX2MwzuIjzhkQ2T0bPuk77FCNe8N9HztzQIUsu', 'venuem1@ento.com', NULL, 'j', 'venuem', 'general.png'),
 (63, 'a', 'b', '11', '1', '1', '1', '$2y$10$d8FjeU6ypsYdotlWIitkn.obad32KYHAOjZUjpB8jVSJE8TeSR/di', 'A@ENTO.COM', NULL, '1', 'client', NULL),
-(64, 'alila', 'milinda', '345', 'mulleriyawa', 'colombo', 'western', '$2y$10$LvELfmOhnQNtyfbRbZb5b.QY8R5r0.rk4h66hPS3da/S3Vzn3YDy2', 'akila@ento.com', NULL, '0757825509', 'client', NULL);
+(64, 'alila', 'milinda', '345', 'mulleriyawa', 'colombo', 'western', '$2y$10$LvELfmOhnQNtyfbRbZb5b.QY8R5r0.rk4h66hPS3da/S3Vzn3YDy2', 'akila@ento.com', NULL, '0757825509', 'client', NULL),
+(66, 'singer', '01', '55', '55', '55', '55', '$2y$10$IMelU0XP8NSDHwsILo7.3elBsmZiFEwDy9UjfZR1T3vqGbDafLWGq', 'singer1@ento.com', NULL, '077789899', 'singer', NULL);
 
 -- --------------------------------------------------------
 
@@ -658,9 +675,9 @@ ALTER TABLE `spvreq`
   ADD KEY `fk_spVreq_custCare_idx` (`cust_id`);
 
 --
--- Indexes for table `ticket`
+-- Indexes for table `tickets`
 --
-ALTER TABLE `ticket`
+ALTER TABLE `tickets`
   ADD PRIMARY KEY (`ticket_id`),
   ADD KEY `fk_ticket_user_idx` (`user_id`),
   ADD KEY `fk_ticket_event_idx` (`event_id`);
@@ -772,7 +789,7 @@ ALTER TABLE `review`
 -- AUTO_INCREMENT for table `serviceprovider`
 --
 ALTER TABLE `serviceprovider`
-  MODIFY `sp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `sp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `singer`
@@ -787,16 +804,16 @@ ALTER TABLE `spvreq`
   MODIFY `spv_req_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `ticket`
+-- AUTO_INCREMENT for table `tickets`
 --
-ALTER TABLE `ticket`
-  MODIFY `ticket_id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `tickets`
+  MODIFY `ticket_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `uservreq`
@@ -952,9 +969,9 @@ ALTER TABLE `spvreq`
   ADD CONSTRAINT `fk_spVreq_sp` FOREIGN KEY (`sp_id`) REFERENCES `serviceprovider` (`sp_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `ticket`
+-- Constraints for table `tickets`
 --
-ALTER TABLE `ticket`
+ALTER TABLE `tickets`
   ADD CONSTRAINT `fk_ticket_event` FOREIGN KEY (`event_id`) REFERENCES `event` (`event_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_ticket_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
