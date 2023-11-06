@@ -14,7 +14,7 @@
         <div class="dis-flex-col gap-10 flex-1 wid-200px">
             <div>
                 <p class="txt-w-bold">Rates</p>
-                <p>LKR <?= $rates ?></p>
+                <p>LKR <?= number_format($rates) ?></p>
             </div>
             <div>
                 <p class="txt-w-bold">Posted On</p>

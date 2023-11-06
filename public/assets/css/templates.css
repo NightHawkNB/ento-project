@@ -136,7 +136,7 @@
 }
 
 
-/* ssPOPUP STYLES */
+/* POPUP STYLES */
 .modal {
   position: fixed;
   top: 50%;
@@ -148,7 +148,10 @@
   background-color: white;
   min-width: 400px;
   max-width: 80%;
+  max-height: 80%;
   transition: 200ms ease-in-out;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .modal.active {
@@ -161,7 +164,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid var(--indigo-2);
+  background-color: var(--indigo-2);
+  color: white;
+  position: sticky;
+  top: 0;
 }
 
 .modal-header .title {
@@ -174,6 +180,8 @@
   cursor: pointer;
   background: none;
   border: none;
+  color: white;
+  margin-right: 10px;
   font-size: 1.1rem;
   font-weight: bold;
 }
@@ -181,7 +189,6 @@
 .modal-body {
   padding: 10px;
   font-size: 0.9rem;
-
 }
 
 #overlay {
