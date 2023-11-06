@@ -97,11 +97,14 @@ class Controller {
         $data['ads'] = [];
 
         if (empty($method)) {
-            $data['ads'] = $ads->where(['pending' => 0, 'deleted' => 0, 'user_id' => $user_data->user_id]);
+            $data = get_ads_where($user_data->user_id);
             $this->view('common/ads/your-ads', $data);
         } else if ($method == 'all-ads') {
-            $data['ads'] = $ads->where(['pending' => 0, 'deleted' => 0]);
+            $data = get_all_ads();
             $this->view('common/ads/all-ads', $data);
+        } else if($method == "pending") {
+            $data = get_ads_where($user_data->user_id, 1);
+            $this->view("common/ads/pending", $data);
         } else if ($method == 'create-ad') {
 
             if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -256,12 +259,59 @@ class Controller {
                 redirect(strtolower($user_data->user_type)."/ads");
             }
 
-        } else if($method == "pending") {
-            $data['ads'] = $ads->where(['pending' => 1, 'deleted' => 0, 'user_id' => $user_data->user_id]);
-            $this->view("common/ads/pending", $data);
         } else {
             message("Page not found");
             redirect(strtolower($user_data->user_type).'/ads');
         }
     }
+}
+
+function get_all_ads($pending = 0, $deleted = 0): array
+{
+    $ads = new Ad();
+    $db = new Database();
+
+    // Getting Singer Ads
+    $temp_arr_1 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'singer'];
+    $data['ad_singer'] = $db->query("SELECT * FROM ads JOIN ad_singer ON ads.ad_id = ad_singer.ad_id WHERE deleted = :deleted and PENDING = :pending and category = :category", $temp_arr_1);
+    //show($data['ad_singer']);
+    //die;
+
+
+    // Getting Band Ads
+    $temp_arr_2 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'band'];
+    $data['ad_band'] = $db->query("SELECT * FROM ads JOIN ad_band ON ads.ad_id = ad_band.ad_id WHERE deleted = :deleted and PENDING = :pending and category = :category", $temp_arr_2);
+
+
+    // Getting Venue Ads
+    $temp_arr_3 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'venue'];
+    // LEFT join is set since we haven't added any data to the ad_band table
+    $data['ad_venue'] = $db->query("SELECT * FROM ads JOIN ad_venue ON ads.ad_id = ad_venue.ad_id WHERE deleted = :deleted and PENDING = :pending and category = :category", $temp_arr_3);
+
+    return $data;
+}
+
+function get_ads_where($user_id, $pending = 0, $deleted = 0): array
+{
+    $ads = new Ad();
+    $db = new Database();
+
+    // Getting Singer Ads
+    $temp_arr_1 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'singer', 'user_id' => $user_id];
+    $data['ad_singer'] = $db->query("SELECT * FROM ads JOIN ad_singer ON ads.ad_id = ad_singer.ad_id WHERE deleted = :deleted and PENDING = :pending and category = :category and user_id = :user_id", $temp_arr_1);
+    //show($data['ad_singer']);
+    //die;
+
+
+    // Getting Band Ads
+    $temp_arr_2 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'band', 'user_id' => $user_id];
+    $data['ad_band'] = $db->query("SELECT * FROM ads JOIN ad_band ON ads.ad_id = ad_band.ad_id WHERE deleted = :deleted and PENDING = :pending and category = :category and user_id = :user_id", $temp_arr_2);
+
+
+    // Getting Venue Ads
+    $temp_arr_3 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'venue', 'user_id' => $user_id];
+    // LEFT join is set since we haven't added any data to the ad_band table
+    $data['ad_venue'] = $db->query("SELECT * FROM ads JOIN ad_venue ON ads.ad_id = ad_venue.ad_id WHERE deleted = :deleted and PENDING = :pending and category = :category and user_id = :user_id", $temp_arr_3);
+
+    return $data;
 }

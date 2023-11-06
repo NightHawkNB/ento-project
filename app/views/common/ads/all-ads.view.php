@@ -8,19 +8,29 @@
             <section class="cols-2 sidebar">
                 <?php $this->view('includes/sidebar') ?>
             </section>
-            <section class="dis-flex-col pad-20 gap-10 cols-10">
+            <section class="dis-flex-col pad-20 gap-10 cols-10 wid-80">
 
-                <!-- Dummy Data Start -->
-                    <?php
-                        if(!empty($ads)) {
-                            foreach ($ads as $ad) {
-                                $this->view('includes/ad-component', (array)$ad);
-                            }
-                        } else {
-                            echo "<h4 class='txt-ali-cen pad-20'> ...No ads to show... </h4>";
+                <?php
+                    if(!empty($ad_singer)) {
+                        foreach ($ad_singer as $ad) {
+                            $this->view('includes/ad-s', (array)$ad);
                         }
-                    ?>
-                <!-- Dummy Data End -->
+                    }
+
+                    if(!empty($ad_band)) {
+                        foreach ($ad_band as $ad) {
+                            $this->view('includes/ad-b', (array)$ad);
+                        }
+                    }
+
+                    if(!empty($ad_venue)) {
+                        foreach ($ad_venue as $ad) {
+                            $this->view('includes/ad-v', (array)$ad);
+                        }
+                    }
+
+                    if(empty($ad_venue) && empty($ad_singer) && empty($ad_band)) echo "No ads to show";
+                ?>
                 
             </section>
         </main>
