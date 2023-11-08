@@ -1,11 +1,13 @@
 <?php
 
 class Home extends Controller{
-    public function index() {
+    public function index(): void
+    {
         $this->view('home');
     }
 
-    public function events($id = null, $method = null) {
+    public function events($id = null, $method = null): void
+    {
 
         $event = new Event();
         $data['record'] = $event->where(['pending' => 0]);
@@ -101,14 +103,16 @@ class Home extends Controller{
         }
     }
 
-    public function ads($method = null, $id = null) {
+    public function ads($method = null, $id = null): void
+    {
 
         $data = get_all_ads();
 
         $this->view('pages/ads', $data);
     }
 
-    public function complaint($method=NULL, $id = null) {
+    public function complaint($method=NULL, $id = null): void
+    {
 
         if(empty($method))
         {

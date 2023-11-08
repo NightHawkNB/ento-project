@@ -2,7 +2,7 @@
 
     <div id="sub-container" class="bg-white bor-rad-5 pad-10-20 wid-100 gap-20 al-it-ce ads sh f-poppins">
         <div class="dis-flex ju-co-ce al-it-ce">
-            <img src="<?= $image ?>" class="profile-image-2 profile" alt="user-01">
+            <img src="<?= $image ?>" style="object-fit: cover" class="profile-image-2 profile" alt="user-01">
         </div>
 
 
@@ -33,10 +33,6 @@
             </div>
         </div>
 
-        <div class="dis-flex-col gap-10 flex-1 wid-200px">
-            Packages
-        </div>
-
         <div class="dis-flex ju-co-ce al-it-ce">
             <div class="txt-ali-rig dis-flex ju-co-ce al-it-ce">
                 <p class=""> 30% OFF </p>
@@ -47,6 +43,10 @@
             <a href="#">
                 <button class="btn-lay-2 hover-pointer btn-anima-hover">Reserve</button>
             </a>
+        <?php endif; ?>
+
+        <?php if(Auth::logged_in()): ?>
+            <button class="btn-lay-2 btn-anima-hover hover-pointer" data-modal-target="#modal">More Info</button>
         <?php endif; ?>
 
         <?php if(Auth::logged_in() && (!Auth::is_client()) && !str_contains($_SERVER['QUERY_STRING'], "home/ads") && !str_contains($_SERVER['QUERY_STRING'], "/ads/all-ads") ): ?>
@@ -68,3 +68,51 @@
         <?php endif; ?>
     </div>
 </div>
+
+
+<!-- Modal for the Popup -->
+<div class="modal" id="modal">
+    <div class="modal-header">
+        <div class="title"><?= $title ?></div>
+        <button data-close-btn class="modal-close-btn">&times;</button>
+    </div>
+    <div class="modal-body">
+        <div class="dis-flex-col al-it-ce ju-co-ce gap-10">
+
+            <div class="dis-flex al-it-ce ju-co-ce gap-20">
+                <svg class="feather feather-eye" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <?= ($views) ? $views : 'view count' ?>
+            </div>
+
+            <div class="">
+                <img src="<?= $image ?>" alt="Ad image" style="width: 150px; height: 150px; object-fit: cover" class="bor-rad-5">
+            </div>
+
+            <div>
+                <audio controls>
+                    <source src="<?= ROOT ?>/assets/audio/sample.mp3" type="audio/mpeg">
+                    No audio supported
+                </audio>
+            </div>
+
+            <div class="pad-20 wid-100 dis-flex-col gap-10">
+                <h4 class="f-mooli">Details</h4>
+                <?= $details ?>
+            </div>
+
+            <div class="pad-20 wid-100 dis-flex-col gap-10">
+                <h4 class="f-mooli">Packages Available</h4>
+                <?= $packages ?>
+            </div>
+
+            <div class="pad-20 wid-100 dis-flex gap-10 ju-co-sb">
+                <p><span class="txt-w-bold f-mooli">Average rate : </span> <?= number_format($rates) ?></p>
+                <p><span class="txt-w-bold f-mooli">Posted Date Time : </span> <?= $datetime ?></p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal for the Popup -->
+<div class="" id="overlay"></div>
