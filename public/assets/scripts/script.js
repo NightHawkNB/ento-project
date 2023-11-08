@@ -49,14 +49,23 @@ window.onload = function(){
     const closeBtn = document.querySelector("#btn");
     const searchBtn = document.querySelector(".bx-search")
 
+    if(localStorage.getItem("sidebar_status") === "true") {
+        if(!sidebar.classList.contains("open")) sidebar.classList.toggle("open")
+        console.log("toggle to ")
+    } else {
+        if(sidebar.classList.contains("open")) sidebar.classList.toggle("open")
+    }
+
     closeBtn.addEventListener("click",function(){
         sidebar.classList.toggle("open")
 
-        // if(sidebar.classList.contains("open")) {
-        //     localStorage.setItem("sidebar_status", "true")
-        // } else {
-        //     localStorage.setItem("sidebar_status", "false")
-        // }
+        if(sidebar.classList.contains("open")) {
+            localStorage.removeItem("sidebar_status")
+            localStorage.setItem("sidebar_status", "true")
+        } else {
+            localStorage.removeItem("sidebar_status")
+            localStorage.setItem("sidebar_status", "false")
+        }
 
         menuBtnChange()
     })

@@ -72,6 +72,7 @@
     </div>
 </div>
 
+<!-- Modal for the Popup -->
 <div class="modal" id="modal">
     <div class="modal-header">
         <div class="title"><?= $title ?></div>
@@ -79,6 +80,11 @@
     </div>
     <div class="modal-body">
         <div class="dis-flex-col al-it-ce ju-co-ce gap-10">
+
+            <div class="dis-flex al-it-ce ju-co-ce gap-20">
+                <svg class="feather feather-eye" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <?= ($views) ? $views : 'view count' ?>
+            </div>
 
             <div class="">
                 <img src="<?= $image ?>" alt="Ad image" style="width: 150px; height: 150px" class="bor-rad-5">
@@ -105,4 +111,5 @@
     </div>
 </div>
 
+<!-- Modal for the Popup -->
 <div class="" id="overlay"></div>
