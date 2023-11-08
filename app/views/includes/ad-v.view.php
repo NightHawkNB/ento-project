@@ -2,7 +2,7 @@
 
     <div id="sub-container" class="bg-white bor-rad-5 pad-10-20 wid-100 gap-20 al-it-ce ads sh f-poppins">
         <div class="dis-flex ju-co-ce al-it-ce">
-            <img src="<?= $image ?>" class="profile-image-2 profile" alt="user-01">
+            <img src="<?= $image ?>" style="object-fit: cover" class="profile-image-2 profile" alt="user-01">
         </div>
 
 

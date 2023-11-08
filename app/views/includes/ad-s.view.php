@@ -2,7 +2,7 @@
 
     <div id="sub-container" class="bg-white bor-rad-5 pad-10-20 wid-100 gap-20 al-it-ce ads sh f-poppins">
         <div class="dis-flex ju-co-ce al-it-ce">
-            <img src="<?= $image ?>" class="profile-image-2 profile" alt="user-01">
+            <img src="<?= $image ?>" class="profile-image-2 profile" style="object-fit: cover" alt="user-01">
         </div>
 
         <div class="dis-flex-col gap-10 mar-0-20 wid-200px">
@@ -32,10 +32,6 @@
             </div>
         </div>
 
-        <div class="dis-flex-col gap-10 flex-1 wid-200px">
-            <p class="txt-w-bold">Sample Audio</p>
-        </div>
-
         <div class="dis-flex ju-co-ce al-it-ce">
             <div class="txt-ali-rig dis-flex ju-co-ce al-it-ce">
                 <p class=""> 30% OFF </p>
@@ -49,7 +45,7 @@
         <?php endif; ?>
 
         <?php if(Auth::logged_in()): ?>
-            <button class="btn-lay-2 btn-anima-hover hover-pointer" data-modal-target="#modal">More Info</button>
+            <button class="btn-lay-2 btn-anima-hover hover-pointer" data-modal-target="#<?= $ad_id ?>">More Info</button>
         <?php endif; ?>
 
         <?php if(Auth::logged_in() && (!Auth::is_client()) && !str_contains($_SERVER['QUERY_STRING'], "home/ads") && !str_contains($_SERVER['QUERY_STRING'], "/ads/all-ads") ): ?>
@@ -72,8 +68,9 @@
     </div>
 </div>
 
+
 <!-- Modal for the Popup -->
-<div class="modal" id="modal">
+<div class="modal" id="<?= $ad_id ?>">
     <div class="modal-header">
         <div class="title"><?= $title ?></div>
         <button data-close-btn class="modal-close-btn">&times;</button>
@@ -87,13 +84,13 @@
             </div>
 
             <div class="">
-                <img src="<?= $image ?>" alt="Ad image" style="width: 150px; height: 150px" class="bor-rad-5">
+                <img src="<?= $image ?>" alt="Ad image" style="width: 150px; height: 150px; object-fit: cover" class="bor-rad-5">
             </div>
             
             <div>
                 <audio controls>
                     <source src="<?= ROOT ?>/assets/audio/sample.mp3" type="audio/mpeg">
-                    No audio tag supported
+                    No audio supported
                 </audio>
             </div>
 
