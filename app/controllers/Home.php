@@ -13,7 +13,7 @@ class Home extends Controller{
         $data['record'] = $event->where(['pending' => 0]);
 
         if(empty($id)) $this->view('events', $data);
-        else if (!empty($id)) {
+        else {
             if(empty($method)) {
                 $this->view('common/events/details');
             } else if($method == "pay") {
@@ -97,9 +97,6 @@ class Home extends Controller{
 
                 $this->view('common/events/buy-tickets');
             }
-        } else {
-            message("No such page exists");
-            redirect('home/events');
         }
     }
 
