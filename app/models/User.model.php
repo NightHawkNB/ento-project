@@ -6,6 +6,7 @@ class User extends Model{
     protected $pk = "user_id";
     
     protected $allowed_columns = [
+        'user_id',
         'fname',
         'lname',
         'address1',
