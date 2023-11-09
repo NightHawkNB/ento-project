@@ -13,7 +13,7 @@ class Home extends Controller{
         $data['record'] = $event->where(['pending' => 0]);
 
         if(empty($id)) $this->view('events', $data);
-        else if (is_numeric($id)) {
+        else if (!empty($id)) {
             if(empty($method)) {
                 $this->view('common/events/details');
             } else if($method == "pay") {

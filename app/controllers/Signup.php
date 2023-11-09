@@ -11,6 +11,8 @@ class Signup extends Controller{
 
                 $_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
+                $_POST['user_id'] = "USER_".rand(1000, 100000) . "_" . time();
+
                 $user->insert($_POST);
 
                 message("Your profile was created successfully. Please Login");
