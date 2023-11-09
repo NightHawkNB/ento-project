@@ -46,7 +46,7 @@
         <?php endif; ?>
 
         <?php if(Auth::logged_in()): ?>
-            <button class="btn-lay-2 btn-anima-hover hover-pointer" data-modal-target="#modal">More Info</button>
+            <button class="btn-lay-2 btn-anima-hover hover-pointer" data-modal-target="#<?= $ad_id ?>">More Info</button>
         <?php endif; ?>
 
         <?php if(Auth::logged_in() && (!Auth::is_client()) && !str_contains($_SERVER['QUERY_STRING'], "home/ads") && !str_contains($_SERVER['QUERY_STRING'], "/ads/all-ads") ): ?>
@@ -71,7 +71,7 @@
 
 
 <!-- Modal for the Popup -->
-<div class="modal" id="modal">
+<div class="modal" id="<?= $ad_id ?>">
     <div class="modal-header">
         <div class="title"><?= $title ?></div>
         <button data-close-btn class="modal-close-btn">&times;</button>
