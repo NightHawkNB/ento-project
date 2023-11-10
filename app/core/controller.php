@@ -27,6 +27,50 @@ class Controller
 
         if ($_SERVER['REQUEST_METHOD'] == "POST" && $row) {
             $_POST['user_id'] = Auth::getUser_id();
+
+            $allowed_types = ['image/jpeg', 'image/png'];
+            $direct_folder = getcwd() . "\assets\images\users" . DIRECTORY_SEPARATOR;
+            $remote_folder = ROOT . "/assets/images/users/";
+
+            /*  IMPORTANT requires adding enctype="multipart/form-data" to form tag
+             *  When saving a file, we have to use a static path since we can't save files via a remote path (url)
+             *  Viewing a file cannot be done using a static path and can only be done by remote path
+             *  So save the file using the static path
+             *  But save the remote path to the database so it can be viewed
+             *  TODO deleting an ad doesn't delete the image stored
+             */
+
+            show($_POST);
+            show($_FILES);
+
+            if (!empty($_FILES['image']['name'])) {
+
+                // Removing the previous profile image was not necessary since the new file will replace the previous one
+//                if(!empty($row->image)) {
+//                    if(!unlink($row->image)) {
+//                        message("Previous File could not be deleted");
+//                    }
+//                }
+
+                if ($_FILES['image']['error'] == 0) {
+                    if (in_array($_FILES['image']['type'], $allowed_types)) {
+                        $temp_name = explode(".", $_FILES['image']['name']);
+                        $destination = $direct_folder . $_POST['user_id'] . "." . end($temp_name);
+                        move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+
+                        $_POST['image'] = $remote_folder . $_POST['user_id'] . "." . end($temp_name);
+                    } else {
+                        message("Image type should be JPG/JPEG/PNG");
+                        redirect(strtolower($row->usertype) . "profile/edit-profile");
+                    }
+                } else {
+                    message("Error occurred - Couldn't upload the file");
+                    redirect(strtolower($row->usertype) . "profile/edit-profile");
+                }
+            } else {
+                $_POST['image'] = ROOT."/assets/images/users/general.png";
+            }
+
             $user->update(Auth::getUser_id(), $_POST);
             redirect("$row->user_type/profile/edit-profile/" . $row->user_id);
         }
@@ -121,7 +165,7 @@ class Controller
                     $direct_folder = getcwd() . "\assets\images\ads" . DIRECTORY_SEPARATOR;
                     $remote_folder = ROOT . "/assets/images/ads/";
 
-                    /*  IMPORTANT
+                    /*  IMPORTANT requires adding enctype="multipart/form-data" to form tag
                      *  When saving a file, we have to use a static path since we can't save files via a remote path (url)
                      *  Viewing a file cannot be done using a static path and can only be done by remote path
                      *  So save the file using the static path

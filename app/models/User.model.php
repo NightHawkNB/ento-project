@@ -17,7 +17,8 @@ class User extends Model{
         'email',
         'password',
         'contact_num',
-        'image'
+        'image',
+        'verified'
     ];
 
     public function validate($data) {
