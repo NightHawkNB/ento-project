@@ -18,12 +18,12 @@
                 }
             </script>
 
-            <form method="post" enctype="multipart/form-data" id="ad_form" class="txt-c-black al-it-ce pad-20 bor-rad-5 dis-flex-col flex-1 ju-co-ce">
+            <form method="post" enctype="multipart/form-data" id="ad_form" class="bg-white txt-c-black al-it-ce pad-20 bor-rad-5 dis-flex-col flex-1 ju-co-ce">
 
                 <div class="profile-input-2 pos-rel">
                     <img id="image-ad" class="bor-rad-5" src="<?= ROOT ?>/assets/images/ads/general.png" style="width: 150px; height: 150px; object-fit: cover" alt="general image">
                     <div class="dis-flex gap-20 al-it-ce">
-                        <label for="image" style="right: -10; bottom: -10" class="pos-abs bor-rad-5 pad-10 bg-primary hover-pointer">
+                        <label for="image" style="right: -10; bottom: -10" class="pos-abs bor-rad-5 pad-10 bg-grey hover-pointer">
                             <svg class="feather txt-c-white feather-upload" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
                             <input onchange="load_image(this.files[0])" type="file" id="image" name="image" class="hide">
                         </label>

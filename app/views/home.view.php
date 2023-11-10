@@ -28,7 +28,7 @@
         <main>
             <div class="dis-flex-col">
                 <div class="wid-100 banner">
-                    <img src="<?= ROOT ?>/assets/images/home_banner.jpg" style="width: 100vw" alt="Banner Image">
+                    <img src="<?= ROOT ?>/assets/images/home_banner.jpg" style="width: 100%; height: 100% alt="Banner Image">
                     <?php if(Auth::logged_in() && (Auth::is_singer() || Auth::is_band())) : ?>
                         <a href=<?= ROOT."/".strtolower($_SESSION['USER_DATA']->user_type)."/ads/create-ad"?>>
                             <button class="btn-lay-2 btn-anima-hover hover-pointer home-btn-2">Post Ad</button>
