@@ -8,7 +8,7 @@
             <section class="cols-2 sidebar">
                 <?php $this->view('includes/sidebar') ?>
             </section>
-            <section class="cols-10 profile bg-primary dis-flex al-it-st">
+            <section class="cols-10 profile dis-flex al-it-st">
                 <div class="profile-container-2 change-pass">
                     <form method="post" class="wid-50">
 
