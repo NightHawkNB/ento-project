@@ -68,7 +68,9 @@ class Controller
                     redirect(strtolower($row->usertype) . "profile/edit-profile");
                 }
             } else {
-                $_POST['image'] = ROOT."/assets/images/users/general.png";
+                if(empty($row->image)) {
+                    $_POST['image'] = ROOT."/assets/images/users/general.png";
+                }
             }
 
             $user->update(Auth::getUser_id(), $_POST);
