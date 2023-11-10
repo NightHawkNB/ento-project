@@ -18,7 +18,8 @@
 :root {
     --bg-primary-2: mediumpurple;
     --bg-primary: #eee;
-    --indigo-2:  hwb(263 6% 5%);
+    /* hwb(263 6% 5%) - Previous purple */
+    --indigo-2:  #007afa;
     --alert-indigo: rgba(102, 16, 242, 0.5);
     --indigo-6: #E0CFFC;
     --dark-grey: #323232;

@@ -13,7 +13,7 @@
                 <div id="cat-venue" class="pad-10 hover-pointer">Venues</div>
             </div>
 
-            <div class="bg-lightgray txt-c-black pad-10 wid-100 flex-1 dis-flex-col gap-10">
+            <div class="txt-c-black pad-10 wid-100 flex-1 dis-flex-col gap-10">
                 <?php
 
                     if(!empty($ad_singer)) {

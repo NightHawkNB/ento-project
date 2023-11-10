@@ -40,7 +40,11 @@ const create_ad = () => {
 
 /* END OF AD CREATION FORM */
 
+function load_image(file) {
 
+    const mylink = window.URL.createObjectURL(file)
+    document.getElementById('image-ad').src = mylink
+}
 
 /* START OF DASHBOARD SIDEBAR */
 window.onload = function(){
