@@ -4,7 +4,7 @@
   padding: 10px;
   height: 100%;
   width: 56px;
-  background-color: var(--indigo-2);
+  background-color: rgba(0, 0, 0, 0.6);
   transition: all .5s ease;
   display: flex;
   flex-direction: column;
@@ -41,7 +41,7 @@
 }
 
 .sidebar li a span{
-  color: white;
+  color: var(--font-secondary);
   margin-left: 10px;
   font-size: 15px;
   font-weight: 400;
@@ -73,4 +73,5 @@
   line-height: 35px;
   font-size: 18px;
   border-radius: 5px;
+  color: var(--font-secondary);
 }

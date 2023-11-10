@@ -9,7 +9,7 @@
                 <?php $this->view('includes/sidebar') ?>
             </section>
 
-            <section class="cols-10 profile bg-primary dis-flex al-it-st">
+            <section class="cols-10 profile dis-flex al-it-st">
                 <div class="profile-container-2">
                     <form method="post" enctype="multipart/form-data" class="wid-50 dis-flex-col al-it-ce ju-co-ce">
                         <div class="profile-input-2 pos-rel">
@@ -40,7 +40,7 @@
 
                         <div class="profile-input">
                             <label for="nic_num">NIC Num</label>
-                            <input type="text" name="nic_num" value=<?= $user->nic_num ?? "Not_Verfied" ?> disabled >
+                            <input type="text" name="nic_num" value="<?= $user->nic_num ?? "Not_Verfied" ?>" disabled >
                         </div>
 
                         <div class="profile-input">
@@ -50,22 +50,22 @@
 
                         <div class="profile-input">
                             <label for="city">City</label>
-                            <input type="text" name="city" value=<?= $user->city ?> >
+                            <input type="text" name="city" value="<?= $user->city ?>" >
                         </div>
 
                         <div class="profile-input">
                             <label for="district">District</label>
-                            <input type="text" name="district" value=<?= $user->district ?> >
+                            <input type="text" name="district" value="<?= $user->district ?>" >
                         </div>
 
                         <div class="profile-input">
                             <label for="address1">Address 01</label>
-                            <input type="text" name="address1" value=<?= $user->address1 ?> >
+                            <input type="text" name="address1" value="<?= $user->address1 ?>" >
                         </div>
 
                         <div class="profile-input">
                             <label for="address2">Address 02</label>
-                            <input type="text" name="address2" value=<?= $user->address2 ?> >
+                            <input type="text" name="address2" value="<?= $user->address2 ?>" >
                         </div>
 
                         <div class="wid-100 dis-flex ju-co-ce">

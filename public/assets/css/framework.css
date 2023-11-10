@@ -28,6 +28,8 @@
     --error: #F00;
     --ok: rgb(57, 251, 57);
     --maxwidth: auto;
+    --font-primary: black;
+    --font-secondary: white;
 }
 
 a {
