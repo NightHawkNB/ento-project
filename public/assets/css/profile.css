@@ -239,11 +239,8 @@
     grid-template-columns: 180px 500px auto;
   }
 
-  #profile-overview div#profile-image {
-    border-right: 2px solid aqua;
-  }
-
   #profile-overview div#profile-general {
+    border-left: 2px solid aqua;
     border-right: 2px solid hotpink ;
   }
 }
@@ -254,12 +251,8 @@
     justify-items: center;
   }
 
-  #profile-overview div#profile-image {
-    border-bottom: 2px solid aqua;
-    width: 100%;
-  }
-
   #profile-overview div#profile-general {
+    border-top: 2px solid aqua;
     border-bottom: 2px solid hotpink ;
     width: 100%;
   }
@@ -275,7 +268,7 @@ div#profile-image {
   flex-direction: column;
   gap: 20px;
   align-items: center;
-  padding-top: 20px;
+  padding: 20px;
   width: 100%;
 }
 

@@ -8,10 +8,14 @@
             <section class="cols-2 sidebar">
                 <?php $this->view('includes/sidebar') ?>
             </section>
-            <section class="cols-10">
+            <section class="wid-100 pad-10">
                     <?php
-                        foreach($records as $reservations) {
-                            $this->view('common/reservations/res-details', (array)$reservations);
+                        if(!empty($records)) {
+                            foreach($records as $reservations) {
+                                $this->view('common/reservations/res-details', (array)$reservations);
+                            }
+                        } else {
+                            echo "<h3 class='txt-c-white'>No reservations to show</h3>";
                         }
                     ?>
             </section>
