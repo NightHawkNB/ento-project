@@ -133,6 +133,7 @@ body::-webkit-scrollbar-thumb {
 .dis-flex-col {display: flex; flex-direction: column}
 .dis-grid-c3 {display: grid; grid-template-columns: repeat(3, 1fr);}
 .dis-grid-c4 {display: grid; grid-template-columns: repeat(4, 1fr);}
+.dis-grid-c5 {display: grid; grid-template-columns: repeat(5, 1fr);}
 .hide {display: none}
 .al-it-ce {align-items: center}
 .al-it-ba {align-items: baseline}

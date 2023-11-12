@@ -1,0 +1,51 @@
+.component-list {
+    border-radius: 5px;
+}
+
+.component-list > div {
+    background-color: var(--bg-primary);
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    padding: 10px;
+    min-height: 50px;
+    align-items: center;
+    border-bottom: 1px solid var(--line-secondary);
+}
+
+.component-list > div:hover {
+    background-color: var(--bg-secondary);
+    color: var(--font-secondary);
+    font-weight: bold;
+}
+
+.component-list > div:first-child:hover {
+    background-color: var(--bg-primary);
+    color: var(--font-primary);
+}
+
+.component-list > div > p:last-child {border-right: none;}
+.component-list > div > p {
+    border-right: 1px solid var(--line-secondary);
+    font-family: Mooli, sans-serif;
+    padding: 5px;
+}
+
+.component-list > div:first-child {
+    border-radius: 5px 5px 0 0;
+    font-weight: bolder;
+    font-size: 1.05rem;
+}
+.component-list > div:last-child {border-radius: 0 0 5px 5px;}
+
+.status {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.status > span {
+    background-color: grey;
+    padding: 3px 30px;
+    border-radius: 5px;
+    color: var(--font-secondary);
+}

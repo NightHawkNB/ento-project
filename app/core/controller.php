@@ -5,7 +5,7 @@
 class Controller
 {
 
-    public function view($view, $data = [])
+    public function view($view, $data = []): void
     {
 
         extract($data);
@@ -18,7 +18,7 @@ class Controller
         }
     }
 
-    public function profile($method = null)
+    public function profile($method = null): void
     {
 
         $user = new User();
@@ -88,7 +88,7 @@ class Controller
         }
     }
 
-    public function reservations($method = null, $id = null)
+    public function reservations($method = null, $id = null): void
     {
 
         if (Auth::is_client()) {
@@ -102,9 +102,20 @@ class Controller
         $row = $user->first(['user_id' => Auth::getUser_id()]);
 
         if (empty($method)) {
+
             //            Getting all reservations for listing
             $data['records'] = $reservation->get_all();
-            $this->view('common/reservations/your-reservations', $data);
+            $this->view('common/reservations/reservations', $data);
+
+        } else if ($method === 'requests') {
+            //                Getting all reservation requests and if id is given in the url, fetches only the one relevant
+            if (empty($id)) {
+                $data['requests'] = $db->query("SELECT * FROM resrequest");
+                $this->view('common/reservations/requests', $data);
+            } else {
+                $data['requests'] = $db->query("SELECT * FROM resrequest WHERE req_id = $id");
+                $this->view('common/reservations/req-details-individual', $data['requests']);
+            }
         } else if (is_numeric($method)) {
             //            If instead of the method, a numeric value is given, then find the relevant reservation and show it
             $data['reservation'] = $reservation->where(['reservation_id' => $method]);
@@ -114,15 +125,6 @@ class Controller
                 redirect("$row->user_type/reservations");
             } else {
                 $this->view('common/reservations/res-details-individual', $data);
-            }
-        } else if ($method === 'reservation-requests') {
-            //                Getting all reservation requests and if id is given in the url, fetches only the one relevant
-            if (empty($id)) {
-                $data['requests'] = $db->query("SELECT * FROM resrequest");
-                $this->view('common/reservations/reservation-requests', $data);
-            } else {
-                $data['requests'] = $db->query("SELECT * FROM resrequest WHERE req_id = $id");
-                $this->view('common/reservations/req-details-individual', $data['requests']);
             }
         } else if ($method == 'event-list') {
             $this->view("common/reservations/event-list");
@@ -134,7 +136,7 @@ class Controller
         }
     }
 
-    public function ads($method = null, $id = null)
+    public function ads($method = null, $id = null): void
     {
 
         $ads = new Ad();

@@ -13,11 +13,13 @@
 @import "switches.css";
 @import "profile.css";
 @import "ticket.css";
+@import "components.css";
 
 /* CSS COLORS */
 :root {
     --bg-primary-2: mediumpurple;
-    --bg-primary: #eee;
+    --bg-primary: white;
+    --bg-secondary: rgba(0, 0, 0, 0.5);
     /* hwb(263 6% 5%) - Previous purple */
     --indigo-2:  #007afa;
     --alert-indigo: rgba(102, 16, 242, 0.5);
@@ -30,6 +32,8 @@
     --maxwidth: auto;
     --font-primary: black;
     --font-secondary: white;
+    --line-primary: black;
+    --line-secondary: grey;
 }
 
 a {
