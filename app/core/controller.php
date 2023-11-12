@@ -115,8 +115,10 @@ class Controller
 
                 $this->view('common/reservations/requests', $data);
             } else {
-                $data['requests'] = $db->query("SELECT * FROM resrequest WHERE req_id = $id");
-                $this->view('common/reservations/req-details-individual', $data['requests']);
+                $input = ['deleted' => 0, 'user_id' => Auth::getUser_id(), 'req_id' => $id];
+                $data['request'] = $db->query("SELECT * FROM resrequest JOIN user ON resrequest.user_id = user.user_id JOIN serviceprovider ON resrequest.sp_id = serviceprovider.sp_id WHERE deleted = :deleted AND serviceprovider.user_id = :user_id and req_id = :req_id", $input)[0];
+
+                $this->view('includes/components/request-details', $data);
             }
         } else if (is_numeric($method)) {
             //            If instead of the method, a numeric value is given, then find the relevant reservation and show it
