@@ -18,6 +18,11 @@
     font-weight: bold;
 }
 
+.component-list > div:hover button {
+    color: white;
+    font-weight: bolder;
+}
+
 .component-list > div:first-child:hover {
     background-color: var(--bg-primary);
     color: var(--font-primary);
@@ -45,7 +50,36 @@
 
 .status > span {
     background-color: grey;
-    padding: 3px 30px;
+    width: 100px;
+    padding: 5px;
+    text-align: center;
     border-radius: 5px;
     color: var(--font-secondary);
 }
+
+.status.active > span {background-color: #109CF1;}
+.status.declined > span {background-color: #FF3B47;}
+.status.expired > span {background-color: coral;}
+.status.accepted > span {background-color: green;}
+
+
+.component-list .action-btn {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.5s ease;
+}
+
+.component-list .action-btn button {
+    border: none;
+    padding: 5px;
+    background-color: transparent;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+
+.component-list .action-btn button:nth-child(1):hover {color: #007afa;}
+.component-list .action-btn button:nth-child(2):hover {color: green;}
+.component-list .action-btn button:nth-child(3):hover {color: red;}

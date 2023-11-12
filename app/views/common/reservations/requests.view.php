@@ -14,21 +14,21 @@
 
             <div class="component-list">
                 <div>
-                    <p>Title</p>
-                    <p>Date</p>
-                    <p>Time</p>
+                    <p>Client Name</p>
+                    <p>Date and Time</p>
+                    <p>Location</p>
                     <p>Status</p>
                     <p>Actions</p>
                 </div>
 
                 <?php
-                if(!empty($records)) {
-                    foreach($records as $request) {
-                        $this->view('includes/components/request', (array)$request);
+                    if(!empty($requests)) {
+                        foreach($requests as $request) {
+                            $this->view('includes/components/request', (array)$request);
+                        }
+                    } else {
+                        echo "<h3 class='txt-c-white'>No reservations to show</h3>";
                     }
-                } else {
-                    echo "<h3 class='txt-c-white'>No reservations to show</h3>";
-                }
                 ?>
             </div>
 

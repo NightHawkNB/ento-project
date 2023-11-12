@@ -110,7 +110,9 @@ class Controller
         } else if ($method === 'requests') {
             //                Getting all reservation requests and if id is given in the url, fetches only the one relevant
             if (empty($id)) {
-                $data['requests'] = $db->query("SELECT * FROM resrequest");
+                $input = ['deleted' => 0, 'user_id' => Auth::getUser_id()];
+                $data['requests'] = $db->query("SELECT * FROM resrequest JOIN user ON resrequest.user_id = user.user_id JOIN serviceprovider ON resrequest.sp_id = serviceprovider.sp_id WHERE deleted = :deleted AND serviceprovider.user_id = :user_id", $input);
+
                 $this->view('common/reservations/requests', $data);
             } else {
                 $data['requests'] = $db->query("SELECT * FROM resrequest WHERE req_id = $id");
