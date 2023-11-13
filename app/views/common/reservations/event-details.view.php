@@ -10,7 +10,7 @@
         </section>
         <section class="cols-10 pad-20 mar-bot-10">
             <div class="dis-flex-col bg-lightgray pad-20 bor-rad-5 gap-20">
-                <h2>Event Name : Yaathra</h2>
+                <h2>Event Name : Yaathraa</h2>
                 <p>Details Page</p>
             </div>
         </section>
