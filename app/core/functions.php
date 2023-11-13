@@ -18,7 +18,10 @@ function redirect($link) {
     die;
 }
 
-function message($msg = '', $erase = false) {
+function message($msg = '', $erase = false, $status = "neutral") {
+
+    $_SESSION['alert-status'] = $status;
+
     if(!empty($msg)) {
         $_SESSION['message'] = $msg;
     }else{

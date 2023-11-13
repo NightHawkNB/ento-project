@@ -1,10 +1,47 @@
-<?php if(message()): ?>
-    <div class="mar-0 alert-msg"><?= message('', true); ?></div>
-<?php else: ?>
-    <div><!-- Empty Div Element --></div>
-<?php endif; ?>
+<div><!-- Empty Div Element --></div>
+
+<?php
+    if(message()) {
+        switch ($_SESSION['alert-status']) {
+            case 'neutral':
+                $status = "neutral";
+                $heading = "Alert";
+                break;
+            case 'success':
+                $status = "success";
+                $heading = "Success";
+                break;
+            case 'failure':
+                $status = "failed";
+                $heading = "Error";
+                break;
+            default :
+                $status = "";
+                $heading = "";
+        }
+    }
+?>
 
 <header class="cols-12 dis-flex pad-20 al-it-ce bg-black-2 flex-wrap gap-10 ju-co-ce">
+
+    <!-- START OF Popup message box -->
+    <div class="alert <?= $status ?> dis-flex gap-10 al-it-ce <?= (message()) ? 'show' : '' ?>" id="alert-window">
+        <?php if($status == "success"): ?>
+            <svg class="feather feather-check-circle" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <?php endif; ?>
+        <?php if($status == "neutral"): ?>
+            <svg class="feather feather-alert-circle" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+        <?php endif; ?>
+        <?php if($status == "failed"): ?>
+            <svg class="feather feather-x-circle" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"/><line x1="15" x2="9" y1="9" y2="15"/><line x1="9" x2="15" y1="9" y2="15"/></svg>
+        <?php endif; ?>
+
+        <p class="flex-1">
+            <?= $heading ?> : <?= message('', true); ?>
+        </p>
+    </div>
+    <!-- END OF Popup message box -->
+
     <a href="<?= ROOT ?>/home"><div class="" id="logo"><?= APP_NAME ?></div></a>
     <nav class="cols-5 flex-grow dis-flex flex-wrap ju-co-ce">
         <a href="<?= ROOT ?>/home">Home</a>
