@@ -113,7 +113,8 @@ Class Admin extends Controller{
         }
     }
 
-    public function profile($method = null){
+    public function profile($method = null): void
+    {
         $user = new User();
 
         $data['user'] = $row = $user->first(['user_id' => Auth::getUser_id()]);
@@ -135,7 +136,8 @@ Class Admin extends Controller{
 
     }
 
-    public function reservations($method = null, $id = null){
+    public function reservations($method = null, $id = null, $action = null): void
+    {
         
         $db = new Database();
 
