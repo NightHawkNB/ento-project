@@ -4,27 +4,6 @@ class Client extends Controller {
       $this->view('common/dashboard');
   }
 
-  public function profile($method = null) {
-      $user = new User();
-
-      $data['user'] = $row = $user->first(['user_id' => Auth::getUser_id()]);
-
-      if ($_SERVER['REQUEST_METHOD'] == "POST" && $row) {
-          $user->update($row->user_id, $_POST);
-          redirect("singer/profile/edit-profile/" . $row->user_id);
-      }
-
-      if (empty($method)) $this->view('common/profile/overview', $data);
-      else if ($method === 'edit-profile') $this->view('common/profile/edit', $data);
-      else if ($method === 'settings') $this->view('common/profile/settings', $data);
-      else if ($method === 'verify') $this->view('common/profile/verify', $data);
-      else if ($method === 'change-password') $this->view('common/profile/change-password', $data);
-      else {
-          message("Page not found");
-          redirect('client/profile');
-      }
-  }
-
   public function event($page = null) {
 
       $ads = new Ad();
