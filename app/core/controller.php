@@ -88,7 +88,7 @@ class Controller
         }
     }
 
-    public function reservations($method = null, $id = null): void
+    public function reservations($method = null, $id = null, $action = null): void
     {
 
         if (Auth::is_client()) {
@@ -103,25 +103,59 @@ class Controller
 
         if (empty($method)) {
 
-            //            Getting all reservations for listing
+            // Getting all reservations for listing
             $data['records'] = $reservation->get_all();
             $this->view('common/reservations/reservations', $data);
 
         } else if ($method === 'requests') {
-            //                Getting all reservation requests and if id is given in the url, fetches only the one relevant
+
+            // Getting all reservation requests and if id is given in the url, fetches only the one relevant
             if (empty($id)) {
+
                 $input = ['deleted' => 0, 'user_id' => Auth::getUser_id()];
-                $data['requests'] = $db->query("SELECT * FROM resrequest JOIN user ON resrequest.user_id = user.user_id JOIN serviceprovider ON resrequest.sp_id = serviceprovider.sp_id WHERE deleted = :deleted AND serviceprovider.user_id = :user_id", $input);
+                $data['requests'] = $db->query("SELECT * FROM resrequest JOIN user ON resrequest.user_id = user.user_id JOIN serviceprovider ON resrequest.sp_id = serviceprovider.sp_id WHERE deleted = :deleted AND serviceprovider.user_id = :user_id AND status IN ('Pending', 'Declined')", $input);
 
                 $this->view('common/reservations/requests', $data);
-            } else {
-                $input = ['deleted' => 0, 'user_id' => Auth::getUser_id(), 'req_id' => $id];
-                $data['request'] = $db->query("SELECT * FROM resrequest JOIN user ON resrequest.user_id = user.user_id JOIN serviceprovider ON resrequest.sp_id = serviceprovider.sp_id WHERE deleted = :deleted AND serviceprovider.user_id = :user_id and req_id = :req_id", $input)[0];
 
-                $this->view('includes/components/request-details', $data);
+            } else {
+
+                if(!empty($action) && $action == "accept") {
+
+                    $request = new Resrequest();
+
+                    $input = ['status' => "Accepted", 'req_id' => $id];
+                    $row_data = $request->query("UPDATE resrequest SET status = :status WHERE req_id = :req_id", $input);
+
+                    message("Request Accepted");
+
+                    redirect($_SESSION['USER_DATA']->user_type."/reservations/requests");
+
+                } else if(!empty($action) && $action == "decline") {
+
+                    $request = new Resrequest();
+
+                    $input = ['status' => "Declined", 'req_id' => $id];
+                    $row_data = $request->query("UPDATE resrequest SET status = :status WHERE req_id = :req_id", $input);
+
+                    message("Request Declined");
+
+                    redirect($_SESSION['USER_DATA']->user_type."/reservations/requests");
+
+                } else {
+
+                    $input = ['deleted' => 0, 'user_id' => Auth::getUser_id(), 'req_id' => $id];
+                    $data['request'] = $db->query("SELECT * FROM resrequest JOIN user ON resrequest.user_id = user.user_id JOIN serviceprovider ON resrequest.sp_id = serviceprovider.sp_id WHERE deleted = :deleted AND serviceprovider.user_id = :user_id and req_id = :req_id", $input)[0];
+
+                    $this->view('includes/components/request-details', $data);
+
+                }
             }
+
+            // TODO Chat button functionality for reservation request details page
+
         } else if (is_numeric($method)) {
-            //            If instead of the method, a numeric value is given, then find the relevant reservation and show it
+
+            // If instead of the method, a numeric value is given, then find the relevant reservation and show it
             $data['reservation'] = $reservation->where(['reservation_id' => $method]);
 
             if (empty($data['reservation'])) {
@@ -130,13 +164,20 @@ class Controller
             } else {
                 $this->view('common/reservations/res-details-individual', $data);
             }
+
         } else if ($method == 'event-list') {
+
             $this->view("common/reservations/event-list");
+
         } else if ($method == 'event-details') {
+
             $this->view("common/reservations/event-details");
+
         } else {
+
             message("Page not found");
             redirect("$row->user_type/reservations");
+
         }
     }
 

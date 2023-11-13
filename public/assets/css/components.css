@@ -29,6 +29,7 @@
 }
 
 .component-list > div > p:last-child {border-right: none;}
+
 .component-list > div > p {
     border-right: 1px solid var(--line-secondary);
     font-family: Mooli, sans-serif;
@@ -40,6 +41,7 @@
     font-weight: bolder;
     font-size: 1.05rem;
 }
+
 .component-list > div:last-child {border-radius: 0 0 5px 5px;}
 
 .status {
@@ -57,7 +59,7 @@
     color: var(--font-secondary);
 }
 
-.status.active > span {background-color: #109CF1;}
+.status.pending > span {background-color: #109CF1;}
 .status.declined > span {background-color: #FF3B47;}
 .status.expired > span {background-color: coral;}
 .status.accepted > span {background-color: green;}
@@ -83,3 +85,22 @@
 .component-list .action-btn button:nth-child(1):hover {color: #007afa;}
 .component-list .action-btn button:nth-child(2):hover {color: green;}
 .component-list .action-btn button:nth-child(3):hover {color: red;}
+
+
+/* START OF Accept, Deny, Details and Chat button styles */
+
+a.action-btn button.chat-btn svg {color: #00baff;}
+a.action-btn button.chat-btn {border: 1px solid #00baff; transition: 0.5s ease all; cursor: pointer}
+a.action-btn button.accept-btn svg {color: green;}
+a.action-btn button.accept-btn {border: 1px solid green; transition: 0.5s ease all; cursor: pointer}
+a.action-btn button.decline-btn svg {color: red;}
+a.action-btn button.decline-btn {border: 1px solid red; transition: 0.5s ease all; cursor: pointer}
+
+a.action-btn button.chat-btn:hover svg {color: white;}
+a.action-btn button.chat-btn:hover {background-color: #00baff; color: white; font-weight: bold}
+a.action-btn button.accept-btn:hover svg {color: white;}
+a.action-btn button.accept-btn:hover {background-color: green; color: white; font-weight: bold}
+a.action-btn button.decline-btn:hover svg {color: white;}
+a.action-btn button.decline-btn:hover {background-color: red; color: white; font-weight: bold}
+
+/* END OF Accept, Deny, Details and Chat button styles */
