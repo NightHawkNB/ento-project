@@ -1,0 +1,26 @@
+.alert {
+    background-color: var(--bg-primary);
+    padding: 15px 25px;
+    position: fixed;
+    width: fit-content;
+    margin: 0 auto;
+    top: 10px;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transform: scale(0);
+    transition: all 0.5s ease;
+}
+
+.alert.show {
+    transform: scale(1);
+}
+
+.alert.success > div.msg-block > svg {color: green;}
+.alert.success {color: green;}
+
+.alert.neutral > div.msg-block > svg {color: #007afa;}
+.alert.neutral {color: #007afa;}
+
+.alert.failed > div.msg-block > svg {color: red;}
+.alert.failed {color: red;}

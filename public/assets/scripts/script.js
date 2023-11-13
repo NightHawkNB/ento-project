@@ -121,3 +121,15 @@ function closeModal(modal) {
 }
 
 /* END OF THE POPUP SCRIPT */
+
+
+/* START OF ALERT MESSAGE SCRIPT */
+
+const alert_window = document.getElementById('alert-window')
+if(alert_window) {
+    alert_window.addEventListener('click', () => {
+        if(alert_window.classList.contains('show')) alert_window.classList.remove('show')
+    })
+}
+
+/* END OF ALERT MESSAGE SCRIPT */
