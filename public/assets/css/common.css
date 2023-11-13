@@ -99,6 +99,7 @@ body::-webkit-scrollbar-thumb {
 .bg-primary {background-color: mediumpurple}
 
 /* Background Colors */
+.bg-white-90 {background-color: rgba(255, 255, 255, 0.9)}
 .bg-white {background-color: white}
 .bg-indigo-2{background-color: var(--indigo-2)}
 .bg-indigo-6{background-color: var(--indigo-6)}
