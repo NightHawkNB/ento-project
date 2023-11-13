@@ -104,7 +104,9 @@ class Controller
         if (empty($method)) {
 
             // Getting all reservations for listing
-            $data['records'] = $reservation->get_all();
+            $input = ['deleted' => 0, 'user_id' => Auth::getUser_id(), 'status' => "Accepted"];
+            $data['reservations'] = $reservation->query("SELECT * FROM reservations JOIN user ON reservations.user_id = user.user_id JOIN resrequest ON reservations.reservation_id = resrequest.reservation_id JOIN serviceprovider ON serviceprovider.sp_id = reservations.sp_id WHERE reservations.deleted = :deleted AND serviceprovider.user_id = :user_id AND resrequest.status = :status", $input);
+
             $this->view('common/reservations/reservations', $data);
 
         } else if ($method === 'requests') {
@@ -121,10 +123,20 @@ class Controller
 
                 if(!empty($action) && $action == "accept") {
 
+                    // Generating a unique ad_id
+                    $new_id = "RES_" . rand(10, 100000) . "_" . time();
+
                     $request = new Resrequest();
 
-                    $input = ['status' => "Accepted", 'req_id' => $id];
-                    $row_data = $request->query("UPDATE resrequest SET status = :status WHERE req_id = :req_id", $input);
+                    $input = ['status' => "Accepted", 'reservation_id' => $new_id, 'req_id' => $id];
+                    $row_data = $request->query("UPDATE resrequest SET status = :status, reservation_id = :reservation_id WHERE req_id = :req_id", $input);
+
+                    $request_data = $request->query("SELECT * FROM resrequest WHERE req_id = :req_id", ['req_id' => $id])[0];
+
+                    $reservation = new Reservation();
+
+                    $input2 = ['reservation_id' => $new_id, 'sp_id' => $request_data->sp_id, 'user_id' => $request_data->user_id];
+                    $reservation->insert($input2);
 
                     message("Request Accepted");
 
@@ -153,18 +165,6 @@ class Controller
 
             // TODO Chat button functionality for reservation request details page
 
-        } else if (is_numeric($method)) {
-
-            // If instead of the method, a numeric value is given, then find the relevant reservation and show it
-            $data['reservation'] = $reservation->where(['reservation_id' => $method]);
-
-            if (empty($data['reservation'])) {
-                message("No Reservation with that ID exists");
-                redirect("$row->user_type/reservations");
-            } else {
-                $this->view('common/reservations/res-details-individual', $data);
-            }
-
         } else if ($method == 'event-list') {
 
             $this->view("common/reservations/event-list");
@@ -175,8 +175,16 @@ class Controller
 
         } else {
 
-            message("Page not found");
-            redirect("$row->user_type/reservations");
+            // If instead of the method, a value is given, then find the relevant reservation and show it
+            $input = ['deleted' => 0, 'reservation_id' => $method];
+            $data['reservation'] = $reservation->query("SELECT * FROM reservations JOIN user ON reservations.user_id = user.user_id JOIN resrequest ON reservations.reservation_id = resrequest.reservation_id JOIN serviceprovider ON serviceprovider.sp_id = reservations.sp_id WHERE reservations.deleted = :deleted AND reservations.reservation_id = :reservation_id", $input)[0];
+
+            if (empty($data['reservation'])) {
+                message("No Reservation with that ID exists");
+                redirect("$row->user_type/reservations");
+            } else {
+                $this->view('includes/components/reservation-details', (array)$data);
+            }
 
         }
     }

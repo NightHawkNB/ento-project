@@ -8,6 +8,7 @@ class Reservation extends Model{
     protected $allowed_columns = [
         'reservation_id',
         'sp_id',
-        'vuser_id'
+        'user_id',
+        'deleted'
     ];
 }
