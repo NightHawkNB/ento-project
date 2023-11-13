@@ -3,13 +3,13 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 13, 2023 at 10:08 AM
+-- Generation Time: Nov 13, 2023 at 02:29 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
 DROP DATABASE ento_db;
 CREATE DATABASE ento_db;
-use ento_db;
+USE ento_db;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -270,15 +270,17 @@ CREATE TABLE `payment_log` (
 CREATE TABLE `reservations` (
   `reservation_id` varchar(32) NOT NULL,
   `sp_id` int(11) NOT NULL,
-  `user_id` varchar(32) NOT NULL
+  `user_id` varchar(32) NOT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `reservations`
 --
 
-INSERT INTO `reservations` (`reservation_id`, `sp_id`, `user_id`) VALUES
-('', 3, '37');
+INSERT INTO `reservations` (`reservation_id`, `sp_id`, `user_id`, `deleted`) VALUES
+('RES_25664_1699881610', 7, '41', 0),
+('RES_43305_1699881734', 7, '37', 0);
 
 -- --------------------------------------------------------
 
@@ -296,19 +298,21 @@ CREATE TABLE `resrequest` (
   `location` varchar(64) NOT NULL DEFAULT 'City or Address',
   `datetime` datetime DEFAULT NULL,
   `status` varchar(32) NOT NULL DEFAULT 'Pending',
-  `deleted` tinyint(1) NOT NULL DEFAULT 0
+  `deleted` tinyint(1) NOT NULL DEFAULT 0,
+  `reservation_id` varchar(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `resrequest`
 --
 
-INSERT INTO `resrequest` (`req_id`, `user_id`, `sp_id`, `createdDate`, `respondedDate`, `details`, `location`, `datetime`, `status`, `deleted`) VALUES
-(4, '38', 7, '2023-11-12 21:05:25', NULL, 'Something Something', 'City or Address', '2023-05-12 00:00:00', 'Accepted', 0),
-(5, '38', 8, '2023-11-12 21:05:25', NULL, '5555', 'City or Address', '2023-05-12 00:00:00', 'Pending', 0),
-(6, '41', 7, '2023-11-12 21:22:52', NULL, 'Musical Event', 'City or Address', '2023-05-12 00:00:00', 'Accepted', 0),
-(7, '38', 7, '2023-11-12 21:30:23', NULL, 'New event', 'City or Address', '2023-05-12 00:00:00', 'Declined', 0),
-(8, '38', 7, '2023-11-12 21:30:34', NULL, 'Something Something', 'City or Address', '2023-05-12 00:00:00', 'Declined', 0);
+INSERT INTO `resrequest` (`req_id`, `user_id`, `sp_id`, `createdDate`, `respondedDate`, `details`, `location`, `datetime`, `status`, `deleted`, `reservation_id`) VALUES
+(4, '38', 7, '2023-11-12 21:05:25', NULL, 'Something Something', 'City or Address', '2023-05-12 00:00:00', 'Pending', 0, NULL),
+(5, '38', 8, '2023-11-12 21:05:25', NULL, '5555', 'City or Address', '2023-05-12 00:00:00', 'Pending', 0, NULL),
+(6, '41', 7, '2023-11-12 21:22:52', NULL, 'Musical Event', 'City or Address', '2023-05-12 00:00:00', 'Accepted', 0, 'RES_25664_1699881610'),
+(7, '37', 7, '2023-11-12 21:30:23', NULL, 'New event', 'City or Address', '2023-12-01 00:00:00', 'Accepted', 0, 'RES_43305_1699881734'),
+(8, '37', 7, '2023-11-12 21:30:34', NULL, 'Something Something', 'City or Address', '2023-05-12 00:00:00', 'Pending', 0, NULL),
+(9, '37', 7, '2023-11-13 18:01:58', NULL, 'eweqeqwewqe', 'City or Address', '2023-11-15 18:01:39', 'Declined', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -624,7 +628,8 @@ ALTER TABLE `reservations`
 ALTER TABLE `resrequest`
   ADD PRIMARY KEY (`req_id`),
   ADD KEY `fk_resReq_vuser_idx` (`user_id`),
-  ADD KEY `fk_resReq_sp_idx` (`sp_id`);
+  ADD KEY `fk_resReq_sp_idx` (`sp_id`),
+  ADD KEY `resrequest_reservations_reservation_id_fk` (`reservation_id`);
 
 --
 -- Indexes for table `review`
@@ -740,7 +745,7 @@ ALTER TABLE `payment_log`
 -- AUTO_INCREMENT for table `resrequest`
 --
 ALTER TABLE `resrequest`
-  MODIFY `req_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `req_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `review`
@@ -884,6 +889,7 @@ ALTER TABLE `payment_log`
 --
 ALTER TABLE `reservations`
   ADD CONSTRAINT `fk_serviceprovider_reservation` FOREIGN KEY (`sp_id`) REFERENCES `serviceprovider` (`sp_id`),
+  ADD CONSTRAINT `reservations_resrequest_reservation_id_fk` FOREIGN KEY (`reservation_id`) REFERENCES `resrequest` (`reservation_id`),
   ADD CONSTRAINT `reservations_user_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
 
 --
