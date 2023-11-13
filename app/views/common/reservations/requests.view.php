@@ -8,11 +8,11 @@
         <section class="cols-2 sidebar">
             <?php $this->view('includes/sidebar') ?>
         </section>
-        <section class="wid-100 pad-10">
+        <section class="wid-100 pad-10 dis-flex-col al-it-ce">
 
             <h1 class="mar-10-0 txt-c-white f-mooli txt-w-bold" style="font-size: 1.5rem">Reservation Requests</h1>
 
-            <div class="component-list">
+            <div class="component-list wid-80">
                 <div>
                     <p>Client Name</p>
                     <p>Date and Time</p>
