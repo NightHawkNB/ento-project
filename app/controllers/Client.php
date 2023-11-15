@@ -1,10 +1,12 @@
 <?php
 class Client extends Controller {
-  public function index() {
+  public function index(): void
+  {
       $this->view('common/dashboard');
   }
 
-  public function event($page = null) {
+  public function event($page = null): void
+  {
 
       $ads = new Ad();
       $data['ads'] = $ads->where(['pending' => 0]);
@@ -33,7 +35,8 @@ class Client extends Controller {
       }
   }
 
-  public function manage($page = null) {
+  public function manage($page = null): void
+  {
       $event = new Event();
 
       if(empty($page)) {
@@ -48,29 +51,35 @@ class Client extends Controller {
       }
   }
 
-  public function event_reservations(){
+  public function event_reservations(): void
+  {
       $this->view('client/res-event');
   }
 
-  public function other_reservations(){
+  public function other_reservations(): void
+  {
       $this->view('client/res-other');
   }
 
-  public function  complaints(){
+  public function  complaints(): void
+  {
       $complaint = new Complaint();
       $data['complaints'] = $complaint->where(['user_id' => Auth::getUser_id()]);
       $this->view('pages/complaints/list_complaint', $data);
   }
 
-  public function settings(){
+  public function settings(): void
+  {
       $this->view('client/settings');
   }
 
-  public function chat(){
+  public function chat(): void
+  {
       $this->view('client/chat');
   }
 
-  public function tickets($method = NULL, $id = NULL){
+  public function tickets($method = NULL, $id = NULL): void
+  {
       $db = new Database();
       if (empty($method)){
           $data['tickets'] = $db->query("SELECT * FROM tickets JOIN event ON tickets.event_id = event.event_id JOIN venue ON event.venue_id = venue.venue_id");
