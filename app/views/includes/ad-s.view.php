@@ -39,7 +39,7 @@
         </div>
 
         <?php if(Auth::logged_in() && Auth::is_client()): ?>
-            <a href="#">
+            <a href="<?= ROOT ?>/client/reserve/<?= $ad_id ?>">
                 <button class="btn-lay-2 hover-pointer btn-anima-hover">Reserve</button>
             </a>
         <?php endif; ?>
