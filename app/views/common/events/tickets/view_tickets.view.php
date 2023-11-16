@@ -17,8 +17,10 @@
                 </div>
                 <div class="dis-flex-col bg-trans gap-10 pad-20 txt-ali-cen">
                     <?php
+                    show($tickets);
                     if(!empty($tickets)) {
                         foreach ($tickets as $ticket) {
+                            show($ticket);
                             $this->view('common/events/tickets/single', (array)$ticket);
                         }
                     } else {

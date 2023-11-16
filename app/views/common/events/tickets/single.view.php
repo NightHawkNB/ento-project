@@ -23,16 +23,21 @@
                 <p><?=$price?></p>
             </div>
 
-<!--            <div class="dis-flex-col txt-c-black gap-10">-->
-<!--                <h4>Event</h4>-->
-<!--                <p>--><?php //=$name?><!--</p>-->
-<!---->
-<!--                <h4>Venue</h4>-->
-<!--                <p>--><?php //=$venue?><!--</p>-->
-<!---->
-<!--                <h4>Date and Time</h4>-->
-<!--                <p>--><?php //=$DateTime?><!--</p>-->
-<!--            </div>-->
+            <div class="dis-flex-col txt-c-black gap-10">
+                <h4>Event</h4>
+                <p><?=$details?></p>
+            </div>
+
+            <div class="dis-flex-col txt-c-black gap-10">
+                <h4>Venue</h4>
+                <p><?=$name?></p>
+
+                <h4>Location</h4>
+                <p><?=$location?></p>
+
+                <h4>Date and Time</h4>
+                <p><?=$DateTime?></p>
+            </div>
 
         </div>
 
