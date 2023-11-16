@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 13, 2023 at 02:29 PM
+-- Generation Time: Nov 16, 2023 at 08:15 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -289,7 +289,7 @@ INSERT INTO `reservations` (`reservation_id`, `sp_id`, `user_id`, `deleted`) VAL
 --
 
 CREATE TABLE `resrequest` (
-  `req_id` int(11) NOT NULL,
+  `req_id` varchar(32) NOT NULL,
   `user_id` varchar(32) NOT NULL,
   `sp_id` int(11) NOT NULL,
   `createdDate` datetime NOT NULL DEFAULT current_timestamp(),
@@ -307,12 +307,13 @@ CREATE TABLE `resrequest` (
 --
 
 INSERT INTO `resrequest` (`req_id`, `user_id`, `sp_id`, `createdDate`, `respondedDate`, `details`, `location`, `datetime`, `status`, `deleted`, `reservation_id`) VALUES
-(4, '38', 7, '2023-11-12 21:05:25', NULL, 'Something Something', 'City or Address', '2023-05-12 00:00:00', 'Pending', 0, NULL),
-(5, '38', 8, '2023-11-12 21:05:25', NULL, '5555', 'City or Address', '2023-05-12 00:00:00', 'Pending', 0, NULL),
-(6, '41', 7, '2023-11-12 21:22:52', NULL, 'Musical Event', 'City or Address', '2023-05-12 00:00:00', 'Accepted', 0, 'RES_25664_1699881610'),
-(7, '37', 7, '2023-11-12 21:30:23', NULL, 'New event', 'City or Address', '2023-12-01 00:00:00', 'Accepted', 0, 'RES_43305_1699881734'),
-(8, '37', 7, '2023-11-12 21:30:34', NULL, 'Something Something', 'City or Address', '2023-05-12 00:00:00', 'Pending', 0, NULL),
-(9, '37', 7, '2023-11-13 18:01:58', NULL, 'eweqeqwewqe', 'City or Address', '2023-11-15 18:01:39', 'Declined', 0, NULL);
+('4', '38', 7, '2023-11-12 21:05:25', NULL, 'Something Something', 'City or Address', '2023-05-12 00:00:00', 'Pending', 0, NULL),
+('5', '38', 8, '2023-11-12 21:05:25', NULL, '5555', 'City or Address', '2023-05-12 00:00:00', 'Pending', 0, NULL),
+('6', '41', 7, '2023-11-12 21:22:52', NULL, 'Musical Event', 'City or Address', '2023-05-12 00:00:00', 'Accepted', 0, 'RES_25664_1699881610'),
+('7', '37', 7, '2023-11-12 21:30:23', NULL, 'New event', 'City or Address', '2023-12-01 00:00:00', 'Accepted', 0, 'RES_43305_1699881734'),
+('8', '37', 7, '2023-11-12 21:30:34', NULL, 'Something Something', 'City or Address', '2023-05-12 00:00:00', 'Pending', 0, NULL),
+('9', '37', 7, '2023-11-13 18:01:58', NULL, 'eweqeqwewqe', 'City or Address', '2023-11-15 18:01:39', 'Declined', 0, NULL),
+('RESR_64330_1700149182', '38', 7, '2023-11-16 21:09:42', NULL, 'Something Someting', 'daslkdjalskj', '2023-11-01 09:11:00', 'Pending', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -438,7 +439,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`user_id`, `fname`, `lname`, `email`, `nic_num`, `address1`, `address2`, `city`, `district`, `password`, `contact_num`, `user_type`, `image`, `verified`) VALUES
 ('37', 'charllotte', 'brown', 'cha@ento.com', NULL, 'Colombo', '10', 'Galle', 'District', '$2y$10$3d5Ysv6/yADqn9uyj8Sb9.McnVEv1ils1XBoQT16ceTOWauzdRbdS', '0718456654', 'singer', 'general.png', 0),
-('38', 'Chamath', 'Kalhara', 'client@ento.com', NULL, 'Address01', 'Address02', 'City', 'District', '$2y$10$s.y0AIpXMs4NWxS8zc5o2.xGEGb.ApY/3Vop058YdIHxAdJ11wNlG', '11111111', 'client', 'general.png', 0),
+('38', 'Chamath', 'Kalhara', 'client@ento.com', NULL, 'Address01', 'Address02', 'City', 'District', '$2y$10$s.y0AIpXMs4NWxS8zc5o2.xGEGb.ApY/3Vop058YdIHxAdJ11wNlG', '0715556954', 'client', 'http://localhost/ento-project/public/assets/images/users/38.jpg', 0),
 ('40', 'admin', '01', 'admin1@ento.com', NULL, 'AD1', 'AD2', 'CT', 'DT', '$2y$10$Yaq0hYCdITLX7CGUYrDiu.v2sO7aUf79mgZmLqJT7CY013YQkWnXS', '0744587584', 'admin', 'general.png', 0),
 ('41', 'band', '01', 'band1@ento.com', NULL, '5', '6', '4', '5', '$2y$10$4SbR6UUaBibEYOLWTpfRXOeZF8Qy9azix2AYaK.5cLeJ5NY5TLojW', '4', 'band', 'general.png', 0),
 ('42', 'band', '02', 'band2@ento.com', NULL, '6', '4', '5', '5', '$2y$10$YAhBfZBSV5s46CnpUgIA6uNz9nlvnAA8z3JQGNcHSZe2mFTgGk172', '2', 'band', 'general.png', 0),
@@ -740,12 +741,6 @@ ALTER TABLE `customer_care`
 --
 ALTER TABLE `payment_log`
   MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `resrequest`
---
-ALTER TABLE `resrequest`
-  MODIFY `req_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `review`
