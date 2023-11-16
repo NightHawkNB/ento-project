@@ -11,7 +11,7 @@
                 $status = "success";
                 $heading = "Success";
                 break;
-            case 'failure':
+            case 'failed':
                 $status = "failed";
                 $heading = "Error";
                 break;
