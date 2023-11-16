@@ -6,7 +6,8 @@ class Model extends Database{
     protected $pk = "";
     protected $allowed_columns = [];
 
-    public function insert($data) {
+    public function insert($data): void
+    {
 
         if(!empty($this->allowed_columns)) {
             foreach($data as $key => $value) {
@@ -34,7 +35,8 @@ class Model extends Database{
         $this->query($query, $data);
     }
 
-    public function update($id, $data) {
+    public function update($id, $data): void
+    {
 
         $temp_id = null;
 
@@ -78,7 +80,8 @@ class Model extends Database{
         $this->query($query, $data);
     }
 
-    public function where($data) {
+    public function where($data): false|array
+    {
 
         $keys = array_keys($data);
 
@@ -97,7 +100,8 @@ class Model extends Database{
         else return false;
     }
 
-    public function get_all() {
+    public function get_all(): false|array
+    {
 
         $query = "SELECT * FROM " . $this->table;
 
