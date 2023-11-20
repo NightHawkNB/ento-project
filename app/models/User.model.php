@@ -29,6 +29,7 @@ class User extends Model{
 
         //? Checking email validity | else | Checking whether the email is already in the database
         if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) $this->errors['email'] = "Email is Not Valid";
+        else if($this->query("SELECT * FROM user WHERE email = :email", ['email' => $data['email']])) $this->errors['email'] = "That email already exists";
 
         if(empty($data['address1'])) $this->errors['address1'] = "Address - 01 is Required";
         if(empty($data['address2'])) $this->errors['address2'] = "Address - 02 is Required";

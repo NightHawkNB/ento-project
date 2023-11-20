@@ -15,6 +15,7 @@
 @import "ticket.css";
 @import "components.css";
 @import "alerts.css";
+@import "widgets/calendar.css";
 
 /* CSS COLORS */
 :root {
