@@ -8,7 +8,7 @@
             <section class="cols-2 sidebar">
                 <?php $this->view('includes/sidebar') ?>
             </section>
-            <section class="cols-10 dis-flex-col al-it-ce">
+            <section class="dis-flex-col al-it-ce wid-100">
                 <div class="dash-comp dis-flex ju-co-ce">
                     <div class="comp comp-purple">
                         <div class="comp-icon">
@@ -40,6 +40,9 @@
                 </div>
 
                 <!-- Calender -->
+
+                <script src="<?= ROOT ?>/assets/scripts/calendar.js" defer></script>
+
                 <div class="calendar-container">
                     <div class="left">
                         <div class="calendar">
@@ -49,13 +52,13 @@
                                 <i class="fas fa-angle-right next"></i>
                             </div>
                             <div class="weekdays">
-                                <div>Sun</div>
-                                <div>Mon</div>
-                                <div>Tue</div>
-                                <div>Wed</div>
-                                <div>Thu</div>
-                                <div>Fri</div>
-                                <div>Sat</div>
+                                <div>S</div>
+                                <div>M</div>
+                                <div>T</div>
+                                <div>W</div>
+                                <div>T</div>
+                                <div>F</div>
+                                <div>S</div>
                             </div>
                             <div class="days"></div>
                             <div class="goto-today">
@@ -112,8 +115,6 @@
                 </div>
             </section>
 
-
-            <script src="<?= ROOT ?>/assets/scripts/calendar.js"></script>
         </main>
     </div>
 </body>
