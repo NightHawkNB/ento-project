@@ -177,7 +177,13 @@ class Controller
 
             // If instead of the method, a value is given, then find the relevant reservation and show it
             $input = ['deleted' => 0, 'reservation_id' => $method];
-            $data['reservation'] = $reservation->query("SELECT * FROM reservations JOIN user ON reservations.user_id = user.user_id JOIN resrequest ON reservations.reservation_id = resrequest.reservation_id JOIN serviceprovider ON serviceprovider.sp_id = reservations.sp_id WHERE reservations.deleted = :deleted AND reservations.reservation_id = :reservation_id", $input)[0];
+            $data['reservation'] = $reservation->query("
+                        SELECT * FROM reservations 
+                            JOIN user ON reservations.user_id = user.user_id 
+                            JOIN resrequest ON reservations.reservation_id = resrequest.reservation_id 
+                            JOIN serviceprovider ON serviceprovider.sp_id = reservations.sp_id 
+                         WHERE reservations.deleted = :deleted AND reservations.reservation_id = :reservation_id
+                        ", $input)[0];
 
             if (empty($data['reservation'])) {
                 message("No Reservation with that ID exists");
