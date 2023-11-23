@@ -8,7 +8,7 @@
             <section class="cols-2 sidebar">
                 <?php $this->view('includes/sidebar') ?>
             </section>
-            <section class="dis-flex-col al-it-ce wid-100">
+            <section class="dis-flex-col al-it-ce wid-100 pad-10">
                 <div class="dash-comp dis-flex ju-co-ce">
                     <div class="comp comp-purple">
                         <div class="comp-icon">
