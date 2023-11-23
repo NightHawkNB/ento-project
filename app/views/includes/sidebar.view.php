@@ -27,7 +27,7 @@
 
     <!--  ------------------------------END OF MAIN MENU----------------------------------- -->
 
-    <li><hr></li>
+    <li id="line-seperator"><hr></li>
 
     <!--  ------------------------------START OF SUB MENU----------------------------------- -->
 
@@ -51,7 +51,7 @@
 
 
     <!--  ------------------------------SUPPORT BUTTON----------------------------------- -->
-    <li style="flex: 1"></li>
+    <li id="empty-li"></li>
 
     <li class="nav-item" style="padding-bottom: 25px">
         <a class="nav-link" href="<?= ROOT ?>/support">

@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+.sidebar{
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.6);
+  transition: all .5s ease;
+  display: flex;
+  z-index: 0;
+  position: sticky;
+
+}
+
+@media screen and (min-width: 650px) {
+  .sidebar{
+    height: 100%;
+    width: 56px;
+    flex-direction: column;
+    top: 0;
+  }
+
+  .sidebar.open{
+    width: 200px;
+  }
+
+  .sidebar .nav-list {
+    flex-direction: column;
+  }
+
+  .sidebar li a span{
+    color: var(--font-secondary);
+    margin-left: 10px;
+    font-size: 15px;
+    font-weight: 400;
+    white-space: nowrap;
+    pointer-events: auto;
+    transition: all 0.4s ease;
+    opacity: 0;
+  }
+
+  section:not(.sidebar) {
+    margin-bottom: 40px;
+  }
+
+  #empty-li {
+    flex: 1;
+  }
+}
+
+@media screen and (max-width: 649px) {
+
+  .dashboard-main {
+    padding-bottom: 30px;
+  }
+
+  .sidebar{
+    height: fit-content;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    z-index: 5;
+  }
+
+  .sidebar .nav-list {
+    width: 100%;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  }
+
+  .sidebar .nav-list li {
+    max-height: 40px;
+  }
+
+  .sidebar li a span {
+    display: none;
+  }
+
+  .sidebar.open {
+    width: 100%;
+  }
+
+  #empty-li, #line-seperator {
+    display: none;
+  }
+}
+
+.sidebar .nav-list{
+  height: 100%;
+  display: flex;
+
+  gap: 10px;
+  z-index: 2;
+}
+
+.sidebar li{
+  list-style: none;
+}
+
+.sidebar li a{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: all .5s ease;
+  z-index: 12;
+  background-color: transparent;
+}
+
+.sidebar li a:hover span,
+.sidebar li a:hover svg{
+  transition: all 0.5s ease;
+  color:var(--indigo-2)
+}
+
+.sidebar li a:hover {
+  background-color: white;
+}
+
+.sidebar.open li a span{
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sidebar li svg{
+  padding: 4px;
+  height: 35px;
+  min-width: 35px;
+  line-height: 35px;
+  font-size: 18px;
+  border-radius: 5px;
+  color: var(--font-secondary);
+}

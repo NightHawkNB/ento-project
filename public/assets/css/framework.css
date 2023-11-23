@@ -4,7 +4,7 @@
 @import "../fonts/mooli.css";
 
 /* CSS FILES */
-@import "style.css";
+@import "sidebar.css";
 @import "common.css";
 @import "grid.css";
 @import "navbar.css";
@@ -13,7 +13,7 @@
 @import "switches.css";
 @import "profile.css";
 @import "ticket.css";
-@import "components.css";
+@import "components/reservation.css";
 @import "alerts.css";
 @import "widgets/calendar.css";
 
