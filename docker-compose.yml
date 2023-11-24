@@ -1,0 +1,26 @@
+version: '3'
+services:
+  php-apache-environment:
+    container_name: php-apache
+    image: php:apache
+    volumes:
+      - ../:/var/www/html/
+    ports:
+      - "80:80"
+      - "443:443"
+  mysql:
+    container_name: mysql
+    image: mysql:latest
+    environment:
+      - MYSQL_DATABASE=ento_db
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+    ports:
+      - "3306:3306"
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_HOST=mysql
+      - PMA_PORT=3306
+    ports:
+      - "4000:80"
