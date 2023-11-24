@@ -7,7 +7,7 @@
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
-DROP DATABASE ento_db;
+DROP DATABASE IF EXISTS ento_db;
 CREATE DATABASE ento_db;
 USE ento_db;
 

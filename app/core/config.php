@@ -10,6 +10,9 @@ define('APP_DESC', 'Musical Event Planning');
 if($_SERVER['SERVER_NAME'] == 'localhost') {
 
     //? config for your local server
+
+    // IMPORTANT if using docker - change the DB_HOST to host service name in the docker-composr
+
     define('DB_HOST', 'localhost');
     define('DB_NAME', 'ento_db');
     define('DB_USER', 'root');
