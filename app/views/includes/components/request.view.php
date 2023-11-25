@@ -21,7 +21,7 @@
 
 <div>
     <p><?= $fname." ".$lname ?></p>
-    <p><?= $datetime ?></p>
+    <p><?= $start_time ?></p>
     <p><?= $location ?></p>
     <p class="status <?= $status_class ?>">
         <span><?= $status ?></span>

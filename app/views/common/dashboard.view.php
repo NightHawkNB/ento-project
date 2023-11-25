@@ -112,6 +112,7 @@
 
                 <div class="mar-10 pad-10 txt-c-black">
                     <?php $this->view($_SESSION['USER_DATA']->user_type."/dashboard"); ?>
+                    <?= show($data) ?>
                 </div>
             </section>
 
