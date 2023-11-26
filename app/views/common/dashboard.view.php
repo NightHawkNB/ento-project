@@ -7,6 +7,8 @@
     <script defer>
         const calendar_events = <?= json_encode($calendar_events) ?>;
         const calendar_reservations = <?= json_encode($calendar_reservations) ?>;
+        const personal_schedule = <?= json_encode($personal_schedule) ?>;
+        const request_url = "<?= "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] ?>";
     </script>
 
     <script src="<?= ROOT ?>/assets/scripts/calendar.js" defer></script>
