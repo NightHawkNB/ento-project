@@ -478,7 +478,7 @@ addEventSubmit.addEventListener("click", () => {
 
     // Sending a post request with the newly created event data
     try {
-        fetch("/ento-project/public/singer", {
+        fetch(`/ento-project/public/${user_type}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json; charset=utf-8"
