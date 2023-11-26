@@ -24,6 +24,35 @@ class SP extends Controller {
 
         $db = new Database();
 
+        if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+            $json_data = file_get_contents("php://input");
+
+            // If the second argument is set to true, the function returns an array. Otherwise, it returns an object
+            $php_data = json_decode($json_data);
+
+            $start_time = $php_data->date." ".date("G:i:s", strtotime($php_data->start_time));
+            $end_time = $php_data->date." ".date("G:i:s", strtotime($php_data->end_time));
+
+            show($start_time);
+            show($end_time);
+
+            $input = [
+                'user_id' => Auth::getUser_id(),
+                'name' => $php_data->name,
+                'start_time' => $start_time,
+                'end_time' => $end_time
+            ];
+
+            $db->query("INSERT INTO calendar_schedule (user_id, name, start_time, end_time) VALUES (:user_id, :name, :start_time, :end_time)", $input);
+
+//             If we don't stop the execution from here with die,
+//             All the data printed through this function will be sent to the fetch function in js
+//             Prints the entire html page in the console.
+            die;
+        }
+
+
         $data['calendar_events'] = [];
 
         if($_SESSION['USER_DATA']->user_type == "venuem") {
@@ -62,6 +91,10 @@ class SP extends Controller {
                         WHERE serviceprovider.user_id = :user_id
             ", $input);
         }
+
+        $data['personal_schedule'] = $db->query("
+                SELECT name, start_time, end_time FROM calendar_schedule 
+                WHERE user_id = :user_id", ['user_id' => Auth::getUser_id()]);
 
         $this->view('common/dashboard', $data);
     }

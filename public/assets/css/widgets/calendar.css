@@ -299,7 +299,8 @@
     justify-content: center;
     flex-direction: column;
     gap: 5px;
-    padding: 0 20px 0 50px;
+    padding: 5px;
+    overflow: hidden;
     color: #fff;
     background: linear-gradient(90deg, #3f4458, transparent);
     cursor: pointer;
@@ -319,7 +320,7 @@
 .events .event .title .event-title {
     font-size: 1rem;
     font-weight: 400;
-    margin-left: 20px;
+    margin-left: 5px;
 }
 .events .event i {
     color: var(--c-primary);
