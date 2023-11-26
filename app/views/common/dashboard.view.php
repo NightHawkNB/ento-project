@@ -1,6 +1,16 @@
 <html lang="en">
 <?php $this->view('includes/head') ?>
 <body>
+
+
+
+    <script defer>
+        const calendar_events = <?= json_encode($calendar_events) ?>;
+        const calendar_reservations = <?= json_encode($calendar_reservations) ?>;
+    </script>
+
+    <script src="<?= ROOT ?>/assets/scripts/calendar.js" defer></script>
+
     <div class="main-wrapper">
         <?php $this->view('includes/header') ?>
 
@@ -8,6 +18,7 @@
             <section class="cols-2 sidebar">
                 <?php $this->view('includes/sidebar') ?>
             </section>
+
             <section class="dis-flex-col al-it-ce wid-100 pad-10">
                 <div class="dash-comp dis-flex ju-co-ce">
                     <div class="comp comp-purple">
@@ -40,8 +51,6 @@
                 </div>
 
                 <!-- Calender -->
-
-                <script src="<?= ROOT ?>/assets/scripts/calendar.js" defer></script>
 
                 <div class="calendar-container">
                     <div class="left">
@@ -112,6 +121,9 @@
 
                 <div class="mar-10 pad-10 txt-c-black">
                     <?php $this->view($_SESSION['USER_DATA']->user_type."/dashboard"); ?>
+                    <?= show($data) ?>
+                    <?= show(json_encode($data['calendar_events'])) ?>
+                    <?= show(json_decode(json_encode($data['calendar_events']))) ?>
                 </div>
             </section>
 

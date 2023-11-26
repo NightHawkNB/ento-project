@@ -2,7 +2,7 @@
 
 /** @noinspection ALL */
 
-class Band extends Controller {
+class Band extends SP {
 
     public function __construct()
     {
@@ -15,11 +15,6 @@ class Band extends Controller {
             message("Access Denied");
             redirect('home');
         }
-    }
-
-    public function index()
-    {
-        $this->view('common/dashboard');
     }
 
     public function events($method = null)

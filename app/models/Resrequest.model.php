@@ -13,7 +13,8 @@ class Resrequest extends Model{
         'respondedDate',
         'details',
         'location',
-        'datetime',
+        'start_time',
+        'end_time',
         'status',
         'deleted'
     ];

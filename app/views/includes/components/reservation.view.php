@@ -2,13 +2,13 @@
 
     <?php
         $now = new DateTime();
-        $future_date = new DateTime($datetime);
+        $future_date = new DateTime($start_time);
 
         $interval = $future_date->diff($now);
     ?>
 
     <p><?= $fname." ".$lname ?></p>
-    <p><?= $datetime ?></p>
+    <p><?= $start_time ?></p>
     <p><?= $location ?></p>
     <p><?= $interval->format("%a days : %h hours : %i minutes") ?></p>
     <p class="action-btn">

@@ -56,8 +56,133 @@ const months = [
 // ];
 
 const eventsArr = [];
+
+// IMPORTANT START OF CUSTOM SCRIPT
+
+// Initialized an empty events variable array
+// this.eventsArr = []
+
+// Getting stored events to the variable eventsArr
+
+if (localStorage.getItem("events") === null) console.log("No events in the local storage")
+else eventsArr.push(...JSON.parse(localStorage.getItem("events")))
+
+
+calendar_events.forEach(event => {
+
+    // Code for formatting the PHP data - object wise
+    let format_time = new Date(event.start_time)
+    const start_time = ((format_time.getHours() >= 13) ? (format_time.getHours()-12) : format_time.getHours()) + ":" + format_time.getMinutes() + " " + ((format_time.getHours() >= 13) ? "PM" : "AM")
+    format_time = new Date(event.end_time)
+    const end_time = ((format_time.getHours() >= 13) ? (format_time.getHours()-12) : format_time.getHours()) + ":" + format_time.getMinutes() + " " + ((format_time.getHours() >= 13) ? "PM" : "AM")
+    const day = format_time.getDate()
+    const month = format_time.getMonth()+1
+    const year = format_time.getFullYear()
+
+    const date_object = {
+        day: day,
+        month: month,
+        year: year,
+        start_time : start_time,
+        end_time : end_time,
+        event: {
+            time: start_time + " - " + end_time,
+            title: event.name
+        }
+    }
+
+    // Function to insert an event to the localstorage
+    addEventPHP(date_object)
+})
+
+calendar_reservations.forEach(event => {
+
+    // Code for formatting the PHP data - object wise
+    let format_time = new Date(event.start_time)
+    const start_time = ((format_time.getHours() >= 13) ? (format_time.getHours()-12) : format_time.getHours()) + ":" + format_time.getMinutes() + " " + ((format_time.getHours() >= 13) ? "PM" : "AM")
+    format_time = new Date(event.end_time)
+    const end_time = ((format_time.getHours() >= 13) ? (format_time.getHours()-12) : format_time.getHours()) + ":" + format_time.getMinutes() + " " + ((format_time.getHours() >= 13) ? "PM" : "AM")
+    const day = format_time.getDate()
+    const month = format_time.getMonth()+1
+    const year = format_time.getFullYear()
+
+    const date_object = {
+        day: day,
+        month: month,
+        year: year,
+        start_time : start_time,
+        end_time : end_time,
+        event: {
+            time: start_time + " - " + end_time,
+            title: event.reservation_id
+        }
+    }
+
+    // Function to insert an event to the localstorage
+    addEventPHP(date_object)
+})
+
+
+
+// Function to insert an event to the localstorage
+function addEventPHP(date_object) {
+
+    //check if event is already added
+    let eventExists = false
+    eventsArr.forEach((event) => {
+        if (
+            event.day === date_object.day &&
+            event.month === date_object.month &&
+            event.year === date_object.year
+        ) {
+            event.events.forEach((single_event) => {
+                if (single_event.title === date_object.event.title) {
+                    console.log("PHP event already exists")
+                    eventExists = true
+                }
+            });
+        }
+    })
+
+    console.log("Funtion exit check")
+    if(eventExists === true) return false;
+    console.log("Funtion exit failded")
+
+
+    // Inserting the event to the eventsArr array
+    let eventAdded = false
+    if (eventsArr.length > 0) {
+        eventsArr.forEach((item) => {
+            if (
+                item.day === date_object.day &&
+                item.month === date_object.month &&
+                item.year === date_object.year
+            ) {
+                item.events.push(date_object.event);
+                eventAdded = true
+            }
+        })
+    }
+
+    // If there is no relevant event in the eventArr, add a new event
+    if(eventAdded === false) {
+        eventsArr.push({
+            day: date_object.day,
+            month: date_object.month,
+            year: date_object.year,
+            events: [date_object.event]
+        })
+    }
+
+    // Storing data in the localstorage
+
+    return false
+}
+
+// IMPORTANT END OF CUSTOM SCRIPT
+
 getEvents();
-console.log(eventsArr);
+// console.log(eventsArr);
 
 //function to add days in days with class day and prev-date next-date on previous month and next month days and active on today
 function initCalendar() {
@@ -315,7 +440,7 @@ addEventSubmit.addEventListener("click", () => {
     const eventTimeFrom = addEventFrom.value;
     const eventTimeTo = addEventTo.value;
     if (eventTitle === "" || eventTimeFrom === "" || eventTimeTo === "") {
-        alert("Please fill all the fields");
+        alert("Please fill all the fields - Inserting Schedule");
         return;
     }
 
@@ -441,7 +566,33 @@ function getEvents() {
     if (localStorage.getItem("events") === null) {
         return;
     }
-    eventsArr.push(...JSON.parse(localStorage.getItem("events")));
+
+    const local_items = JSON.parse(localStorage.getItem("events"))
+    console.log("local items")
+    console.log(local_items)
+
+    let matchFound = false
+
+    local_items.forEach(item => {
+        matchFound = false
+        eventsArr.forEach(event => {
+            if (
+                event.day === item.day &&
+                event.month === item.month &&
+                event.year === item.year
+            ) matchFound = true
+        })
+
+        console.log("Previous Events Array")
+        console.log(eventsArr)
+
+        if(!matchFound) {
+            eventsArr.push(item)
+        }
+
+        console.log("Updated Events Array")
+        console.log(eventsArr)
+    })
 }
 
 function convertTime(time) {
