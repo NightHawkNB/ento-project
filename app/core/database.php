@@ -26,19 +26,50 @@ class Database {
         return false;
     }
 
-//    public function create_tables() {
-//        $query = "CREATE TABLE IF NOT EXISTS `ento_db`.`user` (
-//            `user_id` INT NOT NULL AUTO_INCREMENT,
-//            `fname` VARCHAR(45) NOT NULL,
-//            `lname` VARCHAR(45) NOT NULL,
-//            `password` VARCHAR(45) NULL,
-//            `email` VARCHAR(45) NOT NULL,
-//            `nic_num` VARCHAR(45) NULL,
-//            `contact_num` VARCHAR(45) NOT NULL,
-//            `user_type` VARCHAR(45) NOT NULL DEFAULT 'client',
-//            PRIMARY KEY (`user_id`))
-//          ENGINE = InnoDB;";
-//
-//        $this->query($query);
-//    }
+    public function join_tables($fields = ['*'], $first_table, $other_tables, $filter = null, $data = []): false|array
+    {
+        $con = $this->connect();
+
+        $query = "SELECT ";
+
+        if(sizeof($fields) > 1) {
+            foreach ($fields as $field) {
+                $query .= $field. ", ";
+            }
+        } else {
+            $query .= $fields[0];
+        }
+
+        $query = trim($query, ', ');
+
+        $query .= " FROM ".$first_table." ";
+
+        if(sizeof($other_tables) > 1) {
+            foreach ($other_tables as $table) {
+                $query .= "JOIN ".$table[0]." ON ".$table[1]." ";
+            }
+        } else {
+            $query .= "JOIN ".$other_tables[0][0]." ON ".$other_tables[0][1]." ";
+        }
+
+        $query = trim($query);
+
+        if(!empty($filter)) {
+            $query .= " WHERE ".$filter;
+        }
+
+        $stm = $con->prepare($query);
+
+        if($stm) {
+            $check = $stm->execute($data);
+
+            if($check){
+                $result = $stm->fetchAll(PDO::FETCH_OBJ);
+
+                if($result && count($result) > 0) return $result;
+            }
+        }
+
+        return false;
+    }
 }

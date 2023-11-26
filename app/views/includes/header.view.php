@@ -50,7 +50,7 @@
         <a href="#aboutus">About Us</a>
         <?php if(Auth::logged_in()): ?>
             <a href="<?= ROOT ?>/support/overview">Support</a>
-            <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/dashboard">Dashboard</a>
+            <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>">Dashboard</a>
         <?php endif; ?>
     </nav>
     <div class="dis-flex gap-20 al-it-ce txt-c-white">

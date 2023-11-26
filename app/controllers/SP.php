@@ -77,6 +77,19 @@ class SP extends Controller {
         } else {
             $user_type = $_SESSION['USER_DATA']->user_type;
             $input = [$user_type."_id" => Auth::getUser_id()];
+
+            // BUG join_tables works, but reduced no of lines is less
+            $test = $db->join_tables(
+                ['reservations.reservation_id', 'resrequest.start_time', 'resrequest.end_time'],
+                'reservations',
+                [
+                    ['resrequest', 'reservations.reservation_id = resrequest.reservation_id'],
+                    ['serviceprovider', 'serviceprovider.sp_id = reservations.sp_id']
+                ],
+                "serviceprovider.user_id = :user_id",
+                ["user_id" => Auth::getUser_id()]
+            );
+
             $data['calendar_events'] = $db->query("
                 SELECT event.name, event.start_time, event.end_time FROM event
                         JOIN event_singer ON event.event_id = event_singer.event_id
