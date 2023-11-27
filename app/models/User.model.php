@@ -37,6 +37,7 @@ class User extends Model{
         if(empty($data['district'])) $this->errors['district'] = "District is Required";
         if(empty($data['user_type'])) $this->errors['user_type'] = "Account Type is Required";
         if(empty($data['password'])) $this->errors['password'] = "Password is Required";
+        if(!preg_match_all('$\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])(?=\S*[\W])\S*$', $data['password'])) $this->errors['password'] = "Password is not Strong enough";
         if($data['password'] !== $data['confirmPass']) $this->errors['confirmPass'] = "Passwords do not match";
         if(empty($data['contact_num'])) $this->errors['contact_num'] = "Contact number is Required";
         if(empty($data['terms'])) $this->errors['terms'] = "Please accept Terms and Conditions";
