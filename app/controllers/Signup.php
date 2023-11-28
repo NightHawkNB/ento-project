@@ -1,7 +1,8 @@
 <?php
 
 class Signup extends Controller{
-    public function index() {
+    public function index(): void
+    {
         $data['errors'] = [];
 
         $user = new User();

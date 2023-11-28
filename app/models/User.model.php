@@ -45,4 +45,29 @@ class User extends Model{
         if(empty($this->errors)) return true;
         else return false;
     }
+
+    public function validate_vo($data) {
+        if(empty($data['fname'])) $this->errors['fname'] = "Please enter the first name";
+        if(empty($data['lname'])) $this->errors['lname'] = "Please enter the last name";
+        if(empty($data['contact_num'])) $this->errors['contact_num'] = "Please enter a Contact Number";
+        if(empty($data['city'])) $this->errors['city'] = "Please enter a City";
+        if(empty($data['district'])) $this->errors['district'] = "Please enter a District";
+        if(empty($data['email'])) $this->errors['email'] = "Please enter an Email";
+
+        if(!empty($data['change_pass'])) {
+            if(empty($data['password'])) $this->errors['password'] = "Please enter a password";
+            if(empty($data['confirmPass'])) $this->errors['confirmPass'] = "Please enter the password";
+            if($data['password'] != $data['confirmPass']) $this->errors['confirmPass'] = "Passwords do not match";
+
+            if(empty($this->errors['password']) && empty($this->errors['confirmPass'])) {
+                $_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            }
+        } else {
+            unset($_POST['password']);
+            unset($_POST['confirmPass']);
+        }
+
+        if(empty($this->errors)) return true;
+        else return false;
+    }
 }

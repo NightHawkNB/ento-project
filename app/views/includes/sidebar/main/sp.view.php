@@ -13,3 +13,12 @@
         </a>
     </li>
 <?php endif; ?>
+
+<?php if(Auth::is_venuem()): ?>
+    <li class="nav-item">
+        <a class="nav-link" href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/staff">
+            <svg class="feather feather-send" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            <span class="link-name">Staff Management</span>
+        </a>
+    </li>
+<?php endif; ?>
