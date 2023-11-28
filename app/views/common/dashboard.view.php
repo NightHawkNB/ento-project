@@ -63,13 +63,13 @@
                                 <i class="fas fa-angle-right next"></i>
                             </div>
                             <div class="weekdays">
-                                <div>S</div>
-                                <div>M</div>
-                                <div>T</div>
-                                <div>W</div>
-                                <div>T</div>
-                                <div>F</div>
-                                <div>S</div>
+                                <div>Su</div>
+                                <div>Mo</div>
+                                <div>Tu</div>
+                                <div>We</div>
+                                <div>Th</div>
+                                <div>Fr</div>
+                                <div>Sa</div>
                             </div>
                             <div class="days"></div>
                             <div class="goto-today">
@@ -125,7 +125,6 @@
                     <?php $this->view($_SESSION['USER_DATA']->user_type."/dashboard"); ?>
                     <?= show($data) ?>
                     <?= show(json_encode($data['calendar_events'])) ?>
-                    <?= show(json_decode(json_encode($data['calendar_events']))) ?>
                 </div>
             </section>
 
