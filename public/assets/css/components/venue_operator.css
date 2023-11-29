@@ -1,0 +1,74 @@
+.venue-op-div {
+    background-color: var(--bg-primary);
+    color: var(--font-primary);
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.venue-op-div.profile_details > p {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.venue-op-div.profile_details > img {
+    max-height: 50px;
+}
+
+.venue-op-div > div > svg {
+    min-width: fit-content;
+}
+
+.venue-op-div > div {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.venue-op-div div  > p {
+    display: inline;
+}
+
+.venue-op-div .circular-btn {
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    padding: 5px;
+    background-color: transparent;
+    border: 2px solid var(--font-primary);
+    outline: none;
+    transition: 0.5s ease;
+}
+
+.venue-op-div .circular-btn svg {
+    color: var(--font-primary);
+    transition: 0.5s ease;
+}
+
+.venue-op-div .circular-btn.delete-btn:hover svg {color: darkred;}
+.venue-op-div .circular-btn.delete-btn:hover {border: 2px solid darkred;}
+
+.venue-op-div .circular-btn.update-btn:hover svg {color: deepskyblue;}
+.venue-op-div .circular-btn.update-btn:hover {border: 2px solid deepskyblue;}
+
+@media screen and (min-width: 560px) {
+    .venue-op-div {
+        justify-content: space-between;
+    }
+}
+
+@media screen and (max-width: 559px) {
+    .venue-op-div {
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: center;
+    }
+
+    .venue-op-div > div {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

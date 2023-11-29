@@ -37,7 +37,21 @@ class Venuem extends SP {
         $db = new Database();
 
         if (empty($method)) {
-            $data['users'] = $user->where(['user_type'=>'venueo']);
+
+            // BUG Possible vulnarability
+
+            $venuem_data = $db->query("
+                SELECT * FROM user 
+                    JOIN serviceprovider ON serviceprovider.user_id = user.user_id
+                    JOIN venuemanager ON serviceprovider.sp_id = venuemanager.sp_id
+                WHERE user.user_id = :user_id
+                ", ['user_id' => Auth::getUser_id()])[0];
+
+            $data['users'] = $user->query("
+                SELECT * FROM user 
+                         JOIN serviceprovider ON user.user_id = serviceprovider.user_id
+                         JOIN venueoperator ON serviceprovider.sp_id = venueoperator.sp_id
+                         WHERE venueoperator.venueM_id = :venueM_id", ['venueM_id' => $venuem_data->venueM_id]);
 
             $this->view('venuem/staff/manage_staff', $data);
         } else if ($method == 'insert'){
@@ -50,13 +64,20 @@ class Venuem extends SP {
                     $_POST['user_type'] = 'venueo';
                     $user_id = $_POST['user_id'];
 
+                    $venueM_id = $db->query("
+                        SELECT * FROM user 
+                            JOIN serviceprovider ON serviceprovider.user_id = user.user_id
+                            JOIN venuemanager ON serviceprovider.sp_id = venuemanager.sp_id
+                        WHERE user.user_id = :user_id
+                        ", ['user_id' => Auth::getUser_id()])[0]->venueM_id;
+
                     $user_status = $user->insert($_POST);
                     show($user_status);
                     $sp_status = $db->query("INSERT INTO serviceprovider (user_id, sp_type) VALUES (:user_id, :sp_type)", ['user_id' => $user_id, 'sp_type' => 'venueo']);
                     show($sp_status);
                     $sp_id = $db->query("SELECT * FROM serviceprovider WHERE user_id = :user_id LIMIT 1", ['user_id' => $user_id])[0]->sp_id;
                     show($sp_id);
-                    $vo_status = $db->query("INSERT INTO venueoperator (sp_id) VALUES ($sp_id)");
+                    $vo_status = $db->query("INSERT INTO venueoperator (sp_id, venueM_id) VALUES ($sp_id, $venueM_id)");
                     show($vo_status);
 
                     message("User Inserted Successfully", false, "success");
