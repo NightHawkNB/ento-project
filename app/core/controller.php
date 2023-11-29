@@ -77,8 +77,8 @@ class Controller
             redirect("$row->user_type/profile/edit-profile/" . $row->user_id);
         }
 
-        if (empty($method)) $this->view('common/profile/overview', $data);
-        else if ($method === 'edit-profile') $this->view('common/profile/edit', $data);
+        if (empty($method)) redirect('client/profile/edit-profile');
+        if ($method === 'edit-profile') $this->view('common/profile/edit', $data);
         else if ($method === 'settings') $this->view('common/profile/settings', $data);
         else if ($method === 'verify') $this->view('common/profile/verify', $data);
         else if ($method === 'change-password') $this->view('common/profile/change-password', $data);
