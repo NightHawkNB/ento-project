@@ -8,7 +8,7 @@
         <p><?= $city ?></p>
     </div>
     <div class="assign-venue">
-        <select name="venue_id" id="venue-select" class="input">
+        <select name="venue_id" id="venue-select" class="input" style="box-shadow: none">
             <option value="#default" disabled <?= (!$venue_id) ? 'selected' : '' ?> style="text-align: center"> Assign Venue </option>
             <?php foreach ($venues as $venue): ?>
                 <option data-venueo-id="<?= $venueO_id ?>" data-venue-id="<?= $venue->venue_id ?>" value="<?= $venue->venue_id ?>" <?= ($venue_id == $venue->venue_id) ? 'selected' : '' ?>><?= $venue->name ?></option>
