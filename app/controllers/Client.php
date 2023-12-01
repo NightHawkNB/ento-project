@@ -51,11 +51,6 @@ class Client extends Controller {
       }
   }
 
-  public function event_reservations(): void
-  {
-      $this->view('client/res-event');
-  }
-
   public function other_reservations(): void
   {
       $this->view('client/res-other');
@@ -81,6 +76,8 @@ class Client extends Controller {
   public function tickets($method = NULL, $id = NULL): void
   {
       $db = new Database();
+      $tickets = new Tickets();
+
       if (empty($method)){
           $data['tickets'] = $db->query("SELECT * FROM tickets JOIN event ON tickets.event_id = event.event_id JOIN venue ON event.venue_id = venue.venue_id");
           $this->view('common/events/tickets/view_tickets', $data);
@@ -93,40 +90,11 @@ class Client extends Controller {
       }
   }
 
-  public function reserve($method = null, $ad_id = null) : void
+  public function reservations($method = null, $id = null, $action = null) : void
   {
+      $db = new Database();
+      $data['reservations']=$db->query('SELECT * FROM reservations');
+      $this->view('client/res-other',$data);
 
-      $ad_id_2 = "AD_12124_1699356382";
-      if($_SERVER['REQUEST_METHOD'] == "POST") {
-          $ad = new Ad();
-          $ad_data = $ad->first(['ad_id' => $ad_id_2]);
-          $db = new Database();
-          $sp_data = $db->query("SELECT sp_id FROM serviceprovider WHERE user_id = :user_id LIMIT 1", ['user_id' => $ad_data->user_id])[0];
-
-          $new_id = "RESR_" . rand(10, 100000) . "_" . time();
-
-          // IMPORTANT Validate and send the $_POST back if validation failed
-
-          show($_POST);
-
-              $data = [
-                  'req_id' => $new_id,
-                  'user_id' => Auth::getUser_id(),
-                  'sp_id' => $sp_data->sp_id,
-                  'details' => $_POST['details'],
-                  'location' => $_POST['location'],
-                  'datetime' => $_POST['datetime']
-              ];
-
-              $resreq = new Resrequest();
-
-              $resreq->insert($data);
-
-          message('Reservation Request Created', false, "success");
-
-          redirect('home/ads');
-      } else {
-          $this->view("pages/reserve", ['ad_id' => $method]);
-      }
   }
 }
