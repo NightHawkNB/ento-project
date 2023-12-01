@@ -19,6 +19,7 @@
                     <?php
                         if(!empty($users)) {
                             foreach ($users as $user) {
+                                $user->venues = $venues;
                                 $this->view('venuem/staff/components/user', (array)$user);
                             }
                         } else {

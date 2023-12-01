@@ -125,10 +125,16 @@ function closeModal(modal) {
 
 /* START OF ALERT MESSAGE SCRIPT */
 
+function close_alert() {alert_window.classList.remove('show')}
+
 const alert_window = document.getElementById('alert-window')
 if(alert_window) {
+    if(alert_window.classList.contains('show')) {
+        setTimeout(close_alert, 5000);
+    }
+
     alert_window.addEventListener('click', () => {
-        if(alert_window.classList.contains('show')) alert_window.classList.remove('show')
+        if(alert_window.classList.contains('show')) close_alert()
     })
 }
 

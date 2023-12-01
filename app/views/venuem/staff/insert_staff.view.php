@@ -10,12 +10,12 @@
                 <?php $this->view('includes/sidebar') ?>
             </section>
 
-            <section class="cols-2">
-            <div class="cols-10 dis-flex">
-                <div class="bg-black-2 mar-10 wid-100 dis-flex-col pad-20 gap-10 bor-rad-5" style="justify-content:stretch; align-items:stretch">
+            <section class="cols-2 pad-10">
+                <div class="bg-black-2 wid-100 dis-flex-col pad-20 bor-rad-5 al-it-ce">
 
-                    <form method="POST" class="dis-flex-col al-it-ce gap-20">
+                    <form method="POST" class="dis-flex-col al-it-ce ju-co-ce gap-20">
                         <h2>Register</h2>
+                        <h3>Venue Operator</h3>
                         <fieldset class="wid-60 pad-20 bor-rad-5 dis-flex-col gap-10">
                             <legend>Personal Details</legend>
                             <div class="dis-flex mar-top-0 gap-20">
@@ -75,7 +75,7 @@
 
                     <button type="submit" class="btn-lay-2 hover-pointer btn-anima-hover">Add user</button>
                 </form>
-            </div>
+                </div>
             </section>
         </main>
     </div>
