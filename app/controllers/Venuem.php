@@ -35,26 +35,9 @@ class Venuem extends SP {
 
         $user = new User();
         $db = new Database();
+        $venue = new Venue();
 
-        if (empty($method)) {
-
-            // BUG Possible vulnarability
-
-            $venuem_data = $db->query("
-                SELECT * FROM user 
-                    JOIN serviceprovider ON serviceprovider.user_id = user.user_id
-                    JOIN venuemanager ON serviceprovider.sp_id = venuemanager.sp_id
-                WHERE user.user_id = :user_id
-                ", ['user_id' => Auth::getUser_id()])[0];
-
-            $data['users'] = $user->query("
-                SELECT * FROM user 
-                         JOIN serviceprovider ON user.user_id = serviceprovider.user_id
-                         JOIN venueoperator ON serviceprovider.sp_id = venueoperator.sp_id
-                         WHERE venueoperator.venueM_id = :venueM_id", ['venueM_id' => $venuem_data->venueM_id]);
-
-            $this->view('venuem/staff/manage_staff', $data);
-        } else if ($method == 'insert'){
+        if ($method == 'insert'){
 
             if($_SERVER['REQUEST_METHOD'] == "POST"){
 
@@ -136,7 +119,47 @@ class Venuem extends SP {
             $this->view('venuem/staff/update_staff', $data);
 
         } else {
-            $this->view('admin/usermanagement');
+            // BUG Possible vulnarability
+
+            if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+                $json_data = file_get_contents("php://input");
+
+                // If the second argument is set to true, the function returns an array. Otherwise, it returns an object
+                $php_data = json_decode($json_data);
+
+                $venueO_id = $php_data->venueO_id;
+
+                if($php_data->venue_id != "not-set") {
+                    $venue_id = $php_data->venue_id;
+                } else {
+                    $venue_id = NULL;
+                }
+
+                $db->query("
+                    UPDATE venueoperator SET venue_id = :venue_id
+                        WHERE venueO_id = :venueO_id",
+                    ['venue_id' => $venue_id, 'venueO_id' => $venueO_id]);
+
+                die;
+            }
+
+            $venuem_data = $db->query("
+                SELECT * FROM user 
+                    JOIN serviceprovider ON serviceprovider.user_id = user.user_id
+                    JOIN venuemanager ON serviceprovider.sp_id = venuemanager.sp_id
+                WHERE user.user_id = :user_id
+                ", ['user_id' => Auth::getUser_id()])[0];
+
+            $data['users'] = $user->query("
+                SELECT * FROM user 
+                         JOIN serviceprovider ON user.user_id = serviceprovider.user_id
+                         JOIN venueoperator ON serviceprovider.sp_id = venueoperator.sp_id
+                         WHERE venueoperator.venueM_id = :venueM_id", ['venueM_id' => $venuem_data->venueM_id]);
+
+            $data['venues'] = $venue->where(['venueM_id' => $venuem_data->venueM_id]);
+
+            $this->view('venuem/staff/manage_staff', $data);
         }
     }
 }

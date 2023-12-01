@@ -10,7 +10,7 @@
 
 }
 
-@media screen and (min-width: 650px) {
+@media screen and (min-width: 680px) {
   .sidebar{
     height: 100%;
     width: 56px;
@@ -46,7 +46,7 @@
   }
 }
 
-@media screen and (max-width: 649px) {
+@media screen and (max-width: 680px) {
 
   .dashboard-main {
     padding-bottom: 30px;
