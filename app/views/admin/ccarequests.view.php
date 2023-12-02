@@ -16,29 +16,12 @@
                     </a>
 
                     <div class="flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10">
-                        <a href="#req-01">
-                            <div class="bg-white txt-c-black dis-flex ju-co-sb pad-10 bor-rad-5">
-                                <p>Request 01</p>
-                                <p>Details : Something</p>
-                                <p>Date : 2023-10-15</p>
-                            </div>
-                        </a>
+                        
+                    <?php foreach($requests as $request){
+                        $this->view('admin/components/assrequests',(array)$request);
+                    }
+                    ?>
 
-                        <a href="#req-02">
-                            <div class="bg-white txt-c-black dis-flex ju-co-sb pad-10 bor-rad-5">
-                                <p>Request 02</p>
-                                <p>Details : Something</p>
-                                <p>Date : 2023-10-15</p>
-                            </div>
-                        </a>
-
-                        <a href="#req-03">
-                            <div class="bg-white txt-c-black dis-flex ju-co-sb pad-10 bor-rad-5">
-                                <p>Request 03</p>
-                                <p>Details : Something</p>
-                                <p>Date : 2023-10-15</p>
-                            </div>
-                        </a>
                     </div>
 
                     <div class="dis-flex ju-co-se">

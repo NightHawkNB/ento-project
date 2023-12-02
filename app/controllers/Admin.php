@@ -23,7 +23,13 @@ Class Admin extends Controller{
     }
 
     public function ccareq(){
-        $this->view('admin/ccarequests');
+
+        $assists = new Assist_req();
+
+        $data['requests'] = $assists->query("SELECT complaint_assist.comp_id, complaint_assist.date_time, complaint_assist.status, complaint_assist.comment, complaints.user_id, complaints.cust_id FROM complaint_assist INNER JOIN complaints ON complaint_assist.comp_id = complaints.comp_id WHERE complaint_assist.deleted = 0");
+        show($data);
+
+        $this->view('admin/ccarequests', $data);
     }
 
     public function usermng($method = null, $id = null) {

@@ -7,7 +7,7 @@ class Assist_req extends Model {
 
     protected $allowed_columns = [
         'comp_id',
-        'datetime',
+        'date_time',
         'status',
         'comment'
     ];
