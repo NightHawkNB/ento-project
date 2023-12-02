@@ -97,10 +97,9 @@
 /* Profile Edit Page */
 
 .profile-container-2 {
-  width: 100%;
-  margin: 10px;
+  /*margin: 10px;*/
   background-color: rgba(255, 255, 255, 0.5);
-  padding: 10px;
+  /*padding: 10px;*/
   border-radius: 6px;
   text-align: center;
   display: flex;
