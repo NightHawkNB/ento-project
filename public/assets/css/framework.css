@@ -17,6 +17,7 @@
 @import "components/venue_operator.css";
 @import "alerts.css";
 @import "widgets/calendar.css";
+@import "widgets/slide_window.css";
 
 /* CSS COLORS */
 :root {
@@ -35,6 +36,7 @@
     --maxwidth: auto;
     --font-primary: black;
     --font-secondary: white;
+    --font-3: lightgrey;
     --line-primary: black;
     --line-secondary: grey;
 }

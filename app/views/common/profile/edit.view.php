@@ -4,13 +4,9 @@
     <div class="main-wrapper">
         <?php $this->view('includes/header') ?>
 
-        <main class="dashboard-main">
-            <section class="cols-2 sidebar">
-                <?php $this->view('includes/sidebar') ?>
-            </section>
-
-            <section class="cols-10 profile dis-flex al-it-st">
-                <div class="profile-container-2">
+        <main class="dashboard-main wid-100">
+            <section class="wid-100 dis-flex pad-10 al-it-st">
+                <div class="profile-container-2 wid-100 pad-10-20">
                     <form method="post" enctype="multipart/form-data" class="wid-50 dis-flex-col al-it-ce ju-co-ce">
                         <div class="profile-input-2 pos-rel">
                             <img id="image-ad" class="bor-rad-5" src="<?= (str_contains($user->image, 'general')) ? ROOT.'/assets/images/ads/general.png' : $user->image ?>" style="width: 150px; height: 150px; object-fit: cover" alt="general image">

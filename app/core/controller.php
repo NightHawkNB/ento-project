@@ -43,14 +43,14 @@ class Controller
             show($_POST);
             show($_FILES);
 
-            if (!empty($_FILES['image']['name'])) {
-
-                // Removing the previous profile image was not necessary since the new file will replace the previous one
+            // Removing the previous profile image was not necessary since the new file will replace the previous one
 //                if(!empty($row->image)) {
 //                    if(!unlink($row->image)) {
 //                        message("Previous File could not be deleted");
 //                    }
 //                }
+
+            if (!empty($_FILES['image']['name'])) {
 
                 if ($_FILES['image']['error'] == 0) {
                     if (in_array($_FILES['image']['type'], $allowed_types)) {

@@ -37,9 +37,9 @@
     opacity: 0;
   }
 
-  section:not(.sidebar) {
-    margin-bottom: 40px;
-  }
+  /*section:not(.sidebar) {*/
+  /*  margin-bottom: 40px;*/
+  /*}*/
 
   #empty-li {
     flex: 1;
