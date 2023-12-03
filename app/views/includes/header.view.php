@@ -22,6 +22,10 @@
     }
 ?>
 
+<div class="pre-loader" id="pre-loader">
+    <img src="<?= ROOT ?>/assets/images/loading.gif" alt="loading_gif">
+</div>
+
 <header class="cols-12 dis-flex pad-20 al-it-ce bg-black-2 flex-wrap gap-10 ju-co-ce">
 
     <!-- START OF Popup message box -->
@@ -44,12 +48,12 @@
 
     <a href="<?= ROOT ?>/home"><div class="" id="logo"><?= APP_NAME ?></div></a>
     <nav class="cols-5 flex-grow dis-flex flex-wrap ju-co-ce">
-        <a href="<?= ROOT ?>/home">Home</a>
-        <a href="<?= ROOT ?>/home/events">Events</a>
-        <a href="<?= ROOT ?>/home/ads">Advertisements</a>
-        <a href="#aboutus">About Us</a>
+        <a class="<?= (str_ends_with($_SERVER['REQUEST_URI'], "home")) ? 'active' : '' ?>" href="<?= ROOT ?>/home">Home</a>
+        <a class="<?= (str_contains($_SERVER['REQUEST_URI'], '/home/events')) ? 'active' : '' ?>" href="<?= ROOT ?>/home/events">Events</a>
+        <a class="<?= (str_contains($_SERVER['REQUEST_URI'], '/home/ads')) ? 'active' : '' ?>" href="<?= ROOT ?>/home/ads">Advertisements</a>
+        <a class="<?= (str_contains($_SERVER['REQUEST_URI'], '/home/about')) ? 'active' : '' ?>" href="<?= ROOT ?>/home/about">About Us</a>
         <?php if(Auth::logged_in()): ?>
-            <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>">Dashboard</a>
+            <a class="<?= (str_contains($_SERVER['REQUEST_URI'], '/'.strtolower($_SESSION['USER_DATA']->user_type))) ? 'active' : '' ?>" href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>">Dashboard</a>
         <?php endif; ?>
     </nav>
     <div class="dis-flex gap-20 al-it-ce txt-c-white">
@@ -104,6 +108,12 @@
                 function toggleDrop() {
                     subMenu.classList.toggle('open-menu')
                 }
+
+                let loader = document.getElementById('pre-loader')
+
+                window.addEventListener("load", () => {
+                    loader.style.display = "none"
+                })
             </script>
         <?php endif; ?>
     </div>

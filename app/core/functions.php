@@ -54,3 +54,42 @@ function str_to_url($url) {
 function esc($str) {
     return nl2br(htmlspecialchars($str));
 }
+
+function resize_image($filename, $max_size = 700): void
+{
+    $ext = mime_content_type($filename);
+    $ext = explode("/", $ext);;
+    $ext = end($ext);
+
+    if(file_exists($filename)) {
+        switch ($ext) {
+            case 'webp':
+                $image = imagecreatefromwebp($filename);
+                break;
+            case 'png':
+                $image = imagecreatefrompng($filename);
+                break;
+            default:
+                $image = imagecreatefromjpeg($filename);
+                break;
+        }
+
+        $src_w = imagesx($image);
+        $src_h = imagesy($image);
+
+        if($src_w > $src_h) {
+            $dst_w = $max_size;
+            $dst_h = ($src_h/$src_w) * $max_size;
+        } else {
+            $dst_w = ($src_w/$src_h) * $max_size;
+            $dst_h = $max_size;
+        }
+
+        $dst_image = imagecreatetruecolor($dst_w, $dst_h);
+        imagecopyresampled($dst_image, $image, 0, 0, 0, 0, $dst_w, $dst_h, $src_w, $src_h);
+
+        imagedestroy($image);
+        imagewebp($dst_image, $filename, 90);
+        imagedestroy($dst_image);
+    }
+}

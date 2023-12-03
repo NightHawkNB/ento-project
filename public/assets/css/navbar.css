@@ -147,3 +147,22 @@ header #profile-btn:hover {
 #signup {
     border: 2px solid var(--indigo-2);
 }
+
+.pre-loader {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    position:fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 1);
+    z-index: 20;
+    transition: all 0.1s;
+}
+
+.pre-loader img {
+    min-width: 100px;
+    width: 12%;
+}

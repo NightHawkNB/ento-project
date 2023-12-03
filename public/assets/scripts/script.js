@@ -8,6 +8,9 @@
 /* END OF FORM VALIDITY */
 
 
+/* START OF LOADER SCRIPT */
+window.load_image('../images/loading.gif')
+/* END OF LOADER SCRIPT */
 
 
 
