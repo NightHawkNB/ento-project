@@ -4,6 +4,7 @@
 
 
 
+    <?php if(!Auth::is_client() || !Auth::is_admin() || !Auth::is_cca()): ?>
     <script defer>
         const calendar_events = <?= json_encode($calendar_events) ?>;
         const calendar_reservations = <?= json_encode($calendar_reservations) ?>;
@@ -12,6 +13,7 @@
     </script>
 
     <script src="<?= ROOT ?>/assets/scripts/calendar.js" defer></script>
+    <?php endif; ?>
 
     <div class="main-wrapper">
         <?php $this->view('includes/header') ?>

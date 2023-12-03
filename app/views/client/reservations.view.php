@@ -3,12 +3,6 @@
 <body>
 <div class="main-wrapper">
     <?php $this->view('includes/header') ?>
-    <style>
-        img{
-            height:100px;
-            width:100px;
-        }
-    </style>
 
     <main class="dashboard-main">
         <section class="cols-2 sidebar">
