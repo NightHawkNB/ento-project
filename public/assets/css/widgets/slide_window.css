@@ -45,3 +45,7 @@
 .slide-container .pages .page.active {
     opacity: 100%;
 }
+
+.slide-container .pages .page:not(.active) {
+    pointer-events: none;
+}

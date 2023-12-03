@@ -58,14 +58,17 @@ class Controller
                         $destination = $direct_folder . $_POST['user_id'] . "." . end($temp_name);
                         move_uploaded_file($_FILES['image']['tmp_name'], $destination);
 
+                        resize_image($destination);
+
                         $_POST['image'] = $remote_folder . $_POST['user_id'] . "." . end($temp_name);
+                        $_SESSION['USER_DATA']->image = $_POST['image'];
                     } else {
                         message("Image type should be JPG/JPEG/PNG");
-                        redirect(strtolower($row->usertype) . "profile/edit-profile");
+                        redirect(strtolower($row->user_type) . "/profile/edit-profile");
                     }
                 } else {
                     message("Error occurred - Couldn't upload the file");
-                    redirect(strtolower($row->usertype) . "profile/edit-profile");
+                    redirect(strtolower($row->user_type) . "/profile/edit-profile");
                 }
             } else {
                 if(empty($row->image)) {
@@ -243,6 +246,8 @@ class Controller
                                 $destination = $direct_folder . $_POST['ad_id'] . "." . end($temp_name);
                                 move_uploaded_file($_FILES['image']['tmp_name'], $destination);
 
+                                resize_image($destination);
+
                                 $_POST['image'] = $remote_folder . $_POST['ad_id'] . "." . end($temp_name);
                             } else {
                                 message("Image type should be JPG/JPEG/PNG");
@@ -296,6 +301,43 @@ class Controller
                 if ($ads->validate($_POST)) {
                     $_POST['ad_id'] = $id;
                     $_POST['pending'] = 1;
+
+                    // Checking for valid file and moving to public folder
+                    $allowed_types = ['image/jpeg', 'image/png'];
+                    $direct_folder = getcwd() . "\assets\images\ads" . DIRECTORY_SEPARATOR;
+                    $remote_folder = ROOT . "/assets/images/ads/";
+
+                    /*  IMPORTANT requires adding enctype="multipart/form-data" to form tag
+                     *  When saving a file, we have to use a static path since we can't save files via a remote path (url)
+                     *  Viewing a file cannot be done using a static path and can only be done by remote path
+                     *  So save the file using the static path
+                     *  But save the remote path to the database so it can be viewed
+                     *  TODO deleting an ad doesn't delete the image stored
+                     */
+
+                    if (!empty($_FILES['image']['name'])) {
+                        if ($_FILES['image']['error'] == 0) {
+                            if (in_array($_FILES['image']['type'], $allowed_types)) {
+                                $temp_name = explode(".", $_FILES['image']['name']);
+                                $destination = $direct_folder . $_POST['ad_id'] . "." . end($temp_name);
+                                move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+
+                                resize_image($destination);
+
+                                $_POST['image'] = $remote_folder . $_POST['ad_id'] . "." . end($temp_name);
+                            } else {
+                                message("Image type should be JPG/JPEG/PNG");
+                                redirect(strtolower($user_data->user_type) . "/ads");
+                            }
+                        } else {
+                            message("Error occurred - Couldn't upload the file");
+                            redirect(strtolower($user_data->user_type) . "/ads");
+                        }
+                    } else {
+                        message("Cannot have empty file name");
+                        redirect(strtolower($user_data->user_type) . "/ads");
+                    }
+
                     $ads->update($id, $_POST);
 
                     switch ($_POST['category']) {
