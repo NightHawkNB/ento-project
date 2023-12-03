@@ -90,11 +90,12 @@ class Client extends Controller {
       }
   }
 
+  //reservations
   public function reservations($method = null, $id = null, $action = null) : void
   {
       $db = new Database();
       $data['reservations']=$db->query('SELECT * FROM reservations');
-      $this->view('client/res-other',$data);
+      $this->view('client/reservations',$data);
 
   }
 }
