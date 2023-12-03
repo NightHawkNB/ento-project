@@ -16,12 +16,12 @@
         </section>
         <section class="cols-10 pad-20 mar-bot-10">
             <div class="dis-flex-col gap-10 bg-grey pad-10 bor-rad-5 txt-c-white" style="height: 100%">
-                <h2 class="mar-0" >Other Reservation Details</h2>
+                <h2 class="mar-0" >Reservation Details</h2>
 
                 <div class="dis-flex-col gap-10 bg-grey pad-10 bor-rad-5 txt-c-white" style="height: auto">
-                    Div
                     <?php
-//                    show($data); show($reservations);
+//                    show($data);
+//                    show($reservations);
 //                    show($reservations[0]);
                     foreach ($reservations as $reservation)
                     {
