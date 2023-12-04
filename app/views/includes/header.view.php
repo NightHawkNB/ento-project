@@ -22,9 +22,9 @@
     }
 ?>
 
-<!--<div class="pre-loader" id="pre-loader">-->
-<!--    <img src="--><?php //= ROOT ?><!--/assets/images/loading.gif" alt="loading_gif">-->
-<!--</div>-->
+<div class="pre-loader" id="pre-loader">
+    <img src="<?= ROOT ?>/assets/images/loading.gif" alt="loading_gif">
+</div>
 
 <header class="cols-12 dis-flex pad-20 al-it-ce bg-black-2 flex-wrap gap-10 ju-co-ce">
 
@@ -101,20 +101,21 @@
                     </a>
                 </div>
             </div>
-
-            <script>
-                let subMenu = document.getElementById('js-sub-menu')
-
-                function toggleDrop() {
-                    subMenu.classList.toggle('open-menu')
-                }
-
-                let loader = document.getElementById('pre-loader')
-
-                // window.addEventListener("load", () => {
-                //     loader.style.display = "none"
-                // })
-            </script>
         <?php endif; ?>
+
+        <script>
+            let subMenu = document.getElementById('js-sub-menu')
+
+            function toggleDrop() {
+                subMenu.classList.toggle('open-menu')
+            }
+
+            let loader = document.getElementById('pre-loader')
+
+            window.addEventListener('load', function() {
+                loader.style.display = "none"
+            })
+        </script>
+
     </div>
 </header>
