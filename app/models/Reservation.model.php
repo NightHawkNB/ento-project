@@ -9,6 +9,7 @@ class Reservation extends Model{
         'reservation_id',
         'sp_id',
         'user_id',
+        'status',
         'deleted'
     ];
 }
