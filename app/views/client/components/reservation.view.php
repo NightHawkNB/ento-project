@@ -16,19 +16,16 @@
 <!--            <p>--><?php //= $date_time ?><!--</p>-->
         </div>
 
-<!--        --><?php
-//        $color = "black";
-//        if($status == 'Idle') $color = "blue";
-//        else if ($status == 'Accepted') $color = "purple";
-//        else if ($status == 'Pending') $color = "orange";
-//        else if ($status == 'Handled') $color = "lightgreen";
-//        else if ($status == 'Assist') $color = "brown";
-//        else $color = "red";
-//        ?>
+        <?php
+        $color = "black";
+        if($status == 'Pending') $color = "orange";
+        else if ($status == 'Accepted') $color = "lightgreen";
+        else if ($status == 'Decline') $color = "red";
+        ?>
 
         <div class="dis-flex-col txt-c-black gap-10">
             <p class="txt-w-bold">Status</p>
-<!--            <p style="color: --><?php //= $color ?><!--">--><?php //= $status ?><!--</p>-->
+            <p style="color: <?= $color ?>;"><?= $status ?></p>
         </div>
 
 <!--        <div class="dis-flex gap-10 ju-co-ce al-it-ce pad-20 bor-rad-5 txt-c-black">-->
