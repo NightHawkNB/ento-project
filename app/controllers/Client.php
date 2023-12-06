@@ -95,6 +95,7 @@ class Client extends Controller {
   {
       $db = new Database();
       $data['reservations']=$db->query('SELECT * FROM reservations');
+
       $this->view('client/reservations',$data);
 
   }
@@ -102,19 +103,27 @@ class Client extends Controller {
   //reserve a service provider using Ad
   public function reservation_form($id= null) : void
   {
+
+      $db = new Database();
+
+      $sp_id = $db->query("SELECT * FROM ads
+        INNER JOIN serviceprovider
+        ON ads.user_id = serviceprovider.user_id WHERE ads.ad_id = :ad_id", ['ad_id' => $id])[0]->sp_id;
+
+      // Generating a unique ad_id
+      $new_id = "RES_" . rand(10, 100000) . "_" . time();
+
       $this->view('client/reservation_form');
 
-//      if($_SERVER['REQUEST_METHOD'] == 'POST'){
-//          $details = $_POST['details'];
-//          $start_time = $_POST['start_time'];
-//          $end_time = $_POST['end_time'];
-//          $location = $_POST['location'];
-//          $ad_id = $id;
-//
-//          $db = new Database();
-//          $db->query("INSERT INTO ")
-//
-//          redirect('client/reservations');
-//      }
+      if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+          $_POST['req_id'] = $new_id;
+          $_POST['user_id'] = Auth::getUser_id();
+          $_POST['sp_id'] = $sp_id;
+
+          $resreq = new Resrequest();
+          $resreq->insert($_POST);
+          redirect("client/reservations");
+      }
   }
 }
