@@ -417,6 +417,17 @@ addEventSubmit.addEventListener("click", () => {
     const timeFrom = convertTime(eventTimeFrom);
     const timeTo = convertTime(eventTimeTo);
 
+    console.log(timeFrom)
+
+    if( (timeTo - timeFrom) < 60*60*1000) {
+        alert("Invalid Time Period - Minimum is 1 hour");
+        return;
+    }
+
+    // Checking for valid time period for the schedule
+    console.log("time difference")
+    console.log(timeFrom - timeTo)
+
     //check if event is already added
     let eventExist = false;
     eventsArr.forEach((event) => {
@@ -496,6 +507,9 @@ addEventSubmit.addEventListener("click", () => {
         console.log("Sending data to PHP API failed")
         alert("Database wasn't updated - Events won't be saved in the server")
     }
+
+    console.log("time difference")
+    console.log(timeFrom - timeTo)
 
     // console.log(eventsArr);
     addEventWrapper.classList.remove("active");

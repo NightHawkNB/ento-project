@@ -19,6 +19,14 @@
 @import "widgets/calendar.css";
 @import "widgets/slide_window.css";
 
+/*@font-face {*/
+/*    font-family: 'PTSans';*/
+/*    src : url('../fonts/PTSans-Regular.ttf') format('ttf');*/
+/*    font-weight: normal;*/
+/*    font-style: normal;*/
+/*}*/
+
+
 /* CSS COLORS */
 :root {
     --bg-primary-2: mediumpurple;
