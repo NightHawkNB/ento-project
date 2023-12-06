@@ -161,7 +161,7 @@ class Controller
                     $input = ['deleted' => 0, 'user_id' => Auth::getUser_id(), 'req_id' => $id];
                     $data['request'] = $db->query("SELECT * FROM resrequest JOIN user ON resrequest.user_id = user.user_id JOIN serviceprovider ON resrequest.sp_id = serviceprovider.sp_id WHERE deleted = :deleted AND serviceprovider.user_id = :user_id and req_id = :req_id", $input)[0];
 
-                    $this->view('includes/components/request-details', $data);
+                    $this->view('common/reservations/components/request-details', $data);
 
                 }
             }
@@ -192,7 +192,7 @@ class Controller
                 message("No Reservation with that ID exists");
                 redirect("$row->user_type/reservations");
             } else {
-                $this->view('includes/components/reservation-details', (array)$data);
+                $this->view('common/reservations/components/reservation-details', (array)$data);
             }
 
         }

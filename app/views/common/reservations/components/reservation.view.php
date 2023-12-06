@@ -1,10 +1,10 @@
-<div>
+<div class="reservations">
 
     <?php
-        $now = new DateTime();
-        $future_date = new DateTime($start_time);
+    $now = new DateTime();
+    $future_date = new DateTime($start_time);
 
-        $interval = $future_date->diff($now);
+    $interval = $future_date->diff($now);
     ?>
 
     <p><?= $fname." ".$lname ?></p>
