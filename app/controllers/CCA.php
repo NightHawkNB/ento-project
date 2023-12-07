@@ -96,7 +96,11 @@ class CCA extends Controller{
     }
 
     public function verify(){
-        $this->view("CCA/verify");
+        
+                $ur = new Uservreq();
+                $data['assists'] = $ur->get_all();
+                $this->view("CCA/verify", $data);
+
     }
 
     public function admanage(){
