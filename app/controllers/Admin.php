@@ -37,7 +37,7 @@ Class Admin extends Controller{
         $this->view('admin/ccarequests', $data);
        }
        else{
-        $data['requests'] = $assists->query("SELECT complaint_assist.comp_id, complaint_assist.date_time, complaint_assist.status, complaint_assist.comment, complaints.user_id, complaints.cust_id 
+        $data['requests'] = $assists->query("SELECT complaint_assist.comp_id, complaint_assist.date_time, complaint_assist.status, complaint_assist.comment, complaints.details, complaints.user_id, complaints.cust_id 
         FROM complaint_assist 
         INNER JOIN complaints 
         ON complaint_assist.comp_id = complaints.comp_id 
