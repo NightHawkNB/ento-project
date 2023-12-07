@@ -1,7 +1,5 @@
 <?=show($data['requests'])?>
 
-<!-- single_assist_request.php -->
-
 <html lang="en">
 <?php $this->view('includes/head') ?>
 

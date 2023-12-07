@@ -94,9 +94,46 @@ class Client extends Controller {
   public function reservations($method = null, $id = null, $action = null) : void
   {
       $db = new Database();
-      $data['reservations']=$db->query('SELECT * FROM reservations');
-      $this->view('client/reservations',$data);
 
+      $data['reservations']=$db->query('SELECT 
+        resrequest.status,resrequest.details,resrequest.createdDate,resrequest.end_time,resrequest.start_time,resrequest.location, user.fname,user.lname
+        FROM resrequest
+        INNER JOIN  serviceprovider
+        ON resrequest.sp_id = serviceprovider.sp_id
+        INNER JOIN user
+        ON resrequest.user_id = user.user_id
+        WHERE user.user_id = :user_id ORDER BY resrequest.createdDate', ['user_id'=> Auth::getUser_id()]);
+
+      $this->view('client/reservations', $data);
+
+  }
+
+  //reserve a service provider using Ad
+  public function reservation_form($id= null) : void
+  {
+      $db = new Database();
+
+      $sp_id = $db->query("SELECT * FROM ads
+        INNER JOIN serviceprovider
+        ON ads.user_id = serviceprovider.user_id WHERE ads.ad_id = :ad_id", ['ad_id' => $id])[0]->sp_id;
+
+      // Generating a unique res_id
+      $new_id = "RES_" . rand(10, 100000) . "_" . time();
+
+      if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+          $_POST['req_id'] = $new_id;
+          $_POST['user_id'] = Auth::getUser_id();
+          $_POST['sp_id'] = $sp_id;
+          $_POST['reservation_id'] = $new_id;
+
+          $resreq = new Resrequest();
+          $resreq->insert($_POST);
+          
+          redirect("client/reservations");
+      }
+
+      $this->view('client/reservation_form');
   }
 
   //reserve a service provider using Ad
