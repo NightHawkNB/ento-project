@@ -98,4 +98,23 @@ class Client extends Controller {
       $this->view('client/reservations',$data);
 
   }
+
+  //reserve a service provider using Ad
+  public function reservation_form($id= null) : void
+  {
+      $this->view('client/reservation_form');
+
+//      if($_SERVER['REQUEST_METHOD'] == 'POST'){
+//          $details = $_POST['details'];
+//          $start_time = $_POST['start_time'];
+//          $end_time = $_POST['end_time'];
+//          $location = $_POST['location'];
+//          $ad_id = $id;
+//
+//          $db = new Database();
+//          $db->query("INSERT INTO ")
+//
+//          redirect('client/reservations');
+//      }
+  }
 }
