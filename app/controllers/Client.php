@@ -103,7 +103,6 @@ class Client extends Controller {
   //reserve a service provider using Ad
   public function reservation_form($id= null) : void
   {
-
       $db = new Database();
 
       $sp_id = $db->query("SELECT * FROM ads
