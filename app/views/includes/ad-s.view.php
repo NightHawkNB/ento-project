@@ -38,7 +38,7 @@
             </div>
         </div>
 
-        <?php if(Auth::logged_in() && Auth::is_client()): ?>
+        <?php if(Auth::logged_in() && Auth::is_client()): ?>     
             <a href="<?= ROOT ?>/client/reservation_form/<?= $ad_id ?>">
                 <button class="btn-lay-2 hover-pointer btn-anima-hover">Reserve</button>
             </a>

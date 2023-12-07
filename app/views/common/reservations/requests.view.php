@@ -13,7 +13,7 @@
             <h1 class="mar-10-0 txt-c-white f-mooli txt-w-bold" style="font-size: 1.5rem">Reservation Requests</h1>
 
             <div class="component-list wid-80">
-                <div>
+                <div class="requests">
                     <p>Client Name</p>
                     <p>Date and Time</p>
                     <p>Location</p>
@@ -24,7 +24,7 @@
                 <?php
                     if(!empty($requests)) {
                         foreach($requests as $request) {
-                            $this->view('includes/components/request', (array)$request);
+                            $this->view('common/reservations/components/request', (array)$request);
                         }
                     } else {
                         echo "<h3 class='txt-c-white'>No reservations to show</h3>";

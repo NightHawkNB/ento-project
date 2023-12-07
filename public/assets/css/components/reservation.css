@@ -1,26 +1,37 @@
 .component-list {
-    border-radius: 5px;
+    /*border-radius: 1px;*/
+    border: 1px solid grey;
 }
 
 .component-list > div {
-    background-color: var(--bg-primary);
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: auto;
+    font-family: "PT Sans", Poppins, sans-serif;
+    background-color: var(--bg-primary);
+    grid-template-columns: auto 200px 150px 150px 150px;
     padding: 10px;
     min-height: 50px;
     align-items: center;
     border-bottom: 1px solid var(--line-secondary);
 }
 
+.component-list > div.reservations {
+    grid-template-columns: auto 200px 150px 250px 150px;
+}
+
+.component-list > div.requests {
+    grid-template-columns: auto 200px 150px 150px 150px;
+}
+
 .component-list > div:hover {
-    background-color: var(--bg-secondary);
-    color: var(--font-secondary);
-    font-weight: bold;
+    background-color: ghostwhite;
+    /*color: var(--font-secondary);*/
+    /*font-weight: bold;*/
 }
 
 .component-list > div:hover button {
-    color: white;
-    font-weight: bolder;
+    /*color: white;*/
+    /*font-weight: bolder;*/
 }
 
 .component-list > div:first-child:hover {
@@ -31,18 +42,14 @@
 .component-list > div > p:last-child {border-right: none;}
 
 .component-list > div > p {
-    border-right: 1px solid var(--line-secondary);
-    font-family: Mooli, sans-serif;
+    /*border-right: 1px solid var(--line-secondary);*/
     padding: 5px;
 }
 
 .component-list > div:first-child {
-    border-radius: 5px 5px 0 0;
-    font-weight: bolder;
+    font-weight: 600;
     font-size: 1.05rem;
 }
-
-.component-list > div:last-child {border-radius: 0 0 5px 5px;}
 
 .status {
     width: 100%;
@@ -73,34 +80,33 @@
 }
 
 .component-list .action-btn button {
-    border: none;
+    border: 1px solid black;
     padding: 5px;
     background-color: transparent;
     border-radius: 5px;
     cursor: pointer;
+    transition: all 0.2s;
 }
 
 
-
-.component-list .action-btn button:nth-child(1):hover {color: #007afa;}
-.component-list .action-btn button:nth-child(2):hover {color: green;}
-.component-list .action-btn button:nth-child(3):hover {color: red;}
+.component-list .action-btn button:hover {border: 1px solid transparent;}
+.component-list .action-btn button:hover {color: white; background-color: #007afa;}
 
 
 /* START OF Accept, Deny, Details and Chat button styles */
 
-a.action-btn button.chat-btn svg {color: #00baff;}
-a.action-btn button.chat-btn {border: 1px solid #00baff; transition: 0.5s ease all; cursor: pointer}
-a.action-btn button.accept-btn svg {color: green;}
-a.action-btn button.accept-btn {border: 1px solid green; transition: 0.5s ease all; cursor: pointer}
-a.action-btn button.decline-btn svg {color: red;}
-a.action-btn button.decline-btn {border: 1px solid red; transition: 0.5s ease all; cursor: pointer}
+.action-btn button.chat-btn svg {color: #00baff;}
+.action-btn button.chat-btn {border: 1px solid #00baff; transition: 0.5s ease all; cursor: pointer}
+.action-btn button.accept-btn svg {color: green;}
+.action-btn button.accept-btn {border: 1px solid green; transition: 0.5s ease all; cursor: pointer}
+.action-btn button.decline-btn svg {color: red;}
+.action-btn button.decline-btn {border: 1px solid red; transition: 0.5s ease all; cursor: pointer}
 
-a.action-btn button.chat-btn:hover svg {color: white;}
-a.action-btn button.chat-btn:hover {background-color: #00baff; color: white; font-weight: bold}
-a.action-btn button.accept-btn:hover svg {color: white;}
-a.action-btn button.accept-btn:hover {background-color: green; color: white; font-weight: bold}
-a.action-btn button.decline-btn:hover svg {color: white;}
-a.action-btn button.decline-btn:hover {background-color: red; color: white; font-weight: bold}
+.action-btn button.chat-btn:hover svg {color: white;}
+.action-btn button.chat-btn:hover {background-color: #00baff; color: white; font-weight: bold}
+.action-btn button.accept-btn:hover svg {color: white;}
+.action-btn button.accept-btn:hover {background-color: green; color: white; font-weight: bold}
+.action-btn button.decline-btn:hover svg {color: white;}
+.action-btn button.decline-btn:hover {background-color: red; color: white; font-weight: bold}
 
 /* END OF Accept, Deny, Details and Chat button styles */
