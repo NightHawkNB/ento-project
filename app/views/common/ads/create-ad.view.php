@@ -18,7 +18,7 @@
                 }
             </script>
 
-            <form method="post" enctype="multipart/form-data" id="ad_form" class="bg-white txt-c-black al-it-ce pad-20 bor-rad-5 dis-flex-col flex-1 ju-co-ce">
+            <form method="post" enctype="multipart/form-data" id="ad_form" class="glass-container txt-c-black al-it-ce pad-20 bor-rad-5 dis-flex-col flex-1 ju-co-ce">
 
                 <div class="profile-input-2 pos-rel">
                     <img id="image-ad" class="bor-rad-5" src="<?= ROOT ?>/assets/images/ads/general.png" style="width: 150px; height: 150px; object-fit: cover" alt="general image">

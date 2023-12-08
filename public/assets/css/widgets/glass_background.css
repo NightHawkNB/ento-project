@@ -1,0 +1,46 @@
+.glass-container {
+    min-width: 50%;
+    z-index: 2;
+
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    box-shadow: -15px 17px 17px rgba(10, 10, 10, 0.25);
+    position: relative;
+
+    /*padding: 10px;*/
+    color: var(--font-secondary);
+    border-radius: 6px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.glass-container button{
+    border-radius: 0px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    color: var(--font-secondary);
+    padding: 10px 30px;
+}
+
+.glass-container button:hover {
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    color: var(--font-secondary);
+}
+
+/*.glass-container::after {*/
+/*    background: radial-gradient(300px circle at var(--mouse-x) var(--mouse-y) rgba(255, 255, 255, 0.5) transparent 50%);*/
+/*    transform: translate(-50%, -50%);*/
+/*    border-radius: 50%;*/
+/*    content: "";*/
+/*    height: 100%;*/
+/*    width: 100%;*/
+/*    position: absolute;*/
+/*    left: 0;*/
+/*    top: 0;*/
+/*    z-index: 2;*/
+/*    pointer-events: none;*/
+/*}*/

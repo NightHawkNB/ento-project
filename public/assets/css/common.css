@@ -2,7 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: Inter, Calibri;
+    font-family: Inter, Calibri, sans-serif;
 }
 
 .error {
@@ -61,7 +61,7 @@
     border-radius: 5px;
     outline: none;
     font-size: small;
-    font-family: Poppins ;
+    font-family: Poppins, sans-serif ;
     transition: 0.7s;
 }
 

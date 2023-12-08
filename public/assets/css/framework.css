@@ -18,6 +18,7 @@
 @import "alerts.css";
 @import "widgets/calendar.css";
 @import "widgets/slide_window.css";
+@import "widgets/glass_background.css";
 
 /*@font-face {*/
 /*    font-family: 'PTSans';*/
@@ -52,6 +53,10 @@
 a {
     text-decoration: none;
     color: white;
+}
+
+body {
+    position: relative;
 }
 
 /* Signup Page Styles */
