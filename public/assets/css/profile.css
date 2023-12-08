@@ -151,9 +151,42 @@
   font-size: 0.8rem;
 }
 
-#profile-edit-form > div {
-  min-width: 300px;
+@media screen and (min-width: 555px) {
+  #profile-edit-form > div {
+    min-width: 500px;
+  }
 }
+
+@media screen and (max-width: 555px) {
+  #profile-edit-form > div {
+    min-width: 250px;
+    width: 100%;
+  }
+
+  #profile-edit-form div:not(.p-img , .p-i-container, .button) {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  #profile-edit-form > div.p-i-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  #profile-edit-form input {
+    width: 100%;
+    min-height: 40px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    font-family: "Poppins", sans-serif;
+    outline: none;
+  }
+}
+
+
 
 #profile-edit-form div:not(.p-img , .p-i-container, .button) {
   display: flex;
