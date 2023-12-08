@@ -43,6 +43,7 @@ class Model extends Database{
         if(!empty($this->allowed_columns)) {
             foreach($data as $key => $value) {
                 if(str_contains($key, $this->pk)) $temp_id = array($key => $value);
+                else $data[$this->pk] = $id;
                 if(!in_array($key, $this->allowed_columns)) {
 //                    if(str_contains($key, 'id')) $temp_id = array($key => $value);
                     unset($data[$key]);

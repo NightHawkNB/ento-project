@@ -22,7 +22,7 @@
     }
 ?>
 
-<div class="cursor"></div>
+<!--<div class="cursor"></div>-->
 
 <div class="pre-loader" id="pre-loader">
     <img src="<?= ROOT ?>/assets/images/loading.gif" alt="loading_gif">

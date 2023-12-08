@@ -124,18 +124,18 @@ function closeModal(modal) {
 
 /* START OF ALERT MESSAGE SCRIPT */
 
-// function close_alert() {alert_window.classList.remove('show')}
-//
-// const alert_window = document.getElementById('alert-window')
-// if(alert_window) {
-//     if(alert_window.classList.contains('show')) {
-//         setTimeout(close_alert, 5000);
-//     }
-//
-//     alert_window.addEventListener('click', () => {
-//         if(alert_window.classList.contains('show')) close_alert()
-//     })
-// }
+function close_alert() {alert_window.classList.remove('show')}
+
+const alert_window = document.getElementById('alert-window')
+if(alert_window) {
+    if(alert_window.classList.contains('show')) {
+        setTimeout(close_alert, 5000);
+    }
+
+    alert_window.addEventListener('click', () => {
+        if(alert_window.classList.contains('show')) close_alert()
+    })
+}
 
 /* END OF ALERT MESSAGE SCRIPT */
 
@@ -159,28 +159,28 @@ function closeModal(modal) {
 
 /* START OF CUSTOM CURSOR SCRIPT */
 
-const cursor = document.querySelector(".cursor")
-
-let timeout
-
-document.addEventListener('mousemove', e => {
-    let x = e.pageX
-    let y = e.pageY
-
-    cursor.style.top = y + "px"
-    cursor.style.left = x + "px"
-    cursor.style.display = "block"
-
-    function mouseStopped() {
-        cursor.style.display = "none"
-    }
-
-    timeout = setTimeout(mouseStopped, 1000)
-    clearTimeout(timeout)
-})
-
-document.addEventListener("mouseout", () => {
-    cursor.style.display = "none"
-})
+// const cursor = document.querySelector(".cursor")
+//
+// let timeout
+//
+// document.addEventListener('mousemove', e => {
+//     let x = e.pageX
+//     let y = e.pageY
+//
+//     cursor.style.top = y + "px"
+//     cursor.style.left = x + "px"
+//     cursor.style.display = "block"
+//
+//     function mouseStopped() {
+//         cursor.style.display = "none"
+//     }
+//
+//     timeout = setTimeout(mouseStopped, 1000)
+//     clearTimeout(timeout)
+// })
+//
+// document.addEventListener("mouseout", () => {
+//     cursor.style.display = "none"
+// })
 
 /* END OF CUSTOM CURSOR SCRIPT */

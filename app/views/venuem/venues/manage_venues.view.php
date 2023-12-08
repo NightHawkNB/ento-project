@@ -17,14 +17,13 @@
 
                 <div class="flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10    ">
                     <?php
-                        if(!empty($users)) {
-                            foreach ($users as $user) {
-                                $user->venues = $venues;
-                                $this->view('venuem/staff/components/user', (array)$user);
-                            }
-                        } else {
-                            echo "<p class='txt-c-white'>No Users Found</p>";
+                    if(!empty($venues)) {
+                        foreach ($venues as $venue) {
+                            $this->view('venuem/venues/components/venue', (array)$venue);
                         }
+                    } else {
+                        echo "<p class='txt-c-white'>No Venues Found</p>";
+                    }
                     ?>
                 </div>
 

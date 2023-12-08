@@ -1,3 +1,9 @@
+.glass-bg {
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+}
+
 .glass-container {
     min-width: 50%;
     z-index: 2;
@@ -18,7 +24,7 @@
 }
 
 .glass-container button{
-    border-radius: 0px;
+    border-radius: 0;
     background: rgba(255, 255, 255, 0.1);
     border: 2px solid rgba(255, 255, 255, 0.5);
     color: var(--font-secondary);

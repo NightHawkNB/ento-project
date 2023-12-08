@@ -13,6 +13,7 @@ class Venue extends model {
         'seat_count',
         'packages',
         'other',
-        'venueM_id'
+        'venueM_id',
+        'deleted'
     ];
 }

@@ -4,11 +4,11 @@
     <h3 class="txt-c-black"><?= $fname ?>&nbsp;<?= $lname ?></h3>
 
     <div class="location">
-        <svg style="max-height: 30px;" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:#101820;}</style></defs><title/><g data-name="Layer 21" id="Layer_21"><path class="cls-1" d="M16,31a3,3,0,0,1-2.21-1C10.14,26,4,18.39,4,13.36A12.19,12.19,0,0,1,16,1,12.19,12.19,0,0,1,28,13.36c0,5-6.14,12.59-9.79,16.65A3,3,0,0,1,16,31ZM16,3A10.2,10.2,0,0,0,6,13.36c0,3.14,3.47,8.86,9.28,15.31a1,1,0,0,0,1.44,0C22.53,22.22,26,16.5,26,13.36A10.2,10.2,0,0,0,16,3Z"/><path class="cls-1" d="M16,19a6,6,0,1,1,6-6A6,6,0,0,1,16,19ZM16,9a4,4,0,1,0,4,4A4,4,0,0,0,16,9Z"/></g></svg>
+        <img src="<?= ROOT ?>/assets/images/icons/location_pin.png" alt="seat-image" class="icon">
         <p><?= $city ?></p>
     </div>
     <div class="assign-venue">
-        <select name="venue_id" id="venue-select" class="input" style="box-shadow: none">
+        <select name="venue_id" id="venue-select-<?= $venueO_id ?>" class="input" style="box-shadow: none">
             <option value="#default" disabled <?= (!$venue_id) ? 'selected' : '' ?> style="text-align: center"> Assign Venue </option>
             <?php foreach ($venues as $venue): ?>
                 <option data-venueo-id="<?= $venueO_id ?>" data-venue-id="<?= $venue->venue_id ?>" value="<?= $venue->venue_id ?>" <?= ($venue_id == $venue->venue_id) ? 'selected' : '' ?>><?= $venue->name ?></option>
@@ -36,7 +36,7 @@
         if(!result) e.preventDefault()
     })
 
-    document.getElementById('venue-select').addEventListener("change", function() {
+    document.getElementById('venue-select-<?= $venueO_id ?>').addEventListener("change", function() {
         // Get the selected option
         let selectedOption = this.selectedOptions[0]
 
