@@ -30,7 +30,7 @@ header nav {
 
 header nav > a {
     padding: 2px 5px;
-    transition: all 0.5s;
+    color: var(--font-secondary);
 }
 
 header nav > a.active {
@@ -41,7 +41,12 @@ header nav > a.active {
 header nav > a:hover {
     /*background-color: white;*/
     /*color: black;*/
-    transform: translateY(-25%);
+    font-weight: bolder;
+}
+
+header nav > a.active:hover {
+    /*background-color: white;*/
+    /*color: black;*/
 }
 
 header div.user {
