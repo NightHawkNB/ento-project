@@ -1,6 +1,6 @@
 .dashboard-main {
     display: flex;
-    background-color: var(--bg-primary);
+    /*background-color: var(--bg-primary);*/
 }
 
 .dashboard-main section:nth-child(2) {

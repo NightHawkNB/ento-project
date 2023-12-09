@@ -1,6 +1,5 @@
 <html lang="en">
 <?php $this->view('includes/head') ?>
-
 <body>
 <div class="main-wrapper">
     <?php $this->view('includes/header') ?>
@@ -10,75 +9,51 @@
             <?php $this->view('includes/sidebar') ?>
         </section>
 
-        <section class="cols-2 pad-10">
-            <div class="bg-black-2 wid-100 dis-flex-col pad-20 bor-rad-5 al-it-ce">
+        <section class="cols-10 dis-flex ju-co-ce">
+            <div class="glass-bg mar-10 wid-100 dis-flex-col al-it-ce pad-20 gap-10 bor-rad-5">
 
-                <form method="POST" class="dis-flex-col al-it-ce ju-co-ce gap-20">
-                    <h2>Register</h2>
-                    <h3>Venue Operator</h3>
-                    <fieldset class="wid-60 pad-20 bor-rad-5 dis-flex-col gap-10">
-                        <legend>Personal Details</legend>
-                        <div class="dis-flex mar-top-0 gap-20">
-                            <div class="dis-flex-col <?= (!empty($errors['fname'])) ? 'error' : '' ?>">
-                                <label for="fname">First Name</label>
-                                <input type="text" name="fname" class="input" required>
-                                <i></i>
-                            </div>
-                            <div class="dis-flex-col <?= (!empty($errors['lname'])) ? 'error' : '' ?>">
-                                <label for="lname">Last Name</label>
-                                <input type="text" name="lname" class="input" required>
-                                <i></i>
-                            </div>
-                        </div>
-                        <div class="dis-flex-col <?= (!empty($errors['contact_num'])) ? 'error' : '' ?>">
-                            <label for="contact_num">Contact Number</label>
-                            <input type="text" name="contact_num" maxlength="10" class="input" required>
-                            <i></i>
-                        </div>
-                        <div class="dis-flex gap-20">
-                            <div class="dis-flex-col <?= (!empty($errors['city'])) ? 'error' : '' ?>">
-                                <label for="city">City</label>
-                                <input type="text" name="city" class="input" required>
-                                <i></i>
-                            </div>
-                            <div class="dis-flex-col <?= (!empty($errors['district'])) ? 'error' : '' ?>">
-                                <label for="district">District</label>
-                                <input type="text" name="district" class="input" required>
-                                <i></i>
-                            </div>
-                        </div>
-                    </fieldset>
+                <form method="post" enctype="multipart/form-data" id="profile-edit-form" class="wid-50 dis-flex-col al-it-ce ju-co-ce">
+                    <div class="pos-rel wid-auto dis-flex ju-co-ce p-img">
+                        <img id="image-ad" class="bor-rad-5" src="<?= (empty($image)) ? ROOT.'/assets/images/venues/venue.png' : $image ?>" style="width: 150px; height: 150px; object-fit: cover" alt="general image">
+                        <label for="image" style="right: 150; bottom: -10; width: fit-content" class="pos-abs bor-rad-5 pad-10 bg-grey hover-pointer">
+                            <svg class="feather txt-c-white feather-upload" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+                            <input onchange="load_image(this.files[0])" type="file" id="image" name="image" class="hide">
+                        </label>
+                    </div>
 
-                    <fieldset class="wid-60 pad-20 bor-rad-5 dis-flex-col gap-10">
-                        <legend>Account Details</legend>
-                        <div class="dis-flex-col <?= (!empty($errors['email'])) ? 'error' : '' ?>">
-                            <label for="email">Email</label>
-                            <input type="email" name="email" class="input" required>
-                            <i></i>
-                        </div>
+                    <div class="">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" value="<?= set_value('name', $name) ?>">
+                    </div>
 
-                        <input type="checkbox" class="hide" name="change_pass" id="change_pass" checked>
+                    <div class="">
+                        <label for="location">Location</label>
+                        <input type="text" name="location" value="<?= set_value('location', $location) ?>">
+                    </div>
 
-                        <div class="dis-flex gap-20">
-                            <div class="dis-flex-col <?= (!empty($errors['password'])) ? 'error' : '' ?>">
-                                <label for="password">Password</label>
-                                <input type="password" name="password" class="input" required>
-                                <i></i>
-                            </div>
-                            <div class="dis-flex-col <?= (!empty($errors['confirmPass'])) ? 'error' : '' ?>">
-                                <label for="confirmPass">Confirm Password</label>
-                                <input type="password" name="confirmPass" class="input" required>
-                                <i></i>
-                            </div>
-                        </div>
-                    </fieldset>
+                    <div class="">
+                        <label for="seat_count">Seat Count</label>
+                        <input type="number" name="seat_count" value="<?= set_value('seat_count', $seat_count) ?>">
+                    </div>
 
-                    <button type="submit" class="btn-lay-2 hover-pointer btn-anima-hover">Add user</button>
+                    <div class="">
+                        <label for="packages">Packages</label>
+                        <textarea name="packages"><?= set_value('packages', $packages) ?></textarea>
+                    </div>
+
+                    <div class="">
+                        <label for="other">Other Details</label>
+                        <textarea name="other"><?= set_value('other', $other) ?></textarea>
+                    </div>
+
+                    <div class="wid-100 dis-flex ju-co-ce button">
+                        <button type="submit" class="glass-btn">Save Changes</button>
+                    </div>
                 </form>
-            </div>
+
+            </div >
         </section>
     </main>
 </div>
 </body>
-
 </html>

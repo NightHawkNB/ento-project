@@ -5,12 +5,13 @@ body {
     font-size: 14px;
     color: black;
     height: 100vh;
-}
-
-main {
     background: white url("../images/bg4.jpg") no-repeat fixed;
     background-size: cover;
     background-clip: border-box;
+}
+
+main {
+    /* Moved the background style to BODY */
 }
 
 /* START OF STYLES FOR ALL AD COMPONENTS */

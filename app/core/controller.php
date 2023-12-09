@@ -67,7 +67,7 @@ class Controller
                         redirect(strtolower($row->user_type) . "/profile/edit-profile");
                     }
                 } else {
-                    message("Error occurred - Couldn't upload the file");
+                    message("Error occurred - Couldn't upload the file", false, "failed");
                     redirect(strtolower($row->user_type) . "/profile/edit-profile");
                 }
             } else {
@@ -77,6 +77,7 @@ class Controller
             }
 
             $user->update(Auth::getUser_id(), $_POST);
+            message("Profile Updated Successfully", false, "success");
             redirect("$row->user_type/profile/edit-profile/" . $row->user_id);
         }
 

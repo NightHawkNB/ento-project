@@ -23,19 +23,19 @@
     justify-content: center;
 }
 
-.glass-container button{
-    border-radius: 0;
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    color: var(--font-secondary);
-    padding: 10px 30px;
-}
+/*.glass-container button{*/
+/*    border-radius: 0;*/
+/*    background: rgba(255, 255, 255, 0.1);*/
+/*    border: 2px solid rgba(255, 255, 255, 0.5);*/
+/*    color: var(--font-secondary);*/
+/*    padding: 10px 30px;*/
+/*}*/
 
-.glass-container button:hover {
-    background: rgba(0, 0, 0, 0.5);
-    border: 2px solid rgba(0, 0, 0, 0.5);
-    color: var(--font-secondary);
-}
+/*.glass-container button:hover {*/
+/*    background: rgba(0, 0, 0, 0.5);*/
+/*    border: 2px solid rgba(0, 0, 0, 0.5);*/
+/*    color: var(--font-secondary);*/
+/*}*/
 
 /*.glass-container::after {*/
 /*    background: radial-gradient(300px circle at var(--mouse-x) var(--mouse-y) rgba(255, 255, 255, 0.5) transparent 50%);*/

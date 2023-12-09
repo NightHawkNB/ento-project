@@ -143,7 +143,7 @@
                 </div>
 
                 <div class="wid-100 dis-flex ju-co-ce">
-                    <button type="submit" class="btn-lay-2 btn-anima-hover">Create Ad</button>
+                    <button type="submit" class="glass-btn">Create Ad</button>
                 </div>
             </form>
 

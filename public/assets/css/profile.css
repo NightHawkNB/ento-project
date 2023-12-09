@@ -213,7 +213,7 @@
   /*text-align: right;*/
   text-align: left;
   width: 100%;
-  color: var(--font-primary);
+  color: var(--font-secondary);
   font-weight: bold;
 }
 

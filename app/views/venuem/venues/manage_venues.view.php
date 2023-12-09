@@ -28,7 +28,7 @@
                 </div>
 
                 <div class="dis-flex ju-co-se">
-                    <a href="<?= ROOT ?>/venuem/staff/insert">
+                    <a href="<?= ROOT ?>/venuem/venues/insert">
                         <button class="btn-lay-2 push-right hover-pointer"  style="background-color:purple; text-align:right; border: none" >+ Add New</button>
                     </a>
                 </div>

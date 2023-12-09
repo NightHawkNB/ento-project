@@ -4,7 +4,7 @@
 <div class="main-wrapper">
     <?php $this->view('includes/header') ?>
 
-    <main class="bg-lightgray dis-flex ju-co-st al-it-st">
+    <main class="dis-flex ju-co-st al-it-st">
         <div class="dis-flex-col al-it-ce bg-trans wid-100 mar-10 bor-rad-5 over-hide">
 
             <div class="txt-c-black pad-10 wid-100 flex-1 dis-flex-col gap-10">

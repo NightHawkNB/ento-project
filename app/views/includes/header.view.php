@@ -28,7 +28,7 @@
     <img src="<?= ROOT ?>/assets/images/loading.gif" alt="loading_gif">
 </div>
 
-<header class="cols-12 dis-flex pad-20 al-it-ce bg-black-2 flex-wrap gap-10 ju-co-ce">
+<header class="cols-12 dis-flex pad-20 al-it-ce flex-wrap gap-10 ju-co-ce">
 
     <!-- START OF Popup message box -->
     <div class="alert <?= $status ?> dis-flex gap-10 al-it-ce <?= (message()) ? 'show' : '' ?>" id="alert-window">
