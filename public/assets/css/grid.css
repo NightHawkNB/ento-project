@@ -3,7 +3,7 @@
     height: 100vh;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: auto auto 1fr auto;
-    background-color: lightgray;
+    /*background-color: lightgray;*/
 }
 
 .auth-page {

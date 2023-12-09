@@ -14,8 +14,8 @@
                 </div>
 
                 <div class="pages pad-10">
-                    <div class="profile-container-2 dis-flex-col gap-10 profile-settings page active" id="setting-page">
-                        <h2 style="color: black; padding-bottom: 20px">Change Notification Preferences</h2>
+                    <div class="profile-container-2 glass-bg dis-flex-col gap-10 profile-settings page active" id="setting-page">
+                        <h2 style="color: white">Change Notification Preferences</h2>
 
                         <form method="post" class="dis-flex-col al-it-ce gap-20">
                             <div class="dis-flex gap-10">
@@ -39,14 +39,14 @@
                                     <span class="slider round"></span>
                                 </label>
                             </div>
-                            <button type="submit" class="btn-lay-2 btn-anima-hover">Save changes</button>
+                            <button type="submit" class="glass-btn">Save changes</button>
                         </form>
                     </div>
 
-                    <div class="profile-container-2 change-pass page" id="password-page">
+                    <div class="profile-container-2 glass-bg txt-c-white change-pass page" id="password-page">
                         <form method="post" class="wid-50">
 
-                            <h2 style="color: black;">Change your Password</h2>
+                            <h2>Change your Password</h2>
 
                             <div class="profile-input">
                                 <label for="inputPasswordCurrent">Current password</label>
@@ -62,7 +62,7 @@
                             </div>
 
                             <div class="wid-100 dis-flex ju-co-ce">
-                                <button type="submit" class="btn-lay-2 btn-anima-hover">Save changes</button>
+                                <button type="submit" class="glass-btn">Save changes</button>
                             </div>
                         </form>
                     </div>

@@ -1,0 +1,71 @@
+.glass-btn {
+    position: relative;
+    width: 150px;
+    height: 50px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+    color: var(--font-secondary);
+    z-index: 2;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-decoration: none;
+    overflow: hidden;
+    transition: 0.5s;
+
+    backdrop-filter: blur(15px);
+}
+
+.glass-btn:hover {
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+.glass-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to left, rgba(255, 255, 255, 0.15), transparent);
+    transform: skewX(45deg) translateX(-150%);
+    transition: 0.5s
+}
+
+.glass-btn:hover::after {
+    transform: skewX(45deg) translateX(0);
+}
+
+.glass-btn::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -5px;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle farthest-side at bottom center, purple 0%, transparent 100%);
+    border-radius: 10px;
+    transition: 0.5s;
+    z-index: -1;
+}
+
+.glass-btn.btn-red::before {background: radial-gradient(circle farthest-side at bottom center, red 0%, transparent 100%);}
+.glass-btn.btn-green::before {background: radial-gradient(circle farthest-side at bottom center, green 0%, transparent 100%);}
+.glass-btn.btn-aqua::before {background: radial-gradient(circle farthest-side at bottom center, aqua 0%, transparent 100%);}
+.glass-btn.btn-black::before {background: radial-gradient(circle farthest-side at bottom center, black 0%, transparent 100%);}
+
+.glass-btn:hover::before {
+    bottom: 0;
+    height: 200%;
+    width: 150%;
+    border-radius: 30px;
+    /*transition-delay: 0.5s;*/
+}

@@ -58,7 +58,7 @@
 
     .venue-op-div > img {
         height: 40px;
-        width: auto;
+        width: 40px;
     }
 }
 
@@ -91,7 +91,7 @@
 
     .venue-op-div > img {
         height: 40px;
-        width: auto;
+        width: 40px;
     }
 }
 
@@ -106,6 +106,12 @@
         min-width: 150px;
     }
 
+    .venue-op-div > div.location {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
     .venue-op-div > div.btn-collection {
         display: flex;
         justify-content: space-evenly;
@@ -113,6 +119,6 @@
 
     .venue-op-div > img {
         height: 100px;
-        width: auto;
+        width: 100px;
     }
 }

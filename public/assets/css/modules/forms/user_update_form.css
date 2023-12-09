@@ -1,0 +1,28 @@
+.user-update-form fieldset {
+    min-width: 60%;
+}
+
+.user-update-form fieldset legend{
+    padding: 0 5px;
+}
+
+.user-update-form fieldset > div.input-container {
+    display: flex;
+    gap: 20px;
+}
+
+.user-update-form fieldset > div.input-container > div {
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (max-width: 510px) {
+    .user-update-form fieldset{
+        min-width: 90%;
+    }
+
+    .user-update-form fieldset > div.input-container {
+        display: flex;
+        flex-direction: column;
+    }
+}

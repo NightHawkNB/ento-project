@@ -141,6 +141,8 @@ class Venuem extends SP {
                         WHERE venueO_id = :venueO_id",
                     ['venue_id' => $venue_id, 'venueO_id' => $venueO_id]);
 
+                show($venue_id);
+
                 die;
             }
 
@@ -160,6 +162,158 @@ class Venuem extends SP {
             $data['venues'] = $venue->where(['venueM_id' => $venuem_data->venueM_id]);
 
             $this->view('venuem/staff/manage_staff', $data);
+        }
+    }
+
+    public function venues ($method = null, $id = null) {
+
+        $user = new User();
+        $venue = new Venue();
+
+        if(empty($method)) {
+            $venueM_id = $user->query("
+                SELECT * FROM user 
+                         JOIN serviceprovider ON user.user_id = serviceprovider.user_id
+                         JOIN venuemanager ON serviceprovider.sp_id = venuemanager.sp_id
+                         WHERE user.user_id = :user_id", ['user_id' => Auth::getUser_id()])[0]->venueM_id;
+
+            $data['venues'] = $venue->where(['venueM_id' => $venueM_id, 'deleted' => 0]);
+
+            $_SESSION['USER_DATA']->venueM_id = $venueM_id;
+
+            $this->view("venuem/venues/manage_venues", $data);
+
+        } else if($method == "update") {
+
+            if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+                $allowed_types = ['image/jpeg', 'image/png'];
+                $direct_folder = getcwd() . "\assets\images".DIRECTORY_SEPARATOR."venues" . DIRECTORY_SEPARATOR;
+                $remote_folder = ROOT . "/assets/images/venues/";
+
+                /*  IMPORTANT requires adding enctype="multipart/form-data" to form tag
+                 *  When saving a file, we have to use a static path since we can't save files via a remote path (url)
+                 *  Viewing a file cannot be done using a static path and can only be done by remote path
+                 *  So save the file using the static path
+                 *  But save the remote path to the database so it can be viewed
+                 *  TODO deleting an ad doesn't delete the image stored
+                 */
+
+                show($_POST);
+                show($_FILES);
+
+                // Removing the previous profile image was not necessary since the new file will replace the previous one
+//                if(!empty($row->image)) {
+//                    if(!unlink($row->image)) {
+//                        message("Previous File could not be deleted");
+//                    }
+//                }
+
+                if (!empty($_FILES['image']['name'])) {
+
+                    if ($_FILES['image']['error'] == 0) {
+                        if (in_array($_FILES['image']['type'], $allowed_types)) {
+                            $temp_name = explode(".", $_FILES['image']['name']);
+                            $destination = $direct_folder . $id . "." . end($temp_name);
+                            move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+
+                            resize_image($destination);
+
+                            $_POST['image'] = $remote_folder . $id . "." . end($temp_name);
+                        } else {
+                            message("Image type should be JPG/JPEG/PNG");
+                            redirect(strtolower($_SESSION['USER_DATA']->user_type) . "/venues");
+                        }
+                    } else {
+                        message("Error occurred - Couldn't upload the file");
+                        redirect(strtolower($_SESSION['USER_DATA']->user_type) . "/venues");
+                    }
+                } else {
+                    if(empty($_POST['image'])) {
+                        $_POST['image'] = ROOT."/assets/images/venues/venue.png";
+                    }
+                }
+
+                $_POST['venueM_id'] = $_SESSION['USER_DATA']->venueM_id;
+                $_POST['venue_id'] = $id;
+
+                $venue->update($id, $_POST);
+
+                message("Venue updated successfully", false, "success");
+                redirect(strtolower($_SESSION['USER_DATA']->user_type) . "/venues");
+
+            } else {
+
+                $data = $venue->where(['venue_id' => $id])[0];
+
+                $this->view("venuem/venues/update_venues", (array)$data);
+
+            }
+
+        } else if ($method == "delete") {
+
+            $venue->update($id, ['deleted' => 1, 'venue_id' => $id]);
+
+            message("Venue deleted successfully", false, "success");
+            redirect(strtolower($_SESSION['USER_DATA']->user_type) . "/venues");
+
+        } else if ($method == "insert") {
+
+            $venue = new Venue();
+
+            $data = [
+                'image' => "",
+                'name' => "",
+                'location' => "",
+                'seat_count' => 0,
+                'packages' => "",
+                'other' => ""
+            ];
+
+            if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+                $_POST['venueM_id'] = $_SESSION['USER_DATA']->venueM_id;
+
+                $venue->insert($_POST);
+
+                $venue_id = $venue->where($_POST)[0]->venue_id;
+
+                $allowed_types = ['image/jpeg', 'image/png'];
+                $direct_folder = getcwd() . "\assets\images".DIRECTORY_SEPARATOR."venues" . DIRECTORY_SEPARATOR;
+                $remote_folder = ROOT . "/assets/images/venues/";
+
+                if (!empty($_FILES['image']['name'])) {
+
+                    if ($_FILES['image']['error'] == 0) {
+                        if (in_array($_FILES['image']['type'], $allowed_types)) {
+                            $temp_name = explode(".", $_FILES['image']['name']);
+                            $destination = $direct_folder . $venue_id . "." . end($temp_name);
+                            move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+
+                            resize_image($destination);
+
+                            $_POST['image'] = $remote_folder . $venue_id . "." . end($temp_name);
+                        } else {
+                            message("Image type should be JPG/JPEG/PNG");
+                            redirect(strtolower($_SESSION['USER_DATA']->user_type) . "/venues");
+                        }
+                    } else {
+                        message("Error occurred - Couldn't upload the file");
+                        redirect(strtolower($_SESSION['USER_DATA']->user_type) . "/venues");
+                    }
+                } else {
+                    if(empty($_POST['image'])) {
+                        $_POST['image'] = ROOT."/assets/images/venues/venue.png";
+                    }
+                }
+
+                $venue->update($venue_id, $_POST);
+
+                message("Venue added Successfully", false, "success");
+                redirect(strtolower($_SESSION['USER_DATA']->user_type) . "/venues");
+            }
+
+            $this->view("venuem/venues/insert_venue", $data);
         }
     }
 }

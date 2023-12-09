@@ -11,14 +11,14 @@
             </section>
 
             <section class="cols-2 pad-10">
-                <div class="bg-black-2 wid-100 dis-flex-col pad-20 bor-rad-5 al-it-ce">
+                <div class="glass-bg wid-100 dis-flex-col pad-20 bor-rad-5 al-it-ce">
 
-                    <form method="POST" class="dis-flex-col al-it-ce ju-co-ce gap-20">
+                    <form method="POST" class="dis-flex-col al-it-ce ju-co-ce gap-20 user-update-form">
                         <h2>Register</h2>
                         <h3>Venue Operator</h3>
-                        <fieldset class="wid-60 pad-20 bor-rad-5 dis-flex-col gap-10">
+                        <fieldset class="pad-20 bor-rad-5 dis-flex-col gap-10">
                             <legend>Personal Details</legend>
-                            <div class="dis-flex mar-top-0 gap-20">
+                            <div class="input-container">
                                 <div class="dis-flex-col <?= (!empty($errors['fname'])) ? 'error' : '' ?>">
                                     <label for="fname">First Name</label>
                                     <input type="text" name="fname" class="input" required>
@@ -35,7 +35,7 @@
                                 <input type="text" name="contact_num" maxlength="10" class="input" required>
                                 <i></i>
                             </div>
-                            <div class="dis-flex gap-20">
+                            <div class="input-container">
                                 <div class="dis-flex-col <?= (!empty($errors['city'])) ? 'error' : '' ?>">
                                     <label for="city">City</label>
                                     <input type="text" name="city" class="input" required>
@@ -49,7 +49,7 @@
                             </div>
                         </fieldset>
 
-                        <fieldset class="wid-60 pad-20 bor-rad-5 dis-flex-col gap-10">
+                        <fieldset class="pad-20 bor-rad-5 dis-flex-col gap-10">
                             <legend>Account Details</legend>
                             <div class="dis-flex-col <?= (!empty($errors['email'])) ? 'error' : '' ?>">
                                 <label for="email">Email</label>
@@ -59,7 +59,7 @@
 
                                 <input type="checkbox" class="hide" name="change_pass" id="change_pass" checked>
 
-                            <div class="dis-flex gap-20">
+                            <div class="input-container">
                                 <div class="dis-flex-col <?= (!empty($errors['password'])) ? 'error' : '' ?>">
                                     <label for="password">Password</label>
                                     <input type="password" name="password" class="input" required>
@@ -73,7 +73,7 @@
                             </div>
                         </fieldset>
 
-                    <button type="submit" class="btn-lay-2 hover-pointer btn-anima-hover">Add user</button>
+                    <button type="submit" class="glass-btn">Add User</button>
                 </form>
                 </div>
             </section>

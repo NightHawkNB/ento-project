@@ -17,19 +17,18 @@
 
                 <div class="flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10    ">
                     <?php
-                        if(!empty($users)) {
-                            foreach ($users as $user) {
-                                $user->venues = $venues;
-                                $this->view('venuem/staff/components/user', (array)$user);
-                            }
-                        } else {
-                            echo "<p class='txt-c-white'>No Users Found</p>";
+                    if(!empty($venues)) {
+                        foreach ($venues as $venue) {
+                            $this->view('venuem/venues/components/venue', (array)$venue);
                         }
+                    } else {
+                        echo "<p class='txt-c-white'>No Venues Found</p>";
+                    }
                     ?>
                 </div>
 
                 <div class="dis-flex ju-co-se">
-                    <a href="<?= ROOT ?>/venuem/staff/insert">
+                    <a href="<?= ROOT ?>/venuem/venues/insert">
                         <button class="btn-lay-2 push-right hover-pointer"  style="background-color:purple; text-align:right; border: none" >+ Add New</button>
                     </a>
                 </div>

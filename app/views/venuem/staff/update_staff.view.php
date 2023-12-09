@@ -9,14 +9,14 @@
             <?php $this->view('includes/sidebar') ?>
         </section>
 
-        <section class="cols-10 dis-flex">
-            <div class="bg-black-2 mar-10 wid-100 dis-flex-col pad-20 gap-10 bor-rad-5" style="justify-content:stretch; align-items:stretch">
+        <section class="cols-10 dis-flex pad-10">
+            <div class="glass-bg wid-100 dis-flex-col pad-20 gap-10 bor-rad-5">
 
-                <form method="POST" class="dis-flex-col al-it-ce gap-20">
+                <form method="POST" class="dis-flex-col al-it-ce gap-20 wid-100 user-update-form">
                     <h2>Register</h2>
-                    <fieldset class="wid-60 pad-20 bor-rad-5 dis-flex-col gap-10">
+                    <fieldset class="pad-20 bor-rad-5 dis-flex-col gap-10">
                         <legend>Personal Details</legend>
-                        <div class="dis-flex mar-top-0 gap-20">
+                        <div class="input-container">
                             <div class="dis-flex-col <?= (!empty($errors['fname'])) ? 'error' : '' ?>">
                                 <label for="fname">First Name</label>
                                 <input value=<?= $user->fname ?> type="text" name="fname" class="input" required>
@@ -33,23 +33,21 @@
                             <input value=<?= $user->contact_num ?> type="text" name="contact_num" maxlength="10" class="input" required>
                             <i><?= (!empty($user->errors['contact_num'])) ? $user->errors['contact_num'] : '' ?></i>
                         </div>
-                        <div class="dis-flex-col gap-20">
-                            <div class="dis-flex gap-20">
-                                <div class="dis-flex-col <?= (!empty($errors['city'])) ? 'error' : '' ?>">
-                                    <label for="city">City</label>
-                                    <input value=<?= $user->city ?> type="text" name="city" class="input" required>
-                                    <i><?= (!empty($user->errors['city'])) ? $user->errors['city'] : '' ?></i>
-                                </div>
-                                <div class="dis-flex-col <?= (!empty($errors['district'])) ? 'error' : '' ?>">
-                                    <label for="district">District</label>
-                                    <input value=<?= $user->district ?> type="text" name="district" class="input" required>
-                                    <i><?= (!empty($user->errors['district'])) ? $user->errors['district'] : '' ?></i>
-                                </div>
+                        <div class="input-container">
+                            <div class="dis-flex-col <?= (!empty($errors['city'])) ? 'error' : '' ?>">
+                                <label for="city">City</label>
+                                <input value=<?= $user->city ?> type="text" name="city" class="input" required>
+                                <i><?= (!empty($user->errors['city'])) ? $user->errors['city'] : '' ?></i>
+                            </div>
+                            <div class="dis-flex-col <?= (!empty($errors['district'])) ? 'error' : '' ?>">
+                                <label for="district">District</label>
+                                <input value=<?= $user->district ?> type="text" name="district" class="input" required>
+                                <i><?= (!empty($user->errors['district'])) ? $user->errors['district'] : '' ?></i>
                             </div>
                         </div>
                     </fieldset>
 
-                    <fieldset class="wid-60 pad-20 bor-rad-5 dis-flex-col gap-10">
+                    <fieldset class="pad-20 bor-rad-5 dis-flex-col gap-10">
                         <legend>Account Details</legend>
                         <div class="dis-flex-col <?= (!empty($errors['email'])) ? 'error' : '' ?>">
                             <label for="email">Email</label>
@@ -62,7 +60,7 @@
                             <p>Change Password</p>
                         </div>
 
-                        <div class="dis-flex gap-20">
+                        <div class="input-container">
                             <div class="dis-flex-col <?= (!empty($errors['password'])) ? 'error' : '' ?>">
                                 <label for="password">Password</label>
                                 <input type="password" id="password" name="password" class="input">
@@ -76,7 +74,7 @@
                         </div>
                     </fieldset>
 
-                    <button type="submit" class="btn-lay-2 hover-pointer btn-anima-hover">Update User</button>
+                    <button type="submit" class="glass-btn">Update User</button>
                 </form>
 
                 <script>
