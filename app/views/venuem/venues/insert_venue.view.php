@@ -12,7 +12,7 @@
         <section class="cols-10 dis-flex ju-co-ce">
             <div class="glass-bg mar-10 wid-100 dis-flex-col al-it-ce pad-20 gap-10 bor-rad-5">
 
-                <form method="post" enctype="multipart/form-data" id="profile-edit-form" class="wid-50 dis-flex-col al-it-ce ju-co-ce">
+                <form method="post" enctype="multipart/form-data" class="profile-edit-form dis-flex-col al-it-ce ju-co-ce">
                     <div class="pos-rel wid-auto dis-flex ju-co-ce p-img">
                         <img id="image-ad" class="bor-rad-5" src="<?= (empty($image)) ? ROOT.'/assets/images/venues/venue.png' : $image ?>" style="width: 150px; height: 150px; object-fit: cover" alt="general image">
                         <label for="image" style="right: 150; bottom: -10; width: fit-content" class="pos-abs bor-rad-5 pad-10 bg-grey hover-pointer">

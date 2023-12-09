@@ -16,7 +16,11 @@
     flex-direction: column;
 }
 
-@media screen and (max-width: 510px) {
+.user-update-form fieldset input {
+    padding: 10px 50px;
+}
+
+@media screen and (max-width: 850px) {
     .user-update-form fieldset{
         min-width: 90%;
     }
@@ -25,4 +29,56 @@
         display: flex;
         flex-direction: column;
     }
+}
+
+
+/* --------------------------------------PROFILE EDIT------------------------------------- */
+
+
+@media screen and (min-width: 555px) {
+    .profile-edit-form > div {
+        min-width: 400px;
+    }
+}
+
+@media screen and (max-width: 555px) {
+    .profile-edit-form > div {
+        min-width: 250px;
+        width: 100%;
+    }
+
+    .profile-edit-form div:not(.p-img , .p-i-container, .button) {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .profile-edit-form > div.p-i-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+
+
+.profile-edit-form div:not(.p-img , .p-i-container, .button) {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.profile-edit-form > div.p-i-container {
+    display: flex;
+    gap: 10px;
+}
+
+.profile-edit-form input {
+    width: 100%;
+    min-height: 40px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    font-family: "Poppins", sans-serif;
+    outline: none;
 }
