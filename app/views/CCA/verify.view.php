@@ -10,6 +10,13 @@
             </section>
             <section class="cols-10">
                 <h1>verify page</h1>
+                <div>
+                    <?php
+                    foreach($assists as $assist ){
+                        $this->view("CCA/components/assistance", (array)$assist);
+                    }
+                    ?>
+                </div>
                 </section>
         </main>
     </div>

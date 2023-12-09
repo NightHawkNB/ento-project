@@ -22,14 +22,29 @@ Class Admin extends Controller{
         $this->view('common/dashboard');
     }
 
-    public function ccareq(){
+    public function ccareq($id=null, $method=null){
 
         $assists = new Assist_req();
 
-        $data['requests'] = $assists->query("SELECT complaint_assist.comp_id, complaint_assist.date_time, complaint_assist.status, complaint_assist.comment, complaints.user_id, complaints.cust_id FROM complaint_assist INNER JOIN complaints ON complaint_assist.comp_id = complaints.comp_id WHERE complaint_assist.deleted = 0");
-        show($data);
+       if(empty($id)){
+        $data['requests'] = $assists->query("SELECT complaint_assist.comp_id, complaint_assist.date_time, complaint_assist.status, complaint_assist.comment, complaints.user_id, complaints.cust_id 
+        FROM complaint_assist 
+        INNER JOIN complaints 
+        ON complaint_assist.comp_id = complaints.comp_id 
+        WHERE complaint_assist.deleted = 0");
 
         $this->view('admin/ccarequests', $data);
+       }
+       else{
+        $data['requests'] = $assists->query("SELECT complaint_assist.comp_id, complaint_assist.date_time, complaint_assist.status, complaint_assist.comment, complaints.details, complaints.user_id, complaints.cust_id 
+        FROM complaint_assist 
+        INNER JOIN complaints 
+        ON complaint_assist.comp_id = complaints.comp_id 
+        WHERE complaint_assist.deleted = 0 AND complaints.comp_id = :comp_id" , ['comp_id'=>$id]); 
+
+        $this->view('admin/singleassrequest', $data);
+
+       }
     }
 
     public function usermng($method = null, $id = null) {

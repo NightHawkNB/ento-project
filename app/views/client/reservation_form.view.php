@@ -21,14 +21,14 @@
                 </div>
 
                 <div class="profile-input-2">
-                    <label for="start_time">Select the starting Time</label>
-                    <input type="time" id="start_time" name="start_time">
+                    <label for="start_time">Select the starting time and date</label>
+                    <input type="datetime-local" id="start_time" name="start_time">
                     <div class="error"></div>
                 </div>
 
                 <div class="profile-input-2">
-                    <label for="end_time">Select the ending Time</label>
-                    <input type="time" id="end_time" name="end_time">
+                    <label for="end_time">Select the ending time and date</label>
+                    <input type="datetime-local" id="end_time" name="end_time">
                     <div class="error"></div>
                 </div>
 

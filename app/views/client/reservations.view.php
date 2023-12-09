@@ -16,7 +16,7 @@
                     <?php
 //                    show($data);
 //                    show($reservations);
-//                    show($reservations[0]);
+////                    show($reservations[0]);
                     foreach ($reservations as $reservation)
                     {
                         $this->view('client/components/reservation', (array)$reservation);
