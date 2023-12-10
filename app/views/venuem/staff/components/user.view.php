@@ -5,7 +5,7 @@
 
     <div class="location">
         <img src="<?= ROOT ?>/assets/images/icons/location_pin.png" alt="seat-image" class="icon">
-        <p><?= $city ?></p>
+        <p><?= $district ?></p>
     </div>
     <div class="assign-venue">
         <select name="venue_id" id="venue-select-<?= $venueO_id ?>" class="input" style="box-shadow: none">

@@ -46,18 +46,6 @@
                             <input type="text" name="nic_num" value="<?= $user->nic_num ?? "Not_Verfied" ?>" disabled >
                         </div>
 
-                        <div class="p-i-container">
-                            <div class="">
-                                <label for="city">City</label>
-                                <input type="text" name="city" value="<?= $user->city ?>" >
-                            </div>
-
-                            <div class="">
-                                <label for="district">District</label>
-                                <input type="text" name="district" value="<?= $user->district ?>" >
-                            </div>
-                        </div>
-
                         <div class="">
                             <label for="address1">Address 01</label>
                             <input type="text" name="address1" value="<?= $user->address1 ?>" >
@@ -67,6 +55,79 @@
                             <label for="address2">Address 02</label>
                             <input type="text" name="address2" value="<?= $user->address2 ?>" >
                         </div>
+
+                        <div class="p-i-container">
+
+                            <div class="">
+                                <label for="province">Province</label>
+                                <select name="province" id="province" onchange="updateDistrict()">
+                                    <option value="central" <?= ($user->province == "central") ? 'selected' : '' ?>>Central</option>
+                                    <option value="eastern" <?= ($user->province == "eastern") ? 'selected' : '' ?>>Eastern</option>
+                                    <option value="northCentral" <?= ($user->province == "northCentral") ? 'selected' : ''?>>North Central</option>
+                                    <option value="northern" <?= ($user->province == "northern") ? 'selected' : ''?>>Northern</option>
+                                    <option value="northWestern" <?= ($user->province == "northWestern") ? 'selected'  : ''?>>North Western</option>
+                                    <option value="sabaragamuwa" <?= ($user->province == "sabaragamuwa") ? 'selected'  : ''?>>Sabaragamuwa</option>
+                                    <option value="southern" <?= ($user->province == "southern") ? 'selected'  : '' ?>>Southern</option>
+                                    <option value="uva" <?= ($user->province == "uva") ? 'selected' : '' ?>>Uva</option>
+                                    <option value="western" <?= ($user->province == "western") ? 'selected' : ''?>>Western</option>
+                                </select>
+                            </div>
+
+                            <div class="">
+                                <label for="district">District</label>
+                                <select name="district" id="district"></select>
+                            </div>
+                        </div>
+
+                        <script>
+                            // City data for each province
+                            const cityData = {
+                                northern: ["Jaffna", "Kilinochchi", "Manner", "Mullaitivu", "Vavuniya"],
+                                northWestern: ["Puttalam", "Kurunegala"],
+                                western: ["Colombo", "Gampaha", "Kalutara"],
+                                northCentral: ["Anuradhapura", "Polonnaruwa"],
+                                central: ["Kandy", "Nuwara Eliya", "Matale"],
+                                sabaragamuwa: ["Kegalle", "Ratnapura"],
+                                eastern: ["Trincomalee", "Batticaloa", "Ampara"],
+                                uva: ["Badulla", "Monaragala"],
+                                southern: ["Hambantota", "Matara", "Galle"]
+                            };
+
+                            // Function to update the district options based on the selected province
+                            function updateDistrict() {
+
+                                const provinceSelect = document.getElementById("province")
+                                const districtSelect = document.getElementById("district")
+
+                                districtSelect.innerHTML = ""
+
+                                // Currently selected district
+                                let currentDistrict = "<?= ($user->district) ? ucfirst(strtolower($user->district)) : '' ?>"
+
+                                const selectedProvince = provinceSelect.value
+
+                                const districts = cityData[selectedProvince]
+
+                                if (districts) {
+                                    districts.forEach(district => {
+                                        const option = document.createElement("option")
+                                        option.value = district
+                                        option.textContent = district
+
+                                        // Selecting the currently selected district
+                                        if(currentDistrict === district) option.selected = true
+
+                                        districtSelect.appendChild(option)
+                                    });
+                                } else {
+                                    const option = document.createElement("option")
+                                    option.textContent = "No cities available"
+                                    districtSelect.appendChild(option)
+                                }
+                            }
+
+                            updateDistrict()
+                        </script>
 
                         <div class="wid-100 dis-flex ju-co-ce button">
                             <button type="submit" class="glass-btn">Save Changes</button>
