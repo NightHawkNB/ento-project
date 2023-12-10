@@ -1,3 +1,36 @@
+.reservation,
+.requests {
+    background: var(--bg-primary);
+    display: flex;
+    padding: 10px;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.reservation > div,
+.requests > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reservation button {
+    border: none;
+    padding: 5px 10px;
+    background: blueviolet;
+    border-radius: 8px;
+    transition: 0.2s;
+    color: white;
+}
+
+.reservation button:hover {
+    cursor: pointer;
+    background: #00baff;
+
+}
+
 .component-list {
     /*border-radius: 1px;*/
     border: 1px solid grey;
@@ -44,11 +77,6 @@
 .component-list > div > p {
     /*border-right: 1px solid var(--line-secondary);*/
     padding: 5px;
-}
-
-.component-list > div:first-child {
-    font-weight: 600;
-    font-size: 1.05rem;
 }
 
 .status {
