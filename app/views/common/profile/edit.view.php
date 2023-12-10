@@ -130,7 +130,7 @@
                         </script>
 
                         <div class="wid-100 dis-flex ju-co-ce button">
-                            <button type="submit" class="glass-btn">Save Changes</button>
+                            <button type="submit" class="glass-btn btn-aqua">Save Changes</button>
                         </div>
                     </form>
                 </div>

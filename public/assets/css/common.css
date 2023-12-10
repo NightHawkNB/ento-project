@@ -170,8 +170,14 @@ body::-webkit-scrollbar-thumb {
 .wid-50 {width: 50%}
 .wid-40 {width: 40%}
 .wid-auto {width: auto}
+.hei-100 {height: 100%}
+
+
 /* Overflow */
 .over-hide {overflow: hidden}
+
+/* OPTIONAL IMPORTANT */
+.over-scroll {overflow-y: hidden}
 
 /* Position Styles */
 .pos-abs {position: absolute}
