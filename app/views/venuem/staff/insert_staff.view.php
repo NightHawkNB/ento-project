@@ -36,14 +36,24 @@
                                 <i></i>
                             </div>
                             <div class="input-container">
-                                <div class="dis-flex-col <?= (!empty($errors['city'])) ? 'error' : '' ?>">
-                                    <label for="city">City</label>
-                                    <input type="text" name="city" class="input" required>
+                                <div class="dis-flex-col <?= (!empty($errors['province'])) ? 'error' : '' ?>">
+                                    <label for="province">Province</label>
+                                    <select name="province" id="province" class="input" onchange="updateDistrict()">
+                                        <option value="central">Central</option>
+                                        <option value="eastern">Eastern</option>
+                                        <option value="northCentral">North Central</option>
+                                        <option value="northern">Northern</option>
+                                        <option value="northWestern">North Western</option>
+                                        <option value="sabaragamuwa">Sabaragamuwa</option>
+                                        <option value="southern">Southern</option>
+                                        <option value="uva">Uva</option>
+                                        <option value="western">Western</option>
+                                    </select>
                                     <i></i>
                                 </div>
                                 <div class="dis-flex-col <?= (!empty($errors['district'])) ? 'error' : '' ?>">
                                     <label for="district">District</label>
-                                    <input type="text" name="district" class="input" required>
+                                    <select name="district" class="input" id="district"></select>
                                     <i></i>
                                 </div>
                             </div>
@@ -72,6 +82,57 @@
                                 </div>
                             </div>
                         </fieldset>
+
+<!--                        COPY REMOVE-->
+                        <script>
+                            // City data for each province
+                            const cityData = {
+                                northern: ["Jaffna", "Kilinochchi", "Manner", "Mullaitivu", "Vavuniya"],
+                                northWestern: ["Puttalam", "Kurunegala"],
+                                western: ["Colombo", "Gampaha", "Kalutara"],
+                                northCentral: ["Anuradhapura", "Polonnaruwa"],
+                                central: ["Kandy", "Nuwara Eliya", "Matale"],
+                                sabaragamuwa: ["Kegalle", "Ratnapura"],
+                                eastern: ["Trincomalee", "Batticaloa", "Ampara"],
+                                uva: ["Badulla", "Monaragala"],
+                                southern: ["Hambantota", "Matara", "Galle"]
+                            };
+
+                            // Function to update the district options based on the selected province
+                            function updateDistrict() {
+
+                                const provinceSelect = document.getElementById("province")
+                                const districtSelect = document.getElementById("district")
+
+                                districtSelect.innerHTML = ""
+
+                                // Currently selected district
+                                let currentDistrict = ""
+
+                                const selectedProvince = provinceSelect.value
+
+                                const districts = cityData[selectedProvince]
+
+                                if (districts) {
+                                    districts.forEach(district => {
+                                        const option = document.createElement("option")
+                                        option.value = district
+                                        option.textContent = district
+
+                                        // Selecting the currently selected district
+                                        if(currentDistrict === district) option.selected = true
+
+                                        districtSelect.appendChild(option)
+                                    });
+                                } else {
+                                    const option = document.createElement("option")
+                                    option.textContent = "No cities available"
+                                    districtSelect.appendChild(option)
+                                }
+                            }
+
+                            updateDistrict()
+                        </script>
 
                     <button type="submit" class="glass-btn">Add User</button>
                 </form>

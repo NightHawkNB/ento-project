@@ -95,10 +95,6 @@ class Venuem extends SP {
 
                     $_POST['terms'] = 1;
 
-//                    Debug Lines
-//                    if($user->validate($_POST)) echo "valid";
-//                    else show($user->errors);
-
                     if($user->validate_vo($_POST)){
                         $_POST['user_id'] = $id;
 
