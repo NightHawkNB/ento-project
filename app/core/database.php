@@ -4,7 +4,7 @@ class Database {
     
     private function connect(): PDO
     {
-        $str = "mysql:hostname=".DB_HOST.";dbname=".DB_NAME;
+        $str = "mysql:host=".DB_HOST.";dbname=".DB_NAME;
         return new PDO($str, DB_USER, DB_PASS);
     }
 
