@@ -11,12 +11,12 @@
 
         <section class="wid-100 al-it-ce pad-10 dis-flex-col">
 
-            <h1 class="mar-10-0 txt-c-white txt-w-bold" style="font-size: 1.5rem">Staff Management</h1>
+            <h1 class="mar-10-0 txt-c-white txt-w-bold" style="font-size: 1.5rem">Venue Management</h1>
 
             <div class="glass-bg mar-10 hei-100 wid-100 dis-flex-col pad-20 gap-10 bor-rad-5 over-scroll">
                 <div class="dis-flex wid-100 ju-co-sb">
-                    <a href="<?= ROOT ?>/venuem/staff/insert">
-                        <button class="btn-lay-2 hover-pointer"  style="background-color:purple; text-align:right; border: none" >+ Add New</button>
+                    <a href="<?= ROOT ?>/venuem/venues/insert">
+                        <button class="btn-lay-2 push-right hover-pointer"  style="background-color:purple; text-align:right; border: none" >+ Add New</button>
                     </a>
 
                     <a href="profile/verify" class="push-right">
@@ -24,16 +24,15 @@
                     </a>
                 </div>
 
-                <div class="flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10">
+                <div class="flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10    ">
                     <?php
-                        if(!empty($users)) {
-                            foreach ($users as $user) {
-                                $user->venues = $venues;
-                                $this->view('venuem/staff/components/user', (array)$user);
-                            }
-                        } else {
-                            echo "<p class='txt-c-white'>No Users Found</p>";
+                    if(!empty($venues)) {
+                        foreach ($venues as $venue) {
+                            $this->view('venuem/venues/components/venue', (array)$venue);
                         }
+                    } else {
+                        echo "<p class='txt-c-white'>No Venues Found</p>";
+                    }
                     ?>
                 </div>
 

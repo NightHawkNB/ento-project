@@ -11,7 +11,7 @@ class User extends Model{
         'lname',
         'address1',
         'address2',
-        'city',
+        'province',
         'district',
         'user_type',
         'email',
@@ -50,8 +50,8 @@ class User extends Model{
         if(empty($data['fname'])) $this->errors['fname'] = "Please enter the first name";
         if(empty($data['lname'])) $this->errors['lname'] = "Please enter the last name";
         if(empty($data['contact_num'])) $this->errors['contact_num'] = "Please enter a Contact Number";
-        if(empty($data['city'])) $this->errors['city'] = "Please enter a City";
-        if(empty($data['district'])) $this->errors['district'] = "Please enter a District";
+        if(empty($data['province'])) $this->errors['province'] = "Please select a Province";
+        if(empty($data['district'])) $this->errors['district'] = "Please select a District";
         if(empty($data['email'])) $this->errors['email'] = "Please enter an Email";
 
         if(!empty($data['change_pass'])) {

@@ -19,6 +19,8 @@
 @import "widgets/calendar.css";
 @import "widgets/slide_window.css";
 @import "widgets/glass_background.css";
+@import "widgets/button_styles.css";
+@import "modules/forms/user_update_form.css";
 
 /*@font-face {*/
 /*    font-family: 'PTSans';*/
@@ -433,4 +435,9 @@ input[type=submit]:hover {
 
 #singer {
     display: none;
+}
+
+.icon {
+    width: 35px;
+    height: 35px;
 }

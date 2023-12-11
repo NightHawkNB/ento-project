@@ -142,43 +142,45 @@ if(alert_window) {
 
 /* START OF MOUSE GLOW SCRIPT */
 
-const glassDiv = document.querySelector(".glass-container")
-
-if(glassDiv) {
-    glassDiv.addEventListener('pointermove', (e) => {
-        const rect = glassDiv.getBoundingClientRect()
-
-        glassDiv.style.setProperty("--x", e.clientX - rect.left)
-        glassDiv.style.setProperty("--y", e.clientY - rect.top)
-    })
-}
+// const glassDiv = document.querySelector(".glass-container")
+// const mouseGlow = document.querySelector(".mouse-glow")
+// const rect = glassDiv.getBoundingClientRect()
+//
+// glassDiv.addEventListener('mousemove', e => {
+//     let x = e.clientX - rect.left
+//     let y = e.clientY - rect.top
+//
+//     // mouseGlow.style.display = "block"
+//     glassDiv.style.setProperty("--mouse-x", `${x}px`)
+//     glassDiv.style.setProperty("--mouse-y", `${y}px`)
+// })
 
 /* END OF MOUSE GLOW SCRIPT */
 
 /* START OF CUSTOM CURSOR SCRIPT */
 
-const cursor = document.querySelector(".cursor")
-
-var timeout
-
-document.addEventListener('mousemove', e => {
-    let x = e.pageX
-    let y = e.pageY
-
-    cursor.style.top = y + "px"
-    cursor.style.left = x + "px"
-    cursor.style.display = "block"
-
-    function mouseStopped() {
-        cursor.style.display = "none"
-    }
-
-    timeout = setTimeout(mouseStopped, 1000)
-
-})
-
-document.addEventListener("mouseout", () => {
-    cursor.style.display = "none"
-})
+// const cursor = document.querySelector(".cursor")
+//
+// let timeout
+//
+// document.addEventListener('mousemove', e => {
+//     let x = e.pageX
+//     let y = e.pageY
+//
+//     cursor.style.top = y + "px"
+//     cursor.style.left = x + "px"
+//     cursor.style.display = "block"
+//
+//     function mouseStopped() {
+//         cursor.style.display = "none"
+//     }
+//
+//     timeout = setTimeout(mouseStopped, 1000)
+//     clearTimeout(timeout)
+// })
+//
+// document.addEventListener("mouseout", () => {
+//     cursor.style.display = "none"
+// })
 
 /* END OF CUSTOM CURSOR SCRIPT */

@@ -2,8 +2,6 @@
 <?php $this->view('includes/head') ?>
 <body>
 
-
-
     <?php if(!Auth::is_client() || !Auth::is_admin() || !Auth::is_cca()): ?>
     <script defer>
         const calendar_events = <?= json_encode($calendar_events) ?>;
