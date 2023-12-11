@@ -47,7 +47,7 @@ Class Admin extends Controller{
        }
     }
 
-    public function usermng($method = null, $id = null) {
+    /*public function usermng($method = null, $id = null) {
         if ($method == 'cca') {
             $user = new User();
 
@@ -131,6 +131,37 @@ Class Admin extends Controller{
 
         }else {
             $this->view('admin/usermanagement');
+        }
+    }*/
+
+    public function usermng($method=null, $id=null){
+        if($method=='add-user'){
+            if($_SERVER['REQUEST_METHOD'] == "POST") {
+                $user = new User();
+                show($_POST);
+                $_POST['terms']=1;
+                if($user->validate($_POST)) echo "Valid";
+                else show($user->errors);
+                if($user->validate($_POST)) {
+    
+                    $_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    
+                    $user->insert($_POST);
+    
+                    message(msg:"Account created succesfully");
+                    redirect(link:"admin/usermng");
+                } else {
+                    $data['errors'] = $user->errors;
+                }
+            }
+        $this->view('admin/add-user');
+        }
+        else{
+            $user = new User();
+        
+            $data['users']= $user->query("SELECT  user_type, fname, lname, image, email FROM user ; ");
+    
+            $this->view('admin/useraccounts', $data);
         }
     }
 
