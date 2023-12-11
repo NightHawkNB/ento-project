@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2023 at 05:31 PM
+-- Generation Time: Dec 11, 2023 at 03:29 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -63,10 +63,9 @@ CREATE TABLE `ads` (
 --
 
 INSERT INTO `ads` (`ad_id`, `user_id`, `title`, `category`, `details`, `image`, `pending`, `views`, `rates`, `datetime`, `deleted`, `contact_num`, `contact_email`) VALUES
-('AD_10301_1699247541', '66', 'Ancient Saga', 'band', 'Traditional Musical Band', 'http://localhost/ento-project/public/assets/images/ads/AD_10301_1699247541.png', 0, NULL, 50000, '2023-11-06 05:12:21', 0, '011-2532223', 'tradband@gmail.com'),
 ('AD_12124_1699356382', '44', 'Deshan', 'singer', 'deshan musical group', 'http://localhost/ento-project/public/assets/images/ads/AD_12124_1699356382.png', 0, NULL, 120000, '2023-11-07 11:26:22', 0, '077-9896656', 'deshanmusic@gmail.com'),
 ('AD_14940_1699126571', '44', 'Sunflower Band', 'band', 'Sunflower musical band', 'http://localhost/ento-project/public/assets/images/ads/AD_14940_1699126571.png', 0, NULL, 45000, '2023-11-04 19:36:11', 0, '071-8888888', 'sunflower@yahoo.com'),
-('AD_16114_1699126637', '44', 'Nelum Pokuna', 'venue', 'Stadium ', 'http://localhost/ento-project/public/assets/images/ads/AD_16114_1699126637.jpg', 0, NULL, 100000, '2023-11-04 19:37:17', 0, '011-8963125', 'nelum@gmail.com'),
+('AD_16114_1699126637', '44', 'Nelum Pokuna', 'venue', 'Stadium ', 'http://localhost/ento-project/public/assets/images/ads/AD_16114_1699126637.jpg', 1, NULL, 100000, '2023-11-04 19:37:17', 0, '011-8963125', 'nelum@gmail.com'),
 ('AD_1618_1699635860', '44', 'char', 'singer', 'dasd', 'http://localhost/ento-project/public/assets/images/ads/AD_1618_1699635860.jpg', 1, NULL, 4654, '2023-11-10 17:04:20', 0, '071-8888888', 'john@gmail.com'),
 ('AD_53391_1701190646', '58', 'Beach', 'venue', 'shdj', 'http://localhost/ento-project/public/assets/images/ads/AD_53391_1701190646.png', 0, NULL, 10000, '2023-11-28 16:57:26', 0, '071-8888888', 'venue@en.com'),
 ('AD_69573_1699245724', '44', 'Sampath', 'singer', 'Singer test 02', 'http://localhost/ento-project/public/assets/images/ads/AD_69573_1699245724.png', 1, NULL, 500000, '2023-11-06 04:42:04', 0, '071-8551121', 'singer@ento.com'),
@@ -91,7 +90,6 @@ CREATE TABLE `ad_band` (
 --
 
 INSERT INTO `ad_band` (`ad_id`, `packages`, `sample_video`, `sample_audio`) VALUES
-('AD_10301_1699247541', 'Premium', '', NULL),
 ('AD_14940_1699126571', 'Premium and Family', '', NULL);
 
 -- --------------------------------------------------------
@@ -180,7 +178,10 @@ INSERT INTO `calendar_schedule` (`period_id`, `user_id`, `name`, `start_time`, `
 (1, '44', 'Busy', '2023-11-27 19:00:00', '2023-11-26 20:00:00'),
 (2, '44', 'Test1', '2023-11-28 10:00:00', '2023-11-28 22:00:00'),
 (3, '44', 'Thanksgiving Party', '2023-11-26 07:00:00', '2023-11-26 23:00:00'),
-(4, '44', 'Hellow World', '2023-11-26 00:00:00', '2023-11-26 12:15:00');
+(4, '44', 'Hellow World', '2023-11-26 00:00:00', '2023-11-26 12:15:00'),
+(15, '44', 'Christmas Party', '2023-12-25 16:00:00', '2023-12-25 20:00:00'),
+(16, '44', 'Christmas Carol', '2023-12-25 13:00:00', '2023-12-25 13:05:00'),
+(17, '44', '1', '2023-12-25 10:00:00', '2023-12-25 10:01:00');
 
 -- --------------------------------------------------------
 
@@ -204,10 +205,11 @@ CREATE TABLE `complaints` (
 --
 
 INSERT INTO `complaints` (`comp_id`, `details`, `files`, `date_time`, `user_id`, `cust_id`, `status`, `deleted`) VALUES
-(8, 'Complaints', 'File - 01', '2023-10-30 08:42:07', '44', NULL, 'Accepted', 0),
-(10, 'Hellow World', 'File_02', '2023-10-31 08:09:18', '38', NULL, 'Accepted', 0),
-(21, 'Something Something\r\n', NULL, '2023-10-31 15:26:53', '48', NULL, 'Idle', 0),
-(22, 'UI not working', NULL, '2023-11-01 03:59:40', '44', NULL, 'Idle', 0);
+(8, 'Complaints', 'File - 01', '2023-10-30 08:42:07', '44', NULL, 'Handled', 0),
+(10, 'Hellow World', 'File_02', '2023-10-31 08:09:18', '38', NULL, 'Assist', 0),
+(21, 'Something Something\r\n', NULL, '2023-10-31 15:26:53', '48', NULL, 'Assist', 0),
+(22, 'UI not working', NULL, '2023-11-01 03:59:40', '44', NULL, 'Assist', 0),
+(24, 'Something went wrong :)\r\n', NULL, '2023-12-02 18:01:35', '58', NULL, 'Idle', 0);
 
 -- --------------------------------------------------------
 
@@ -222,6 +224,15 @@ CREATE TABLE `complaint_assist` (
   `comment` varchar(512) DEFAULT NULL,
   `deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `complaint_assist`
+--
+
+INSERT INTO `complaint_assist` (`comp_id`, `date_time`, `status`, `comment`, `deleted`) VALUES
+(10, '2023-12-01 19:35:55', 'Idle', 'dsdasd', 0),
+(21, '2023-12-01 19:35:56', 'Idle', NULL, 0),
+(22, '2023-12-01 20:17:04', 'Idle', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -310,7 +321,8 @@ CREATE TABLE `reservations` (
 INSERT INTO `reservations` (`reservation_id`, `sp_id`, `user_id`, `deleted`) VALUES
 ('RES_13475_1700919591', 10, '37', 0),
 ('RES_25664_1699881610', 7, '41', 0),
-('RES_43305_1699881734', 7, '37', 0);
+('RES_43305_1699881734', 7, '37', 0),
+('RES_6519_1702206942', 10, '38', 0);
 
 -- --------------------------------------------------------
 
@@ -345,7 +357,9 @@ INSERT INTO `resrequest` (`req_id`, `user_id`, `sp_id`, `createdDate`, `responde
 ('8', '37', 7, '2023-11-12 21:30:34', NULL, 'Something Something', 'City or Address', '2023-05-12 00:00:00', NULL, 'Pending', 0, NULL),
 ('9', '37', 7, '2023-11-13 18:01:58', NULL, 'eweqeqwewqe', 'City or Address', '2023-11-15 18:01:39', NULL, 'Declined', 0, NULL),
 ('REQ_1251', '37', 10, '2023-11-25 16:57:19', NULL, 'Birthday Party', 'Colombo 10', '2023-12-01 16:54:12', '2023-12-01 16:00:00', 'Accepted', 0, 'RES_13475_1700919591'),
-('RESR_64330_1700149182', '38', 7, '2023-11-16 21:09:42', NULL, 'Something Someting', 'daslkdjalskj', '2023-11-01 09:11:00', NULL, 'Pending', 0, NULL);
+('RESR_64330_1700149182', '38', 7, '2023-11-16 21:09:42', NULL, 'Something Someting', 'daslkdjalskj', '2023-11-01 09:11:00', NULL, 'Pending', 0, NULL),
+('RES_62820_1702206851', '38', 10, '2023-12-10 16:44:11', NULL, 'New Event', 'Fantasy', '2023-12-05 16:44:00', '2023-12-29 16:44:00', 'Declined', 0, NULL),
+('RES_94338_1702206525', '38', 10, '2023-12-10 16:38:45', NULL, 'Beach Party', 'West Bridge', '2023-12-13 08:00:00', '2023-12-13 13:00:00', 'Accepted', 0, 'RES_6519_1702206942');
 
 -- --------------------------------------------------------
 
@@ -387,7 +401,8 @@ INSERT INTO `serviceprovider` (`sp_id`, `user_id`, `verified`, `sp_type`) VALUES
 (10, '58', 1, 'venuem'),
 (11, '66', 1, 'singer'),
 (25, 'USER_74840_1701271384', 0, 'venueo'),
-(26, 'USER_71139_1701275370', 0, 'venueo');
+(33, 'USER_99858_1702039969', 0, 'venueo'),
+(34, 'USER_3192_1702187236', 0, 'venueo');
 
 -- --------------------------------------------------------
 
@@ -457,7 +472,7 @@ CREATE TABLE `user` (
   `nic_num` varchar(45) DEFAULT NULL,
   `address1` varchar(256) DEFAULT NULL,
   `address2` varchar(256) DEFAULT NULL,
-  `city` varchar(256) NOT NULL,
+  `province` varchar(256) NOT NULL,
   `district` varchar(256) NOT NULL,
   `password` varchar(256) DEFAULT NULL,
   `contact_num` varchar(45) NOT NULL,
@@ -470,22 +485,23 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `fname`, `lname`, `email`, `nic_num`, `address1`, `address2`, `city`, `district`, `password`, `contact_num`, `user_type`, `image`, `verified`) VALUES
+INSERT INTO `user` (`user_id`, `fname`, `lname`, `email`, `nic_num`, `address1`, `address2`, `province`, `district`, `password`, `contact_num`, `user_type`, `image`, `verified`) VALUES
 ('37', 'charllotte', 'brown', 'cha@ento.com', NULL, 'Colombo', '10', 'Galle', 'District', '$2y$10$3d5Ysv6/yADqn9uyj8Sb9.McnVEv1ils1XBoQT16ceTOWauzdRbdS', '0718456654', 'singer', 'general.png', 0),
 ('38', 'Chamath', 'Kalhara', 'client@ento.com', NULL, 'Address01', 'Address02', 'City', 'District', '$2y$10$s.y0AIpXMs4NWxS8zc5o2.xGEGb.ApY/3Vop058YdIHxAdJ11wNlG', '0715556954', 'client', 'http://localhost/ento-project/public/assets/images/users/38.jpg', 0),
-('40', 'admin', '01', 'admin1@ento.com', NULL, 'AD1', 'AD2', 'CT', 'DT', '$2y$10$Yaq0hYCdITLX7CGUYrDiu.v2sO7aUf79mgZmLqJT7CY013YQkWnXS', '0744587584', 'admin', 'general.png', 0),
-('41', 'band', '01', 'band1@ento.com', NULL, '5', '6', '4', '5', '$2y$10$4SbR6UUaBibEYOLWTpfRXOeZF8Qy9azix2AYaK.5cLeJ5NY5TLojW', '4', 'band', 'general.png', 0),
+('40', 'admin', '01', 'admin1@ento.com', NULL, 'AD1', 'AD2', 'CT', 'DT', '$2y$10$Yaq0hYCdITLX7CGUYrDiu.v2sO7aUf79mgZmLqJT7CY013YQkWnXS', '0744587584', 'admin', 'http://localhost/ento-project/public/assets/images/users/40.jpg', 0),
+('41', 'band', '01', 'band1@ento.com', NULL, '5', '6', '4', '5', '$2y$10$4SbR6UUaBibEYOLWTpfRXOeZF8Qy9azix2AYaK.5cLeJ5NY5TLojW', '4', 'band', 'http://localhost/ento-project/public/assets/images/users/41.jpg', 0),
 ('42', 'band', '02', 'band2@ento.com', NULL, '6', '4', '5', '5', '$2y$10$YAhBfZBSV5s46CnpUgIA6uNz9nlvnAA8z3JQGNcHSZe2mFTgGk172', '2', 'band', 'general.png', 0),
-('44', 'Sadun', 'Athugama', 'singer2@ento.com', NULL, '295/C', 'Pahala Yagoda', 'Minuwangoda', 'Gampaha', '$2y$10$VYwqELysomfvQ7KnpFdJjO213El1HOsJ7wx/3CgBFKCYDtGIe7irK', '0715888588', 'singer', 'http://localhost/ento-project/public/assets/images/users/44.jpeg', 0),
+('44', 'Sadun', 'Prabrashawara', 'singer2@ento.com', NULL, '295/C', 'Pahala Yagoda', 'western', 'Gampaha', '$2y$10$VYwqELysomfvQ7KnpFdJjO213El1HOsJ7wx/3CgBFKCYDtGIe7irK', '0715888588', 'singer', 'http://localhost/ento-project/public/assets/images/users/44.jpeg', 0),
 ('45', 'singer', '03', 'singer3@ento.com', NULL, '1', '1', '1', '1', 'singer', '1', 'singer', 'general.png', 0),
 ('48', 'cca', '01', 'cca1@ento.com', NULL, '1', '1', '1', '1', '$2y$10$TBnI1tA8WClwpesXdZp1u.iWJwwCjGkTyPmOQ53xY3LylCC9srbxi', '1', 'cca', 'general.png', 0),
-('58', 'Saman', 'Kumara', 'venuem1@ento.com', NULL, 'Saman Mawatha', '365/D', 'Kaluthara', 'Kaluthara', '$2y$10$EBZqpefKzVObk8mtX2MwzuIjzhkQ2T0bPuk77FCNe8N9HztzQIUsu', '0718885331', 'venuem', 'http://localhost/ento-project/public/assets/images/users/58.jpg', 0),
+('58', 'Shaun', 'Morgan', 'venuem1@ento.com', NULL, 'Saman Mawatha', '365/D', 'western', 'Gampaha', '$2y$10$EBZqpefKzVObk8mtX2MwzuIjzhkQ2T0bPuk77FCNe8N9HztzQIUsu', '07188853315', 'venuem', 'http://localhost/ento-project/public/assets/images/users/58.jpg', 0),
 ('63', 'a', 'b', 'A@ENTO.COM', NULL, '11', '1', '1', '1', '$2y$10$d8FjeU6ypsYdotlWIitkn.obad32KYHAOjZUjpB8jVSJE8TeSR/di', '1', 'client', NULL, 0),
 ('64', 'alila', 'milinda', 'akila@ento.com', NULL, '345', 'mulleriyawa', 'colombo', 'western', '$2y$10$LvELfmOhnQNtyfbRbZb5b.QY8R5r0.rk4h66hPS3da/S3Vzn3YDy2', '0757825509', 'client', NULL, 0),
 ('66', 'singer', '01', 'singer1@ento.com', NULL, '55', '55', '55', '55', '$2y$10$IMelU0XP8NSDHwsILo7.3elBsmZiFEwDy9UjfZR1T3vqGbDafLWGq', '077789899', 'singer', NULL, 0),
+('USER_3192_1702187236', 'New', 'user', 'newuser@ento.com', NULL, NULL, NULL, 'western', 'Kalutara', '$2y$10$n5R108H5dZVlBDIIUlTrpuS2CP/76LQiDoLmo7mRKL2009erNtPR6', '0712719315', 'venueo', 'http://localhost/ento-project/public/assets/images/users/general.jpg', 0),
 ('USER_45764_1699532744', 'Nipun', 'Bathiya', 'nipun@gmail.com', NULL, 'Ihalagama', 'West', 'Gampaha', 'Gampaha', '$2y$10$SvDlQVD3O9N.i7GSglqKyu.8CDJdADvi49UODrY.1/iUxnm2eV.6G', '0712719315', 'client', NULL, 0),
-('USER_71139_1701275370', 'james', 'Cameron', 'venueo2@ento.com', NULL, NULL, NULL, 'Veyangoda', 'ji', '$2y$10$wIqXdN.wgk1.9hCEAnMS9enSn/YqgE5vYiu5zMmImCJYakHJkaBkS', '1888888979', 'venueo', 'http://localhost/ento-project/public/assets/images/users/general.jpg', 0),
-('USER_74840_1701271384', 'James', 'Brown', 'venueo@ento.com', NULL, NULL, NULL, 'Minuwangoda', 'Gampaha', '$2y$10$BL6vQk6VRbSwe1Pk4RiV9egaMB5qa/f9UpJgLFI84ejygh2d.kIWi', '0995556456', 'venueo', 'http://localhost/ento-project/public/assets/images/users/general.jpg', 0);
+('USER_74840_1701271384', 'James', 'Brown', 'venueo@ento.com', NULL, '', '', 'Minuwangoda', 'Gampaha', '$2y$10$BL6vQk6VRbSwe1Pk4RiV9egaMB5qa/f9UpJgLFI84ejygh2d.kIWi', '0995556456', 'venueo', 'http://localhost/ento-project/public/assets/images/users/USER_74840_1701271384.jpg', 0),
+('USER_99858_1702039969', 'New', 'User', 'venue@ento.com', NULL, NULL, NULL, 'southern', 'Matara', '$2y$10$K6l5T/DJtM56zhCaKm3F7en/LfLw8F8D4lmZ0LPBkFJctcnSlGm6.', '11213', 'venueo', 'http://localhost/ento-project/public/assets/images/users/general.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -501,6 +517,15 @@ CREATE TABLE `uservreq` (
   `resources` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+--
+-- Dumping data for table `uservreq`
+--
+
+INSERT INTO `uservreq` (`userVreq_id`, `user_id`, `cust_id`, `timestamps`, `resources`) VALUES
+(1, '37', NULL, '2023-12-02', 'Something'),
+(2, '40', NULL, '2023-12-02', '5656'),
+(3, '37', NULL, '2023-12-13', 'dsda');
+
 -- --------------------------------------------------------
 
 --
@@ -515,16 +540,18 @@ CREATE TABLE `venue` (
   `seat_count` int(11) DEFAULT NULL,
   `packages` varchar(45) DEFAULT NULL,
   `other` varchar(45) DEFAULT NULL,
-  `venueM_id` int(11) DEFAULT NULL
+  `venueM_id` int(11) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `venue`
 --
 
-INSERT INTO `venue` (`venue_id`, `name`, `location`, `image`, `seat_count`, `packages`, `other`, `venueM_id`) VALUES
-(1, 'Venue02', 'Colombo', NULL, 1000, '50000', 'nothing', 3),
-(2, 'Venue01', 'Colombo', NULL, 700, '250000', 'Surround Sound', 3);
+INSERT INTO `venue` (`venue_id`, `name`, `location`, `image`, `seat_count`, `packages`, `other`, `venueM_id`, `deleted`) VALUES
+(1, 'Nelum Pokuna', 'Colombo', 'http://localhost/ento-project/public/assets/images/venues/venue.png', 2000, '100000', 'Luxury', 3, 0),
+(2, 'Beach Venue', 'Migamuwa', 'http://localhost/ento-project/public/assets/images/venues/2.png', 0, '27500', 'Open Area\r\nNo Seats', 3, 0),
+(5, 'Albion', 'Fantasy', 'http://localhost/ento-project/public/assets/images/venues/5.png', 1000, 'sadasd', 'sadsad', 3, 0);
 
 -- --------------------------------------------------------
 
@@ -563,8 +590,9 @@ CREATE TABLE `venueoperator` (
 --
 
 INSERT INTO `venueoperator` (`venueO_id`, `sp_id`, `venue_id`, `venueM_id`) VALUES
-(11, 25, NULL, 3),
-(12, 26, NULL, 3);
+(11, 25, 2, 3),
+(19, 33, 1, 3),
+(20, 34, 5, 3);
 
 --
 -- Indexes for dumped tables
@@ -779,13 +807,13 @@ ALTER TABLE `band`
 -- AUTO_INCREMENT for table `calendar_schedule`
 --
 ALTER TABLE `calendar_schedule`
-  MODIFY `period_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `period_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `complaints`
 --
 ALTER TABLE `complaints`
-  MODIFY `comp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `comp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `customer_care`
@@ -809,7 +837,7 @@ ALTER TABLE `review`
 -- AUTO_INCREMENT for table `serviceprovider`
 --
 ALTER TABLE `serviceprovider`
-  MODIFY `sp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `sp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `singer`
@@ -833,13 +861,13 @@ ALTER TABLE `tickets`
 -- AUTO_INCREMENT for table `uservreq`
 --
 ALTER TABLE `uservreq`
-  MODIFY `userVreq_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `userVreq_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `venue`
 --
 ALTER TABLE `venue`
-  MODIFY `venue_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `venue_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `venuemanager`
@@ -851,7 +879,7 @@ ALTER TABLE `venuemanager`
 -- AUTO_INCREMENT for table `venueoperator`
 --
 ALTER TABLE `venueoperator`
-  MODIFY `venueO_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `venueO_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables
