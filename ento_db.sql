@@ -6,6 +6,8 @@
 -- Generation Time: Dec 11, 2023 at 03:29 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
+-- 2023-11-12 8.04PM
+
 
 DROP DATABASE IF EXISTS ento_db;
 CREATE DATABASE ento_db;
