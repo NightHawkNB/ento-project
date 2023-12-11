@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:mysql://localhost:3306/ento_db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="AWS Instace of ento-db" uuid="484da8fd-0319-41d0-9329-46f16b391449">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://ento-db.cf3f7bvsmhp9.eu-north-1.rds.amazonaws.com:3306</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
