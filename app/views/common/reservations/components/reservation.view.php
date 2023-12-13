@@ -7,7 +7,7 @@
         $interval = $future_date->diff($now);
     ?>
 
-    <h3 class="txt-c-black"><?= ucfirst($fname) ?>&nbsp;<?= ucfirst($lname) ?></h3>
+    <h3 class="txt-c-black over-text heading"><?= ucfirst($fname) ?>&nbsp;<?= ucfirst($lname) ?></h3>
 
     <div class="time">
         <img src="<?= ROOT ?>/assets/images/icons/clock.png" alt="seat-image" class="icon">

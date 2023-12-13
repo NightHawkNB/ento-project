@@ -9,6 +9,63 @@
     gap: 10px;
 }
 
+.reservation {
+    display: grid;
+}
+
+.reservation .heading {grid-area: heading}
+.reservation .interval {grid-area: interval}
+.reservation .time {grid-area: time}
+.reservation .location {grid-area: location}
+.reservation .accept-btn {grid-area: accept-btn}
+
+@media screen and (min-width: 1035px) {
+    .reservation {
+        grid-template-columns: 150px 180px 120px 160px auto;
+        grid-template-areas: "heading time location interval accept-btn";
+    }
+}
+
+@media screen and (min-width: 575px) and (max-width: 1035px) {
+    .reservation {
+
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-areas:
+            "heading interval accept-btn"
+            "time location accept-btn"
+        ;
+    }
+
+    .reservation > div {
+        justify-content: left;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .reservation {
+
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+        grid-template-areas:
+            "heading heading"
+            "time time"
+            "interval interval"
+            "location location"
+            "accept-btn accept-btn"
+    ;
+    }
+
+    .reservation .heading {
+        text-align: center;
+    }
+
+    .reservation > div {
+        justify-content: left;
+    }
+}
+
+
 .reservation > div,
 .requests > div {
     display: flex;
@@ -30,6 +87,8 @@
     background: #00baff;
 
 }
+
+/* START OF COMPONENT STYLES */
 
 .component-list {
     /*border-radius: 1px;*/
