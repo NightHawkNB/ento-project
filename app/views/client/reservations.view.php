@@ -34,11 +34,11 @@
 
             <div class="component-list wid-80">
                 <div class="reservations">
-                    <p>Service provider's Name</p>
-                    <p>Created date and Time</p>
-                    <p>Location</p>
-                    <p>Time Remaining</p>
-                    <p>Status</p>
+                    <p><strong>Service provider's Name</strong></p>
+                    <p><strong>Created date and Time</strong></p>
+                    <p><strong>Location</strong></p>
+                    <p><strong>Time Remaining</strong></p>
+                    <p><strong>Status</strong></p>
 <!--                    <p>Actions</p>-->
                 </div>
 
