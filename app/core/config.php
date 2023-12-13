@@ -7,7 +7,7 @@ define('APP_DESC', 'Musical Event Planning');
 
 //* DB Connection Data
 
-//if($_SERVER['SERVER_NAME'] == 'localhost') {
+if($_SERVER['SERVER_NAME'] != 'localhost') {
 
     //? config for your local server
 
@@ -22,13 +22,13 @@ define('APP_DESC', 'Musical Event Planning');
     //? ROOT path
     define('ROOT', 'http://localhost/ento-project/public');
 
-//} else {
+} else {
+    define('ROOT', 'http://localhost/ento-project/public');
+//    ? cinfig for your web server
+    define('DB_HOST', 'localhost');
+    define('DB_NAME', 'ento_db');
+    define('DB_USER', 'root');
+    define('DB_PASS', '');
+    define('DB_DRIVER', 'mysql');
 
-    //? cinfig for your web server
-//    define('DB_HOST', 'localhost');
-//    define('DB_NAME', 'ento_db');
-//    define('DB_USER', 'root');
-//    define('DB_PASS', '');
-//    define('DB_DRIVER', 'mysql');
-
-//}
+}
