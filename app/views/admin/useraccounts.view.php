@@ -10,7 +10,7 @@
             </section>
 
             <section class="cols-10 dis-flex">
-                <div class="bg-black-2 mar-10 wid-100 dis-flex-col pad-20 gap-10 bor-rad-5">
+                <div class="glass-bg mar-10 wid-100 dis-flex-col pad-20 gap-10 bor-rad-5">
                     <a href="profile/verify" class="push-right">
                         <button class="btn-lay-2 hover-pointer"  style="background-color:blue; text-align:right; border: none" >Filter by</button>
                     </a>
@@ -18,7 +18,7 @@
                     <div class="flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10    ">
                         <?php
                             foreach ($users as $user) {
-                                $this->view('admin/user', (array)$user);
+                                $this->view('admin/components/user', (array)$user);
                             }
                         ?>
                     </div>

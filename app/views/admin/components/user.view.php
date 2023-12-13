@@ -1,12 +1,18 @@
 
-    <div class="bg-white txt-c-black dis-flex ju-co-sb pad-10 bor-rad-5">
-        <div class="dis-flex align-center">
+    <div class="bg-white txt-c-black dis-flex gap-10  pad-10 bor-rad-5 al-it-ce">
+        <div class="dis-flex al-it-ce gap-10" style="width:250px">
             <img src="<?=$image?>" alt="User Image" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">
             <div>
-                <p class="txt-c-black"><?= $fname ?>&nbsp;<?= $lname ?>&nbsp;<?= $email ?></p>
+                <p class="txt-c-black"><?= $fname ?><?= $lname ?></p>
             </div>
         </div>
-        <div class="dis-flex gap-10">
+        <div style="width: 200px">
+            <?= $email ?>    
+        </div>
+        <div style="width: 100px">
+            <?=ucfirst($user_type)?>    
+        </div>
+        <div class="dis-flex gap-10" style="margin-left:auto">
             <a href="<?= ROOT ?>/admin/usermng/update-user/<?= $user_id ?>">
                 <button class="btn-lay-2 push-right hover-pointer "  style="background-color:black; text-align:center; border: none" >Update</button>    
             </a>
