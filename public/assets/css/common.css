@@ -175,6 +175,7 @@ body::-webkit-scrollbar-thumb {
 
 /* Overflow */
 .over-hide {overflow: hidden}
+.over-text {text-overflow: ellipsis; overflow: hidden;}
 
 /* OPTIONAL IMPORTANT */
 .over-scroll {overflow-y: hidden}
