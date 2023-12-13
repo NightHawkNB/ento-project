@@ -18,7 +18,7 @@
                     <div class="flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10    ">
                         <?php
                             foreach ($users as $user) {
-                                $this->view('admin/user', (array)$user);
+                                $this->view('admin/components/user', (array)$user);
                             }
                         ?>
                     </div>
