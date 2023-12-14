@@ -9,7 +9,6 @@
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
     <data-source source="LOCAL" name="ento_db@localhost" uuid="e4d9912f-4529-470e-823e-b22db5f644d9">
-      <driver-ref>mysql_aurora_aws</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>software.aws.rds.jdbc.mysql.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql:aws://localhost:3306</jdbc-url>
