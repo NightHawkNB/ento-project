@@ -166,12 +166,30 @@ Class Admin extends Controller{
     }
 
     public function adverify($id=null){
-
         $ad = new Ad();
 
-        $data['ads']= $ad->query("SELECT ad_id, title, user_id, category,datetime FROM ads WHERE pending=1; ");
+        if(empty($id)){
+            
 
-        $this->view('admin/adverification', $data);
+            $data['ads']= $ad->query("SELECT ad_id, title, user_id, category, datetime FROM ads WHERE pending=1; ");
+
+            $this->view('admin/adverification', $data);
+
+        }
+        else{
+            $data['ads'] = $ad->query("SELECT ads.ad_id, ads.datetime, ads.image, ads.details, ads.title, ads.user_id,
+             ads.contact_num , ads.category , user.email , user.fname, user.lname, user.nic_num
+            FROM ads 
+            INNER JOIN user 
+            ON ads.user_id = user.user_id  
+            WHERE ads.pending = 1 AND ads.ad_id = :ad_id" , ['ad_id'=>$id]);
+            
+            show($data);
+
+            $this->view('admin/singlead', $data);
+        }
+
+        
     }
 
     public function profile($method = null): void
