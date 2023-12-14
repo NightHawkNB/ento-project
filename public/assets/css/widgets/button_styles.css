@@ -6,7 +6,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(255, 255, 255, 0.05);
+    background: radial-gradient(circle farthest-side at center center, purple 0%, rgba(128, 0, 128, 0.5) 70% ,rgba(128, 0, 128, 0.1) 100%);
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -51,7 +51,7 @@
     bottom: -5px;
     width: 0;
     height: 0;
-    background: radial-gradient(circle farthest-side at bottom center, purple 0%, transparent 100%);
+    background: radial-gradient(circle farthest-side at bottom center, deeppink 0%, transparent 100%);
     border-radius: 10px;
     transition: 0.5s;
     z-index: -1;
@@ -67,5 +67,4 @@
     height: 200%;
     width: 150%;
     border-radius: 30px;
-    /*transition-delay: 0.5s;*/
 }

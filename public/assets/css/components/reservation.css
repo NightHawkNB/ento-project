@@ -9,7 +9,8 @@
     gap: 10px;
 }
 
-.reservation {
+.reservation,
+.requests {
     display: grid;
 }
 
@@ -19,16 +20,26 @@
 .reservation .location {grid-area: location}
 .reservation .accept-btn {grid-area: accept-btn}
 
+.requests .heading {grid-area: heading}
+.requests .status {grid-area: status}
+.requests .time {grid-area: time}
+.requests .location {grid-area: location}
+.requests .accept-btn {grid-area: accept-btn}
+
 @media screen and (min-width: 1035px) {
     .reservation {
         grid-template-columns: 150px 180px 120px 160px auto;
         grid-template-areas: "heading time location interval accept-btn";
     }
+
+    .requests {
+        grid-template-columns: 150px 180px 120px 160px auto;
+        grid-template-areas: "heading time location status accept-btn";
+    }
 }
 
 @media screen and (min-width: 575px) and (max-width: 1035px) {
     .reservation {
-
         grid-template-columns: repeat(3, 1fr);
         grid-template-rows: repeat(2, 1fr);
         grid-template-areas:
@@ -37,7 +48,20 @@
         ;
     }
 
-    .reservation > div {
+    .requests {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-areas:
+            "heading time accept-btn"
+            "location status accept-btn" ;
+    }
+
+    .requests .action-btn {
+        grid-row: span 2;
+    }
+
+    .reservation > div,
+    .requests > div {
         justify-content: left;
     }
 }
@@ -52,11 +76,23 @@
             "time time"
             "interval interval"
             "location location"
-            "accept-btn accept-btn"
-    ;
+            "accept-btn accept-btn" ;
     }
 
-    .reservation .heading {
+    .requests {
+
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: auto;
+        grid-template-areas:
+            "heading"
+            "time"
+            "location"
+            "status"
+            "accept-btn" ;
+    }
+
+    .reservation .heading,
+    .requests .heading {
         text-align: center;
     }
 
@@ -90,54 +126,6 @@
 
 /* START OF COMPONENT STYLES */
 
-.component-list {
-    /*border-radius: 1px;*/
-    border: 1px solid grey;
-}
-
-.component-list > div {
-    display: grid;
-    grid-template-rows: auto;
-    font-family: "PT Sans", Poppins, sans-serif;
-    background-color: var(--bg-primary);
-    grid-template-columns: auto 200px 150px 150px 150px;
-    padding: 10px;
-    min-height: 50px;
-    align-items: center;
-    border-bottom: 1px solid var(--line-secondary);
-}
-
-.component-list > div.reservations {
-    grid-template-columns: auto 200px 150px 250px 150px;
-}
-
-.component-list > div.requests {
-    grid-template-columns: auto 200px 150px 150px 150px;
-}
-
-.component-list > div:hover {
-    background-color: ghostwhite;
-    /*color: var(--font-secondary);*/
-    /*font-weight: bold;*/
-}
-
-.component-list > div:hover button {
-    /*color: white;*/
-    /*font-weight: bolder;*/
-}
-
-.component-list > div:first-child:hover {
-    background-color: var(--bg-primary);
-    color: var(--font-primary);
-}
-
-.component-list > div > p:last-child {border-right: none;}
-
-.component-list > div > p {
-    /*border-right: 1px solid var(--line-secondary);*/
-    padding: 5px;
-}
-
 .status {
     width: 100%;
     display: flex;
@@ -159,14 +147,15 @@
 .status.accepted > span {background-color: green;}
 
 
-.component-list .action-btn {
+.requests .action-btn,
+.reservation .action-btn{
     display: flex;
     justify-content: center;
     gap: 10px;
     transition: all 0.5s ease;
 }
 
-.component-list .action-btn button {
+.requests .action-btn button {
     border: 1px solid black;
     padding: 5px;
     background-color: transparent;
@@ -174,11 +163,6 @@
     cursor: pointer;
     transition: all 0.2s;
 }
-
-
-.component-list .action-btn button:hover {border: 1px solid transparent;}
-.component-list .action-btn button:hover {color: white; background-color: #007afa;}
-
 
 /* START OF Accept, Deny, Details and Chat button styles */
 
