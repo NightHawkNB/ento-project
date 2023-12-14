@@ -165,6 +165,15 @@ Class Admin extends Controller{
         }
     }
 
+    public function adverify($id=null){
+
+        $ad = new Ad();
+
+        $data['ads']= $ad->query("SELECT ad_id, title, user_id, category,datetime FROM ads WHERE pending=1; ");
+
+        $this->view('admin/adverification', $data);
+    }
+
     public function profile($method = null): void
     {
         $user = new User();
