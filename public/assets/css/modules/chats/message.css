@@ -6,6 +6,7 @@
     overflow: hidden;
     min-height: 54px;
     height: fit-content;
+    border-radius: 10px;
 }
 
 .message .m-meta .m-time {
@@ -34,7 +35,7 @@
 /* receiver MESSAGE */
 
 .message.receiver {
-    border-radius: 10px 10px 10px 0;
+    /*border-radius: 10px 10px 10px 0;*/
     background-color: cornflowerblue;
     align-self: flex-start;
 }
@@ -50,7 +51,7 @@
 /* sender MESSAGE */
 
 .message.sender {
-    border-radius: 10px 10px 0 10px;
+    /*border-radius: 10px 10px 0 10px;*/
     background-color: mediumpurple;
     align-self: flex-end;
 }

@@ -1,3 +1,24 @@
+.chat-wrapper .msg-field input {
+    outline: none;
+    height: 50px;
+    width: 100%;
+    border-radius: 10px 0 0 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 15px;
+    transition: 0.3s;
+    border: none;
+    border-right: 1px solid var(--dark-bg);
+}
+
+.chat-wrapper .msg-field {
+    display: flex;
+    align-items: center;
+}
+
+.chat-wrapper .msg-field input:focus {
+    background-color: rgba(255, 255, 255, 1);
+}
+
 #send-btn {
     border: none;
     display: flex;
@@ -5,9 +26,9 @@
     align-items: center;
     height: 50px;
     width: 80px;
-    border-radius: 5px;
+    border-radius: 0 10px 10px 0;
     transition: 0.2s;
-    background: limegreen;
+    background: dodgerblue;
 }
 
 #send-btn img {

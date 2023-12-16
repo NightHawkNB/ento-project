@@ -26,10 +26,11 @@
         <section class="wid-100 ju-co-ce pad-10 dis-flex hei-100">
 
             <div class="glass-bg wid-100 hei-100 bor-rad-5 dis-flex-col al-it-ce ju-co-ce pad-20 gap-20">
-                <div id="chat" class="chat-container wid-100 bg-black-2 hei-100 pad-10 bor-rad-5 gap-10" style="height: 65vh; overflow-y: auto">
-                    <h3 class="txt-c-white">Message Box</h3>
+                <div class="chat-wrapper">
+                    <div id="chat" class="chat-container wid-100 bg-black-2 hei-100 pad-10 bor-rad-5 gap-10" style="height: 65vh; overflow-y: auto">
+                        <h3 class="txt-c-white">Message Box</h3>
 
-                    <?php
+                        <?php
                         if(!empty($msg)) {
                             foreach($msg as $message) {
                                 $this->view("common/chat/components/message", (array)$message);
@@ -37,15 +38,16 @@
                         } else {
                             echo "New Chat";
                         }
-                    ?>
+                        ?>
 
-                </div>
+                    </div>
 
-                <div class="wid-100 dis-flex gap-10">
-                    <input type="text" id="msg" name="msg" class="input wid-100 bg-white pad-10 bor-rad-5" style="height: 50px">
-                    <button id="send-btn">
-                        <img src="<?= ROOT ?>/assets/images/icons/send.png" alt="send button">
-                    </button>
+                    <div class="msg-field">
+                        <input type="text" id="msg" name="msg">
+                        <button id="send-btn">
+                            <img src="<?= ROOT ?>/assets/images/icons/send.png" alt="send button">
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -66,6 +68,7 @@
 
         const sender_id = "<?= Auth::getUser_id() ?>"
         const receiver_id = "<?= $rec ?>"
+        const reservation_id = "<?= $reservation_id ?>"
 
         document.getElementById('send-btn').addEventListener("click", function() {
 
@@ -82,7 +85,7 @@
             }
 
             try {
-                fetch(`/ento-project/public/chat/single/${sender_id}/${receiver_id}`, {
+                fetch(`/ento-project/public/chat/single/${sender_id}/${receiver_id}/${reservation_id}`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json; charset=utf-8"
@@ -110,7 +113,7 @@
                 return hours + ':' + minutes + ' ' + ampm;
             }
 
-            function new_msg(data) {
+            function new_msg_sender(data) {
 
                 let now = new Date()
 
@@ -145,7 +148,7 @@
                 target_div.scrollTop = target_div.scrollHeight
             }
 
-            new_msg(data)
+            new_msg_sender(data)
         }
     </script>
 

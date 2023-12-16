@@ -6,7 +6,7 @@ class Chat extends controller {
         // Constructor
     }
 
-    public function single($sen = null, $rec = null): void
+    public function single($sen = null, $rec = null, $id = null): void
     {
 
         $chat_location = "";
@@ -25,12 +25,12 @@ class Chat extends controller {
         } else {
 
             $chat = new Res_chat();
-            $chat_location = $chat->where(['sender_id' => $sen, 'receiver_id' => $rec]);
+            $chat_location = $chat->where(['sender_id' => $sen, 'receiver_id' => $rec, 'reservation_id' => $id]);
             if($chat_location) {
 
                 if($chat_location[0]->source == "") {
                     $chat_id = $chat_location[0]->chat_id;
-                    $filepath = "../app/data/chats/". $chat_id .".txt";
+                    $filepath = "../app/data/chats/reservations/". $chat_id .".txt";
                     $file = fopen($filepath, "w");
                     fclose($file);
 
@@ -42,9 +42,9 @@ class Chat extends controller {
 
             } else {
 
-                $chat->insert(['sender_id' => $sen, 'receiver_id' => $rec]);
-                $chat_id = $chat->where(['sender_id' => $sen, 'receiver_id' => $rec])[0]->chat_id . "";
-                $filepath = "../app/data/chats/". $chat_id .".txt";
+                $chat->insert(['sender_id' => $sen, 'receiver_id' => $rec, 'reservation_id' => $id]);
+                $chat_id = $chat->where(['sender_id' => $sen, 'receiver_id' => $rec, 'reservation_id' => $id])[0]->chat_id . "";
+                $filepath = "../app/data/chats/reservations/". $chat_id .".txt";
                 $file = fopen($filepath, "w");
                 fclose($file);
 
@@ -69,7 +69,7 @@ class Chat extends controller {
             echo $message;
 
             $file = fopen($chat_location, "a") or die("Unable to open file!");
-            fwrite($file, "\n".$message);
+            fwrite($file, $message."\n");
             fclose($file);
 
 //            show($php_data);
@@ -96,6 +96,7 @@ class Chat extends controller {
 
             $data['msg'] = $content;
             $data['rec'] = $rec;
+            $data['reservation_id'] = $id;
 
             $this->view("common/chat/chat", $data);
         }
