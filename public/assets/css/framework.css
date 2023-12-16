@@ -15,7 +15,7 @@
 @import "ticket.css";
 @import "components/reservation.css";
 @import "components/venue_operator.css";
-@import "components/ticket.css";
+@import "modules/chats/linker.css";
 @import "alerts.css";
 @import "widgets/calendar.css";
 @import "widgets/slide_window.css";
