@@ -160,7 +160,10 @@ class Controller
                 } else {
 
                     $input = ['deleted' => 0, 'user_id' => Auth::getUser_id(), 'req_id' => $id];
-                    $data['request'] = $db->query("SELECT * FROM resrequest JOIN user ON resrequest.user_id = user.user_id JOIN serviceprovider ON resrequest.sp_id = serviceprovider.sp_id WHERE deleted = :deleted AND serviceprovider.user_id = :user_id and req_id = :req_id", $input)[0];
+                    $row_data = $db->query("SELECT * FROM resrequest JOIN user ON resrequest.user_id = user.user_id JOIN serviceprovider ON resrequest.sp_id = serviceprovider.sp_id WHERE deleted = :deleted AND serviceprovider.user_id = :user_id and req_id = :req_id", $input);
+                    $data['request'] = ($row_data) ? $row_data[0] : "";
+
+                    show($data['request']);
 
                     $this->view('common/reservations/components/request-details', $data);
 
@@ -182,7 +185,7 @@ class Controller
             // If instead of the method, a value is given, then find the relevant reservation and show it
             $input = ['deleted' => 0, 'reservation_id' => $method];
             $data['reservation'] = $reservation->query("
-                        SELECT * FROM reservations 
+                        SELECT *, reservations.user_id AS client_id FROM reservations 
                             JOIN user ON reservations.user_id = user.user_id 
                             JOIN resrequest ON reservations.reservation_id = resrequest.reservation_id 
                             JOIN serviceprovider ON serviceprovider.sp_id = reservations.sp_id 

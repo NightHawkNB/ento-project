@@ -1,0 +1,26 @@
+#send-btn {
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 80px;
+    border-radius: 5px;
+    transition: 0.2s;
+    background: limegreen;
+}
+
+#send-btn img {
+    height: 45px;
+    width: 45px;
+    transition: 0.3s;
+    transform: translate(-5%);
+}
+
+#send-btn:hover {
+    cursor: pointer;
+}
+
+#send-btn:hover img {
+    transform: translate(5%);
+}
