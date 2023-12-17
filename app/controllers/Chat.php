@@ -58,7 +58,6 @@ class Chat extends controller {
         if($_SERVER['REQUEST_METHOD'] == "POST") {
 
             // Content
-
             $json_data = file_get_contents("php://input");
 
             // If the second argument is set to true, the function returns an array. Otherwise, it returns an object
@@ -76,6 +75,49 @@ class Chat extends controller {
 
             // Save the message in the appropriate file if exists, otherwise create new file.
             // Append
+
+            die;
+
+        } else if ($_SERVER['REQUEST_METHOD'] == "PUT") {
+
+            // Content
+            $json_data = file_get_contents("php://input");
+
+            // If the second argument is set to true, the function returns an array. Otherwise, it returns an object
+            $php_data = json_decode($json_data);
+
+            // from attribute sends the most recent message currently viewed
+            $start = $php_data->from;
+
+            $chat = new Res_chat();
+
+            // This occurs only if there is a chat, and it's source path is specified.
+            $chat_location = $chat->where(['sender_id' => $sen, 'receiver_id' => $rec, 'reservation_id' => $id])[0]->source;
+
+            // Send the messages that come after the received message
+
+            $file = fopen($chat_location, "r") or die("Unable to open file!");
+
+            $content = array();
+
+            $count = 0;
+            while(!feof($file)) {
+
+                $count++;
+                $row_data = fgets($file);
+
+                // We append to the variable $content, only the new messages that came after the current message
+                if($count > $start) {
+                    if($row_data != "") {
+                        $content[] = msg_str_obj($row_data);
+                    }
+                }
+
+            }
+
+            fclose($file);
+
+            echo json_encode($content);
 
             die;
 
