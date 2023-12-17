@@ -103,16 +103,6 @@
                 console.log("message sending error")
             }
 
-            function formatAMPM(date) {
-                let hours = date.getHours();
-                let minutes = date.getMinutes();
-                let ampm = hours >= 12 ? 'PM' : 'AM';
-                hours = hours % 12;
-                hours = hours ? hours : 12; // the hour '0' should be '12'
-                minutes = minutes < 10 ? '0'+minutes : minutes;
-                return hours + ':' + minutes + ' ' + ampm;
-            }
-
             function new_msg_sender(data) {
 
                 let now = new Date()
@@ -150,6 +140,93 @@
 
             new_msg_sender(data)
         }
+
+        function formatAMPM(date) {
+            let hours = date.getHours();
+            let minutes = date.getMinutes();
+            let ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            minutes = minutes < 10 ? '0'+minutes : minutes;
+            return hours + ':' + minutes + ' ' + ampm;
+        }
+
+        function new_msg_receiver(data) {
+
+            let now = new Date()
+
+            let new_msg = document.createElement('div')
+            let content_part = document.createElement('div')
+            content_part.classList.add('m-content')
+            content_part.innerHTML = data.content
+
+            let meta_part = document.createElement('div')
+            meta_part.classList.add('m-meta')
+
+            // let date_part = document.createElement('div')
+            // date_part.classList.add('m-date')
+            // date_part.innerHTML = now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate()
+
+            let time_part = document.createElement('div')
+            time_part.classList.add('m-time')
+            time_part.innerHTML = formatAMPM(now)
+
+            // meta_part.appendChild(date_part)
+            meta_part.appendChild(time_part)
+
+            new_msg.appendChild(content_part)
+            new_msg.appendChild(meta_part)
+
+            new_msg.classList.add("message")
+            new_msg.classList.add("receiver")
+
+            // Append the div to the body of the document
+            target_div.appendChild(new_msg);
+
+            target_div.scrollTop = target_div.scrollHeight
+        }
+
+        function send_put() {
+
+            let message_count = document.querySelectorAll(".message").length
+            let messages = []
+
+
+            let data = {
+                "from" : message_count
+            };
+
+            if(message_count > 0) {
+                try {
+                    fetch(`/ento-project/public/chat/single/${sender_id}/${receiver_id}/${reservation_id}`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json; charset=utf-8"
+                        },
+                        body: JSON.stringify(data)
+                    }).then(res => {
+                        // console.log(res)
+                        return res.text()
+                    }).then(data => {
+                        // Shows the data printed by the targeted php file.
+                        // (stopped printing all data in php file by using die command)
+                        // console.log(data)
+                        messages = JSON.parse(data)
+                        // console.log(messages)
+
+                        messages.forEach(msg => {
+                            new_msg_receiver(msg)
+                            // console.log(msg)
+                        })
+                    })
+                } catch (e) {
+                    console.log("message receiving error")
+                }
+            }
+        }
+
+        // Repeatedly checks for new messages and adds them to the chat box
+        setInterval(send_put, 1000)
     </script>
 
 </div>
