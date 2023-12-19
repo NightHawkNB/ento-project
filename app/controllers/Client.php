@@ -135,4 +135,25 @@ class Client extends Controller {
 
       $this->view('client/reservation_form');
   }
+
+    public function brought_tickets($method = null, $id = null, $action = null) : void
+    {
+        $db = new Database();
+
+        $data['brought_tickets']=$db->query('SELECT 
+        event.name AS ename,event.details,event.start_time,event.end_time,event.image,tickets.price, venue.name AS vname
+        FROM event
+        INNER JOIN  tickets
+        ON event.event_id = tickets.event_id
+        INNER JOIN venue
+        ON venue.venue_id = event.venue_id
+        WHERE tickets.user_id = :user_id ', ['user_id'=> Auth::getUser_id()]);
+
+//        show($data);
+//        die;
+
+        $this->view('client/brought_tickets', $data);
+
+
+    }
 }
