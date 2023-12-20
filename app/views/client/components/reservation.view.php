@@ -12,8 +12,13 @@
     <p><?= $location ?></p>
     <p><?= $interval->format("%a days : %h hours : %i minutes") ?></p>
     <?php
-    if($status == 'pending'){
-        echo "<div style='background-color: lightgreen; border-radius: 10px'> <p><?= {$status} ?></p></div>";
+    if($status == 'Pending'){
+        echo "<div style='background-color: lightgreen; border-radius: 10px; padding: 10px; text-align: center; max-width: 100px;'> <p>$status</p></div>";
+    } elseif($status == 'Accepted'){
+        echo "<div style='background-color: lightblue; border-radius: 10px; padding: 10px; text-align: center; max-width: 100px;'> <p>$status</p></div>";
+    }elseif($status == 'Declined'){
+        echo "<div style='background-color: lightcoral; border-radius: 10px; padding: 10px; text-align: center; max-width: 100px;'> <p>$status</p></div>";
+
     }
     ?>
 
