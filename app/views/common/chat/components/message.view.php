@@ -1,3 +1,12 @@
+<?php
+
+    if(Auth::is_client()) {
+        if($user == "receiver") $user = "sender";
+        else if($user == "sender") $user = "receiver";
+    }
+
+?>
+
 <div class="message <?= $user ?>">
     <div class="m-content">
         <?= $content ?>

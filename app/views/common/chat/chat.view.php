@@ -66,8 +66,8 @@
 
         const input_field = document.getElementById('msg')
 
-        const sender_id = "<?= Auth::getUser_id() ?>"
-        const receiver_id = "<?= $rec ?>"
+        const sender_id = "<?= (Auth::is_client()) ? $sen : Auth::getUser_id() ?>"
+        const receiver_id = "<?= (Auth::is_client()) ? Auth::getUser_id() : $rec ?>"
         const reservation_id = "<?= $reservation_id ?>"
 
         document.getElementById('send-btn').addEventListener("click", function() {
@@ -79,13 +79,21 @@
 
         function sendMsg() {
 
+            let is_client = "<?= (Auth::is_client()) ? "1" : "0" ?>"
+            console.log(is_client)
+
+            let type = ""
+
+            if(is_client === "1") type = "receiver"
+            else type = "sender"
+
             let data = {
                 "content" : input_field.value,
-                "type" : "sender"
+                "type" : type
             }
 
             try {
-                fetch(`/ento-project/public/chat/single/${sender_id}/${receiver_id}/${reservation_id}`, {
+                fetch(`/ento-project/public/chat/reserve/${sender_id}/${receiver_id}/${reservation_id}`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json; charset=utf-8"
@@ -139,6 +147,8 @@
             }
 
             new_msg_sender(data)
+
+            input_field.value = ""
         }
 
         function formatAMPM(date) {
@@ -198,7 +208,7 @@
 
             if(message_count > 0) {
                 try {
-                    fetch(`/ento-project/public/chat/single/${sender_id}/${receiver_id}/${reservation_id}`, {
+                    fetch(`/ento-project/public/chat/reserve/${sender_id}/${receiver_id}/${reservation_id}`, {
                         method: "PUT",
                         headers: {
                             "Content-Type": "application/json; charset=utf-8"
@@ -210,14 +220,16 @@
                     }).then(data => {
                         // Shows the data printed by the targeted php file.
                         // (stopped printing all data in php file by using die command)
-                        // console.log(data)
-                        messages = JSON.parse(data)
-                        // console.log(messages)
+                        console.log(data)
+                        if(data) {
+                            messages = JSON.parse(data)
+                            console.log(messages)
 
-                        messages.forEach(msg => {
-                            new_msg_receiver(msg)
-                            // console.log(msg)
-                        })
+                            messages.forEach(msg => {
+                                new_msg_receiver(msg)
+                                // console.log(msg)
+                            })
+                        }
                     })
                 } catch (e) {
                     console.log("message receiving error")

@@ -96,13 +96,14 @@ class Client extends Controller {
       $db = new Database();
 
       $data['reservations']=$db->query('SELECT 
-        resrequest.status,resrequest.details,resrequest.createdDate,resrequest.end_time,resrequest.start_time,resrequest.location, user.fname,user.lname
+      *, serviceprovider.user_id AS "sp_id"
+/*        resrequest.status,resrequest.details,resrequest.createdDate,resrequest.end_time,resrequest.start_time,resrequest.location, user.fname,user.lname */
         FROM resrequest
         INNER JOIN  serviceprovider
         ON resrequest.sp_id = serviceprovider.sp_id
         INNER JOIN user
         ON resrequest.user_id = user.user_id
-        WHERE user.user_id = :user_id ORDER BY resrequest.createdDate', ['user_id'=> Auth::getUser_id()]);
+        WHERE resrequest.user_id = :user_id ORDER BY resrequest.createdDate', ['user_id'=> Auth::getUser_id()]);
 
       $this->view('client/reservations', $data);
 

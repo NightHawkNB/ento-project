@@ -6,7 +6,7 @@ class Chat extends controller {
         // Constructor
     }
 
-    public function single($sen = null, $rec = null, $id = null): void
+    public function reserve($sen = null, $rec = null, $id = null): void
     {
 
         $chat_location = "";
@@ -138,7 +138,11 @@ class Chat extends controller {
 
             $data['msg'] = $content;
             $data['rec'] = $rec;
+            $data['sen'] = $sen;
             $data['reservation_id'] = $id;
+
+//            show((Auth::is_client())? "1" : "0");
+//            die;
 
             $this->view("common/chat/chat", $data);
         }
