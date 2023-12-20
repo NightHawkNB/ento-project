@@ -1,0 +1,7 @@
+[2023-11-12 10:10:12] | Sender : Hi, can you provide me with a more details of your services ?
+[2023-11-12 11:10:54] | Receiver : Yes, I will send more details within today.
+[2023-12-15 14:04:48] | sender : Hello world
+[2023-12-15 23:02:28] | sender : NASDAQ
+[2023-12-15 23:02:54] | sender : New World
+[2023-12-16 22:28:57] | sender : New message
+[2023-12-16 22:32:10] | sender : Better luck next time

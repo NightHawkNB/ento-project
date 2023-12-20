@@ -15,6 +15,7 @@
 @import "ticket.css";
 @import "components/reservation.css";
 @import "components/venue_operator.css";
+@import "modules/chats/linker.css";
 @import "alerts.css";
 @import "widgets/calendar.css";
 @import "widgets/slide_window.css";
@@ -60,6 +61,7 @@ a {
 
 body {
     position: relative;
+    font-size: 1rem;
 }
 
 /* Signup Page Styles */
