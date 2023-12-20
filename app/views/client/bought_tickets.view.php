@@ -10,19 +10,17 @@
         </section>
         <section class="wid-100 pad-10 dis-flex-col al-it-ce  hei-100">
 
-            <h1 class="mar-10-0 txt-c-white txt-w-bold" style="font-size: 1.5rem">Brought tickets</h1>
+            <h1 class="mar-10-0 txt-c-white txt-w-bold" style="font-size: 1.5rem">Bought Tickets</h1>
 
             <div class="wid-80 glass-bg dis-flex ">
 
                 <?php
-                if(!empty($brought_tickets)) {
-//
-                    
-                    foreach($brought_tickets as $brought_ticket) {
-                        $this->view('client/components/brought_ticket', (array)$brought_ticket);
+                if(!empty($bought_tickets)) {
+                    foreach($bought_tickets as $bought_ticket) {
+                        $this->view('client/components/bought_ticket', (array)$bought_ticket);
                     }
                 } else {
-                    echo "<h3 class='txt-c-white wid-100 dis-flex ju-co-ce'>No brought tickets to show</h3>";
+                    echo "<h3 class='txt-c-white wid-100 dis-flex ju-co-ce'>No bought tickets to show</h3>";
                 }
                 ?>
             </div>

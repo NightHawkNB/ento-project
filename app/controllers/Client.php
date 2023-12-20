@@ -136,11 +136,11 @@ class Client extends Controller {
       $this->view('client/reservation_form');
   }
 
-    public function brought_tickets($method = null, $id = null, $action = null) : void
+    public function bought_tickets($method = null, $id = null, $action = null) : void
     {
         $db = new Database();
 
-        $data['brought_tickets']=$db->query('SELECT 
+        $data['bought_tickets']=$db->query('SELECT 
         event.name AS ename,event.details,event.start_time,event.end_time,event.image,tickets.price, venue.name AS vname
         FROM event
         INNER JOIN  tickets
@@ -152,7 +152,7 @@ class Client extends Controller {
 //        show($data);
 //        die;
 
-        $this->view('client/brought_tickets', $data);
+        $this->view('client/bought_tickets', $data);
 
 
     }
