@@ -141,7 +141,7 @@ class Client extends Controller {
         $db = new Database();
 
         $data['bought_tickets']=$db->query('SELECT 
-        event.name AS ename,event.details,event.start_time,event.end_time,event.image,tickets.price, venue.name AS vname
+        event.name AS ename,event.details,event.start_time,event.end_time,event.image,tickets.serial_num, venue.name AS vname
         FROM event
         INNER JOIN  tickets
         ON event.event_id = tickets.event_id
@@ -149,11 +149,7 @@ class Client extends Controller {
         ON venue.venue_id = event.venue_id
         WHERE tickets.user_id = :user_id ', ['user_id'=> Auth::getUser_id()]);
 
-//        show($data);
-//        die;
-
         $this->view('client/bought_tickets', $data);
-
-
     }
+
 }
