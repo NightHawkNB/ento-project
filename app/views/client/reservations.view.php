@@ -46,6 +46,7 @@
                 if(!empty($reservations)) {
                     foreach($reservations as $reservation) {
                         $this->view('client/components/reservation', (array)$reservation);
+                        show($reservation);
                     }
                 } else {
                     echo "<h3 class='txt-c-white wid-100 dis-flex ju-co-ce'>No reservations to show</h3>";
