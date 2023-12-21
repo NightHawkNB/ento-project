@@ -8,45 +8,17 @@
         <section class="cols-2 sidebar">
             <?php $this->view('includes/sidebar') ?>
         </section>
-<!--        <section class="cols-10 pad-20 mar-bot-10">-->
-<!--            <div class="dis-flex-col gap-10 bg-grey pad-10 bor-rad-5 txt-c-white" style="height: 100%">-->
-<!--                <h2 class="mar-0" >Reservation Details</h2>-->
-<!---->
-<!--                <div class="dis-flex-col gap-10 bg-grey pad-10 bor-rad-5 txt-c-white" style="height: auto">-->
-<!--                    --><?php
-////                    show($data);
-////                    show($reservations);
-//////                    show($reservations[0]);
-//                    foreach ($reservations as $reservation)
-//                    {
-//                        $this->view('client/components/reservation', (array)$reservation);
-//                    }
-//
-//                    ?>
-<!---->
-<!--                </div>-->
-<!---->
-<!--            </div>-->
-<!--        </section>-->
+
         <section class="wid-100 pad-10 dis-flex-col al-it-ce">
 
             <h1 class="mar-10-0 txt-c-white txt-w-bold" style="font-size: 1.5rem">Reservations</h1>
 
-            <div class="component-list wid-80">
-                <div class="reservations">
-                    <p><strong>Service provider's Name</strong></p>
-                    <p><strong>Created date and Time</strong></p>
-                    <p><strong>Location</strong></p>
-                    <p><strong>Time Remaining</strong></p>
-                    <p><strong>Status</strong></p>
-<!--                    <p>Actions</p>-->
-                </div>
-
+            <div class="pad-20 glass-bg wid-100 bor-rad-10 hei-100 over-scroll dis-flex-col gap-10">
                 <?php
+
                 if(!empty($reservations)) {
                     foreach($reservations as $reservation) {
                         $this->view('client/components/reservation', (array)$reservation);
-                        show($reservation);
                     }
                 } else {
                     echo "<h3 class='txt-c-white wid-100 dis-flex ju-co-ce'>No reservations to show</h3>";
