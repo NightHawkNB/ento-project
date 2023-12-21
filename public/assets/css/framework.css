@@ -23,6 +23,7 @@
 @import "widgets/button_styles.css";
 @import "modules/forms/user_update_form.css";
 @import "client/bought_tickets.css";
+@import "client/qr.css";
 
 /*@font-face {*/
 /*    font-family: 'PTSans';*/
