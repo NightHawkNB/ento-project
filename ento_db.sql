@@ -3,14 +3,13 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 11, 2023 at 04:31 PM
+-- Generation Time: Dec 22, 2023 at 07:58 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
--- 2023-12-11 9.01PM
 
 DROP DATABASE IF EXISTS ento_db;
 CREATE DATABASE ento_db;
-USE ento_db;
+USE DATABASE ento_db;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -249,6 +248,36 @@ CREATE TABLE `customer_care` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `deleted_user`
+--
+
+CREATE TABLE `deleted_user` (
+  `user_id` varchar(32) NOT NULL,
+  `fname` varchar(45) NOT NULL,
+  `lname` varchar(45) NOT NULL,
+  `email` varchar(45) NOT NULL,
+  `nic_num` varchar(45) DEFAULT NULL,
+  `address1` varchar(256) DEFAULT NULL,
+  `address2` varchar(256) DEFAULT NULL,
+  `province` varchar(256) NOT NULL,
+  `district` varchar(256) NOT NULL,
+  `password` varchar(256) DEFAULT NULL,
+  `contact_num` varchar(45) NOT NULL,
+  `user_type` varchar(45) NOT NULL DEFAULT 'client',
+  `image` varchar(512) DEFAULT 'http://localhost/ento-project/public/assets/images/users/general.jpg',
+  `verified` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `deleted_user`
+--
+
+INSERT INTO `deleted_user` (`user_id`, `fname`, `lname`, `email`, `nic_num`, `address1`, `address2`, `province`, `district`, `password`, `contact_num`, `user_type`, `image`, `verified`) VALUES
+('45', 'singer', '03', 'singer3@ento.com', NULL, '1', '1', '1', '1', 'singer', '1', 'singer', 'http://localhost/ento-project/public/assets/images/users/general.jpg', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `event`
 --
 
@@ -322,6 +351,7 @@ CREATE TABLE `reservations` (
 INSERT INTO `reservations` (`reservation_id`, `sp_id`, `user_id`, `deleted`) VALUES
 ('RES_13475_1700919591', 10, '37', 0),
 ('RES_25664_1699881610', 7, '41', 0),
+('RES_26646_1702631611', 10, '38', 0),
 ('RES_43305_1699881734', 7, '37', 0),
 ('RES_6519_1702206942', 10, '38', 0);
 
@@ -351,16 +381,39 @@ CREATE TABLE `resrequest` (
 --
 
 INSERT INTO `resrequest` (`req_id`, `user_id`, `sp_id`, `createdDate`, `respondedDate`, `details`, `location`, `start_time`, `end_time`, `status`, `deleted`, `reservation_id`) VALUES
+('', '37', 10, '2023-12-15 14:45:09', NULL, 'Something Something Else', 'City or Address', '2023-12-15 14:00:00', '2023-12-15 16:00:00', 'Pending', 0, NULL),
 ('4', '38', 7, '2023-11-12 21:05:25', NULL, 'Something Something', 'City or Address', '2023-05-12 00:00:00', NULL, 'Pending', 0, NULL),
-('5', '38', 8, '2023-11-12 21:05:25', NULL, '5555', 'City or Address', '2023-05-12 00:00:00', NULL, 'Pending', 0, NULL),
 ('6', '41', 7, '2023-11-12 21:22:52', NULL, 'Musical Event', 'City or Address', '2023-11-27 00:00:00', '2023-11-27 12:00:00', 'Accepted', 0, 'RES_25664_1699881610'),
 ('7', '37', 7, '2023-11-12 21:30:23', NULL, 'New event', 'City or Address', '2023-11-29 15:00:00', '2023-11-29 17:00:00', 'Accepted', 0, 'RES_43305_1699881734'),
 ('8', '37', 7, '2023-11-12 21:30:34', NULL, 'Something Something', 'City or Address', '2023-05-12 00:00:00', NULL, 'Pending', 0, NULL),
 ('9', '37', 7, '2023-11-13 18:01:58', NULL, 'eweqeqwewqe', 'City or Address', '2023-11-15 18:01:39', NULL, 'Declined', 0, NULL),
 ('REQ_1251', '37', 10, '2023-11-25 16:57:19', NULL, 'Birthday Party', 'Colombo 10', '2023-12-01 16:54:12', '2023-12-01 16:00:00', 'Accepted', 0, 'RES_13475_1700919591'),
 ('RESR_64330_1700149182', '38', 7, '2023-11-16 21:09:42', NULL, 'Something Someting', 'daslkdjalskj', '2023-11-01 09:11:00', NULL, 'Pending', 0, NULL),
-('RES_62820_1702206851', '38', 10, '2023-12-10 16:44:11', NULL, 'New Event', 'Fantasy', '2023-12-05 16:44:00', '2023-12-29 16:44:00', 'Declined', 0, NULL),
+('RES_62820_1702206851', '38', 10, '2023-12-10 16:44:11', NULL, 'New Event', 'Fantasy', '2023-12-05 16:44:00', '2023-12-29 16:44:00', 'Accepted', 0, 'RES_26646_1702631611'),
 ('RES_94338_1702206525', '38', 10, '2023-12-10 16:38:45', NULL, 'Beach Party', 'West Bridge', '2023-12-13 08:00:00', '2023-12-13 13:00:00', 'Accepted', 0, 'RES_6519_1702206942');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `res_chat`
+--
+
+CREATE TABLE `res_chat` (
+  `chat_id` int(11) NOT NULL,
+  `sender_id` varchar(32) DEFAULT NULL,
+  `receiver_id` varchar(32) DEFAULT NULL,
+  `reservation_id` varchar(32) NOT NULL,
+  `source` varchar(512) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `res_chat`
+--
+
+INSERT INTO `res_chat` (`chat_id`, `sender_id`, `receiver_id`, `reservation_id`, `source`) VALUES
+(1, '58', '37', 'RES_13475_1700919591', '../app/data/chats/reservations/1.txt'),
+(6, '58', '38', 'RES_6519_1702206942', '../app/data/chats/reservations/6.txt'),
+(9, '58', '38', 'RES_26646_1702631611', '../app/data/chats/reservations/9.txt');
 
 -- --------------------------------------------------------
 
@@ -398,7 +451,6 @@ INSERT INTO `serviceprovider` (`sp_id`, `user_id`, `verified`, `sp_type`) VALUES
 (4, '41', 1, 'band'),
 (5, '42', 1, 'band'),
 (7, '44', 1, 'singer'),
-(8, '45', 1, 'singer'),
 (10, '58', 1, 'venuem'),
 (11, '66', 1, 'singer'),
 (25, 'USER_74840_1701271384', 0, 'venueo'),
@@ -424,8 +476,7 @@ CREATE TABLE `singer` (
 
 INSERT INTO `singer` (`singer_id`, `sp_id`, `location`, `AvgResTime`) VALUES
 (1, 3, 'Colombo', '100'),
-(5, 7, 'Ragama', '105'),
-(6, 8, 'Mirigama', '59');
+(5, 7, 'Ragama', '105');
 
 -- --------------------------------------------------------
 
@@ -458,6 +509,15 @@ CREATE TABLE `tickets` (
   `price` int(11) NOT NULL,
   `deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `tickets`
+--
+
+INSERT INTO `tickets` (`ticket_id`, `event_id`, `user_id`, `serial_num`, `qr_code`, `type`, `price`, `deleted`) VALUES
+(3, 'EVENT_dsadasd', '38', '44', '44', '4', 44, 0),
+(4, 'EVENT_dsadasd', '38', '4546', '654654', '12', 12, 0),
+(5, 'EVENT_dsadasd', '38', '56565', '656', '11', 11, 0);
 
 -- --------------------------------------------------------
 
@@ -493,9 +553,8 @@ INSERT INTO `user` (`user_id`, `fname`, `lname`, `email`, `nic_num`, `address1`,
 ('41', 'band', '01', 'band1@ento.com', NULL, '5', '6', '4', '5', '$2y$10$4SbR6UUaBibEYOLWTpfRXOeZF8Qy9azix2AYaK.5cLeJ5NY5TLojW', '4', 'band', 'http://localhost/ento-project/public/assets/images/users/general.jpg', 0),
 ('42', 'band', '02', 'band2@ento.com', NULL, '6', '4', '5', '5', '$2y$10$YAhBfZBSV5s46CnpUgIA6uNz9nlvnAA8z3JQGNcHSZe2mFTgGk172', '2', 'band', 'http://localhost/ento-project/public/assets/images/users/general.jpg', 0),
 ('44', 'Sadun', 'Prabrashawara', 'singer2@ento.com', NULL, '295/C', 'Pahala Yagoda', 'western', 'Gampaha', '$2y$10$VYwqELysomfvQ7KnpFdJjO213El1HOsJ7wx/3CgBFKCYDtGIe7irK', '0715888588', 'singer', 'http://localhost/ento-project/public/assets/images/users/general.jpg', 0),
-('45', 'singer', '03', 'singer3@ento.com', NULL, '1', '1', '1', '1', 'singer', '1', 'singer', 'http://localhost/ento-project/public/assets/images/users/general.jpg', 0),
 ('48', 'cca', '01', 'cca1@ento.com', NULL, '1', '1', '1', '1', '$2y$10$TBnI1tA8WClwpesXdZp1u.iWJwwCjGkTyPmOQ53xY3LylCC9srbxi', '1', 'cca', 'http://localhost/ento-project/public/assets/images/users/general.jpg', 0),
-('58', 'Shaun', 'Morgan', 'venuem1@ento.com', NULL, 'Saman Mawatha', '365/D', 'western', 'Gampaha', '$2y$10$EBZqpefKzVObk8mtX2MwzuIjzhkQ2T0bPuk77FCNe8N9HztzQIUsu', '07188853315', 'venuem', 'http://localhost/ento-project/public/assets/images/users/58.jpeg', 0),
+('58', 'Shaun', 'Morgan', 'venuem1@ento.com', NULL, 'Saman Mawatha', '365/D', 'western', 'Gampaha', '$2y$10$EBZqpefKzVObk8mtX2MwzuIjzhkQ2T0bPuk77FCNe8N9HztzQIUsu', '07188853315', 'venuem', 'http://localhost/ento-project/public/assets/images/users/general.jpg', 0),
 ('63', 'a', 'b', 'A@ENTO.COM', NULL, '11', '1', '1', '1', '$2y$10$d8FjeU6ypsYdotlWIitkn.obad32KYHAOjZUjpB8jVSJE8TeSR/di', '1', 'client', 'http://localhost/ento-project/public/assets/images/users/general.jpg', 0),
 ('64', 'alila', 'milinda', 'akila@ento.com', NULL, '345', 'mulleriyawa', 'colombo', 'western', '$2y$10$LvELfmOhnQNtyfbRbZb5b.QY8R5r0.rk4h66hPS3da/S3Vzn3YDy2', '0757825509', 'client', 'http://localhost/ento-project/public/assets/images/users/general.jpg', 0),
 ('66', 'singer', '01', 'singer1@ento.com', NULL, '55', '55', '55', '55', '$2y$10$IMelU0XP8NSDHwsILo7.3elBsmZiFEwDy9UjfZR1T3vqGbDafLWGq', '077789899', 'singer', 'http://localhost/ento-project/public/assets/images/users/general.jpg', 0),
@@ -503,6 +562,18 @@ INSERT INTO `user` (`user_id`, `fname`, `lname`, `email`, `nic_num`, `address1`,
 ('USER_45764_1699532744', 'Nipun', 'Bathiya', 'nipun@gmail.com', NULL, 'Ihalagama', 'West', 'Gampaha', 'Gampaha', '$2y$10$SvDlQVD3O9N.i7GSglqKyu.8CDJdADvi49UODrY.1/iUxnm2eV.6G', '0712719315', 'client', 'http://localhost/ento-project/public/assets/images/users/general.jpg', 0),
 ('USER_74840_1701271384', 'James', 'Brown', 'venueo@ento.com', NULL, '', '', 'Minuwangoda', 'Gampaha', '$2y$10$BL6vQk6VRbSwe1Pk4RiV9egaMB5qa/f9UpJgLFI84ejygh2d.kIWi', '0995556456', 'venueo', 'http://localhost/ento-project/public/assets/images/users/general.jpg', 0),
 ('USER_99858_1702039969', 'New', 'User', 'venue@ento.com', NULL, NULL, NULL, 'southern', 'Matara', '$2y$10$K6l5T/DJtM56zhCaKm3F7en/LfLw8F8D4lmZ0LPBkFJctcnSlGm6.', '11213', 'venueo', 'http://localhost/ento-project/public/assets/images/users/general.jpg', 0);
+
+--
+-- Triggers `user`
+--
+DELIMITER $$
+CREATE TRIGGER `t_user_delete` BEFORE DELETE ON `user` FOR EACH ROW insert into deleted_user(user_id, fname, lname, email, nic_num, address1, address2, 
+province, district, password, contact_num, user_type, image, verified)
+select user_id, fname, lname, email, nic_num, address1, address2, province, district, 
+password, contact_num, user_type, image, verified 
+from user where user_id = old.user_id
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -550,8 +621,8 @@ CREATE TABLE `venue` (
 --
 
 INSERT INTO `venue` (`venue_id`, `name`, `location`, `image`, `seat_count`, `packages`, `other`, `venueM_id`, `deleted`) VALUES
-(1, 'Nelum Pokuna', 'Colombo', 'http://localhost/ento-project/public/assets/images/venues/venue.png', 2000, '100000', 'Luxury', 3, 0),
-(2, 'Beach Venue', 'Migamuwa', 'http://localhost/ento-project/public/assets/images/venues/2.png', 0, '27500', 'Open Area\r\nNo Seats', 3, 0),
+(1, 'Nelum Pokuna', 'Colombo', 'http://localhost/ento-project/public/assets/images/venues/1.jpg', 2000, '100000', 'Luxury', 3, 0),
+(2, 'Beach Venue', 'Migamuwa', 'http://localhost/ento-project/public/assets/images/venues/2.png', 5000, '27500', 'Open Area\r\nNo Seats', 3, 0),
 (5, 'Albion', 'Fantasy', 'http://localhost/ento-project/public/assets/images/venues/5.png', 1000, 'sadasd', 'sadsad', 3, 0);
 
 -- --------------------------------------------------------
@@ -712,6 +783,14 @@ ALTER TABLE `resrequest`
   ADD KEY `resrequest_reservations_reservation_id_fk` (`reservation_id`);
 
 --
+-- Indexes for table `res_chat`
+--
+ALTER TABLE `res_chat`
+  ADD PRIMARY KEY (`chat_id`),
+  ADD KEY `res_chat_user_user_id_fk` (`sender_id`),
+  ADD KEY `res_chat_user_user_id_fk2` (`receiver_id`);
+
+--
 -- Indexes for table `review`
 --
 ALTER TABLE `review`
@@ -829,6 +908,12 @@ ALTER TABLE `payment_log`
   MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `res_chat`
+--
+ALTER TABLE `res_chat`
+  MODIFY `chat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
 -- AUTO_INCREMENT for table `review`
 --
 ALTER TABLE `review`
@@ -856,7 +941,7 @@ ALTER TABLE `spvreq`
 -- AUTO_INCREMENT for table `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `ticket_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ticket_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `uservreq`
@@ -985,6 +1070,13 @@ ALTER TABLE `reservations`
 ALTER TABLE `resrequest`
   ADD CONSTRAINT `fk_resReq_sp` FOREIGN KEY (`sp_id`) REFERENCES `serviceprovider` (`sp_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `resrequest_user_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
+
+--
+-- Constraints for table `res_chat`
+--
+ALTER TABLE `res_chat`
+  ADD CONSTRAINT `res_chat_user_user_id_fk` FOREIGN KEY (`sender_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE SET NULL,
+  ADD CONSTRAINT `res_chat_user_user_id_fk2` FOREIGN KEY (`receiver_id`) REFERENCES `user` (`user_id`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
 -- Constraints for table `review`
