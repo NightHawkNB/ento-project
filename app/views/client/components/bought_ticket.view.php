@@ -7,13 +7,7 @@ $edateTime = new DateTime($end_time);
 $edate = $edateTime->format('Y-m-d');
 $etime = $edateTime->format('H:i:s');
 ?>
-<script>
-    let qrImage = document.getElementById("qrImage");
-    let qrText = "<?=$serial_num?>";
-    function generateQR(){
-        qrImage.src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Example/<?=$serial_num?>";
-    }
-</script>
+
 
 <div class="card txt-c-white">
     <div class="card-header">
@@ -48,12 +42,25 @@ $etime = $edateTime->format('H:i:s');
 </div>
 
 <!--qr-->
-<div class="container">
-    <div id="imgBox">
-        <img src="" id="qrImage">
+<div class="qr_container hide bg-white"  style="width: 300px; height: 300px; border-radius: 5px; ">
+    <div id="imgBox" class="wid-100 hei-100 dis-flex-col gap-10 ju-co-ce al-it-ce">
+        <img src="" id="qrImage" alt="qr" style="border: 1px solid black; padding: 10px">
+        <button class="btn-lay-2" onclick="close_popup()">Close</button>
     </div>
-    <!--    --><?php //show($data)?>
 </div>
+<script>
+    let qrImage = document.getElementById("qrImage");
+    const qr_container = document.querySelector(".qr_container")
+    let qrText = "<?=$serial_num?>";
 
+    function close_popup() {
+        qr_container.classList.toggle("hide")
+    }
+
+    function generateQR(){
+        qr_container.classList.toggle("hide")
+        qrImage.src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Example/<?=$serial_num?>";
+    }
+</script>
 
 

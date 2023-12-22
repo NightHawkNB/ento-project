@@ -1,4 +1,4 @@
-<div class="reservations">
+<div class="reservation">
 
     <?php
     $now = new DateTime();
@@ -23,9 +23,9 @@
     ?>
 
     <?php if($status == "Accepted"): ?>
-    <a href="<?= ROOT ?>/chat/reserve/<?= $sp_id ?>/<?= Auth::getUser_id() ?>/<?= $reservation_id ?>" >
-        <button>Chat</button>
-    </a>
+        <a href="<?= ROOT ?>/chat/reserve/<?= $sp_id ?>/<?= Auth::getUser_id() ?>/<?= $reservation_id ?>" >
+            <button>Chat</button>
+        </a>
     <?php endif; ?>
 
 

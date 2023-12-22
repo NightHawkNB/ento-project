@@ -3,7 +3,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     width: 300px;
-    background-color: #00f4fd;
+    height: fit-content;
 }
 
 .card-header {
@@ -26,4 +26,7 @@
     color: #fff;
     padding: 10px;
     text-align: center;
+}
+.card div.footer:hover{
+    cursor: pointer;
 }
