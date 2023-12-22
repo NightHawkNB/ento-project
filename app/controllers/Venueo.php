@@ -16,4 +16,10 @@ class Venueo extends SP {
             redirect('home');
         }
     }
+
+    public function scanner() {
+
+        $this->view("venue_operator/scanner");
+
+    }
 }
