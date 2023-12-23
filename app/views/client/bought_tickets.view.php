@@ -1,4 +1,7 @@
 <html lang="en">
+<!--cdnjs link for qr js library-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!--<script src="--><?php //= ROOT ?><!--/assets/scripts/html5-qrcode.min.js"></script>-->
 <?php $this->view('includes/head') ?>
 <body>
 <div class="main-wrapper">
