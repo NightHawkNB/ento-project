@@ -6,6 +6,13 @@
 
 <br/>
 
+<div align="center">
+
+![Static Badge](https://img.shields.io/badge/Build-v0.1-brightgreen) ![Static Badge](https://img.shields.io/badge/Stage-development-blue)
+
+  
+</div>
+
 ---
 
 <br/>
@@ -48,7 +55,13 @@ centralized platform for discovering and accessing musical events.
 
 * Clone this repository into the htdocs folder of XAMPP or WAMPP directory
 
-* Import the sql database stored in the ento_db.sql file inside the project folder (ento-project)
+* Import the sql database stored in the ento_db.sql by running the below code on the mysql console first and then the content of the file.
+
+``` sql
+DROP DATABASE IF EXISTS ento_db;
+CREATE DATABASE ento_db;
+USE ento_db;
+```
 
 * Start mysql and apache services through XAMPP or WAMPP
 
@@ -99,7 +112,8 @@ centralized platform for discovering and accessing musical events.
 <br/>
 
 <h2>Contact Information</h2>
-For more information, reach us at [ENTO-Developer](mailto:developer.ento@gmail.com?subject=Contact For More Information)
+
+For more information, reach us at [![Static Badge](https://img.shields.io/badge/ENTO--Developer-deeppink)](mailto:developer.ento@gmail.com?subject=Contact%20For%20More%20Information)
 
 <br/>
 
