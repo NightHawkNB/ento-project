@@ -68,21 +68,27 @@ centralized platform for discovering and accessing musical events.
 
 - PHP
 
+
+<div align="center">
+
+![Static Badge](https://img.shields.io/badge/PHP-v8.2.4-purple)   ![Static Badge](https://img.shields.io/badge/Apache-v2.4.56-blue)
+
+</div>
+
+
+
+
+
 <br/>
 
 
 <h2>Status</h2>
 <div align="center">
 
-![Static Badge](https://img.shields.io/badge/Build-v0.1-brightgreen)
+![Static Badge](https://img.shields.io/badge/Build-v0.1-brightgreen) ![Static Badge](https://img.shields.io/badge/Build-v0.1-brightgreen)
 
-<br/>
 
-![Static Badge](https://img.shields.io/badge/Build-v0.1-brightgreen)
-
-<br/>
-
-[Apache License](LICENSE)
+[![Static Badge](https://img.shields.io/badge/Apache%20License-orange)](LICENSE)
 
 </div>
 
