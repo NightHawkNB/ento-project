@@ -14,6 +14,8 @@
 
 .qr-container > div.result {
     padding: 20px;
+    max-width: 415px;
+    aspect-ratio: 1/1;
 }
 
 .qr-container > div.result > div {
@@ -40,4 +42,22 @@
     /* min-width: 500px; */
     /*min-width: 100%;*/
     background-color: white;
+}
+
+button.html5-qrcode-element,
+select.html5-qrcode-element{
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+    background: var(--bg-primary);
+    transition: 0.3s;
+    outline: none;
+    margin: 5px auto;
+}
+
+button.html5-qrcode-element:hover {
+    cursor: pointer;
+    border: 1px solid transparent;
+    background-color: var(--bg-primary-2);
+    color: white;
 }

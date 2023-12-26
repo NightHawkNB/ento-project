@@ -6,9 +6,12 @@ class Tickets extends Model {
     protected $pk = "ticket_id";
 
     protected $allowed_columns = [
-        'qr_code',
-        'serial_num',
-        'price',
+        'ticket_id',
+        'event_id',
+        'user_id',
+        'hash',
         'type',
+        'price',
+        'deleted'
     ];
 }

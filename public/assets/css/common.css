@@ -224,9 +224,9 @@ body::-webkit-scrollbar-thumb {
 .bor-1-sol-dark {border: 1px solid black}
 .bor-1-sol-white {border: 1px solid white}
 .bor-2-sol-dark {border: 2px solid black}
-.border-approved {border: 2px solid var(--status-approve)}
-.border-error {border: 2px solid var(--status-error)}
-.border-pending {border: 2px solid var(--status-pending)}
+.border-approved {border: 10px solid var(--status-approve)}
+.border-error {border: 10px solid var(--status-error)}
+.border-pending {border: 10px solid var(--status-pending)}
 
 /* Font Styles */
 .f-mooli {font-family: Mooli, serif}

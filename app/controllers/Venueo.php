@@ -33,33 +33,56 @@ class Venueo extends SP {
             $ticket_id = $php_data->ticket_id;
             $scanned_hash = $php_data->hash;
 
+            $ticket = new Tickets();
+            $ticket_data = $ticket->where(['ticket_id' => $ticket_id]);
 
-            $db = new Database();
-            $ticket = $db->query("SELECT * FROM tickets JOIN event ON tickets.event_id = event.event_id JOIN venue ON event.venue_id = venue.venue_id WHERE tickets.ticket_id = :ticket_id LIMIT 1", ['ticket_id' => $ticket_id]);
-
-            if(!$ticket) {
+            if(!$ticket_data) {
                 echo "error";
                 die;
             } else {
-                $ticket = $ticket[0];
+                $ticket_data = $ticket_data[0];
             }
 
-            // $generated_hash = strtoupper(
-            //     md5(
-            //         $ticket->ticket_id .
-            //         $ticket->event_id .
-            //         $ticket->user_id .
-            //         $ticket->type .
-            //         $ticket->price .
-            //         strtoupper(md5($ticket_secret))
-            //     )
-            // );
-
-            if($scanned_hash == $ticket->serial_num) {
+            if($scanned_hash == $ticket_data->hash) {
                 echo "valid";
+                // Increase the participant count
+                // To compare with no of tickets sold
+            } else {
+                echo "error-altered";
             }
 
             die;
+
+
+//            $row = new stdClass();
+//
+//            $row->ticket_id = 3;
+//            $row->event_id = EVENT_dsadasd;
+//            $row->user_id = 38;
+//            $row->hash = "";
+//            $row->type = 4;
+//            $row->price = 44;
+//
+//             $generated_hash = strtoupper(
+//                 md5(
+//                     $row->ticket_id .
+//                     $row->event_id .
+//                     $row->user_id .
+//                     $row->type .
+//                     $row->price .
+//                     strtoupper(md5($ticket_secret))
+//                 )
+//             );
+//
+//             show($generated_hash);
+//
+//             die;
+//
+//            if($scanned_hash == $ticket_data->hash) {
+//                echo "valid";
+//            }
+//
+//            die;
 
         } else {
             $this->view("venue_operator/scanner");

@@ -17,8 +17,9 @@
                     <div id="scanner" class="qr-content scanner"></div>
                     
                     <div id="result" class="qr-content result" style="width: 100%; aspect-ratio: 1/1">
-                        <div id="status-container" class="border-pending">
+                        <div id="status-container" class="border-pending dis-flex-col gap-10 al-it-ce ju-co-ce">
                             <img id="status-gif" src="" alt="scanning-anima" class="gif">
+                            <h2 id="status-text">Scanning</h2>
                         </div>
                     </div>
                 </div>
@@ -40,16 +41,19 @@
 
 <script src="<?= ROOT ?>/assets/scripts/html5-qrcode.min.js"></script>
 <script>
+
     const scanner = new Html5QrcodeScanner('scanner', {
         qrbox: {
             width: '75%',
             height: '75%',
         },
         fps: 20,
+        rememberLastUsedCamera: true,
     })
 
     const status_container = document.getElementById('status-container')
     const status_image = document.getElementById('status-gif')
+    const status_text = document.getElementById('status-text')
     status_image.src = "<?= ROOT ?>/assets/images/icons/scanning-anima.gif"
 
     scanner.render(success, error)
@@ -59,13 +63,13 @@
     function success(res) {
 
         // IMPORTANT Add something stop repeated scans, like a delay(timer)
-        // Show the timer in the view for user convinience
+        // Show the timer in the view for user convenience
 
+
+        // Splitting the result - current format -> id/hash
         res = res.split("/")
-        console.log(res[0])
-        console.log(res[1])
-        
-        data = {
+
+        let data = {
             'ticket_id' : res[0],
             'hash' : res[1]
         }
@@ -82,34 +86,77 @@
         }).then(data => {
             // Shows the data printed by the targeted php file.
             // (stopped printing all data in php file by using die command)
-            
-            if(data == "error") {
+
+            if(data === "error") {
                 console.log("No ticket found with that ID")
-            } else if (data == "valid") {
+                status_change("error")
+
+                setTimeout(() => {
+                    status_change('pending')
+                }, 3000)
+            } else if (data === "valid") {
                 console.log("Valid Ticket")
+                status_change("approve")
+
+                setTimeout(() => {
+                    status_change('pending')
+                }, 3000)
+            } else {
+                console.log("Altered/Fake Ticket")
+                status_change("error")
+
+                setTimeout(() => {
+                    status_change('pending')
+                }, 3000)
             }
 
-            console.log(data)
+            // console.log(data)
         })
 
-
-        // result.innerHTML = `<p>Success - ${res}</p>`
-        if(res[0] === '47') {
-            status_image.src = "<?= ROOT ?>/assets/images/icons/approved-anima.gif"
-
-            if(!status_container.classList.contains('border-approved')) status_container.classList.add('border-approved')
-            if(status_container.classList.contains('border-error')) status_container.classList.remove('border-error')
-            if(status_container.classList.contains('border-pending')) status_container.classList.remove('border-pending')
-
-        }
-        // scanner.clear()
-        // document.getElementById('scanner').remove()
-        console.log(res)
     }
 
     function error(err) {
-        // result.innerHTML = `<p>Failed - ${err}</p>`
         console.log(err)
+    }
+
+    function status_change(status) {
+
+        switch (status) {
+            case 'approve':
+                if(!status_container.classList.contains('border-approved')) status_container.classList.add('border-approved')
+                if(status_container.classList.contains('border-error')) status_container.classList.remove('border-error')
+                if(status_container.classList.contains('border-pending')) status_container.classList.remove('border-pending')
+                status_image.src = "<?= ROOT ?>/assets/images/icons/approved.png"
+                status_text.innerHTML = "Approved"
+                break
+
+            case 'error':
+                if(status_container.classList.contains('border-approved')) status_container.classList.remove('border-approved')
+                if(!status_container.classList.contains('border-error')) status_container.classList.add('border-error')
+                if(status_container.classList.contains('border-pending')) status_container.classList.remove('border-pending')
+                status_image.src = "<?= ROOT ?>/assets/images/icons/error.png"
+                status_text.innerHTML = "Declined"
+                break
+
+            case 'pending':
+                if(status_container.classList.contains('border-approved')) status_container.classList.remove('border-approved')
+                if(status_container.classList.contains('border-error')) status_container.classList.remove('border-error')
+                if(!status_container.classList.contains('border-pending')) status_container.classList.add('border-pending')
+                status_image.src = "<?= ROOT ?>/assets/images/icons/scanning-anima.gif"
+                status_text.innerHTML = "Scanning"
+                break
+
+            default :
+                if(status_container.classList.contains('border-approved')) status_container.classList.remove('border-approved')
+                if(status_container.classList.contains('border-error')) status_container.classList.remove('border-error')
+                if(!status_container.classList.contains('border-pending')) status_container.classList.add('border-pending')
+                status_image.src = "<?= ROOT ?>/assets/images/icons/scanning-anima.gif"
+                status_text.innerHTML = "Scanning"
+
+
+                break
+        }
+
     }
 
 </script>
