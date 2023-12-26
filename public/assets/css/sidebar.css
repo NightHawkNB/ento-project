@@ -109,7 +109,7 @@
 .sidebar li a:hover span,
 .sidebar li a:hover svg{
   transition: all 0.5s ease;
-  color:var(--indigo-2)
+  color:var(--status-pending)
 }
 
 .sidebar li a:hover {

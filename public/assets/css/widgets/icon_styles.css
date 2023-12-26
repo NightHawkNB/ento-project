@@ -1,0 +1,12 @@
+#scanner-icon {
+    fill: white;
+}
+
+#scanner-icon:hover {
+    fill: var(--status-pending);
+}
+
+.gif {
+    height: 100px;
+    width: 100px;
+}

@@ -21,8 +21,8 @@
 .btn-lay-2 {
     padding: 10px 15px;
     border-radius: 5px;
-    border: 2px solid var(--indigo-2);
-    background-color: var(--indigo-2);
+    border: 2px solid var(--status-pending);
+    background-color: var(--status-pending);
     transition: 0.5s;
     max-width: 200px;
     color: white;
@@ -87,7 +87,7 @@ body::-webkit-scrollbar-track {
 }
 
 body::-webkit-scrollbar-thumb {
-    background: var(--indigo-2);
+    background: var(--status-pending);
     border-radius: 10px;
 }
 
@@ -101,7 +101,7 @@ body::-webkit-scrollbar-thumb {
 /* Background Colors */
 .bg-white-90 {background-color: rgba(255, 255, 255, 0.9)}
 .bg-white {background-color: white}
-.bg-indigo-2{background-color: var(--indigo-2)}
+.bg-indigo-2{background-color: var(--status-pending)}
 .bg-indigo-6{background-color: var(--indigo-6)}
 .bg-black-2{background-color: var(--dark-bg)}
 .bg-black-1{background-color: var(--dark-bg-2)}
@@ -109,7 +109,6 @@ body::-webkit-scrollbar-thumb {
 .bg-lightgray {background-color: lightgray}
 .bg-indigo-alert{background-color: var(--alert-indigo)}
 .bg-trans {background-color: transparent}
-.bg-
 
 /* Text Align */
 .txt-ali-cen {text-align: center}
@@ -121,7 +120,7 @@ body::-webkit-scrollbar-thumb {
 .txt-c-black {color: black}
 .txt-c-white {color: white}
 .txt-c-cornflowerblue {color: cornflowerblue}
-.txt-c-indigo-2 {color: var(--indigo-2)}
+.txt-c-indigo-2 {color: var(--status-pending)}
 .txt-c-green {color: green}
 .txt-c-lightgreen {color:lightgreen}
 .txt-w-bold {font-weight: bold}
@@ -225,6 +224,9 @@ body::-webkit-scrollbar-thumb {
 .bor-1-sol-dark {border: 1px solid black}
 .bor-1-sol-white {border: 1px solid white}
 .bor-2-sol-dark {border: 2px solid black}
+.border-approved {border: 10px solid var(--status-approve)}
+.border-error {border: 10px solid var(--status-error)}
+.border-pending {border: 10px solid var(--status-pending)}
 
 /* Font Styles */
 .f-mooli {font-family: Mooli, serif}
