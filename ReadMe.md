@@ -73,9 +73,17 @@ centralized platform for discovering and accessing musical events.
 
 <h2>Status</h2>
 <div align="center">
-![Static Badge](https://img.shields.io/badge/Build-v0.1-brightgreen) <br/>
-![Static Badge](https://img.shields.io/badge/Build-v0.1-brightgreen) <br/>
-[Apache License](LICENSE)  
+
+![Static Badge](https://img.shields.io/badge/Build-v0.1-brightgreen)
+
+<br/>
+
+![Static Badge](https://img.shields.io/badge/Build-v0.1-brightgreen)
+
+<br/>
+
+[Apache License](LICENSE)
+
 </div>
 
 <br/>
