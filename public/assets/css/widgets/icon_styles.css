@@ -1,0 +1,7 @@
+#scanner-icon {
+    fill: white;
+}
+
+#scanner-icon:hover {
+    fill: var(--indigo-2);
+}
