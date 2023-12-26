@@ -43,9 +43,9 @@
     --dark-grey: #323232;
     --dark-bg: #27282B;
     --dark-bg-2: #38393b;
-    --error: #F00;
-    --ok: rgb(57, 251, 57);
-    --indigo-2:  #007afa;
+    --status-error: #F00;
+    --status-approve: rgb(57, 251, 57);
+    --status-pending:  #007afa;
     --font-primary: black;
     --font-secondary: white;
     --font-3: lightgrey;
@@ -117,7 +117,7 @@ input[type=checkbox] {
 }
 
 input[type=submit] {
-    background-color: var(--indigo-2);
+    background-color: var(--status-pending);
     color: white;
     font-weight: bold;
     padding: 10px 30px;
@@ -133,16 +133,16 @@ input[type=submit]:hover {
 /* Styles for Errors */
 
 .error-msg {
-    color: var(--error);
+    color: var(--status-error);
     font-size: small;
 }
 
 .error-border {
-    border: 1px solid var(--error);
+    border: 1px solid var(--status-error);
 }
 
 .ok-border {
-    border: 1px solid var(--ok);
+    border: 1px solid var(--status-approve);
 }
 
 .alert-msg {
@@ -162,7 +162,7 @@ input[type=submit]:hover {
 
 .link {
     text-decoration: none;
-    color: var(--indigo-2);
+    color: var(--status-pending);
 }
 
 .text-center {

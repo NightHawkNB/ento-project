@@ -193,8 +193,8 @@
 .btn-anima-hover:hover {
   transform: scale(1.1);
   cursor: pointer;
-  border-color: var(--indigo-2);
-  color: var(--indigo-2);
+  border-color: var(--status-pending);
+  color: var(--status-pending);
   background-color: transparent;
 }
 

@@ -11,13 +11,16 @@
 
         <section class="wid-100 al-it-ce pad-10 dis-flex-col">
 
-            <h1 class="mar-10-0 txt-c-white txt-w-bold" style="font-size: 1.5rem">Venue Management</h1>
-
-            <div class="glass-bg scanner-container mar-10 hei-100 wid-100 dis-flex-col al-it-ce pad-20 gap-10 bor-rad-5 over-scroll">
+            <div class="glass-bg scanner-container mar-10 hei-100 wid-100 dis-flex-col al-it-ce pad-20 bor-rad-5 over-scroll">
 
                 <div class="qr-container">
-                    <div id="scanner" class="qr-content"></div>
-                    <div id="result" class="qr-content"></div>
+                    <div id="scanner" class="qr-content scanner"></div>
+                    
+                    <div id="result" class="qr-content result" style="width: 100%; aspect-ratio: 1/1">
+                        <div id="status-container" class="border-pending">
+                            <img id="status-gif" src="" alt="scanning-anima" class="gif">
+                        </div>
+                    </div>
                 </div>
 
             </div >
@@ -44,6 +47,10 @@
         },
         fps: 20,
     })
+
+    const status_container = document.getElementById('status-container')
+    const status_image = document.getElementById('status-gif')
+    status_image.src = "<?= ROOT ?>/assets/images/icons/scanning-anima.gif"
 
     scanner.render(success, error)
 
@@ -86,7 +93,15 @@
         })
 
 
-        result.innerHTML = `<p>Success - ${res}</p>`
+        // result.innerHTML = `<p>Success - ${res}</p>`
+        if(res[0] === '47') {
+            status_image.src = "<?= ROOT ?>/assets/images/icons/approved-anima.gif"
+
+            if(!status_container.classList.contains('border-approved')) status_container.classList.add('border-approved')
+            if(status_container.classList.contains('border-error')) status_container.classList.remove('border-error')
+            if(status_container.classList.contains('border-pending')) status_container.classList.remove('border-pending')
+
+        }
         // scanner.clear()
         // document.getElementById('scanner').remove()
         console.log(res)

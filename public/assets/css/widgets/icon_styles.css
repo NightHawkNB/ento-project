@@ -3,5 +3,10 @@
 }
 
 #scanner-icon:hover {
-    fill: var(--indigo-2);
+    fill: var(--status-pending);
+}
+
+.gif {
+    height: 100px;
+    width: 100px;
 }

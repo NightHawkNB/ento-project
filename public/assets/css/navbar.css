@@ -145,11 +145,11 @@ header #profile-btn:hover {
 }
 
 #logout, #login {
-    background-color: var(--indigo-2);
+    background-color: var(--status-pending);
 }
 
 #signup {
-    border: 2px solid var(--indigo-2);
+    border: 2px solid var(--status-pending);
 }
 
 .pre-loader {
