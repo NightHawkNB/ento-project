@@ -66,7 +66,7 @@
         // Show the timer in the view for user convenience
 
 
-        // Splitting the result - current format -> id/hash
+        // IMPORTANT Splitting the result - current format -> id/hash
         res = res.split("/")
 
         let data = {
