@@ -156,6 +156,23 @@ Class Admin extends Controller{
             }
         $this->view('admin/add-user');
         }
+        else if ($method == 'update-user'){
+
+            $user = new User();
+            $data['user'] = $user->first(['user_id'=>$id]);
+
+            if($_SERVER['REQUEST_METHOD'] == "POST"){
+                $_POST['terms']=1;
+                if($user->validate($_POST)) echo "valid";
+                else show($user->errors);
+                if($user->validate($_POST)){
+                    $_POST['user_id'] = $id;
+                    $user->update($id, $_POST);
+                    message("User Account Updated Successfully");
+                    redirect('admin/usermng');
+                }
+            }
+        }
         else{
             $user = new User();
         
