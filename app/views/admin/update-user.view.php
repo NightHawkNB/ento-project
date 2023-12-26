@@ -47,9 +47,9 @@
                                 </div>
                             </div>
                             <div class="dis-flex gap-20">
-                                <div class="dis-flex-col <?= (!empty($errors['city'])) ? 'error' : '' ?>">
-                                    <label for="city">City</label>
-                                    <input value=<?= $user->city ?> type="text" name="city" class="input" required>
+                                <div class="dis-flex-col <?= (!empty($errors['province'])) ? 'error' : '' ?>">
+                                    <label for="city">Province</label>
+                                    <input value=<?= $user->province ?> type="text" name="province" class="input" required>
                                     <i></i>
                                 </div>
                                 <div class="dis-flex-col <?= (!empty($errors['district'])) ? 'error' : '' ?>">

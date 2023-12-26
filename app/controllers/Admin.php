@@ -172,15 +172,35 @@ Class Admin extends Controller{
                     redirect('admin/usermng');
                 }
             }
+            else{
+                $data['user_id'] = $id;
+                $this->view('admin/update-user', $data);
+                
+            }
+           
+        }
+        else if ($method == 'delete-user'){
+
+            $user = new User();
+
+            if($_SERVER['REQUEST_METHOD'] == "GET"){
+                
+                $_POST['user_id'] = $id;
+                $user->query("DELETE FROM user WHERE user_id = :user_id", $_POST);
+                message("User Account Deleted Successfully");
+                redirect('admin/usermng');
+        
+            }
         }
         else{
             $user = new User();
         
-            $data['users']= $user->query("SELECT  user_type, fname, lname, image, email FROM user ; ");
+            $data['users']= $user->query("SELECT  user_id,user_type, fname, lname, image, email FROM user ; ");
     
             $this->view('admin/useraccounts', $data);
         }
     }
+
 
     public function adverify($id=null){
         $ad = new Ad();
