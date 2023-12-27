@@ -33,7 +33,7 @@ class User extends Model{
 
         if(empty($data['address1'])) $this->errors['address1'] = "Address - 01 is Required";
         if(empty($data['address2'])) $this->errors['address2'] = "Address - 02 is Required";
-        if(empty($data['city'])) $this->errors['city'] = "City is Required";
+        if(empty($data['province'])) $this->errors['province'] = "Province is Required";
         if(empty($data['district'])) $this->errors['district'] = "District is Required";
         if(empty($data['user_type'])) $this->errors['user_type'] = "Account Type is Required";
         if(empty($data['password'])) $this->errors['password'] = "Password is Required";
@@ -52,7 +52,7 @@ class User extends Model{
         if(empty($data['contact_num'])) $this->errors['contact_num'] = "Please enter a Contact Number";
         if(empty($data['province'])) $this->errors['province'] = "Please select a Province";
         if(empty($data['district'])) $this->errors['district'] = "Please select a District";
-        if(empty($data['email'])) $this->errors['email'] = "Please enter an Email";
+        /*if(empty($data['email'])) $this->errors['email'] = "Please enter an Email"; */
 
         if(!empty($data['change_pass'])) {
             if(empty($data['password'])) $this->errors['password'] = "Please enter a password";
@@ -70,4 +70,6 @@ class User extends Model{
         if(empty($this->errors)) return true;
         else return false;
     }
+
+
 }

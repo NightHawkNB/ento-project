@@ -162,14 +162,14 @@ Class Admin extends Controller{
             $data['user'] = $user->first(['user_id'=>$id]);
 
             if($_SERVER['REQUEST_METHOD'] == "POST"){
-                $_POST['terms']=1;
-                if($user->validate($_POST)) echo "valid";
-                else show($user->errors);
-                if($user->validate($_POST)){
-                    $_POST['user_id'] = $id;
+                if($user->validate_vo($_POST)){
+                    $_POST['user_id']  =$id;
                     $user->update($id, $_POST);
-                    message("User Account Updated Successfully");
-                    redirect('admin/usermng');
+                    message("User Account updated Succesfully");
+                    redirect("Admin/usermng");
+                }else{
+                    message("Update Failed");
+                    redirect("Admin/usermng");
                 }
             }
             else{
@@ -183,14 +183,16 @@ Class Admin extends Controller{
 
             $user = new User();
 
-            if($_SERVER['REQUEST_METHOD'] == "GET"){
-                
-                $_POST['user_id'] = $id;
-                $user->query("DELETE FROM user WHERE user_id = :user_id", $_POST);
-                message("User Account Deleted Successfully");
-                redirect('admin/usermng');
-        
+            $delete = $user->query("DELETE FROM user WHERE user_id = :user_id", ['user_id' => $id ]);
+
+            if($delete){
+                message("Delete succesfully");
+                redirect("Admin/usermng");
+            }else{
+                message("Deletion failed");
+                redirect("Admin/usermng");
             }
+
         }
         else{
             $user = new User();
