@@ -24,7 +24,14 @@ class Venuem extends SP {
 
         if (empty($method)) {
             $data['records'] = $db->query("SELECT * FROM event");
-            $this->view('venuem/events/your-events', $data);
+
+            if($data['records']) {
+                $this->view('venuem/events/your-events', $data);
+            } else {
+                message("Fetching data failure", false, 'failed');
+                $this->view('venuem/events/your-events');
+            }
+
         } else {
             message("Page not found");
             redirect('venuem/events');
@@ -38,6 +45,7 @@ class Venuem extends SP {
         $venue = new Venue();
 
         if ($method == 'insert'){
+            // Handles staff insertion requests
 
             if($_SERVER['REQUEST_METHOD'] == "POST"){
 
@@ -52,16 +60,23 @@ class Venuem extends SP {
                             JOIN serviceprovider ON serviceprovider.user_id = user.user_id
                             JOIN venuemanager ON serviceprovider.sp_id = venuemanager.sp_id
                         WHERE user.user_id = :user_id
-                        ", ['user_id' => Auth::getUser_id()])[0]->venueM_id;
+                        ", ['user_id' => Auth::getUser_id()]);
+
+                    if($venueM_id) {
+                        $venueM_id = $venueM_id[0]->venueM_id;
+                    } else {
+                        message("Cannot find Venue Manager ID", false, "failed");
+                        redirect('venuem/staff');
+                    }
 
                     $user_status = $user->insert($_POST);
-                    show($user_status);
+//                    show($user_status);
                     $sp_status = $db->query("INSERT INTO serviceprovider (user_id, sp_type) VALUES (:user_id, :sp_type)", ['user_id' => $user_id, 'sp_type' => 'venueo']);
-                    show($sp_status);
+//                    show($sp_status);
                     $sp_id = $db->query("SELECT * FROM serviceprovider WHERE user_id = :user_id LIMIT 1", ['user_id' => $user_id])[0]->sp_id;
-                    show($sp_id);
+//                    show($sp_id);
                     $vo_status = $db->query("INSERT INTO venueoperator (sp_id, venueM_id) VALUES ($sp_id, $venueM_id)");
-                    show($vo_status);
+//                    show($vo_status);
 
                     message("User Inserted Successfully", false, "success");
                     redirect('venuem/staff');
@@ -73,10 +88,14 @@ class Venuem extends SP {
             $this->view('venuem/staff/insert_staff');
 
         } else if ($method == 'delete'){
+            // Handles staff deletion requests
 
             if(!empty($id)) {
-                $user->query("DELETE FROM user WHERE user_id = :user_id", ['user_id' => $id]);
-                message("User deleted !", false, "success");
+                $check = $user->query("DELETE FROM user WHERE user_id = :user_id", ['user_id' => $id]);
+
+                if($check) message("User deleted !", false, "success");
+                else message("User deletion failed !", false, "failed");
+
             } else {
                 message("Invalid User ID !", false, "failed");
             }
@@ -84,16 +103,18 @@ class Venuem extends SP {
             redirect("venuem/staff");
 
         } else if ($method == 'update'){
+            // Handles staff updating requests
 
             if(!empty($id)) {
-
-                $data['user'] = $user->first(['user_id' => $id]);
 
                 if($_SERVER['REQUEST_METHOD'] == "POST"){
 
                     $data['user'] = $user->first(['user_id' => $id]);
 
-                    $_POST['terms'] = 1;
+                    if(!$data['user']) {
+                        message("Invalid User ID", false, "failed");
+                        redirect('venuem/staff');
+                    }
 
                     if($user->validate_vo($_POST)){
                         $_POST['user_id'] = $id;
@@ -104,6 +125,7 @@ class Venuem extends SP {
                         redirect('venuem/staff');
                     } else {
                         message("Data validation failed", false, "failed");
+                        $this->view('venuem/staff/update_staff', $data);
                     }
                 }
 
@@ -112,9 +134,8 @@ class Venuem extends SP {
                 redirect("venuem/staff");
             }
 
-            $this->view('venuem/staff/update_staff', $data);
-
         } else {
+            // Handles staff viewing
             // BUG Possible vulnarability
 
             if($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -147,7 +168,13 @@ class Venuem extends SP {
                     JOIN serviceprovider ON serviceprovider.user_id = user.user_id
                     JOIN venuemanager ON serviceprovider.sp_id = venuemanager.sp_id
                 WHERE user.user_id = :user_id
-                ", ['user_id' => Auth::getUser_id()])[0];
+                ", ['user_id' => Auth::getUser_id()]);
+
+            if($venuem_data) $venuem_data = $venuem_data[0];
+            else {
+                message("Couldn't fetch Venue Manager Data", false, "failed");
+                redirect('venuem/index');
+            }
 
             $data['users'] = $user->query("
                 SELECT * FROM user 
@@ -155,7 +182,17 @@ class Venuem extends SP {
                          JOIN venueoperator ON serviceprovider.sp_id = venueoperator.sp_id
                          WHERE venueoperator.venueM_id = :venueM_id", ['venueM_id' => $venuem_data->venueM_id]);
 
+            if(empty($data['users'])) {
+                message("Couldn't fetch Users", false, "failed");
+                redirect('venuem/index');
+            }
+
             $data['venues'] = $venue->where(['venueM_id' => $venuem_data->venueM_id]);
+
+            if(empty($data['venues'])) {
+                message("Couldn't fetch Venue Details", false, "failed");
+                $data['venues'] = [];
+            }
 
             $this->view('venuem/staff/manage_staff', $data);
         }
@@ -171,9 +208,20 @@ class Venuem extends SP {
                 SELECT * FROM user 
                          JOIN serviceprovider ON user.user_id = serviceprovider.user_id
                          JOIN venuemanager ON serviceprovider.sp_id = venuemanager.sp_id
-                         WHERE user.user_id = :user_id", ['user_id' => Auth::getUser_id()])[0]->venueM_id;
+                         WHERE user.user_id = :user_id", ['user_id' => Auth::getUser_id()]);
 
-            $data['venues'] = $venue->where(['venueM_id' => $venueM_id, 'deleted' => 0]);
+            if($venueM_id) {
+                $venueM_id = $venueM_id[0]->venueM_id;
+                $data['venues'] = $venue->where(['venueM_id' => $venueM_id, 'deleted' => 0]);
+            } else {
+                message("Couldn't get the Venue Manager ID", false, "failed");
+                $this->view("venuem/venues/manage_venues");
+            }
+
+            if(empty($data['venues'])) {
+                message("Couldn't get the Venue Manager ID", false, "failed");
+                $this->view("venuem/venues/manage_venues");
+            }
 
             $_SESSION['USER_DATA']->venueM_id = $venueM_id;
 
@@ -272,7 +320,8 @@ class Venuem extends SP {
 
                 $venue->insert($_POST);
 
-                $venue_id = $venue->where($_POST)[0]->venue_id;
+                $venue_id = $venue->where($_POST);
+                if($venue_id) $venueM_id = $venue_id[0]->venue_id;
 
                 $allowed_types = ['image/jpeg', 'image/png'];
                 $direct_folder = getcwd() . "\assets\images".DIRECTORY_SEPARATOR."venues" . DIRECTORY_SEPARATOR;

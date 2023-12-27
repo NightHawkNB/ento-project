@@ -1,0 +1,2 @@
+[2023-12-27 10:58:40] | receiver : Hi can I get more details about your packages ?
+[2023-12-27 10:58:59] | sender : What do you need to know ?
