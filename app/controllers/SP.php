@@ -19,7 +19,6 @@ class SP extends Controller {
 
     public function index()
     {
-
         // Dashboard Viewing Controller - Gets all events and reservation data and sends to the dashboard
 
         $db = new Database();

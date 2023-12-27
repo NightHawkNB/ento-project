@@ -33,6 +33,11 @@ class Venueo extends SP {
             $ticket_id = $php_data->ticket_id;
             $scanned_hash = $php_data->hash;
 
+            if(empty($ticket_id) OR empty($scanned_hash)) {
+                echo "Data not recieved";
+                die;
+            }
+
             $ticket = new Tickets();
             $ticket_data = $ticket->where(['ticket_id' => $ticket_id]);
 
@@ -85,7 +90,9 @@ class Venueo extends SP {
 //            die;
 
         } else {
+
             $this->view("venue_operator/scanner");
+
         }
 
     }
