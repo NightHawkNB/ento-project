@@ -1,6 +1,7 @@
 <html lang="en">
 <?php $this->view('includes/head', ['style' => 'auth/login.css']) ?>
 <body>
+    <div class="auth-overlay"></div>
     <div class="dis-flex ju-co-ce al-it-ce pad-20 wid-100 hei-100">
 
         <?php if(message()): ?>
@@ -9,7 +10,7 @@
             <div></div>
         <?php endif; ?>
 
-        <main class="login-container">
+        <main class="login-container auth-container sh">
             <div class="login left-section">
                 <form method="post" class="dis-flex-col al-it-ce">
                     <h2>Login</h2>
@@ -24,7 +25,7 @@
                         <i></i>
                     </div>
                     <p>Don't have an Account ? <br/> <a href="<?= ROOT ?>/signup">Create an Account</a></p>
-                    <button type="submit">Login</button>
+                    <button class="sh" type="submit">Login</button>
                 </form>
             </div>
 

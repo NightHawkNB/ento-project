@@ -1,0 +1,60 @@
+@import "auth.css";
+
+body {
+    background: var(--accent-blue) url("../../images/icons/signup_background.jpg") no-repeat fixed center;
+    background-size: cover;
+    z-index: 1;
+}
+
+main {
+    height: fit-content;
+}
+
+.signup-container {
+    display: flex;
+    border-radius: 10px;
+    width: fit-content;
+    background: white;
+    justify-content: center;
+}
+
+.signup-container .login {
+    background: var(--primary-blue);
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+.signup-container form fieldset {
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.signup-container form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.signup-container form legend {
+    padding: 5px;
+}
+
+.signup-container form fieldset div.group {
+    display: flex;
+    gap: 10px;
+}
+
+.signup-container form fieldset div:not(.group) {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
