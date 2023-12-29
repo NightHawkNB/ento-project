@@ -1,0 +1,91 @@
+@import "auth.css";
+
+body {
+    background: var(--accent-blue) url("../../images/icons/auth/signup_background.jpg") no-repeat fixed center;
+    background-size: cover;
+    z-index: 1;
+}
+
+main {
+    height: fit-content;
+}
+
+.signup-container {
+    max-width: 800px;
+    display: flex;
+    border-radius: 10px;
+    width: fit-content;
+    background: white;
+    justify-content: center;
+}
+
+.signup-container .login {
+    background: var(--primary-blue);
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+/*.signup-container form fieldset {*/
+/*    border-radius: 5px;*/
+/*    padding: 10px;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    gap: 10px;*/
+/*}*/
+
+.signup-container form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+/*.signup-container form legend {*/
+/*    padding: 5px;*/
+/*}*/
+
+.signup-container form div.group:not(.user_type_box) {
+    display: flex;
+    gap: 10px;
+}
+
+.signup-container input[type=checkbox] {
+    padding: 0;
+    width: fit-content;
+}
+
+.signup-container form div.terms-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.signup-container form div:not(.group , .terms-div, .user_type_box) {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.user_type_box.group {
+    display: none;
+    gap: 10px;
+    transform: scaleY(0);
+}
+
+.user_type_box:not(.group) {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    transform: scaleY(0);
+}
+
+.user_type_box.selected {
+    display: flex;
+    transform: scaleY(1);
+}

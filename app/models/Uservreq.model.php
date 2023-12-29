@@ -2,10 +2,10 @@
 
 class Uservreq extends Model {
 
-    protected $table = "uservreq ";
-    protected $pk = "userVreq _id";
+    protected string $table = "uservreq ";
+    protected string $pk = "userVreq _id";
 
-    protected $allowed_columns = [
+    protected array $allowed_columns = [
         'userVreq_id',
         'user_id',
         'cust_id',

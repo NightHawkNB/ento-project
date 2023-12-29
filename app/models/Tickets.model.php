@@ -2,10 +2,10 @@
 
 class Tickets extends Model {
 
-    protected $table = "tickets";
-    protected $pk = "ticket_id";
+    protected string $table = "tickets";
+    protected string $pk = "ticket_id";
 
-    protected $allowed_columns = [
+    protected array $allowed_columns = [
         'ticket_id',
         'event_id',
         'user_id',

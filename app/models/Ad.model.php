@@ -2,11 +2,11 @@
 
 class Ad extends model {
 
-    protected $table = "ads";
-    protected $pk = "ad_id";
-    public $errors = [];
+    protected string $table = "ads";
+    protected string $pk = "ad_id";
+    public array $errors = [];
 
-    protected $allowed_columns = [
+    protected array $allowed_columns = [
         'ad_id',
         'user_id',
         'title',

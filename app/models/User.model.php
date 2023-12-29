@@ -2,10 +2,10 @@
 
 class User extends Model{
 
-    protected $table = "user";
-    protected $pk = "user_id";
+    protected string $table = "user";
+    protected string $pk = "user_id";
     
-    protected $allowed_columns = [
+    protected array $allowed_columns = [
         'user_id',
         'fname',
         'lname',

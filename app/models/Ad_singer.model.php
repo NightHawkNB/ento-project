@@ -2,10 +2,10 @@
 
 class Ad_singer extends model {
 
-    protected $table = "ad_singer";
-    protected $pk = "ad_id";
+    protected string $table = "ad_singer";
+    protected string $pk = "ad_id";
 
-    protected $allowed_columns = [
+    protected array $allowed_columns = [
         'ad_id',
         'sample_audio'
     ];

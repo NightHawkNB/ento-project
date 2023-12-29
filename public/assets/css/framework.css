@@ -52,6 +52,15 @@
     --line-primary: black;
     --line-secondary: grey;
     --maxwidth: auto;
+
+    --facebook-blue: #1877F2;
+    --bright-blue: #3498db;
+    --primary-blue: #3498db;
+    --dark-blue: #2980b9;
+    --light-blue: #5dade2;
+    --accent-blue: #85c1e9;
+    --text-blue: #21618c;
+    --background-blue: #ecf0f1;
 }
 
 a {

@@ -2,10 +2,10 @@
 
 class Event extends Model{
 
-    protected $table = "event";
-    protected $pk = "event_id";
+    protected string $table = "event";
+    protected string $pk = "event_id";
 
-    protected $allowed_columns = [
+    protected array $allowed_columns = [
         'name',
         'pending',
         'details',

@@ -1,0 +1,28 @@
+@import "auth.css";
+
+body {
+    background: var(--accent-blue) url("../../images/icons/auth/login_background.jpg") no-repeat center;
+    background-size: cover;
+    z-index: 1;
+    height: 100%;
+}
+
+.login-container {
+    display: flex;
+    width: fit-content;
+    background: white;
+    justify-content: center;
+}
+
+.login-container .login {
+    padding: 10px;
+    max-width: 450px;
+    min-height: 400px;
+}
+
+.login-container .login div.input-box {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    /*position: relative;*/
+}
