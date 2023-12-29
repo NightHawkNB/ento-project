@@ -2,10 +2,10 @@
 
 class User extends Model{
 
-    protected $table = "user";
-    protected $pk = "user_id";
+    protected string $table = "user";
+    protected string $pk = "user_id";
     
-    protected $allowed_columns = [
+    protected array $allowed_columns = [
         'user_id',
         'fname',
         'lname',
@@ -33,7 +33,7 @@ class User extends Model{
 
         if(empty($data['address1'])) $this->errors['address1'] = "Address - 01 is Required";
         if(empty($data['address2'])) $this->errors['address2'] = "Address - 02 is Required";
-        if(empty($data['city'])) $this->errors['city'] = "City is Required";
+        if(empty($data['province'])) $this->errors['province'] = "Province is Required";
         if(empty($data['district'])) $this->errors['district'] = "District is Required";
         if(empty($data['user_type'])) $this->errors['user_type'] = "Account Type is Required";
         if(empty($data['password'])) $this->errors['password'] = "Password is Required";

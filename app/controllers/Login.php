@@ -34,6 +34,6 @@ class Login extends Controller{
             }
         }
 
-        $this->view('includes/login');
+        $this->view('includes/auth/login');
     }
 }

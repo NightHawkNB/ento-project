@@ -2,10 +2,10 @@
 
 class Assist_req extends Model {
 
-    protected $table = "complaint_assist";
-    protected $pk = "comp_id";
+    protected string $table = "complaint_assist";
+    protected string $pk = "comp_id";
 
-    protected $allowed_columns = [
+    protected array $allowed_columns = [
         'comp_id',
         'date_time',
         'status',

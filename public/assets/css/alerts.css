@@ -10,6 +10,8 @@
     cursor: pointer;
     transform: scale(0);
     transition: all 0.5s ease;
+    z-index: 10;
+    box-shadow: 1px 1px 5px black;
 }
 
 .alert.show {

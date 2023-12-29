@@ -2,9 +2,11 @@
 
 class Model extends Database{
 
-    protected $table = "";
-    protected $pk = "";
-    protected $allowed_columns = [];
+    protected string $table = "";
+    protected string $pk = "";
+    protected array $allowed_columns = [];
+
+    public array $errors = [];
 
     public function insert($data): void
     {

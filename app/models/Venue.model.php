@@ -2,10 +2,10 @@
 
 class Venue extends model {
 
-    protected $table = "venue";
-    protected $pk = "venue_id";
+    protected string $table = "venue";
+    protected string $pk = "venue_id";
 
-    protected $allowed_columns = [
+    protected array $allowed_columns = [
         'venue_id',
         'name',
         'location',

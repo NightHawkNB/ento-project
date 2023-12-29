@@ -1,7 +1,7 @@
 @import "auth.css";
 
 body {
-    background: var(--accent-blue) url("../../images/icons/login_background.jpg") no-repeat center;
+    background: var(--accent-blue) url("../../images/icons/auth/login_background.jpg") no-repeat center;
     background-size: cover;
     z-index: 1;
     height: 100%;

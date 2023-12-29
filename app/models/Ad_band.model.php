@@ -2,10 +2,10 @@
 
 class Ad_band extends model {
 
-    protected $table = "ad_band";
-    protected $pk = "ad_id";
+    protected string $table = "ad_band";
+    protected string $pk = "ad_id";
 
-    protected $allowed_columns = [
+    protected array $allowed_columns = [
         'ad_id',
         'packages',
         'sample_video',

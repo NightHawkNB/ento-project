@@ -2,10 +2,10 @@
 
 class Complaint extends Model {
 
-    protected $table = "complaints";
-    protected $pk = "comp_id";
+    protected string $table = "complaints";
+    protected string $pk = "comp_id";
 
-    protected $allowed_columns = [
+    protected array $allowed_columns = [
         'details',
         'files',
         'datetime',
