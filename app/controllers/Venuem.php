@@ -91,11 +91,8 @@ class Venuem extends SP {
             // Handles staff deletion requests
 
             if(!empty($id)) {
-                $check = $user->query("DELETE FROM user WHERE user_id = :user_id", ['user_id' => $id]);
-
-                if($check) message("User deleted !", false, "success");
-                else message("User deletion failed !", false, "failed");
-
+                $user->query("DELETE FROM user WHERE user_id = :user_id", ['user_id' => $id]);
+                message("User deleted !", false, "success");
             } else {
                 message("Invalid User ID !", false, "failed");
             }
@@ -107,9 +104,9 @@ class Venuem extends SP {
 
             if(!empty($id)) {
 
-                if($_SERVER['REQUEST_METHOD'] == "POST"){
+                $data['user'] = $user->first(['user_id' => $id]);
 
-                    $data['user'] = $user->first(['user_id' => $id]);
+                if($_SERVER['REQUEST_METHOD'] == "POST"){
 
                     if(!$data['user']) {
                         message("Invalid User ID", false, "failed");
@@ -128,6 +125,8 @@ class Venuem extends SP {
                         $this->view('venuem/staff/update_staff', $data);
                     }
                 }
+
+                $this->view('venuem/staff/update_staff', $data);
 
             } else {
                 message("Invalid User ID", false, "failed");

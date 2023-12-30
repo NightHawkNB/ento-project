@@ -16,11 +16,11 @@
             <div class="glass-bg mar-10 hei-100 wid-100 dis-flex-col pad-20 gap-10 bor-rad-5 over-scroll">
                 <div class="dis-flex wid-100 ju-co-sb">
                     <a href="<?= ROOT ?>/venuem/venues/insert">
-                        <button class="btn-lay-2 push-right hover-pointer"  style="background-color:purple; text-align:right; border: none" >+ Add New</button>
+                        <button class="blue-btn">+ Add New</button>
                     </a>
 
                     <a href="profile/verify" class="push-right">
-                        <button class="btn-lay-2 hover-pointer"  style="background-color:purple; text-align:right; border: none" >Filter by</button>
+                        <button class="blue-btn">Filter by</button>
                     </a>
                 </div>
 

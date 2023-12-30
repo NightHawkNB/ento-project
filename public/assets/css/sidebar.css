@@ -2,7 +2,7 @@
 
 .sidebar{
   padding: 10px;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: var(--white);
   transition: all .5s ease;
   display: flex;
   z-index: 0;
@@ -27,7 +27,7 @@
   }
 
   .sidebar li a span{
-    color: var(--font-secondary);
+    color: var(--font-primary);
     margin-left: 10px;
     font-size: 15px;
     font-weight: 400;
@@ -109,11 +109,11 @@
 .sidebar li a:hover span,
 .sidebar li a:hover svg{
   transition: all 0.5s ease;
-  color:var(--status-pending)
+  color:var(--white);
 }
 
 .sidebar li a:hover {
-  background-color: white;
+  background-color: var(--light-blue);
 }
 
 .sidebar.open li a span{
@@ -128,5 +128,5 @@
   line-height: 35px;
   font-size: 18px;
   border-radius: 5px;
-  color: var(--font-secondary);
+  color: var(--font-primary);
 }

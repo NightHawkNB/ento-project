@@ -1,4 +1,4 @@
-<div class="venue-op-div">
+<div class="venue-op-div sh">
 
     <img src="<?= $image ?>" alt="Profile_image">
     <h3 class="txt-c-black"><?= $fname ?>&nbsp;<?= $lname ?></h3>
