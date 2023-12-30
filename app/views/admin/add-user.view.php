@@ -10,7 +10,7 @@
             </section>
 
             <section class="cols-10 dis-flex">
-                <div class="bg-black-2 mar-10 wid-100 dis-flex-col pad-20 gap-10 bor-rad-5" style="justify-content:stretch; align-items:stretch">
+                <div class=" mar-10 wid-100 dis-flex-col pad-20 gap-10 bor-rad-5" style="justify-content:stretch; align-items:stretch">
                     
                 <form method="POST" class="dis-flex-col al-it-ce gap-20">
                         <h2>Register</h2>
