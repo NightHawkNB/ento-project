@@ -122,6 +122,8 @@ body::-webkit-scrollbar-thumb {
 .txt-c-cornflowerblue {color: cornflowerblue}
 .txt-c-indigo-2 {color: var(--status-pending)}
 .txt-c-green {color: green}
+.txt-c-purple {color: #a766f1
+}
 .txt-c-lightgreen {color:lightgreen}
 .txt-w-bold {font-weight: bold}
 .txt-w-bolder {font-weight: bolder}
@@ -170,6 +172,7 @@ body::-webkit-scrollbar-thumb {
 .wid-40 {width: 40%}
 .wid-auto {width: auto}
 .hei-100 {height: 100%}
+.hei-90 {height: 90%}
 
 
 /* Overflow */
@@ -198,6 +201,7 @@ body::-webkit-scrollbar-thumb {
 .mar-20 {margin: 20px}
 .mar-10-0 {margin: 10px 0}
 .mar-0-20 {margin: 0 20px}
+.mar-40 {margin: 40px}
 
 .pb-0 {padding-bottom: 0}
 .pt-0 {padding-top: 0}
@@ -223,6 +227,7 @@ body::-webkit-scrollbar-thumb {
 .bor-rad-10 {border-radius: 10px}
 .bor-1-sol-dark {border: 1px solid black}
 .bor-1-sol-white {border: 1px solid white}
+.bor-1-sol-purple {border: 3px solid #9e54fa}
 .bor-2-sol-dark {border: 2px solid black}
 .border-approved {border: 10px solid var(--status-approve)}
 .border-error {border: 10px solid var(--status-error)}
