@@ -47,7 +47,7 @@
                     </div>
 
                     <div class="wid-100 dis-flex ju-co-ce button">
-                        <button type="submit" class="glass-btn">Save Changes</button>
+                        <button type="submit" class="blue-btn">Save Changes</button>
                     </div>
                 </form>
 

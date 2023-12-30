@@ -68,3 +68,19 @@
     width: 150%;
     border-radius: 30px;
 }
+
+.blue-btn {
+    padding: 10px 50px;
+    background: var(--facebook-blue);
+    color: white;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    transition: 0.3s;
+    width: fit-content;
+}
+
+.blue-btn:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}

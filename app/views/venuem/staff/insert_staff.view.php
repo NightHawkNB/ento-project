@@ -134,7 +134,7 @@
                             updateDistrict()
                         </script>
 
-                    <button type="submit" class="glass-btn">Add User</button>
+                    <button type="submit" class="blue-btn">Add User</button>
                 </form>
                 </div>
             </section>

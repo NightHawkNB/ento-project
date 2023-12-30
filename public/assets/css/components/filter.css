@@ -1,0 +1,90 @@
+.filter-outer-container {
+    display: flex;
+    border-radius: 5px;
+    width: fit-content;
+}
+
+.filter-inner-container {
+    border-radius: 5px;
+    background-color: white;
+    transition: 0.3s;
+    transform-origin: right;
+    transform: scaleX(0);
+}
+
+.filter-items .filter-header {
+    border: none;
+    /*background-color: black;*/
+    display: flex;
+    padding: 5px;
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.filter-header:hover {
+    cursor: pointer;
+}
+
+.filter-inner-container.open {
+    transition: 0.3s;
+    transform-origin: right;
+    transform: scaleX(1);
+}
+
+.filter-outer-container .filter-content {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 5px 10px;
+}
+
+.filter-content .filter-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid var(--line-primary);
+    border-radius: 3px;
+    position: relative;
+}
+
+.filter-content .filter-items:hover {
+    cursor: pointer;
+}
+
+.filter-items .items {
+    position: absolute;
+    background-color: white;
+    top: 115%;
+    left: -20%;
+    width: fit-content;
+    z-index: 2;
+    flex-direction: column;
+    gap: 10px;
+    transition: 0.3s;
+    transform-origin: top;
+    transform: scaleY(0);
+    display: none;
+}
+
+.filter-items .items.open {
+    border-radius: 5px;
+    display: flex;
+    transform: scaleY(1);
+}
+
+.filter-items .items .item {
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    border-bottom: 1px solid black;
+}
+
+.filter-items .items .item:hover {
+    background-color: var(--facebook-blue);
+    color: var(--font-secondary);
+}

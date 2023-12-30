@@ -84,7 +84,7 @@
                         </div>
                     </fieldset>
 
-                    <button type="submit" class="glass-btn">Update User</button>
+                    <button type="submit" class="blue-btn">Update User</button>
                 </form>
 
                 <script>

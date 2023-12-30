@@ -18,7 +18,7 @@ class Login extends Controller{
                     // For Authentication
                     Auth::authenticate($row);
 
-                    message("Logged in Successfully");
+                    message("Logged in Successfully", false, 'success');
                     redirect("$row->user_type");
                 } else {
                     $data['errors']['email'] = "Wrong email or password";
@@ -30,7 +30,7 @@ class Login extends Controller{
                 $data['errors']['email'] = "Wrong email or password";
                 $data['errors']['password'] = "Wrong email or password";
 
-                message("Logging Failed | No User Account with the given email");
+                message("Logging Failed | No User Account with the given email", false, 'failed');
             }
         }
 
