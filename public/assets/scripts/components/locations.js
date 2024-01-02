@@ -20,7 +20,7 @@ function updateDistrict() {
     districtSelect.innerHTML = ""
 
     // Currently selected district
-    let currentDistrict = ""
+    // let currentDistrict = ""
 
     const selectedProvince = provinceSelect.value
 

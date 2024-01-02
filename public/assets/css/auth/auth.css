@@ -89,3 +89,9 @@
 .auth-container .login {
     flex: 1;
 }
+
+.auth-container i {
+    color: aqua;
+    font-style: normal;
+    text-align: center;
+}
