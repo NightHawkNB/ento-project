@@ -1,16 +1,10 @@
 <html lang="en">
 <?php $this->view('includes/head', ['style' => 'auth/signup.css']) ?>
-<script src="<?= ROOT ?>/assets/scripts/components/locations.js" defer></script>
 <body>
     <div class="auth-overlay"></div>
     <div class="dis-flex ju-co-ce al-it-ce pad-20 wid-100">
 
         <?php
-        if(!empty($_SESSION['user_data'])) {
-            $_POST = $_SESSION['user_data'];
-            unset($_SESSION['user_data']);
-        }
-
         if(message()) {
             switch ($_SESSION['alert-status']) {
                 case 'neutral':
@@ -58,25 +52,25 @@
                     <div class="group">
                         <div class="input-box <?= (!empty($errors['fname'])) ? 'error' : '' ?>">
                             <label for="fname">First Name</label>
-                            <input value="<?php set_value('fname') ?>" type="text" name="fname" required>
-                            <i></i>
+                            <input value="<?= $prev->fname ?>" type="text" name="fname" required>
+                            <i><?= (array_key_exists('fname', $errors)) ? $errors['fname'] : '' ?></i>
                         </div>
                         <div class="input-box <?= (!empty($errors['lname'])) ? 'error' : '' ?>">
                             <label for="lname">Last Name</label>
-                            <input value="<?php set_value('lname') ?>" type="text" name="lname" required>
-                            <i></i>
+                            <input value="<?= $prev->lname ?>" type="text" name="lname" required>
+                            <i><?= (array_key_exists('lname', $errors)) ? $errors['lname'] : '' ?></i>
                         </div>
                     </div>
                     <div class="group">
                         <div class="input-box <?= (!empty($errors['email'])) ? 'error' : '' ?>">
                             <label for="email">Email</label>
-                            <input value="<?php set_value('email') ?>" type="email" name="email" required>
-                            <i></i>
+                            <input value="<?= $prev->email ?>" type="email" name="email" required>
+                            <i><?= (array_key_exists('email', $errors)) ? $errors['email'] : '' ?></i>
                         </div>
                         <div class="input-box <?= (!empty($errors['contact_num'])) ? 'error' : '' ?>">
                             <label for="contact_num">Contact Number</label>
-                            <input value="<?php set_value('district') ?>" type="text" name="contact_num" maxlength="10" required>
-                            <i></i>
+                            <input value="<?= $prev->contact_num ?>" type="text" name="contact_num" maxlength="10" required>
+                            <i><?= (array_key_exists('contact_num', $errors)) ? $errors['contact_num'] : '' ?></i>
                         </div>
                     </div>
 
@@ -84,15 +78,15 @@
                         <div class="input-box <?= (!empty($errors['province'])) ? 'error' : '' ?>">
                             <label for="province">Province</label>
                             <select name="province" id="province" class="input" onchange="updateDistrict()">
-                                <option value="central">Central</option>
-                                <option value="eastern">Eastern</option>
-                                <option value="northCentral">North Central</option>
-                                <option value="northern">Northern</option>
-                                <option value="northWestern">North Western</option>
-                                <option value="sabaragamuwa">Sabaragamuwa</option>
-                                <option value="southern">Southern</option>
-                                <option value="uva">Uva</option>
-                                <option value="western">Western</option>
+                                <option <?= ($prev->province == "central") ? 'selected' : '' ?> value="central">Central</option>
+                                <option <?= ($prev->province == "eastern") ? 'selected' : '' ?> value="eastern">Eastern</option>
+                                <option <?= ($prev->province == "northCentral") ? 'selected' : '' ?> value="northCentral">North Central</option>
+                                <option <?= ($prev->province == "northern") ? 'selected' : '' ?> value="northern">Northern</option>
+                                <option <?= ($prev->province == "northWestern") ? 'selected' : '' ?> value="northWestern">North Western</option>
+                                <option <?= ($prev->province == "sabaragamuwa") ? 'selected' : '' ?> value="sabaragamuwa">Sabaragamuwa</option>
+                                <option <?= ($prev->province == "southern") ? 'selected' : '' ?> value="southern">Southern</option>
+                                <option <?= ($prev->province == "uva") ? 'selected' : '' ?> value="uva">Uva</option>
+                                <option <?= ($prev->province == "western") ? 'selected' : '' ?> value="western">Western</option>
                             </select>
                             <i></i>
                         </div>
@@ -106,54 +100,54 @@
                     <div class="group <?= (!empty($errors['address01'])) ? 'error' : '' ?>">
                         <div class="input-box">
                             <label for="address1">Address line 01</label>
-                            <input value="<?php set_value('address1') ?>" type="text" name="address1" required>
-                            <i></i>
+                            <input value="<?= $prev->address1 ?>" type="text" name="address1" required>
+                            <i><?= (array_key_exists('address1', $errors)) ? $errors['address1'] : '' ?></i>
                         </div>
                         <div class="input-box <?= (!empty($errors['address2'])) ? 'error' : '' ?>">
                             <label for="address2">Address line 02</label>
-                            <input value="<?php set_value('address2') ?>" type="text" name="address2" required>
-                            <i></i>
+                            <input value="<?= $prev->address2 ?>" type="text" name="address2" required>
+                            <i><?= (array_key_exists('address2', $errors)) ? $errors['address2'] : '' ?></i>
                         </div>
                     </div>
 
                     <div  class="group">
                         <div class="input-box <?= (!empty($errors['password'])) ? 'error' : '' ?>">
                             <label for="password">Password</label>
-                            <input value="<?php set_value('password') ?>" type="password" name="password" required>
-                            <i></i>
+                            <input type="password" name="password" required>
+                            <i><?= (array_key_exists('password', $errors)) ? $errors['password'] : '' ?></i>
                         </div>
                         <div class="input-box <?= (!empty($errors['confirmPass'])) ? 'error' : '' ?>">
                             <label for="confirmPass">Confirm Password</label>
-                            <input value="<?php set_value('confirmPass') ?>" type="password" name="confirmPass" required>
-                            <i></i>
+                            <input type="password" name="confirmPass" required>
+                            <i><?= (array_key_exists('confirmPass', $errors)) ? $errors['confirmPass'] : '' ?></i>
                         </div>
                     </div>
                     <div class="input-box <?= (!empty($errors['user_type'])) ? 'error' : '' ?>">
-                        <select value="<?php set_value('user_type') ?>" name="user_type" id="user_type" onchange="view_box()">
+                        <select name="user_type" id="user_type" onchange="view_box()">
                             <option value="" selected disabled>Account Type</option>
-                            <option value="client">Client</option>
-                            <option value="singer">Singer</option>
-                            <option value="band">Band</option>
-                            <option value="venuemanager">Venue Manager</option>
+                            <option <?= ($prev->user_type == 'client' ? 'selected' : '') ?> value="client">Client</option>
+                            <option <?= ($prev->user_type == 'singer' ? 'selected' : '') ?> value="singer">Singer</option>
+                            <option <?= ($prev->user_type == 'band' ? 'selected' : '') ?> value="band">Band</option>
+                            <option <?= ($prev->user_type == 'venuemanager' ? 'selected' : '') ?> value="venuemanager">Venue Manager</option>
                         </select>
                         <i></i>
                     </div>
 
                     <div id="singer-box" class="user_type_box input-box <?= (!empty($errors['rate'])) ? 'error' : '' ?>">
                         <label for="rate">Rate</label>
-                        <input value="<?php set_value('rate') ?>" type="text" name="rate">
+                        <input type="text" name="rate">
                         <i></i>
                     </div>
 
                     <div id="band-box" class="user_type_box group">
                         <div class="input-box <?= (!empty($errors['packages'])) ? 'error' : '' ?>">
                             <label for="packages">Packages</label>
-                            <input value="<?php set_value('packages') ?>" type="text" name="packages">
+                            <input type="text" name="packages">
                             <i></i>
                         </div>
                         <div class="input-box <?= (!empty($errors['location'])) ? 'error' : '' ?>">
                             <label for="location">Location</label>
-                            <input value="<?php set_value('location') ?>" type="text" name="location">
+                            <input type="text" name="location">
                             <i></i>
                         </div>
                     </div>
@@ -200,6 +194,59 @@
                     side_image.src = "<?= ROOT ?>/assets/images/icons/auth/signup.jpg"
                 }
             }
+
+            // City data for each province
+            const cityData = {
+                northern: ["Jaffna", "Kilinochchi", "Manner", "Mullaitivu", "Vavuniya"],
+                northWestern: ["Puttalam", "Kurunegala"],
+                western: ["Colombo", "Gampaha", "Kalutara"],
+                northCentral: ["Anuradhapura", "Polonnaruwa"],
+                central: ["Kandy", "Nuwara Eliya", "Matale"],
+                sabaragamuwa: ["Kegalle", "Ratnapura"],
+                eastern: ["Trincomalee", "Batticaloa", "Ampara"],
+                uva: ["Badulla", "Monaragala"],
+                southern: ["Hambantota", "Matara", "Galle"]
+            };
+
+            // Function to update the district options based on the selected province
+            function updateDistrict() {
+
+                const provinceSelect = document.getElementById("province")
+                const districtSelect = document.getElementById("district")
+
+                districtSelect.innerHTML = ""
+
+                // Currently selected district
+                let currentDistrict = "<?= ($prev->district) ? ucfirst(strtolower($prev->district)) : '' ?>"
+
+                const selectedProvince = provinceSelect.value
+
+                const districts = cityData[selectedProvince]
+
+                if (districts) {
+                    districts.forEach(district => {
+                        const option = document.createElement("option")
+                        option.value = district
+                        option.textContent = district
+
+                        // Selecting the currently selected district
+                        if(currentDistrict === district) option.selected = true
+
+                        districtSelect.appendChild(option)
+                    });
+                } else {
+                    const option = document.createElement("option")
+                    option.textContent = "No cities available"
+                    districtSelect.appendChild(option)
+                }
+            }
+
+            updateDistrict()
+
+            document.getElementById('change_pass').onchange = function() {
+                // document.getElementById('password').readOnly = !this.checked;
+                // document.getElementById('confirmPass').readOnly = !this.checked;
+            };
         </script>
 
     </div>

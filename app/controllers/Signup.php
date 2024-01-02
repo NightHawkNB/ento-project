@@ -3,10 +3,33 @@
 class Signup extends Controller{
     public function index($method = null): void
     {
-        $data['errors'] = [];
 
         $user = new User();
         $db = new Database();
+
+        $data['prev'] = [
+            'fname' => '',
+            'lname' => '',
+            'email' => '',
+            'contact_num' => '',
+            'province' => '',
+            'district' => '',
+            'address1' => '',
+            'address2' => '',
+            'user_type' => ''
+        ];
+
+        $data['errors'] = [
+            'fname' => '',
+            'lname' => '',
+            'email' => '',
+            'contact_num' => '',
+            'address1' => '',
+            'address2' => '',
+            'user_type' => '',
+            'password' => '',
+            'confirmPass' => ''
+        ];
 
         if(empty($method)) {
             if($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -93,12 +116,12 @@ class Signup extends Controller{
                 } else {
                     message("Your profile creation failed", false, 'failed');
                     $data['errors'] = $user->errors;
-                    show($user->errors);
+                    $data['prev'] = $_POST;
                 }
             }
         }
 
-        
+        $data['prev'] = (object)$data['prev'];
         $data['title'] = "ENTO | Signup";
         $this->view('includes/auth/signup', $data);
     }
