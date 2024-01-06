@@ -110,45 +110,33 @@
                         </div>
                     </div>
 
-                    <div  class="group">
-                        <div class="input-box <?= (!empty($errors['password'])) ? 'error' : '' ?>">
+                    <div  class="group password">
+                        <div class="input-box password-field <?= (!empty($errors['password'])) ? 'error' : '' ?>">
                             <label for="password">Password</label>
-                            <input type="password" name="password" required>
+                            <input onkeyup="trigger_password()" type="password" name="password" id="password-input" required>
+                            <span class="show-btn show">
+                                <img>
+                            </span>
                             <i><?= (array_key_exists('password', $errors)) ? $errors['password'] : '' ?></i>
                         </div>
-                        <div class="input-box <?= (!empty($errors['confirmPass'])) ? 'error' : '' ?>">
+
+                        <!-- Password Strength Indicator -->
+                        <div class="group">
+                            <div class="ps-indicator-container">
+                                <div class="ps-indicator">
+                                    <span class="weak"></span>
+                                    <span class="medium"></span>
+                                    <span class="strong"></span>
+                                </div>
+                                <span class="ps-text"></span>
+                            </div>
+                        </div>
+
+                        <div class="input-box password-field <?= (!empty($errors['confirmPass'])) ? 'error' : '' ?>">
                             <label for="confirmPass">Confirm Password</label>
                             <input type="password" name="confirmPass" required>
+                            <span class="show-btn">SHOW</span>
                             <i><?= (array_key_exists('confirmPass', $errors)) ? $errors['confirmPass'] : '' ?></i>
-                        </div>
-                    </div>
-                    <div class="input-box <?= (!empty($errors['user_type'])) ? 'error' : '' ?>">
-                        <select name="user_type" id="user_type" onchange="view_box()">
-                            <option value="" selected disabled>Account Type</option>
-                            <option <?= ($prev->user_type == 'client' ? 'selected' : '') ?> value="client">Client</option>
-                            <option <?= ($prev->user_type == 'singer' ? 'selected' : '') ?> value="singer">Singer</option>
-                            <option <?= ($prev->user_type == 'band' ? 'selected' : '') ?> value="band">Band</option>
-                            <option <?= ($prev->user_type == 'venuemanager' ? 'selected' : '') ?> value="venuemanager">Venue Manager</option>
-                        </select>
-                        <i></i>
-                    </div>
-
-                    <div id="singer-box" class="user_type_box input-box <?= (!empty($errors['rate'])) ? 'error' : '' ?>">
-                        <label for="rate">Rate</label>
-                        <input type="text" name="rate">
-                        <i></i>
-                    </div>
-
-                    <div id="band-box" class="user_type_box group">
-                        <div class="input-box <?= (!empty($errors['packages'])) ? 'error' : '' ?>">
-                            <label for="packages">Packages</label>
-                            <input type="text" name="packages">
-                            <i></i>
-                        </div>
-                        <div class="input-box <?= (!empty($errors['location'])) ? 'error' : '' ?>">
-                            <label for="location">Location</label>
-                            <input type="text" name="location">
-                            <i></i>
                         </div>
                     </div>
 
@@ -164,7 +152,8 @@
                         <div class="text-center"></div>
                     <?php endif; ?>
                     <p class="">Already have an Account ? <a href="<?= ROOT ?>/login">Login</a></p>
-                    <button type="submit">Next</button>
+                    <button type="submit">Signup</button>
+                    <a href="<?= ROOT ?>/signup" class="blue-btn">Back</a>
                 </form>
             </div>
 
@@ -173,27 +162,12 @@
             </div>
         </main>
 
+        <script src="<?= ROOT ?>/assets/scripts/components/password_strength.js" defer></script>
         <script>
+
+            // Script for auto selecting the districts relevant to the province
             const user_type = document.getElementById('user_type')
-            const singer_box = document.getElementById('singer-box')
-            const band_box = document.getElementById('band-box')
             const side_image = document.getElementById('signup-right-image')
-
-            function view_box() {
-                let type = user_type.value
-
-                if(type === "singer") {
-                    if(!singer_box.classList.contains('selected')) singer_box.classList.add('selected')
-                    side_image.src = "<?= ROOT ?>/assets/images/icons/auth/singer.jpg"
-                } else if(type === "band") {
-                    if(!band_box.classList.contains('selected')) band_box.classList.add('selected')
-                    side_image.src = "<?= ROOT ?>/assets/images/icons/auth/band.jpg"
-                } else {
-                    if(singer_box.classList.contains('selected')) singer_box.classList.remove('selected')
-                    if(band_box.classList.contains('selected')) band_box.classList.remove('selected')
-                    side_image.src = "<?= ROOT ?>/assets/images/icons/auth/signup.jpg"
-                }
-            }
 
             // City data for each province
             const cityData = {
@@ -243,10 +217,6 @@
 
             updateDistrict()
 
-            document.getElementById('change_pass').onchange = function() {
-                // document.getElementById('password').readOnly = !this.checked;
-                // document.getElementById('confirmPass').readOnly = !this.checked;
-            };
         </script>
 
     </div>

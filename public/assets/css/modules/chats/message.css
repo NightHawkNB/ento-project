@@ -6,7 +6,7 @@
     overflow: hidden;
     min-height: 54px;
     height: fit-content;
-    border-radius: 10px;
+    /*border-radius: 10px;*/
 }
 
 .message .m-meta .m-time {
@@ -28,6 +28,7 @@
 }
 
 .message .m-content {
+    border-radius: 10px;
     padding: 10px;
 }
 
@@ -36,30 +37,38 @@
 
 .message.receiver {
     /*border-radius: 10px 10px 10px 0;*/
-    background-color: cornflowerblue;
     align-self: flex-start;
+}
+
+.message.receiver .m-content {
+    background-color: cornflowerblue;
 }
 
 .message.receiver .m-content{
     text-align: left;
 }
 
-.message.receiver .m-meta {
-    background-color: dodgerblue;
+.message.receiver .m-meta .m-time {
+    /*background-color: dodgerblue;*/
+    text-align: left;
 }
 
 /* sender MESSAGE */
 
 .message.sender {
     /*border-radius: 10px 10px 0 10px;*/
-    background-color: mediumpurple;
     align-self: flex-end;
+}
+
+.message.sender .m-content {
+    background-color: mediumpurple;
 }
 
 .message.sender .m-content{
     text-align: right;
 }
 
-.message.sender .m-meta {
-    background-color: rebeccapurple;
+.message.sender .m-meta .m-time {
+    /*background-color: rebeccapurple;*/
+    text-align: right;
 }
