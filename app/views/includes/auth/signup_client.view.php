@@ -141,7 +141,7 @@
                     </div>
 
                     <div class="terms-div">
-                        <input <?= set_value('terms') ? 'checked' : '' ?> type="checkbox" name="terms" id="terms" required>
+                        <input type="checkbox" name="terms" id="terms" required>
                         <label for="terms">
                             <a href="#terms">Terms and Conditions</a>
                         </label>

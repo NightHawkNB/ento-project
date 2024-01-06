@@ -140,33 +140,10 @@
                     </div>
                 </div>
 
-                <div class="input-box <?= (!empty($errors['user_type'])) ? 'error' : '' ?>">
-                    <select name="user_type" id="user_type" onchange="view_box()">
-                        <option value="" selected disabled>Account Type</option>
-                        <option <?= ($prev->user_type == 'singer' ? 'selected' : '') ?> value="singer">Singer</option>
-                        <option <?= ($prev->user_type == 'band' ? 'selected' : '') ?> value="band">Band</option>
-                        <option <?= ($prev->user_type == 'venuemanager' ? 'selected' : '') ?> value="venuemanager">Venue Manager</option>
-                    </select>
-                    <i></i>
-                </div>
-
-                <div id="singer-box" class="user_type_box input-box <?= (!empty($errors['rate'])) ? 'error' : '' ?>">
+                <div class="input-box">
                     <label for="rate">Rate</label>
                     <input type="text" name="rate">
                     <i></i>
-                </div>
-
-                <div id="band-box" class="user_type_box group">
-                    <div class="input-box <?= (!empty($errors['packages'])) ? 'error' : '' ?>">
-                        <label for="packages">Packages</label>
-                        <input type="text" name="packages">
-                        <i></i>
-                    </div>
-                    <div class="input-box <?= (!empty($errors['location'])) ? 'error' : '' ?>">
-                        <label for="location">Location</label>
-                        <input type="text" name="location">
-                        <i></i>
-                    </div>
                 </div>
 
                 <div class="terms-div">
@@ -187,31 +164,16 @@
         </div>
 
         <div class="login right-section">
-            <img id="signup-right-image" src="<?= ROOT ?>/assets/images/icons/auth/signup.jpg" alt="signup">
+            <img id="signup-right-image" src="<?= ROOT ?>/assets/images/icons/auth/singer.jpg" alt="signup">
         </div>
     </main>
 
+    <script src="<?= ROOT ?>/assets/scripts/components/password_strength.js" defer></script>
     <script>
         const user_type = document.getElementById('user_type')
         const singer_box = document.getElementById('singer-box')
         const band_box = document.getElementById('band-box')
         const side_image = document.getElementById('signup-right-image')
-
-        function view_box() {
-            let type = user_type.value
-
-            if(type === "singer") {
-                if(!singer_box.classList.contains('selected')) singer_box.classList.add('selected')
-                side_image.src = "<?= ROOT ?>/assets/images/icons/auth/singer.jpg"
-            } else if(type === "band") {
-                if(!band_box.classList.contains('selected')) band_box.classList.add('selected')
-                side_image.src = "<?= ROOT ?>/assets/images/icons/auth/band.jpg"
-            } else {
-                if(singer_box.classList.contains('selected')) singer_box.classList.remove('selected')
-                if(band_box.classList.contains('selected')) band_box.classList.remove('selected')
-                side_image.src = "<?= ROOT ?>/assets/images/icons/auth/signup.jpg"
-            }
-        }
 
         // City data for each province
         const cityData = {

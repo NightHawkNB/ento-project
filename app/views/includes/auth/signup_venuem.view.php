@@ -170,7 +170,7 @@
                 </div>
 
                 <div class="terms-div">
-                    <input type="checkbox" name="terms" id="terms" required>
+                    <input <?= set_value('terms') ? 'checked' : '' ?> type="checkbox" name="terms" id="terms" required>
                     <label for="terms">
                         <a href="#terms">Terms and Conditions</a>
                     </label>
@@ -196,22 +196,6 @@
         const singer_box = document.getElementById('singer-box')
         const band_box = document.getElementById('band-box')
         const side_image = document.getElementById('signup-right-image')
-
-        function view_box() {
-            let type = user_type.value
-
-            if(type === "singer") {
-                if(!singer_box.classList.contains('selected')) singer_box.classList.add('selected')
-                side_image.src = "<?= ROOT ?>/assets/images/icons/auth/singer.jpg"
-            } else if(type === "band") {
-                if(!band_box.classList.contains('selected')) band_box.classList.add('selected')
-                side_image.src = "<?= ROOT ?>/assets/images/icons/auth/band.jpg"
-            } else {
-                if(singer_box.classList.contains('selected')) singer_box.classList.remove('selected')
-                if(band_box.classList.contains('selected')) band_box.classList.remove('selected')
-                side_image.src = "<?= ROOT ?>/assets/images/icons/auth/signup.jpg"
-            }
-        }
 
         // City data for each province
         const cityData = {
