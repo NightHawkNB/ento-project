@@ -6,6 +6,7 @@
 
     $interval = $future_date->diff($now);
     ?>
+<!--    --><?php //= show($data);?>
 
     <p><?= $fname." ".$lname ?></p>
     <p><?= $start_time ?></p>
