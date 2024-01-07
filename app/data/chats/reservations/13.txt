@@ -1,7 +1,6 @@
-[2024-01-04 12:49:06] | sender : kkk
-[2024-01-04 12:49:16] | receiver : lll
-[2024-01-04 12:49:26] | receiver : mm
-[2024-01-04 12:49:30] | receiver : mm
-[2024-01-04 12:49:33] | sender : mm
-[2024-01-04 12:49:38] | sender : kkkkl mm
-[2024-01-04 12:49:43] | receiver : mmlm
+
+[2023-12-27 10:58:40] | receiver : Hi can I get more details about your packages ?
+[2023-12-27 10:58:59] | sender : What do you need to know ?
+[2024-01-05 13:04:45] | sender : dadsad
+[2024-01-05 13:04:50] | sender : dasdad
+

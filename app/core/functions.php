@@ -6,11 +6,9 @@ function show($stuff) {
     echo "</pre>";
 }
 
-function set_value($key, $default = '') {
-    if(!empty($_POST[$key])) return $_POST[$key];
-    else if(!empty($default)) return $default;
-
-    return '';
+function set_value($default) {
+    if(!empty($default)) return $default;
+    else return '';
 }
 
 function redirect($link) {
