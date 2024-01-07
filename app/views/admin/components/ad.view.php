@@ -25,7 +25,7 @@
                 <p class="txt-w-bold">Category</p>
                 <p><?= $category ?></p>
             </div>
-            
+
         </div>
     </div>
 </a>

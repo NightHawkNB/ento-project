@@ -130,7 +130,7 @@ Class Admin extends Controller{
         }
         else{
             $data['ads'] = $ad->query("SELECT ads.ad_id, ads.datetime, ads.image, ads.details, ads.title, ads.user_id,
-             ads.contact_num , ads.category , user.email , user.fname, user.lname, user.nic_num
+             ads.contact_num , ads.category ,ads.contact_email, user.email , user.fname, user.lname, user.nic_num
             FROM ads 
             INNER JOIN user 
             ON ads.user_id = user.user_id  
