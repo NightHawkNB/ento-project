@@ -1,5 +1,19 @@
 <?php
 class Client extends Controller {
+
+    public function __construct()
+    {
+        if (!Auth::logged_in()) {
+            message("Please Login");
+            redirect('home');
+        }
+
+        if (!Auth::is_client()) {
+            message("Access Denied");
+            redirect('home');
+        }
+    }
+
   public function index(): void
   {
       $this->view('common/dashboard');
