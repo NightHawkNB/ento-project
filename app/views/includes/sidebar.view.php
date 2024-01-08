@@ -15,6 +15,11 @@
         <?php $this->view('includes/sidebar/main/client'); ?>
     <?php endif; ?>
 
+    <!-- Event Manager's Nav Buttons -->
+    <?php if(Auth::is_eventm()): ?>
+        <?php $this->view('includes/sidebar/main/eventm'); ?>
+    <?php endif; ?>
+
     <!-- Administrator's Nav Buttons -->
     <?php if(Auth::is_admin()): ?>
         <?php $this->view('includes/sidebar/main/admin'); ?>
