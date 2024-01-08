@@ -55,9 +55,12 @@ class Signup extends Controller{
                 // Inserting data to the user table
                 $user->insert($_POST);
 
+                $_SESSION['email_verification']['user_id'] = $_POST['user_id'];
+                $_SESSION['email_verification']['email'] = $_POST['email'];
+                $_SESSION['email_verification']['name'] = $_POST['fname'] . " " . $_POST['lname'];
 
-                message("Your profile was created successfully. Please Login", false, "success");
-                redirect('login');
+                message("Your profile was created successfully. Please Verify Email to Continue", false, "success");
+                redirect('mailer/email_verification');
 
             } else {
                 message("Your profile creation failed", false, 'failed');
@@ -141,7 +144,7 @@ class Signup extends Controller{
 
                 $user_type_check = $db->query("INSERT INTO singer (sp_id, rate) VALUES (:sp_id, :rate)", ['sp_id' => $sp_id, 'rate' => $_POST['rate']]);
 
-                message("Your profile was created successfully. Please Login", false, "success");
+                message("Your profile was created successfully. Please Verify Email to Continue", false, "success");
                 redirect('login');
 
             } else {
@@ -228,7 +231,7 @@ class Signup extends Controller{
 
                 $user_type_check = $db->query("INSERT INTO singer (sp_id, rate) VALUES (:sp_id, :rate)", ['sp_id' => $sp_id, 'rate' => $_POST['rate']]);
 
-                message("Your profile was created successfully. Please Login", false, "success");
+                message("Your profile was created successfully. Please Verify Email to Continue", false, "success");
                 redirect('login');
 
             } else {
@@ -314,7 +317,7 @@ class Signup extends Controller{
 
                 $user_type_check = $db->query("INSERT INTO singer (sp_id, rate) VALUES (:sp_id, :rate)", ['sp_id' => $sp_id, 'rate' => $_POST['rate']]);
 
-                message("Your profile was created successfully. Please Login", false, "success");
+                message("Your profile was created successfully. Please Verify Email to Continue", false, "success");
                 redirect('login');
 
             } else {

@@ -177,3 +177,20 @@
 .ps-indicator-container .ps-text.weak { color: #ff4757; }
 .ps-indicator-container .ps-text.medium { color: orange; }
 .ps-indicator-container .ps-text.strong { color: #23ad5c; }
+
+.send-code-btn {
+   text-align: center;
+}
+
+.send-code-btn:hover {
+    cursor: pointer;
+}
+
+.pin-input {
+    background-color: white;
+    border-radius: 5px;
+    padding-left: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
