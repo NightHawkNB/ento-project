@@ -111,12 +111,19 @@ class Signup extends Controller{
 
                 $_POST['user_id'] = "USER_".rand(1000, 100000) . "_" . time();
 
+                $_POST['user_type'] = "singer";
+
                 // Data from the form containing common information are stored in the session
                 // For saving previous state of data
                 $_SESSION['user_data'] = $_POST;
 
                 // Inserting data to the user table
                 $user->insert($_POST);
+
+                // Inserting session data for email_verification process
+                $_SESSION['email_verification']['user_id'] = $_POST['user_id'];
+                $_SESSION['email_verification']['email'] = $_POST['email'];
+                $_SESSION['email_verification']['name'] = $_POST['fname'] . " " . $_POST['lname'];
 
                 // Inserting data to the service provider table
                 $db->query("
@@ -145,10 +152,11 @@ class Signup extends Controller{
                 $user_type_check = $db->query("INSERT INTO singer (sp_id, rate) VALUES (:sp_id, :rate)", ['sp_id' => $sp_id, 'rate' => $_POST['rate']]);
 
                 message("Your profile was created successfully. Please Verify Email to Continue", false, "success");
-                redirect('login');
+                redirect('mailer/email_verification');
 
             } else {
                 message("Your profile was created Failed", false, "failed");
+                show($user->errors);die;
                 $data['errors'] = $user->errors;
                 $data['prev'] = $_POST;
             }
