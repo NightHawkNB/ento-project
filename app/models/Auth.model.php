@@ -14,6 +14,14 @@ class Auth {
         else return false;
     }
 
+    public static function verified(): bool
+    {
+        if(!empty($_SESSION['USER_DATA'])) {
+            if($_SESSION['USER_DATA']->verified == 1) return true;
+            else return false;
+        } else return false;
+    }
+
     public static function is_admin(): bool
     {
         if(!empty($_SESSION['USER_DATA'])) {

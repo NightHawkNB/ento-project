@@ -47,92 +47,6 @@ Class Admin extends Controller{
        }
     }
 
-    /*public function usermng($method = null, $id = null) {
-        if ($method == 'cca') {
-            $user = new User();
-
-            $data['users'] = $user->where(['user_type'=>'cca']);
-
-            $this->view('admin/useraccounts', $data);
-        } else if ($method == 'admin'){
-            $user = new User();
-
-            $data['users'] = $user->where(['user_type'=>'admin']);
-
-            $this->view('admin/useraccounts', $data);
-        }else if ($method == 'singer'){
-            $user = new User();
-
-            $data['users'] = $user->where(['user_type'=>'singer']);
-
-            $this->view('admin/useraccounts', $data);
-        }else if ($method == 'client'){
-            $user = new User();
-
-            $data['users'] = $user->where(['user_type'=>'client']);
-
-            $this->view('admin/useraccounts', $data);
-        }else if ($method == 'add-user'){
-
-            if($_SERVER['REQUEST_METHOD'] == "POST") {
-                $user = new User();
-                show($_POST);
-                $_POST['terms']=1;
-                if($user->validate($_POST)) echo "Valid";
-                else show($user->errors);
-                if($user->validate($_POST)) {
-    
-                    $_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    
-                    $user->insert($_POST);
-    
-                    message(msg:"Account created succesfully");
-                    redirect(link:"admin/usermng/".strtolower($_POST['user_type']));
-                } else {
-                    $data['errors'] = $user->errors;
-                }
-            }
-
-            $this->view('admin/add-user');
-        }else if ($method == 'update-user'){
-
-            $user = new User();
-            $data['user'] = $user->first(['user_id'=>$id]);
-
-            if($_SERVER['REQUEST_METHOD'] == "POST"){
-                $_POST['terms']=1;
-                if($user->validate($_POST)) echo "valid";
-                else show($user->errors);
-                if($user->validate($_POST)){
-                    $_POST['user_id'] = $id;
-                    $user->update($id, $_POST);
-                    message("User Account Updated Successfully");
-                    redirect('admin/usermng');
-                }
-
-
-        
-            }
-
-
-            $this->view('admin/update-user', $data);
-        }else if ($method == 'delete-user'){
-
-            $user = new User();
-
-            if($_SERVER['REQUEST_METHOD'] == "GET"){
-                
-                $_POST['user_id'] = $id;
-                $user->query("DELETE FROM user WHERE user_id = :user_id", $_POST);
-                message("User Account Deleted Successfully");
-                redirect('admin/usermng');
-        
-            }
-
-        }else {
-            $this->view('admin/usermanagement');
-        }
-    }*/
 
     public function usermng($method=null, $id=null){
         if($method=='add-user'){
@@ -208,7 +122,6 @@ Class Admin extends Controller{
         $ad = new Ad();
 
         if(empty($id)){
-            
 
             $data['ads']= $ad->query("SELECT ad_id, title, user_id, category, datetime FROM ads WHERE pending=1; ");
 
@@ -217,13 +130,13 @@ Class Admin extends Controller{
         }
         else{
             $data['ads'] = $ad->query("SELECT ads.ad_id, ads.datetime, ads.image, ads.details, ads.title, ads.user_id,
-             ads.contact_num , ads.category , user.email , user.fname, user.lname, user.nic_num
+             ads.contact_num , ads.category ,ads.contact_email, user.email , user.fname, user.lname, user.nic_num
             FROM ads 
             INNER JOIN user 
             ON ads.user_id = user.user_id  
             WHERE ads.pending = 1 AND ads.ad_id = :ad_id" , ['ad_id'=>$id]);
-            
-            show($data);
+
+
 
             $this->view('admin/singlead', $data);
         }
