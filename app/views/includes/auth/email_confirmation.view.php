@@ -69,7 +69,7 @@
                         <label for="pin">PIN Number</label>
                         <div class="pin-input">
                             <input class="" style="text-align: center;" type="text" name="pin" placeholder="Enter the verification code" required>
-                            <label style="color: blue; font-size: 0.8em;" class="send-code-btn" onclick="send_code()">Send Code</label>
+                            <label id="send_code_label" style="color: blue; font-size: 0.8em;" class="send-code-btn" onclick="send_code()">Send Code</label>
                         </div>
                         <i></i>
                     </div>
@@ -88,7 +88,12 @@
                 "email": "<?= $email ?>"
             }
 
+            const send_code_label = document.getElementById('send_code_label')
+
             function send_code() {
+
+                send_code_label.textContent = "Sending"
+
                 try {
                     fetch(`/ento-project/public/mailer/email_verification`, {
                         method: "PUT",
@@ -106,6 +111,8 @@
                         
                         if(data === "success") alert('Verification Code Sent')
                         else if(data === "failed") alert('Sending verification code failed')
+
+                        send_code_label.textContent = "Resend Code"
 
                     })
                 } catch (e) {

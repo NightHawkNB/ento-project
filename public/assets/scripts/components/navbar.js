@@ -1,20 +1,6 @@
-/*
-
-::Navbar Js::
-
-***Pre-requisite***
-- This will work provided you have followed the html structure
-- #main-navbar > ul.menu > li > (a or a + ul.submenu)
-
-***Procedure***
-- Just assign the navbar id to the letiable $navbar_id
-- and it should work
-
-*/
+// Navbar code
 
 let navbar_id = "main-navbar";
-
-// -------------------
 
 let navbar;
 let navbar_menu;
