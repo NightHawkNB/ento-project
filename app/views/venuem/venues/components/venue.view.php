@@ -10,7 +10,7 @@
 
     <div class="">
         <img src="<?= ROOT ?>/assets/images/icons/seat.png" alt="seat-image" class="icon">
-        <p><?= $seat_count ?></p>
+        <p><?= ($seat_count == 0) ? 'No Seating Available' : $seat_count ?></p>
     </div>
     <div class="dis-flex gap-10 btn-collection">
         <a href="<?= ROOT ?>/venuem/venues/update/<?= $venue_id ?>">
