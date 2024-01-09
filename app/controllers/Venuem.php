@@ -182,15 +182,14 @@ class Venuem extends SP {
                          WHERE venueoperator.venueM_id = :venueM_id", ['venueM_id' => $venuem_data->venueM_id]);
 
             if(empty($data['users'])) {
-                message("Couldn't fetch Users", false, "failed");
-                redirect('venuem/index');
-            }
+                message("No Users Available");
+            } else {
+                $data['venues'] = $venue->where(['venueM_id' => $venuem_data->venueM_id]);
 
-            $data['venues'] = $venue->where(['venueM_id' => $venuem_data->venueM_id]);
-
-            if(empty($data['venues'])) {
-                message("Couldn't fetch Venue Details", false, "failed");
-                $data['venues'] = [];
+                if(empty($data['venues'])) {
+                    message("Couldn't fetch Venue Details", false, "failed");
+                    $data['venues'] = [];
+                }
             }
 
             $this->view('venuem/staff/manage_staff', $data);
@@ -203,23 +202,25 @@ class Venuem extends SP {
         $venue = new Venue();
 
         if(empty($method)) {
-            $venueM_id = $user->query("
+
+            try {
+                // Getting the venue manager ID
+
+                $venueM_id = $user->query("
                 SELECT * FROM user 
                          JOIN serviceprovider ON user.user_id = serviceprovider.user_id
                          JOIN venuemanager ON serviceprovider.sp_id = venuemanager.sp_id
-                         WHERE user.user_id = :user_id", ['user_id' => Auth::getUser_id()]);
+                         WHERE user.user_id = :user_id", ['user_id' => Auth::getUser_id()])[0]->venueM_id;
 
-            if($venueM_id) {
-                $venueM_id = $venueM_id[0]->venueM_id;
                 $data['venues'] = $venue->where(['venueM_id' => $venueM_id, 'deleted' => 0]);
-            } else {
+
+            } catch (Exception $e) {
                 message("Couldn't get the Venue Manager ID", false, "failed");
                 $this->view("venuem/venues/manage_venues");
             }
 
             if(empty($data['venues'])) {
-                message("Couldn't get the Venue Manager ID", false, "failed");
-                $this->view("venuem/venues/manage_venues");
+                message("No venues registered");
             }
 
             $_SESSION['USER_DATA']->venueM_id = $venueM_id;

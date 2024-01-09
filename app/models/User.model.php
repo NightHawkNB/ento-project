@@ -35,7 +35,7 @@ class User extends Model{
         if(empty($data['address2'])) $this->errors['address2'] = "Address - 02 is Required";
         if(empty($data['province'])) $this->errors['province'] = "Province is Required";
         if(empty($data['district'])) $this->errors['district'] = "District is Required";
-        if(empty($data['user_type'])) $this->errors['user_type'] = "Account Type is Required";
+        // if(empty($data['user_type'])) $this->errors['user_type'] = "Account Type is Required";
         if(empty($data['password'])) $this->errors['password'] = "Password is Required";
         if(!preg_match_all('$\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])(?=\S*[\W])\S*$', $data['password'])) $this->errors['password'] = "Password is not Strong enough";
         if($data['password'] !== $data['confirmPass']) $this->errors['confirmPass'] = "Passwords do not match";
