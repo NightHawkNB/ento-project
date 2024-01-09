@@ -25,7 +25,7 @@
                         </div>
                     </div>
                     <div class="dis-flex-col ju-co-se pad-10" style="width: 50%;align-items: flex-end">
-                        <a href="<?= ROOT ?>/admin/adverify"  >
+                        <a href="<?= ROOT ?>/admin/adverify/<?=$ads[0]->ad_id?>/verify" >
                             <button class="blue-btn" style="width: 150px; text-align: center">
                                 Verify
                             </button>
