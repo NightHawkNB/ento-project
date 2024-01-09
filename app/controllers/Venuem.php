@@ -273,7 +273,9 @@ class Venuem extends SP {
                         redirect(strtolower($_SESSION['USER_DATA']->user_type) . "/venues");
                     }
                 } else {
-                    if(empty($_POST['image'])) {
+                    $data = $venue->where(['venue_id' => $id])[0];
+
+                    if(empty($_POST['image']) && empty($data->image)) {
                         $_POST['image'] = ROOT."/assets/images/venues/venue.png";
                     }
                 }
@@ -311,17 +313,25 @@ class Venuem extends SP {
                 'location' => "",
                 'seat_count' => 0,
                 'packages' => "",
-                'other' => ""
+                'other' => "",
+                'errors' => []
             ];
 
             if($_SERVER['REQUEST_METHOD'] == "POST") {
 
                 $_POST['venueM_id'] = $_SESSION['USER_DATA']->venueM_id;
 
-                $venue->insert($_POST);
+                if($venue->validate($_POST)) {
+                    $venue->insert($_POST);
+                } else {
+                    $data = $_POST;
+                    $data['errors'] = $venue->errors;
+                    $this->view("venuem/venues/insert_venue", $data);
+                    die;
+                }
 
                 $venue_id = $venue->where($_POST);
-                if($venue_id) $venueM_id = $venue_id[0]->venue_id;
+                if($venue_id) $venue_id = $venue_id[0]->venue_id;
 
                 $allowed_types = ['image/jpeg', 'image/png'];
                 $direct_folder = getcwd() . "\assets\images".DIRECTORY_SEPARATOR."venues" . DIRECTORY_SEPARATOR;
