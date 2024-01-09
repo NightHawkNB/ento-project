@@ -15,7 +15,11 @@
                 <div class=" dis-flex" style="height: 15%">
                     <div class="" style="width: 70%">
                         <div class="" style="height: 25%">
-                            < Back
+                            <a href="<?= ROOT ?>/admin/adverify" >
+                                <button class="back-btn " style="width: 50px; text-align: center">
+                                    < Back
+                                </button>
+                            </a>
                         </div>
                         <div class="" style="height: 50%">
                             <p class="txt-w-bolder" style="font-size: 30px "><?= $ads[0]->title ?></p>
@@ -26,7 +30,7 @@
                     </div>
                     <div class="dis-flex-col ju-co-se pad-10" style="width: 50%;align-items: flex-end">
                         <a href="<?= ROOT ?>/admin/adverify/<?=$ads[0]->ad_id?>/verify" >
-                            <button class="blue-btn" style="width: 150px; text-align: center">
+                            <button class="blue-btn " style="width: 150px; text-align: center">
                                 Verify
                             </button>
                         </a>
