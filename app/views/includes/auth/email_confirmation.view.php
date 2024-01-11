@@ -75,6 +75,9 @@
                     </div>
                     <p>Don't have an Account ? <br /> <a href="<?= ROOT ?>/signup">Create an Account</a></p>
                     <button class="sh" type="submit">Confirm</button>
+                    <a href="<?= ROOT ?>/login">
+                        <label class="sh blue-btn">Skip & Login</label>
+                    </a>
                 </form>
             </div>
 

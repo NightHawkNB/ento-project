@@ -1,5 +1,6 @@
 <?php
 
+// Setting the default time zone for the datetime objects
 date_default_timezone_set('Asia/Colombo');
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -11,11 +12,12 @@ require '../app/middleware/phpmailer/src/SMTP.php';
 
 class Mailer extends Controller {
 
-    public function email_verification() {
+    public function email_verification(): void
+    {
 
         $code = new Email_code();
-        $user_id = $_SESSION['email_verification']['user_id'];
-        $data['email'] = $_SESSION['email_verification']['email'];
+        $user_id = $_SESSION['email_verification']['user_id'] ?? $_SESSION['USER_DATA']->user_id;
+        $data['email'] = $_SESSION['email_verification']['email'] ?? $_SESSION['USER_DATA']->email;
 
         if($_SERVER['REQUEST_METHOD'] == "PUT") {
         // Controller for handling mails
@@ -30,6 +32,26 @@ class Mailer extends Controller {
 
             if($codeFromDatabase) {
                 $code->update($user_id, ['user_id' => $user_id, 'verification_code' => $verification_code]);
+
+                $created_datetime = new DateTime($codeFromDatabase->created_datetime);
+                $current_datetime = new DateTime();
+                $time_difference = $current_datetime->diff($created_datetime);
+
+                if(!($time_difference->d < 1 && $time_difference->i < 15)) {
+
+                    echo "cannot_update_code|".$time_difference;
+                    die;
+
+                } else if (!($time_difference->d < 1 && $time_difference->i < 30)) {
+
+                    // Updating the verification code from the database
+                    $code->update($user_id, ['user_id' => $user_id, 'verification_code' => $verification_code]);
+
+                    echo "code_updated";
+                    die;
+
+                }
+
             } else {
                 $code->insert(['user_id' => $user_id, 'verification_code' => $verification_code]);
             }
@@ -46,6 +68,7 @@ class Mailer extends Controller {
 
             $codeFromDatabase = $code->where(['user_id' => $user_id]);
 
+            // If there is an active verification code already, replace it with the new code
             if($codeFromDatabase) {
                 $codeFromDatabase = $codeFromDatabase[0];
             } else {
@@ -64,7 +87,7 @@ class Mailer extends Controller {
 
 //            die;
 
-            if(!($time_difference->d < 1 && $time_difference->i < 10)) {
+            if(!($time_difference->d < 1 && $time_difference->i < 30)) {
 
                 // Deleting the verification code from the database
                 $code->query('DELETE FROM email_verification WHERE user_id = :user_id', ['user_id' => $user_id]);
