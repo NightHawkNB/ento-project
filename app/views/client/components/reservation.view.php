@@ -6,12 +6,12 @@
 
     $interval = $future_date->diff($now);
     ?>
-        <?= show($data);?>
+<!--        --><?php //= show($data);?>
 
 
     <div>
         <img src="<?= ROOT ?>/assets/images/icons/name.png" alt="name png" class="icon">
-        <p><?= $fname . " " . $lname ?></p>
+        <p><?= $title ?></p>
     </div>
 
     <div>
