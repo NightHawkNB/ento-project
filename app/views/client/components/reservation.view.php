@@ -9,8 +9,8 @@
 <!--        --><?php //= show($data);?>
 
 
-    <div>
-        <img src="<?= ROOT ?>/assets/images/icons/name.png" alt="name png" class="icon">
+    <div style="justify-content: left; ">
+        <img src="<?= $image ?>" alt="name png" class="icon" style="border-radius: 50%" >
         <p><?= $title ?></p>
     </div>
 

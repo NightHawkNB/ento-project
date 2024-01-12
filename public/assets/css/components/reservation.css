@@ -26,6 +26,10 @@
 .requests .location {grid-area: location}
 .requests .accept-btn {grid-area: accept-btn}
 
+.reservation > div {
+    gap: 10px;
+}
+
 @media screen and (min-width: 1035px) {
     .reservation {
         grid-template-columns: 150px 180px 120px 160px auto;
