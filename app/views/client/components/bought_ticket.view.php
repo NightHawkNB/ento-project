@@ -62,7 +62,7 @@ $etime = $edateTime->format('H:i:s');
         //qrImage.src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Example/<?php //=$serial_num?>//";
         qrImage.innerHTML = "";
         new QRCode(qrImage,
-            {text: "<?=$serial_num?>",
+            {text: "<?=$hash?>",
                 width:100,
                 height:100});
     }

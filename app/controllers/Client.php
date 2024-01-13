@@ -157,7 +157,7 @@ class Client extends Controller {
         $db = new Database();
 
         $data['bought_tickets']=$db->query('SELECT 
-        event.name AS ename,event.details,event.start_time,event.end_time,event.image,tickets.serial_num, venue.name AS vname
+        event.name AS ename,event.details,event.start_time,event.end_time,event.image,tickets.hash, venue.name AS vname
         FROM event
         INNER JOIN  tickets
         ON event.event_id = tickets.event_id
