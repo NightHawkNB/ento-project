@@ -75,7 +75,7 @@
                     </div>
 
                     <div id="timer-container" style="width: 100%; text-align: center; display: none; align-items: center; justify-content: center">
-                        <div style="width: fit-content;">Time Left : &nbsp;</div>
+                        <div style="width: fit-content;" id="timer-text">Time Left : &nbsp;</div>
                         <div style="width: fit-content;" id="timer">00:00</div>
                     </div>
 
@@ -121,7 +121,14 @@
                         console.log(data)
                         
                         if(data === "success") alert('Verification Code Sent')
-                        else if(data === "failed") alert('Sending verification code failed')
+                        else if(data === "failed") {
+
+                            alert('Sending verification code failed')
+
+                            if(document.getElementById('timer-container').style.display === 'flex') {
+                                document.getElementById('timer-container').style.display = 'none'
+                            }
+                        }
                         else if(data.startsWith('cannot_update_code')) {
 
                             let time = data.split('|')
@@ -164,6 +171,14 @@
                                 return value < 10 ? `0${value}` : value
                             }
 
+                        } else if(data === 'code_updated') {
+
+                            if(document.getElementById('timer-container').style.display === 'flex') {
+                                document.getElementById('timer').style.display = 'none'
+                                document.getElementById('timer-text').style.display = 'none'
+                            }
+
+                            alert("Verification Code Updated")
                         }
 
                         send_code_label.textContent = "Resend Code"

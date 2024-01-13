@@ -50,12 +50,10 @@ class Mailer extends Controller {
                     $current_time = new DateTime();
                     $code->update($user_id, ['user_id' => $user_id, 'verification_code' => $verification_code, 'created_datetime' => $current_time->format("Y-m-d H:i:s")]);
 
-                    echo "code_updated";
-
                     $body = $this->verification_template($verification_code);
 
                     if(Mailer::sendMail($email, $name, $subject, $body)) {
-                        echo "success";
+                        echo "code_updated";
                     }
                     else echo "failed";
 
