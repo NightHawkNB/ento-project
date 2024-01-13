@@ -144,8 +144,23 @@ if (message()) {
             <div class="sub-menu-wrap" id="js-sub-menu">
                 <div class="sub-menu">
                     <div class="user-info">
-                        <img src="<?= $_SESSION['USER_DATA']->image ?>" alt="profile-image">
-                        <h3><?= ucfirst(Auth::getFname()) . " " . ucfirst(Auth::getLname()) ?></h3>
+                        <div class="profile-header">
+                            <img src="<?= $_SESSION['USER_DATA']->image ?>" alt="profile-image">
+                            <h3><?= ucfirst($_SESSION['USER_DATA']->fname) . " " . ucfirst($_SESSION['USER_DATA']->lname) ?></h3>
+                        </div>
+                        <?php if($_SESSION['USER_DATA']->verified): ?>
+                        <div class="verified-status">
+                            <img src="<?= ROOT ?>/assets/images/icons/status_symbols/verified.png" alt="verified-image">
+                            <span>Verified</span>
+                        </div>
+                        <?php else: ?>
+                            <a href="<?= ROOT ?>/mailer/email_verification">
+                                <div class="verified-status verify">
+                                    <img src="<?= ROOT ?>/assets/images/icons/status_symbols/not_verified.png" alt="verify-image">
+                                    <span>Not Verified</span>
+                                </div>
+                            </a>
+                        <?php endif; ?>
                     </div>
                     <hr>
                     <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/profile/edit-profile"
