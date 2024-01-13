@@ -115,9 +115,10 @@ class Client extends Controller {
         FROM resrequest
         INNER JOIN  serviceprovider
         ON resrequest.sp_id = serviceprovider.sp_id
-        INNER JOIN user
-        ON resrequest.user_id = user.user_id
+        INNER JOIN ads
+        ON serviceprovider.user_id = ads.user_id
         WHERE resrequest.user_id = :user_id ORDER BY resrequest.createdDate', ['user_id'=> Auth::getUser_id()]);
+
 
       $this->view('client/reservations', $data);
 
