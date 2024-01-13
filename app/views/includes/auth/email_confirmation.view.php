@@ -73,6 +73,13 @@
                         </div>
                         <i></i>
                     </div>
+
+                    <div id="timer-container" style="width: 100%; text-align: center; display: none; align-items: center; justify-content: center">
+                        <div style="width: fit-content;">Time Left : &nbsp;</div>
+                        <div style="width: fit-content;" id="timer">00:00</div>
+                    </div>
+
+
                     <p>Don't have an Account ? <br /> <a href="<?= ROOT ?>/signup">Create an Account</a></p>
                     <button class="sh" type="submit">Confirm</button>
                     <a href="<?= ROOT ?>/login">
@@ -87,6 +94,7 @@
         </main>
 
         <script>
+
             let data = {
                 "email": "<?= $email ?>"
             }
@@ -114,6 +122,49 @@
                         
                         if(data === "success") alert('Verification Code Sent')
                         else if(data === "failed") alert('Sending verification code failed')
+                        else if(data.startsWith('cannot_update_code')) {
+
+                            let time = data.split('|')
+                            time = time[1].split(':')
+
+                            let totalTime = parseInt(time[0]) * 60 + parseInt(time[1])
+
+                            const intervalId = setInterval(updateTimer, 1000)
+
+                            function updateTimer() {
+                                // Display the formatted time in the timer element
+                                displayTime(totalTime)
+                                if(document.getElementById('timer-container').style.display === 'none') {
+                                    document.getElementById('timer-container').style.display = 'flex'
+                                }
+
+                                if (totalTime <= 0) {
+                                    // If the timer reaches zero, stop the timer
+                                    clearInterval(intervalId)
+                                } else {
+                                    // Decrease the total time by 1 second
+                                    totalTime--;
+                                }
+                            }
+
+                            function displayTime(seconds) {
+                                // Convert total seconds to minutes and seconds
+                                const minutes = Math.floor(seconds / 60)
+                                const remainingSeconds = seconds % 60
+
+                                // Format the minutes and seconds with leading zeros
+                                const formattedMinutes = padZero(minutes)
+                                const formattedSeconds = padZero(remainingSeconds)
+
+                                // Display the formatted time in the timer element
+                                document.getElementById('timer').innerHTML = `${formattedMinutes}:${formattedSeconds}`
+                            }
+
+                            function padZero(value) {
+                                return value < 10 ? `0${value}` : value
+                            }
+
+                        }
 
                         send_code_label.textContent = "Resend Code"
 

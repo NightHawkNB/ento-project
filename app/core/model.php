@@ -77,7 +77,7 @@ class Model extends Database{
             $data[$key] = $value;
         }
 
-        show($query);
+//        show($query);
         //? $arr['date'] = date('Y-m-d H:i:s');
 
         $this->query($query, $data);
