@@ -1,7 +1,23 @@
 <html lang="en">
 <?php $this->view('includes/head', ['style' => 'auth/signup.css']) ?>
 <body>
-<div class="auth-overlay"></div>
+
+<!-- Animated Background -->
+<div class="area">
+    <ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+
 <div class="dis-flex ju-co-ce al-it-ce pad-20 wid-100">
 
     <?php
@@ -182,7 +198,7 @@
                 <?php endif; ?>
                 <p class="">Already have an Account ? <a href="<?= ROOT ?>/login">Login</a></p>
                 <button type="submit">Signup</button>
-                <a href="<?= ROOT ?>/signup" class="blue-btn">Back</a>
+                <a href="<?= ROOT ?>/signup" class="blue-btn" style="color: white">Back</a>
             </form>
         </div>
 

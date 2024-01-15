@@ -2,7 +2,23 @@
 <?php $this->view('includes/head', ['style' => 'auth/login.css']) ?>
 
 <body>
-    <div class="auth-overlay"></div>
+
+    <!-- Animated Background -->
+    <div class="area">
+        <ul class="circles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+
     <div class="dis-flex ju-co-ce al-it-ce pad-20 wid-100 hei-100">
 
         <?php
@@ -83,7 +99,7 @@
                     <p>Don't have an Account ? <br /> <a href="<?= ROOT ?>/signup">Create an Account</a></p>
                     <button class="sh" type="submit">Confirm</button>
                     <a href="<?= ROOT ?>/login">
-                        <label class="sh blue-btn">Skip & Login</label>
+                        <label class="sh blue-btn" style="color: white">Skip & Login</label>
                     </a>
                 </form>
             </div>
