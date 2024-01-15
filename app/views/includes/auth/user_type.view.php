@@ -1,8 +1,25 @@
 <link rel="stylesheet" href="<?= ROOT ?>/assets/css/auth/user_selection.css">
+<link rel="stylesheet" href="<?= ROOT ?>/assets/css/auth/auth.css">
 
-<h1>Step into the Spotlight: Choose Your Role !</h1>
+<!-- Animated Background -->
+<div class="area">
+    <ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
 
-<div class="content">
+<h1 style="z-index: 2;">Step into the Spotlight: Choose Your Role !</h1>
+
+<div class="content" style="z-index: 2;">
     <a class="card" href="<?= ROOT ?>/signup/client">
         <div class="front" style="background-image: url(//source.unsplash.com/300x401)">
             <p>Client</p>
