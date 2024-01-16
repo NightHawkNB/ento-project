@@ -13,7 +13,7 @@
 
             <h1 class="mar-10-0 txt-c-white txt-w-bold" style="font-size: 1.5rem">Staff Management</h1>
 
-            <div class="glass-bg mar-10 hei-100 wid-100 dis-flex-col pad-20 gap-10 bor-rad-5 over-scroll">
+            <div style="background-color: #cebeef" class="mar-10 hei-100 wid-100 dis-flex-col pad-20 gap-10 bor-rad-5 over-scroll">
                 <div class="dis-flex wid-100 ju-co-sb">
                     <a href="<?= ROOT ?>/venuem/staff/insert">
                         <button class="blue-btn">+ Add New</button>
