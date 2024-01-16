@@ -11,20 +11,26 @@
 
         <section class="wid-100 pad-10 dis-flex-col al-it-ce">
 
-            <h1 class="mar-10-0 txt-c-white txt-w-bold" style="font-size: 1.5rem">Reservations</h1>
+            <h1 class="mar-10-0 txt-c-white txt-w-bold" style="font-size: 1.5rem"> Current Reservations</h1>
 
-            <div class="pad-20 glass-bg wid-100 bor-rad-10 hei-100 over-scroll dis-flex-col gap-10">
+            <div class="pad-20 glass-bg wid-100 bor-rad-10  over-scroll dis-flex-col gap-10">
                 <?php
+                $currentDateTime = date('Y-m-d H:i:s');
 
                 if(!empty($reservations)) {
                     foreach($reservations as $reservation) {
-                        $this->view('client/components/reservation', (array)$reservation);
+                        if($currentDateTime < $reservation-> start_time ){
+                            $this->view('client/components/reservation_current', (array)$reservation);
+                        }
                     }
                 } else {
                     echo "<h3 class='txt-c-white wid-100 dis-flex ju-co-ce'>No reservations to show</h3>";
                 }
                 ?>
-            </div>
+
+                <a href="reservations_old" >
+                    Outdated Reservations
+                </a>
 
         </section>
     </main>

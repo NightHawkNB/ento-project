@@ -6,7 +6,7 @@
 
     $interval = $future_date->diff($now);
     ?>
-<!--        --><?php //= show($data);?>
+    <!--        --><?php //= show($data);?>
 
 
     <div style="justify-content: left; ">
