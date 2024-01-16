@@ -75,138 +75,135 @@
                     </div>
                 </div>
 
-                <div class="slide" style="display: none">
-                    <div class="group">
-                        <div class="input-box <?= (!empty($errors['fname'])) ? 'error' : '' ?>">
-                            <label for="fname">First Name</label>
-                            <input value="<?= $prev->fname ?>" type="text" name="fname" required>
-                            <i><?= (array_key_exists('fname', $errors)) ? $errors['fname'] : '' ?></i>
+                <div class="slide-container">
+                    <div class="slide" id="slide-1">
+                        <div class="group">
+                            <div class="input-box <?= (!empty($errors['fname'])) ? 'error' : '' ?>">
+                                <label for="fname">First Name</label>
+                                <input placeholder="First Name" value="<?= $prev->fname ?>" type="text" name="fname" required>
+                                <i><?= (array_key_exists('fname', $errors)) ? $errors['fname'] : '' ?></i>
+                            </div>
+                            <div class="input-box <?= (!empty($errors['lname'])) ? 'error' : '' ?>">
+                                <label for="lname">Last Name</label>
+                                <input placeholder="Middle/Last Name" value="<?= $prev->lname ?>" type="text" name="lname" required>
+                                <i><?= (array_key_exists('lname', $errors)) ? $errors['lname'] : '' ?></i>
+                            </div>
                         </div>
-                        <div class="input-box <?= (!empty($errors['lname'])) ? 'error' : '' ?>">
-                            <label for="lname">Last Name</label>
-                            <input value="<?= $prev->lname ?>" type="text" name="lname" required>
-                            <i><?= (array_key_exists('lname', $errors)) ? $errors['lname'] : '' ?></i>
-                        </div>
-                    </div>
-                    <div class="group">
                         <div class="input-box <?= (!empty($errors['email'])) ? 'error' : '' ?>">
                             <label for="email">Email</label>
-                            <input value="<?= $prev->email ?>" type="email" name="email" required>
+                            <input placeholder="eg: user@ento.com" value="<?= $prev->email ?>" type="email" name="email" required>
                             <i><?= (array_key_exists('email', $errors)) ? $errors['email'] : '' ?></i>
                         </div>
                         <div class="input-box <?= (!empty($errors['contact_num'])) ? 'error' : '' ?>">
                             <label for="contact_num">Contact Number</label>
-                            <input value="<?= $prev->contact_num ?>" type="text" name="contact_num" maxlength="10" required>
+                            <input placeholder="eg: 0112354659" value="<?= $prev->contact_num ?>" type="text" name="contact_num" maxlength="10" required>
                             <i><?= (array_key_exists('contact_num', $errors)) ? $errors['contact_num'] : '' ?></i>
                         </div>
                     </div>
-                </div>
 
-                <div class="slide" style="display: none">
-                    <div class="group">
-                        <div class="input-box <?= (!empty($errors['province'])) ? 'error' : '' ?>">
-                            <label for="province">Province</label>
-                            <select name="province" id="province" class="input" onchange="updateDistrict()">
-                                <option <?= ($prev->province == "central") ? 'selected' : '' ?> value="central">Central</option>
-                                <option <?= ($prev->province == "eastern") ? 'selected' : '' ?> value="eastern">Eastern</option>
-                                <option <?= ($prev->province == "northCentral") ? 'selected' : '' ?> value="northCentral">North Central</option>
-                                <option <?= ($prev->province == "northern") ? 'selected' : '' ?> value="northern">Northern</option>
-                                <option <?= ($prev->province == "northWestern") ? 'selected' : '' ?> value="northWestern">North Western</option>
-                                <option <?= ($prev->province == "sabaragamuwa") ? 'selected' : '' ?> value="sabaragamuwa">Sabaragamuwa</option>
-                                <option <?= ($prev->province == "southern") ? 'selected' : '' ?> value="southern">Southern</option>
-                                <option <?= ($prev->province == "uva") ? 'selected' : '' ?> value="uva">Uva</option>
-                                <option <?= ($prev->province == "western") ? 'selected' : '' ?> value="western">Western</option>
-                            </select>
-                            <i></i>
+                    <div class="slide" id="slide-2">
+                        <div class="group">
+                            <div class="input-box <?= (!empty($errors['province'])) ? 'error' : '' ?>">
+                                <label for="province">Province</label>
+                                <select name="province" id="province" class="input" onchange="updateDistrict()">
+                                    <option <?= ($prev->province == "central") ? 'selected' : '' ?> value="central">Central</option>
+                                    <option <?= ($prev->province == "eastern") ? 'selected' : '' ?> value="eastern">Eastern</option>
+                                    <option <?= ($prev->province == "northCentral") ? 'selected' : '' ?> value="northCentral">North Central</option>
+                                    <option <?= ($prev->province == "northern") ? 'selected' : '' ?> value="northern">Northern</option>
+                                    <option <?= ($prev->province == "northWestern") ? 'selected' : '' ?> value="northWestern">North Western</option>
+                                    <option <?= ($prev->province == "sabaragamuwa") ? 'selected' : '' ?> value="sabaragamuwa">Sabaragamuwa</option>
+                                    <option <?= ($prev->province == "southern") ? 'selected' : '' ?> value="southern">Southern</option>
+                                    <option <?= ($prev->province == "uva") ? 'selected' : '' ?> value="uva">Uva</option>
+                                    <option <?= ($prev->province == "western") ? 'selected' : '' ?> value="western">Western</option>
+                                </select>
+                                <i></i>
+                            </div>
+                            <div class="input-box <?= (!empty($errors['district'])) ? 'error' : '' ?>">
+                                <label for="district">District</label>
+                                <select name="district" class="input" id="district"></select>
+                                <i></i>
+                            </div>
                         </div>
-                        <div class="input-box <?= (!empty($errors['district'])) ? 'error' : '' ?>">
-                            <label for="district">District</label>
-                            <select name="district" class="input" id="district"></select>
-                            <i></i>
-                        </div>
-                    </div>
 
-                    <div class="group <?= (!empty($errors['address01'])) ? 'error' : '' ?>">
                         <div class="input-box">
                             <label for="address1">Address line 01</label>
-                            <input value="<?= $prev->address1 ?>" type="text" name="address1" required>
+                            <input placeholder="Part of physical address" value="<?= $prev->address1 ?>" type="text" name="address1" required>
                             <i><?= (array_key_exists('address1', $errors)) ? $errors['address1'] : '' ?></i>
                         </div>
                         <div class="input-box <?= (!empty($errors['address2'])) ? 'error' : '' ?>">
                             <label for="address2">Address line 02</label>
-                            <input value="<?= $prev->address2 ?>" type="text" name="address2" required>
+                            <input placeholder="Part of physical address" value="<?= $prev->address2 ?>" type="text" name="address2" required>
                             <i><?= (array_key_exists('address2', $errors)) ? $errors['address2'] : '' ?></i>
                         </div>
                     </div>
-                </div>
 
-                <div class="slide" style="display: none">
-                    <div  class="group password">
-                        <div class="input-box password-field <?= (!empty($errors['password'])) ? 'error' : '' ?>">
-                            <label for="password">Password</label>
-                            <input onkeyup="trigger_password()" type="password" name="password" id="password-input" required>
-                            <span class="show-btn show">
+                    <div class="slide" id="slide-3">
+                        <div  class="group password">
+                            <div class="input-box password-field <?= (!empty($errors['password'])) ? 'error' : '' ?>">
+                                <label for="password">Password</label>
+                                <input placeholder="Enter a strong password" onkeyup="trigger_password()" type="password" name="password" id="password-input" required>
+                                <span class="show-btn show">
                                 <img>
                             </span>
-                            <i><?= (array_key_exists('password', $errors)) ? $errors['password'] : '' ?></i>
-                        </div>
+                                <i><?= (array_key_exists('password', $errors)) ? $errors['password'] : '' ?></i>
+                            </div>
 
-                        <!-- Password Strength Indicator -->
-                        <div class="group">
-                            <div class="ps-indicator-container">
-                                <div class="ps-indicator">
-                                    <span class="weak"></span>
-                                    <span class="medium"></span>
-                                    <span class="strong"></span>
+                            <!-- Password Strength Indicator -->
+                            <div class="group">
+                                <div class="ps-indicator-container">
+                                    <div class="ps-indicator">
+                                        <span class="weak"></span>
+                                        <span class="medium"></span>
+                                        <span class="strong"></span>
+                                    </div>
+                                    <span class="ps-text"></span>
                                 </div>
-                                <span class="ps-text"></span>
+                            </div>
+
+                            <div class="input-box password-field <?= (!empty($errors['confirmPass'])) ? 'error' : '' ?>">
+                                <label for="confirmPass">Confirm Password</label>
+                                <input placeholder="Re-enter the password"  type="password" name="confirmPass" required>
+                                <span class="show-btn">SHOW</span>
+                                <i><?= (array_key_exists('confirmPass', $errors)) ? $errors['confirmPass'] : '' ?></i>
                             </div>
                         </div>
-
-                        <div class="input-box password-field <?= (!empty($errors['confirmPass'])) ? 'error' : '' ?>">
-                            <label for="confirmPass">Confirm Password</label>
-                            <input type="password" name="confirmPass" required>
-                            <span class="show-btn">SHOW</span>
-                            <i><?= (array_key_exists('confirmPass', $errors)) ? $errors['confirmPass'] : '' ?></i>
-                        </div>
                     </div>
-                </div>
 
-                <div class="slide" style="display: none">
-                    <div class="group">
+                    <div class="slide" id="slide-4">
                         <div class="input-box <?= (!empty($errors['packages'])) ? 'error' : '' ?>">
                             <label for="packages">Packages</label>
-                            <input type="text" name="packages">
+                            <input placeholder="Can be left empty" type="text" name="packages">
                             <i></i>
                         </div>
                         <div class="input-box <?= (!empty($errors['location'])) ? 'error' : '' ?>">
                             <label for="location">Location</label>
-                            <input type="text" name="location">
+                            <input placeholder="Currently active location"  type="text" name="location">
                             <i></i>
                         </div>
-                    </div>
 
-                    <div class="terms-div">
-                        <input type="checkbox" name="terms" id="terms" required>
-                        <label for="terms">
-                            <a href="#terms">Terms and Conditions</a>
-                        </label>
+                        <div class="terms-div">
+                            <input type="checkbox" name="terms" id="terms" required>
+                            <label for="terms">
+                                <a href="#terms">Terms and Conditions</a>
+                                <?php if(!empty($errors['terms'])):?>
+                                    <div class="error-msg text-center"><?= $errors['terms'] ?></div>
+                                <?php else: ?>
+                                    <div class="text-center"></div>
+                                <?php endif; ?>
+                            </label>
+                        </div>
                     </div>
                 </div>
 
-                <?php if(!empty($errors['terms'])):?>
-                    <div class="error-msg text-center"><?= $errors['terms'] ?></div>
-                <?php else: ?>
-                    <div class="text-center"></div>
-                <?php endif; ?>
+
 
 
                 <div style="flex: 1"></div>
 
                 <p class="">Already have an Account ? <a href="<?= ROOT ?>/login">Login</a></p>
 
-                <div class="group">
-                    <button type="button" id="prev" class="btn">Type</button>
+                <div class="group ju-co-ce">
+                    <button type="button" id="prev" class="btn" onclick="redirect()">Type</button>
                     <button type="button" id="next" class="btn">Next</button>
                 </div>
 
@@ -230,6 +227,7 @@
         const next = document.getElementById('next')
         const circles = document.querySelectorAll('.circle')
 
+        const slides = document.querySelectorAll('.slide')
 
         let currentActive = 1
 
@@ -257,6 +255,14 @@
 
         })
 
+        // Showing only the relevant slide
+        for(let i = 0; i<slides.length; i++) {
+            if(i === 0) {
+                slides[i].style.display = 'block'
+            } else {
+                slides[i].style.display = 'none'
+            }
+        }
 
         function update(){
             circles.forEach((circle, idx) => {
@@ -272,18 +278,38 @@
 
             progress.style.width = (actives.length - 1) / (circles.length - 1) * 100 + '%'
 
+            // Showing only the relevant slide
+            for(let i = 0; i<slides.length; i++) {
+                if(i === currentActive-1) {
+                    slides[i].style.display = 'block'
+                } else {
+                    slides[i].style.display = 'none'
+                }
+            }
+
+            // Function to handle the button click and redirect
+            function redirect() {
+                window.location.href = '<?= ROOT ?>/signup'
+            }
+
             if(currentActive === 1){
                 prev.innerHTML = 'Type'
+                prev.onclick = redirect
             }else if (currentActive === circles.length) {
                 prev.innerHTML = 'Back'
                 next.innerHTML = 'Signup'
-            }else{
+                next.type = 'submit'
+            } else {
                 next.innerHTML = 'Next'
                 prev.innerHTML = 'Back'
                 prev.disabled = false
                 next.disabled = false
+                next.type = 'button'
+                prev.onclick = null
             }
         }
+
+
 
         /* ----------------------------------- END OF PROGRESS BAR SCRIPT --------------------------------- */
 

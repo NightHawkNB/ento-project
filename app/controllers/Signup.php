@@ -10,6 +10,9 @@ class Signup extends Controller{
             $this->view('includes/auth/user_type');
         } else {
 
+            // Stores the user type selected at the type selection window
+            $_SESSION['temp_data']['user_type'] = $method;
+
             // Predefined data
             $data['prev'] = (object)[
                 'fname' => '',
@@ -37,11 +40,11 @@ class Signup extends Controller{
 
 
             if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
                 // Handle the data
+
             } else {
-
-                // View the file
-
+                // View the form
                 $this->view('includes/auth/signup', $data);
             }
 
