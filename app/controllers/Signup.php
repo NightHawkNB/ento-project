@@ -12,6 +12,7 @@ class Signup extends Controller{
 
             // Stores the user type selected at the type selection window
             $_SESSION['temp_data']['user_type'] = $method;
+            $user_type = $method;
 
             // Predefined data
             $data['prev'] = (object)[
@@ -41,7 +42,83 @@ class Signup extends Controller{
 
             if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-                // Handle the data
+                $user = new User();
+                $db = new Database();
+
+                if($user->validate($_POST)) {
+
+                    // Inserting data to the user table
+                    try {
+                        $_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+                        $_POST['user_id'] = "USER_".rand(1000, 100000) . "_" . time();
+
+                        $_POST['user_type'] = $method;
+
+                        // Inserting data to the user table
+                        $user->insert($_POST);
+
+                        // Inserting session data for email_verification process
+//                        $_SESSION['email_verification']['user_id'] = $_POST['user_id'];
+//                        $_SESSION['email_verification']['email'] = $_POST['email'];
+//                        $_SESSION['email_verification']['name'] = $_POST['fname'] . " " . $_POST['lname'];
+
+                        // TODO Event manager is temporary
+                        if($method != 'client' || $method != 'eventm') {
+                            // Inserting data to the service provider table
+                            $db->query("
+                                INSERT INTO serviceprovider(user_id, sp_type) 
+                                VALUES (:user_id, :sp_type)",
+                                ['user_id' => $_POST['user_id'], 'sp_type' => $method]);
+                        }
+                    } catch (Exception $e) {
+                        message("Error occurred", false, 'failed');
+                        show($e);
+                        redirect('login');
+                    }
+
+                    // Add user info to the database (and to the service provider table)
+                    try {
+                        // Getting the sp_id from the inserted record
+                        $sp_id = $db->query("SELECT * FROM serviceprovider WHERE user_id = :user_id LIMIT 1", ['user_id' => $_POST['user_id']])[0]->sp_id;
+
+                        // Inserting the user to the relevant user_type table
+
+                        switch ($user_type) {
+                            case 'venuem':
+                                $db->query("INSERT INTO venuemanager (sp_id) VALUES (:sp_id)", ['sp_id' => $sp_id]);
+                                break;
+
+                            case 'band':
+                                $db->query("INSERT INTO band (sp_id, location) VALUES (:sp_id, :location)", ['sp_id' => $sp_id, 'location' => $_POST['location']]);
+                                break;
+
+                            case 'singer':
+                                $db->query("INSERT INTO singer (sp_id, rate) VALUES (:sp_id, :rate)", ['sp_id' => $sp_id, 'rate' => $_POST['rate']]);
+                                break;
+
+                            default:
+                                break;
+                        }
+
+                    } catch (Exception $e) {
+
+                        // If the sp_id was not found, delete the inserted user data to go back to the previous state
+                        $db->query("DELETE FROM user WHERE user_id = :user_id", ['user_id' => $_POST['user_id']]);
+
+                        message("Your profile creation failed", false, "failed");
+                        redirect('login');
+                    }
+
+                    message("Your profile was created successfully", false, "success");
+                    redirect('login');
+
+                } else {
+                    message("Your profile creation failed", false, 'failed');
+                    $data['errors'] = $user->errors;
+                    $data['prev'] = (object)$_POST;
+                    $this->view('includes/auth/signup', $data);
+                }
 
             } else {
                 // View the form

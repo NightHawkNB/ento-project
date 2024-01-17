@@ -170,6 +170,7 @@
                     </div>
 
                     <div class="slide" id="slide-4">
+                        <?php if($_SESSION['temp_data']['user_type'] == "band"): ?>
                         <div class="input-box <?= (!empty($errors['packages'])) ? 'error' : '' ?>">
                             <label for="packages">Packages</label>
                             <input placeholder="Can be left empty" type="text" name="packages">
@@ -180,6 +181,15 @@
                             <input placeholder="Currently active location"  type="text" name="location">
                             <i></i>
                         </div>
+                        <?php endif; ?>
+
+                        <?php if($_SESSION['temp_data']['user_type'] == "singer"): ?>
+                            <div class="input-box">
+                                <label for="rate">Rate</label>
+                                <input placeholder="Current Average Charging Rates" type="text" name="rate">
+                                <i></i>
+                            </div>
+                        <?php endif; ?>
 
                         <div class="terms-div">
                             <input type="checkbox" name="terms" id="terms" required>
