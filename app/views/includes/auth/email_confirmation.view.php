@@ -104,8 +104,7 @@
                 </form>
             </div>
 
-            <div class="login right-section">
-                <img src="<?= ROOT ?>/assets/images/icons/auth/mail.jpg" alt="email">
+            <div class="login right-section" style="background: blue url('<?= ROOT ?>/assets/images/icons/auth/mail.jpg') no-repeat center; background-size: cover;">
             </div>
         </main>
 

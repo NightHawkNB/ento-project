@@ -3,8 +3,7 @@
         <svg class="feather feather-send" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
         <span class="link-name">Advertisements</span>
     </li>
-
-        <ul class="sub-menu">
+     <ul class="sub-menu" id="subm">
             <li class="nav-item">
                 <a class="nav-link" href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/ads/create-ad">
                     <svg class="feather feather-plus-circle" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="16"/><line x1="8" x2="16" y1="12" y2="12"/></svg>
@@ -34,7 +33,7 @@
             </li>
         </ul>
 
-    <li class="nav-item sub-menu-header">
+    <li class="nav-item sub-menu-header" onclick="open_submenu(this)">
         <svg class="feather feather-edit" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
         <span class="link-name">Reservations</span>
     </li>
@@ -65,7 +64,7 @@
 <?php endif; ?>
 
 <?php if(Auth::is_venuem()): ?>
-    <li class="nav-item">
+    <li class="nav-item <?= (str_contains($_SERVER['REQUEST_URI'], "venuem/staff")) ? 'active' : '' ?>">
         <a class="nav-link" href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/staff">
             <svg class="feather feather-users" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
             <span class="link-name">Staff Management</span>
@@ -87,3 +86,16 @@
         </a>
     </li>
 <?php endif; ?>
+
+<script>
+    function open_submenu(element) {
+        // Find the next sibling element (which is the <ul> in this case)
+        let submenu = element.nextElementSibling;
+
+        // Check if the next sibling is a <ul> element
+        if (submenu && submenu.tagName === 'UL') {
+            // Toggle the 'active' class on the <ul> element
+            submenu.classList.toggle('active');
+        }
+    }
+</script>
