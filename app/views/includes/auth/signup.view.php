@@ -62,7 +62,7 @@
 
     <main class="signup-container auth-container sh">
         <div class="login left-section">
-            <form method="POST">
+            <form method="POST" id="form">
                 <h2>Register</h2>
 
                 <div style="text-align: center" class="progress-container-main">
@@ -198,7 +198,7 @@
                             <label for="terms">
                                 <a href="#terms">Terms and Conditions</a>
                                 <?php if(!empty($errors['terms'])):?>
-                                    <div class="error-msg text-center"><?= $errors['terms'] ?></div>
+                                    <div  class="text-center" style="color: mediumpurple"><?= $errors['terms'] ?></div>
                                 <?php else: ?>
                                     <div class="text-center"></div>
                                 <?php endif; ?>
@@ -244,6 +244,10 @@
         const password = document.getElementById('password')
         const confirmPass = document.getElementById('confirmPass')
         const confirmPass_error = document.getElementById('confirmPass_error')
+        const terms = document.getElementById('terms')
+        const terms_error = document.getElementById('terms_error')
+
+        const form = document.getElementById('form')
 
         const slides = document.querySelectorAll('.slide')
 
@@ -272,7 +276,14 @@
                 case 3:
                     if(password.value === "") errors.push("password")
                     if(confirmPass.value === "") errors.push("confirmPass")
-                    if(confirmPass.value !== password.value) errors.push("confirmPass"); confirmPass_error.textContent = "Passwords donot match"
+                    if(confirmPass.value !== password.value) {
+                        errors.push("confirmPass")
+                        confirmPass_error.textContent = "Passwords donot match"
+                    }
+                    break
+
+                default:
+                    errors = []
                     break
             }
 
@@ -306,7 +317,7 @@
             }
 
             update()
-            circles[currentActive].innerHTML = currentActive+1
+            circles[currentActive].innerHTML = (currentActive+1).toString()
             //console.log(currentActive)
 
         })
@@ -330,7 +341,7 @@
             })
 
 
-            const actives = document.querySelectorAll('.active')
+            const actives = document.querySelectorAll('.active.circle')
 
             progress.style.width = (actives.length - 1) / (circles.length - 1) * 100 + '%'
 
@@ -352,10 +363,11 @@
             if(currentActive === 1){
                 prev.innerHTML = 'Type'
                 prev.onclick = redirect_btn
+                next.onclick = null
             }else if (currentActive === circles.length) {
                 prev.innerHTML = 'Back'
                 next.innerHTML = 'Signup'
-                next.type = 'submit'
+                next.onclick = submit_form
             } else {
                 next.innerHTML = 'Next'
                 prev.innerHTML = 'Back'
@@ -363,6 +375,14 @@
                 next.disabled = false
                 next.type = 'button'
                 prev.onclick = null
+                next.onclick = null
+            }
+
+            function submit_form() {
+
+                if(terms.checked) form.submit()
+                else terms_error.textContent = "Please agree to terms and conditions"
+
             }
         }
 
