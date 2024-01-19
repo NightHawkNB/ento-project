@@ -78,14 +78,16 @@
                     <h2>Email Confirmation</h2>
                     <div class="input-box">
                         <label for="email">Email</label>
-                        <input style="background-color: lightgrey" type="email" name="email" value="<?= $email ?>" disabled>
+                        <input style="background-color: whitesmoke; text-align: center" type="email" name="email" value="<?= $email ?>" disabled>
                         <i></i>
                     </div>
                     <div class="input-box">
-                        <label for="pin">PIN Number</label>
+                        <label for="pin">Verification Code</label>
                         <div class="pin-input">
                             <input class="" style="text-align: center;" type="text" name="pin" placeholder="Enter the verification code" required>
-                            <label id="send_code_label" style="color: blue; font-size: 0.8em;" class="send-code-btn" onclick="send_code()">Send Code</label>
+                            <label id="send_code_label" style="color: blue; font-size: 0.8em;" class="send-code-btn" onclick="send_code()">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" style="fill: rebeccapurple"><path d="m720-160-56-56 63-64H560v-80h167l-63-64 56-56 160 160-160 160ZM160-280q-33 0-56.5-23.5T80-360v-400q0-33 23.5-56.5T160-840h520q33 0 56.5 23.5T760-760v204q-10-2-20-3t-20-1q-10 0-20 .5t-20 2.5v-147L416-520 160-703v343h323q-2 10-2.5 20t-.5 20q0 10 1 20t3 20H160Zm58-480 198 142 204-142H218Zm-58 400v-400 400Z"/></svg>
+                            </label>
                         </div>
                         <i></i>
                     </div>
@@ -95,11 +97,9 @@
                         <div style="width: fit-content;" id="timer">00:00</div>
                     </div>
 
-
-                    <p>Don't have an Account ? <br /> <a href="<?= ROOT ?>/signup">Create an Account</a></p>
                     <button class="sh" type="submit">Confirm</button>
                     <a href="<?= ROOT ?>/login">
-                        <label class="sh blue-btn" style="color: white">Skip & Login</label>
+                        <button class="sh blue-btn" type="button">Skip & Login</button>
                     </a>
                 </form>
             </div>
@@ -118,7 +118,7 @@
 
             function send_code() {
 
-                send_code_label.textContent = "Sending"
+                send_code_label.innerHTML = `<div class="loader"></div>`
 
                 try {
                     fetch(`/ento-project/public/mailer/email_verification`, {
@@ -135,10 +135,10 @@
                         // (stopped printing all data in php file by using die command)
                         console.log(data)
                         
-                        if(data === "success") alert('Verification Code Sent')
+                        if(data === "success") console.log("Code sent")/* alert('Verification Code Sent') */
                         else if(data === "failed") {
 
-                            alert('Sending verification code failed')
+                            // alert('Sending verification code failed')
 
                             if(document.getElementById('timer-container').style.display === 'flex') {
                                 document.getElementById('timer-container').style.display = 'none'
@@ -193,10 +193,10 @@
                                 document.getElementById('timer-text').style.display = 'none'
                             }
 
-                            alert("Verification Code Updated")
+                            // alert("Verification Code Updated")
                         }
 
-                        send_code_label.textContent = "Resend Code"
+                        send_code_label.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" style="fill: rebeccapurple"><path d="M440-122q-121-15-200.5-105.5T160-440q0-66 26-126.5T260-672l57 57q-38 34-57.5 79T240-440q0 88 56 155.5T440-202v80Zm80 0v-80q87-16 143.5-83T720-440q0-100-70-170t-170-70h-3l44 44-56 56-140-140 140-140 56 56-44 44h3q134 0 227 93t93 227q0 121-79.5 211.5T520-122Z"/></svg>'
 
                     })
                 } catch (e) {
@@ -204,6 +204,8 @@
                 }
             }
         </script>
+
+        <link rel="stylesheet" href="<?= ROOT ?>/assets/css/components/loader.css">
 
     </div>
 </body>
