@@ -68,7 +68,9 @@
                 <div style="text-align: center" class="progress-container-main">
                     <div class="progress-container">
                         <div class="progress" id="progress"></div>
-                        <div class="circle active">1</div>
+                        <div class="circle active">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" style="fill: mediumpurple"><path d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 31.5-155.5t86-127Q252-817 325-848.5T480-880q83 0 155.5 31.5t127 86q54.5 54.5 86 127T880-480q0 82-31.5 155t-86 127.5q-54.5 54.5-127 86T480-80Zm0-160q100 0 170-70t70-170q0-100-70-170t-170-70q-100 0-170 70t-70 170q0 100 70 170t170 70Z"/></svg>
+                        </div>
                         <div class="circle">2</div>
                         <div class="circle">3</div>
                         <div class="circle">4</div>
@@ -80,23 +82,23 @@
                         <div class="group">
                             <div class="input-box <?= (!empty($errors['fname'])) ? 'error' : '' ?>">
                                 <label for="fname">First Name</label>
-                                <input placeholder="First Name" value="<?= $prev->fname ?>" type="text" name="fname" required>
+                                <input id="fname" placeholder="First Name" value="<?= $prev->fname ?>" type="text" name="fname" required>
                                 <i><?= (array_key_exists('fname', $errors)) ? $errors['fname'] : '' ?></i>
                             </div>
                             <div class="input-box <?= (!empty($errors['lname'])) ? 'error' : '' ?>">
                                 <label for="lname">Last Name</label>
-                                <input placeholder="Middle/Last Name" value="<?= $prev->lname ?>" type="text" name="lname" required>
+                                <input id="lname" placeholder="Middle/Last Name" value="<?= $prev->lname ?>" type="text" name="lname" required>
                                 <i><?= (array_key_exists('lname', $errors)) ? $errors['lname'] : '' ?></i>
                             </div>
                         </div>
                         <div class="input-box <?= (!empty($errors['email'])) ? 'error' : '' ?>">
                             <label for="email">Email</label>
-                            <input placeholder="eg: user@ento.com" value="<?= $prev->email ?>" type="email" name="email" required>
+                            <input id="email" placeholder="eg: user@ento.com" value="<?= $prev->email ?>" type="email" name="email" required>
                             <i><?= (array_key_exists('email', $errors)) ? $errors['email'] : '' ?></i>
                         </div>
                         <div class="input-box <?= (!empty($errors['contact_num'])) ? 'error' : '' ?>">
                             <label for="contact_num">Contact Number</label>
-                            <input placeholder="eg: 0112354659" value="<?= $prev->contact_num ?>" type="text" name="contact_num" maxlength="10" required>
+                            <input id="contact_num" placeholder="eg: 0112354659" value="<?= $prev->contact_num ?>" type="text" name="contact_num" maxlength="10" required>
                             <i><?= (array_key_exists('contact_num', $errors)) ? $errors['contact_num'] : '' ?></i>
                         </div>
                     </div>
@@ -127,12 +129,12 @@
 
                         <div class="input-box">
                             <label for="address1">Address line 01</label>
-                            <input placeholder="Part of physical address" value="<?= $prev->address1 ?>" type="text" name="address1" required>
+                            <input id="address1" placeholder="Part of physical address" value="<?= $prev->address1 ?>" type="text" name="address1" required>
                             <i><?= (array_key_exists('address1', $errors)) ? $errors['address1'] : '' ?></i>
                         </div>
                         <div class="input-box <?= (!empty($errors['address2'])) ? 'error' : '' ?>">
                             <label for="address2">Address line 02</label>
-                            <input placeholder="Part of physical address" value="<?= $prev->address2 ?>" type="text" name="address2" required>
+                            <input id="address2" placeholder="Part of physical address" value="<?= $prev->address2 ?>" type="text" name="address2" required>
                             <i><?= (array_key_exists('address2', $errors)) ? $errors['address2'] : '' ?></i>
                         </div>
                     </div>
@@ -141,7 +143,7 @@
                         <div  class="group password">
                             <div class="input-box password-field <?= (!empty($errors['password'])) ? 'error' : '' ?>">
                                 <label for="password">Password</label>
-                                <input placeholder="Enter a strong password" onkeyup="trigger_password()" type="password" name="password" id="password-input" required>
+                                <input id="password" placeholder="Enter a strong password" onkeyup="trigger_password()" type="password" name="password" id="password-input" required>
                                 <span class="show-btn show">
                                 <img>
                             </span>
@@ -162,9 +164,9 @@
 
                             <div class="input-box password-field <?= (!empty($errors['confirmPass'])) ? 'error' : '' ?>">
                                 <label for="confirmPass">Confirm Password</label>
-                                <input placeholder="Re-enter the password"  type="password" name="confirmPass" required>
+                                <input id="confirmPass" placeholder="Re-enter the password"  type="password" name="confirmPass" required>
                                 <span class="show-btn">SHOW</span>
-                                <i><?= (array_key_exists('confirmPass', $errors)) ? $errors['confirmPass'] : '' ?></i>
+                                <i id="confirmPass_error"><?= (array_key_exists('confirmPass', $errors)) ? $errors['confirmPass'] : '' ?></i>
                             </div>
                         </div>
                     </div>
@@ -213,7 +215,7 @@
                 <p class="">Already have an Account ? <a href="<?= ROOT ?>/login">Login</a></p>
 
                 <div class="group ju-co-ce">
-                    <button type="button" id="prev" class="btn" onclick="redirect()">Type</button>
+                    <button type="button" id="prev" class="btn" onclick="redirect_btn()">Type</button>
                     <button type="button" id="next" class="btn">Next</button>
                 </div>
 
@@ -227,7 +229,6 @@
         </div>
     </main>
 
-    <script src="<?= ROOT ?>/assets/scripts/components/password_strength.js" defer></script>
     <script>
 
         /* ----------------------------------- START OF PROGRESS BAR SCRIPT --------------------------------- */
@@ -237,9 +238,49 @@
         const next = document.getElementById('next')
         const circles = document.querySelectorAll('.circle')
 
+        const fname = document.getElementById('fname')
+        const lname = document.getElementById('lname')
+        const email = document.getElementById('email')
+        const contact_num = document.getElementById('contact_num')
+        const address1 = document.getElementById('address1')
+        const address2 = document.getElementById('address2')
+        const password = document.getElementById('password')
+        const confirmPass = document.getElementById('confirmPass')
+        const confirmPass_error = document.getElementById('confirmPass_error')
+
         const slides = document.querySelectorAll('.slide')
 
         let currentActive = 1
+
+        errors = []
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        function validate(page) {
+            errors = []
+
+            switch (page) {
+                case 1 :
+                    if(fname.value === "") errors.push("fname")
+                    if(lname.value === "") errors.push("lname")
+                    if(!emailRegex.test(email.value)) errors.push("email")
+                    if(contact_num.value === "") errors.push("contact_num")
+                    break
+
+                case 2:
+                    if(address1.value === "") errors.push("address1")
+                    if(address2.value === "") errors.push("address2")
+                    break
+
+                case 3:
+                    if(password.value === "") errors.push("password")
+                    if(confirmPass.value === "") errors.push("confirmPass")
+                    if(confirmPass.value !== password.value) errors.push("confirmPass"); confirmPass_error.textContent = "Passwords donot match"
+                    break
+            }
+
+            return errors.length <= 0
+        }
 
         next.addEventListener('click', () => {
             currentActive++
@@ -248,7 +289,14 @@
                 currentActive = circles.length
             }
 
-            update()
+            if(validate(currentActive-1)) {
+                update()
+                circles[currentActive-2].innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" style="fill: mediumpurple"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>'
+            } else {
+                console.log(errors)
+                circles[currentActive-2].innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" style="fill: mediumpurple" width="24"><path d="M480-280q17 0 28.5-11.5T520-320q0-17-11.5-28.5T480-360q-17 0-28.5 11.5T440-320q0 17 11.5 28.5T480-280Zm-40-160h80v-240h-80v240Zm40 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>'
+                currentActive--
+            }
             //console.log(currentActive)
 
         })
@@ -261,6 +309,7 @@
             }
 
             update()
+            circles[currentActive].innerHTML = currentActive+1
             //console.log(currentActive)
 
         })
@@ -298,13 +347,14 @@
             }
 
             // Function to handle the button click and redirect
-            function redirect() {
+            function redirect_btn() {
                 window.location.href = '<?= ROOT ?>/signup'
             }
 
+
             if(currentActive === 1){
                 prev.innerHTML = 'Type'
-                prev.onclick = redirect
+                prev.onclick = redirect_btn
             }else if (currentActive === circles.length) {
                 prev.innerHTML = 'Back'
                 next.innerHTML = 'Signup'
@@ -377,6 +427,7 @@
         updateDistrict()
 
     </script>
+    <script src="<?= ROOT ?>/assets/scripts/components/password_strength.js" defer></script>
 
 </div>
 </body>
