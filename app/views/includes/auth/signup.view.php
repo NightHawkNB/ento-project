@@ -219,9 +219,6 @@
                     <button type="button" id="next" class="btn">Next</button>
                 </div>
 
-<!--                <button type="submit">Create Account</button>-->
-<!--                <button onclick="goto_next(this)">Next</button>-->
-<!--                <a href="--><?php //= ROOT ?><!--/signup" class="blue-btn" style="color: white">Back</a>-->
             </form>
         </div>
 
