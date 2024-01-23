@@ -9,7 +9,7 @@
             <?php $this->view('includes/sidebar') ?>
         </section>
 
-        <section class="wid-100 pad-10 dis-flex-col al-it-ce">
+        <section id="current" class="wid-100 pad-10 dis-flex-col al-it-ce">
 
             <h1 class="mar-10-0 txt-c-white txt-w-bold" style="font-size: 1.5rem"> Current Reservations</h1>
 
@@ -28,12 +28,22 @@
                 }
                 ?>
 
-                <a href="reservations_old" >
+                <a class="blue-btn push-right"  href="reservations_old" >
                     Outdated Reservations
                 </a>
-
+                <button onclick="hideshow()">Hide</button>
         </section>
+        <button onclick="hideshow()">Hide</button>
     </main>
 </div>
 </body>
 </html>
+<script>
+    var sec = document.getElementById('current');
+
+    function hideshow()
+    {
+        sec.classList.contains('hide');
+    }
+
+</script>
