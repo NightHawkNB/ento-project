@@ -1,5 +1,5 @@
 const indicator = document.querySelector('.ps-indicator')
-const input = document.querySelector('#password-input')
+const input = document.querySelector('#password')
 const weak = document.querySelector('.weak')
 const medium = document.querySelector('.medium')
 const strong = document.querySelector('.strong')

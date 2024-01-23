@@ -2,7 +2,7 @@
 
 .sidebar{
   padding: 10px;
-  background-color: var(--white);
+  background-color: var(--dark-bg);
   transition: all .5s ease;
   display: flex;
   z-index: 0;
@@ -28,13 +28,13 @@
 
   .sidebar li a span,
   .sidebar li.sub-menu-header span {
-    color: var(--font-primary);
+    color: var(--font-secondary);
     margin-left: 10px;
-    font-size: 15px;
-    font-weight: 400;
+    font-size: 0.9rem;
     white-space: nowrap;
     pointer-events: auto;
-    transition: all 0.4s ease;
+    transition-delay: 1.0s;
+    transition: all 1s ease;
     opacity: 0;
   }
 
@@ -47,6 +47,7 @@
   }
 }
 
+/* For Smaller Screen Sizes */
 @media screen and (max-width: 680px) {
 
   .dashboard-main {
@@ -85,16 +86,24 @@
   }
 }
 
+
+
 .sidebar .nav-list{
   height: 100%;
   display: flex;
 
-  gap: 10px;
+  /*gap: 10px;*/
   z-index: 2;
 }
 
 .sidebar li{
   list-style: none;
+  border-left: 5px solid transparent;
+  width: 100%;
+}
+
+.sidebar li.active {
+  border-color: mediumpurple;
 }
 
 .sidebar li a,
@@ -103,9 +112,47 @@
   display: flex;
   width: 100%;
   align-items: center;
-  border-radius: 5px;
+
+  /*border-radius: 5px;*/
   text-decoration: none;
   transition: all .5s ease;
+  z-index: 12;
+  background-color: transparent;
+}
+
+.sidebar .sub-menu {
+  position: relative;
+
+  height: 0;
+
+  overflow: hidden;
+}
+
+.sidebar .sub-menu li {
+  transform: scaleY(0);
+  transition: all 0.3s ease;
+  transform-origin: top;
+}
+
+.sidebar .sub-menu.active {
+  /*transform: scaleY(1);*/
+  height: auto;
+  position: relative;
+}
+
+.sidebar .sub-menu.active li {
+  transform: scaleY(1);
+}
+
+.sidebar .sub-menu li {
+  width: 100%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  /*border-radius: 5px;*/
+  text-decoration: none;
+  transition: all .5s ease;
+  border-left: 5px solid transparent;
   z-index: 12;
   background-color: transparent;
 }
@@ -113,12 +160,13 @@
 .sidebar li a:hover span,
 .sidebar li a:hover svg{
   transition: all 0.5s ease;
-  color:var(--white);
+  color:#8741cf;
 }
 
-.sidebar li a:hover,
-.sidebar li.sub-menu-header:hover {
-  background-color: var(--light-blue);
+.sidebar li:hover,
+.sidebar li.sub-menu-header:hover,
+.sidebar .sub-menu li:hover {
+  border-color: mediumpurple;
 }
 
 .sidebar.open li a span,
@@ -132,9 +180,8 @@
   height: 35px;
   min-width: 35px;
   line-height: 35px;
-  font-size: 18px;
   border-radius: 5px;
-  color: var(--font-primary);
+  color: var(--font-secondary);
 }
 
 .sub-menu {

@@ -116,7 +116,7 @@ header {
             }
 
             a.active {
-                background-color: var(--navbar-dark-300);
+                background-color: var(--navbar-dark-100);
             }
 
             &.active > a {

@@ -32,10 +32,6 @@ body {
 }
 
 @media screen and (max-width: 750px) {
-    .login-container .login.left-section {
-
-    }
-
     .login-container .login.right-section {
         display: none;
     }
