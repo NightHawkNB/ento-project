@@ -105,45 +105,23 @@ class Client extends Controller {
   }
 
   //reservations
-    //for current reservations
-  public function reservations_current($method = null, $id = null, $action = null) : void
+  public function reservations($method = null, $id = null, $action = null) : void
   {
       $db = new Database();
 
       $data['reservations']=$db->query('SELECT 
       *, serviceprovider.user_id AS "sp_id"
-/*        resrequest.status,resrequest.details,resrequest.createdDate,resrequest.end_time,resrequest.start_time,resrequest.location, user.fname,user.lname */
         FROM resrequest
         INNER JOIN  serviceprovider
         ON resrequest.sp_id = serviceprovider.sp_id
         INNER JOIN ads
         ON serviceprovider.user_id = ads.user_id
-        WHERE resrequest.user_id = :user_id ORDER BY resrequest.createdDate', ['user_id'=> Auth::getUser_id()]);
+        WHERE resrequest.user_id = :user_id AND  ORDER BY resrequest.createdDate', ['user_id'=> Auth::getUser_id()]);
 
 
-      $this->view('client/reservations_current', $data);
+      $this->view('client/reservations', $data);
 
   }
-
-  //for old reservations
-    public function reservations_old($method = null, $id = null, $action = null) : void
-    {
-        $db = new Database();
-
-        $data['reservations']=$db->query('SELECT 
-      *, serviceprovider.user_id AS "sp_id"
-/*        resrequest.status,resrequest.details,resrequest.createdDate,resrequest.end_time,resrequest.start_time,resrequest.location, user.fname,user.lname */
-        FROM resrequest
-        INNER JOIN  serviceprovider
-        ON resrequest.sp_id = serviceprovider.sp_id
-        INNER JOIN ads
-        ON serviceprovider.user_id = ads.user_id
-        WHERE resrequest.user_id = :user_id ORDER BY resrequest.createdDate', ['user_id'=> Auth::getUser_id()]);
-
-
-        $this->view('client/reservations_old', $data);
-
-    }
 
   //reserve a service provider using Ad
   public function reservation_form($id= null) : void
