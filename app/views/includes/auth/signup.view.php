@@ -94,7 +94,7 @@
                         <div class="input-box <?= (!empty($errors['email'])) ? 'error' : '' ?>">
                             <label for="email">Email</label>
                             <input id="email" placeholder="eg: user@ento.com" value="<?= $prev->email ?>" type="email" name="email" required>
-                            <i><?= (array_key_exists('email', $errors)) ? $errors['email'] : '' ?></i>
+                            <i id="email_error"><?= (array_key_exists('email', $errors)) ? $errors['email'] : '' ?></i>
                         </div>
                         <div class="input-box <?= (!empty($errors['contact_num'])) ? 'error' : '' ?>">
                             <label for="contact_num">Contact Number</label>
@@ -238,6 +238,7 @@
         const fname = document.getElementById('fname')
         const lname = document.getElementById('lname')
         const email = document.getElementById('email')
+        const email_error = document.getElementById('email_error')
         const contact_num = document.getElementById('contact_num')
         const address1 = document.getElementById('address1')
         const address2 = document.getElementById('address2')
@@ -255,6 +256,7 @@
 
         errors = []
 
+        // Regular expression to check for valid email format
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         function validate(page) {
@@ -264,7 +266,10 @@
                 case 1 :
                     if(fname.value === "") errors.push("fname")
                     if(lname.value === "") errors.push("lname")
-                    if(!emailRegex.test(email.value)) errors.push("email")
+                    if(!emailRegex.test(email.value)) {
+                        errors.push("email")
+                        email_error.textContent = "Invalid email format"
+                    }
                     if(contact_num.value === "") errors.push("contact_num")
                     break
 
@@ -305,7 +310,6 @@
                 circles[currentActive-2].innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" style="fill: mediumpurple" width="24"><path d="M480-280q17 0 28.5-11.5T520-320q0-17-11.5-28.5T480-360q-17 0-28.5 11.5T440-320q0 17 11.5 28.5T480-280Zm-40-160h80v-240h-80v240Zm40 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>'
                 currentActive--
             }
-            //console.log(currentActive)
 
         })
 
@@ -318,7 +322,6 @@
 
             update()
             circles[currentActive].innerHTML = (currentActive+1).toString()
-            //console.log(currentActive)
 
         })
 
@@ -444,6 +447,8 @@
         updateDistrict()
 
     </script>
+
+    <!-- Importing the password strength checking script -->
     <script src="<?= ROOT ?>/assets/scripts/components/password_strength.js" defer></script>
 
 </div>
