@@ -10,7 +10,7 @@
         </section>
         <section class="dis-flex-col al-it-ce pad-20 gap-10">
 
-            <form method="post" id="ad_form" class="bg-white txt-c-black al-it-ce pad-20 bor-rad-5 dis-flex-col flex-1 ju-co-ce">
+            <form method="post" id="ad_form" class="bg-white txt-c-white al-it-ce pad-20 bor-rad-5 dis-flex-col flex-1 ju-co-ce glass-bg">
 
                 <h3>Reservation Request Details</h3>
 
