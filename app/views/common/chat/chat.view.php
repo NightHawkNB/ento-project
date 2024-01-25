@@ -29,7 +29,6 @@
                 <div class="chat-wrapper">
                     <div id="chat" class="chat-container wid-100 bg-black-2 hei-100 pad-10 bor-rad-5 gap-10" style="height: 65vh; overflow-y: auto">
                         <h3 class="txt-c-white">Message Box</h3>
-
                         <?php
                         if(!empty($msg)) {
                             foreach($msg as $message) {
@@ -92,8 +91,14 @@
                 "type" : type
             }
 
+            const link = "<?= $_SERVER['REQUEST_URI'] ?>"
+            let path = ""
+
+            if(link.includes("resreq")) path = 'resreq'
+            else if(link.includes("reserve")) path = 'reserve'
+
             try {
-                fetch(`/ento-project/public/chat/reserve/${sender_id}/${receiver_id}/${reservation_id}`, {
+                fetch(`/ento-project/public/chat/${path}/${sender_id}/${receiver_id}/${reservation_id}`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json; charset=utf-8"
@@ -206,9 +211,15 @@
                 "from" : message_count
             };
 
+            const link = "<?= $_SERVER['REQUEST_URI'] ?>"
+            let path = ""
+
+            if(link.includes("resreq")) path = 'resreq'
+            else if(link.includes("reserve")) path = 'reserve'
+
             if(message_count > 0) {
                 try {
-                    fetch(`/ento-project/public/chat/reserve/${sender_id}/${receiver_id}/${reservation_id}`, {
+                    fetch(`/ento-project/public/chat/${path}/${sender_id}/${receiver_id}/${reservation_id}`, {
                         method: "PUT",
                         headers: {
                             "Content-Type": "application/json; charset=utf-8"

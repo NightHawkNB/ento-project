@@ -6,6 +6,9 @@ class Chat extends controller {
         // Constructor
     }
 
+    // $sen = user_id of the sender
+    // $rec = user_id of the receiver
+    // $id = unique ID used to identify the chat and the reservation
     public function reserve($sen = null, $rec = null, $id = null): void
     {
 
@@ -93,6 +96,149 @@ class Chat extends controller {
 
             // This occurs only if there is a chat, and it's source path is specified.
             $chat_location = $chat->where(['sender_id' => $sen, 'receiver_id' => $rec, 'reservation_id' => $id])[0]->source;
+
+            // Send the messages that come after the received message
+
+            $file = fopen($chat_location, "r") or die("Unable to open file!");
+
+            $content = array();
+
+            $count = 0;
+            while(!feof($file)) {
+
+                $count++;
+                $row_data = fgets($file);
+
+                // We append to the variable $content, only the new messages that came after the current message
+                if($count > $start) {
+                    if($row_data != "") {
+                        $content[] = msg_str_obj($row_data);
+                    }
+                }
+
+            }
+
+            fclose($file);
+
+            echo json_encode($content);
+
+            die;
+
+        } else {
+
+            $file = fopen($chat_location, "r") or die("Unable to open file!");
+
+            $content = array();
+
+            while(!feof($file)) {
+                $row_data = fgets($file);
+                if($row_data != "") {
+                    $content[] = msg_str_obj($row_data);
+                }
+            }
+
+            fclose($file);
+
+            $data['msg'] = $content;
+            $data['rec'] = $rec;
+            $data['sen'] = $sen;
+            $data['reservation_id'] = $id;
+
+//            show((Auth::is_client())? "1" : "0");
+//            die;
+
+            $this->view("common/chat/chat", $data);
+        }
+
+    }
+
+    public function resreq($sen = null, $rec = null, $id = null): void
+    {
+
+        $chat_location = "";
+
+        if((empty($sen) AND empty($rec)) OR empty($sen)) {
+
+            message("Invalid Link");
+            redirect("home");
+
+        } else if(empty($rec)) {
+
+            // View the list of possible receivers
+            message("No receiver specified");
+            redirect("home");
+
+        } else {
+
+            $chat = new Request_chat();
+            $chat_location = $chat->where(['sender_id' => $sen, 'receiver_id' => $rec, 'resreq_id' => $id]);
+            if($chat_location) {
+
+                if($chat_location[0]->source == "") {
+                    $chat_id = $chat_location[0]->chat_id;
+                    $filepath = "../app/data/chats/requests/". $chat_id .".txt";
+                    $file = fopen($filepath, "w");
+                    fclose($file);
+
+                    $chat->update($chat_id, ['source' => $filepath]);
+                    $chat_location = $filepath;
+                }
+
+                $chat_location = $chat_location[0]->source . "";
+
+            } else {
+
+                $chat->insert(['sender_id' => $sen, 'receiver_id' => $rec, 'resreq_id' => $id]);
+                $chat_id = $chat->where(['sender_id' => $sen, 'receiver_id' => $rec, 'resreq_id' => $id])[0]->chat_id . "";
+                $filepath = "../app/data/chats/requests/". $chat_id .".txt";
+                $file = fopen($filepath, "w");
+                fclose($file);
+
+                $chat->update($chat_id, ['source' => $filepath]);
+                $chat_location = $filepath;
+            }
+
+        }
+
+
+        if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+            // Content
+            $json_data = file_get_contents("php://input");
+
+            // If the second argument is set to true, the function returns an array. Otherwise, it returns an object
+            $php_data = json_decode($json_data);
+
+            date_default_timezone_set('Asia/Colombo');
+            $message = date("[Y-m-d H:i:s]")." | ".$php_data->type." : ".$php_data->content;
+            echo $message;
+
+            $file = fopen($chat_location, "a") or die("Unable to open file!");
+            fwrite($file, $message."\n");
+            fclose($file);
+
+//            show($php_data);
+
+            // Save the message in the appropriate file if exists, otherwise create new file.
+            // Append
+
+            die;
+
+        } else if ($_SERVER['REQUEST_METHOD'] == "PUT") {
+
+            // Content
+            $json_data = file_get_contents("php://input");
+
+            // If the second argument is set to true, the function returns an array. Otherwise, it returns an object
+            $php_data = json_decode($json_data);
+
+            // from attribute sends the most recent message currently viewed
+            $start = $php_data->from;
+
+            $chat = new Request_chat();
+
+            // This occurs only if there is a chat, and it's source path is specified.
+            $chat_location = $chat->where(['sender_id' => $sen, 'receiver_id' => $rec, 'resreq_id' => $id])[0]->source;
 
             // Send the messages that come after the received message
 

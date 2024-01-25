@@ -162,7 +162,7 @@ class Controller
                 } else {
 
                     $input = ['deleted' => 0, 'user_id' => Auth::getUser_id(), 'req_id' => $id];
-                    $row_data = $db->query("SELECT * FROM resrequest JOIN user ON resrequest.user_id = user.user_id JOIN serviceprovider ON resrequest.sp_id = serviceprovider.sp_id WHERE deleted = :deleted AND serviceprovider.user_id = :user_id and req_id = :req_id", $input);
+                    $row_data = $db->query("SELECT *, resrequest.user_id AS client_id FROM resrequest JOIN user ON resrequest.user_id = user.user_id JOIN serviceprovider ON resrequest.sp_id = serviceprovider.sp_id WHERE deleted = :deleted AND serviceprovider.user_id = :user_id and req_id = :req_id", $input);
                     $data['request'] = ($row_data) ? $row_data[0] : "";
 
                     $this->view('common/reservations/components/request-details', $data);
