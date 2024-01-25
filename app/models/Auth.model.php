@@ -5,6 +5,16 @@ class Auth {
     {
         if(is_object($row)) {
             $_SESSION['USER_DATA'] = $row;
+
+            // Code to get the ad count of a Service provider and insert it into the session variable
+            if($row->user_type == 'singer' OR $row->user_type == 'band') {
+                $ads = new Ad();
+                $data = $ads->where(['user_id' => $row->user_id]);
+
+                if(empty($data)) $data = [];
+
+                $_SESSION['USER_DATA']->ad_count = sizeof($data);
+            }
         }
     }
 

@@ -10,14 +10,6 @@
         </section>
         <section class="dis-flex-col al-it-ce pad-20 gap-10">
 
-            <script>
-                function load_image(file) {
-
-                    const mylink = window.URL.createObjectURL(file)
-                    document.getElementById('image-ad').src = mylink
-                }
-            </script>
-
             <form method="post" enctype="multipart/form-data" id="ad_form" class="glass-container txt-c-black al-it-ce pad-20 bor-rad-5 dis-flex-col flex-1 ju-co-ce">
 
                 <div class="profile-input-2 pos-rel">
@@ -64,17 +56,19 @@
                 <div class="profile-input-2 wid-100">
                     <div class="dis-flex gap-20 wid-100 al-it-ce ju-co-sb">
                         <label for="category">Category</label>
-                        <select name="category" class="input wid-100" id="category" onchange="create_ad()">
-                            <option id="singer_type" value="singer">Singer</option>
-                            <option id="band_type" value="band">Band</option>
-                            <option id="venue_type" value="venue">Venue</option>
-                            <option selected disabled class="txt-ali-cen"> Select Ad Type </option>
+                        <select name="category" class="input wid-100" id="category">
+                            <option id="singer_type" value="singer" <?= ($_SESSION['USER_DATA']->user_type == "singer") ? 'selected' : 'disabled' ?> >Singer</option>
+                            <option id="band_type" value="band" <?= ($_SESSION['USER_DATA']->user_type == "band") ? 'selected' : 'disabled' ?> >Band</option>
+                            <option id="venue_type" value="venue" <?= ($_SESSION['USER_DATA']->user_type == "venuem") ? 'selected' : 'disabled' ?> >Venue</option>
+<!--                            <option selected disabled class="txt-ali-cen"> Select Ad Type </option>-->
                         </select>
                     </div>
                     <div class="error"></div>
                 </div>
 
-                <div id="create_ad_singer" class="hide dis-flex-col al-it-ce ju-co-ce gap-20">
+
+                <?php if($_SESSION['USER_DATA']->user_type == "singer"): ?>
+                <div id="create_ad_singer" class="dis-flex-col al-it-ce ju-co-ce gap-20">
 
                     <div class="profile-input-2">
                         <div class="dis-flex gap-20 al-it-ce">
@@ -88,8 +82,10 @@
                     </div>
 
                 </div>
+                <?php endif; ?>
 
-                <div id="create_ad_band" class="hide dis-flex-col gap-20 al-it-ce ju-co-ce">
+                <?php if($_SESSION['USER_DATA']->user_type == "band"): ?>
+                <div id="create_ad_band" class="dis-flex-col gap-20 al-it-ce ju-co-ce">
 
                     <div class="profile-input-2">
                         <div class="dis-flex gap-20 al-it-ce">
@@ -120,8 +116,10 @@
                     </div>
 
                 </div>
+                <?php endif; ?>
 
-                <div id="create_ad_venue" class="hide dis-flex-col gap-20 al-it-ce ju-co-ce">
+                <?php if($_SESSION['USER_DATA']->user_type == "venuem"): ?>
+                <div id="create_ad_venue" class="dis-flex-col gap-20 al-it-ce ju-co-ce">
 
                     <div class="profile-input-2">
                         <div class="dis-flex gap-20 al-it-ce">
@@ -141,6 +139,7 @@
                     </div>
 
                 </div>
+                <?php endif; ?>
 
                 <div class="wid-100 dis-flex ju-co-ce">
                     <button type="submit" class="glass-btn">Create Ad</button>
