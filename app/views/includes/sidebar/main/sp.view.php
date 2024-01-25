@@ -4,12 +4,14 @@
         <span class="link-name">Advertisements</span>
     </li>
      <ul class="sub-menu" id="subm">
-            <li class="nav-item">
-                <a class="nav-link" href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/ads/create-ad">
-                    <svg class="feather feather-plus-circle" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="16"/><line x1="8" x2="16" y1="12" y2="12"/></svg>
-                    <span class="link-name">Create Ad</span>
-                </a>
-            </li>
+            <?php if($_SESSION['USER_DATA']->ad_count == 0): ?>
+             <li class="nav-item">
+                 <a class="nav-link" href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/ads/create-ad">
+                     <svg class="feather feather-plus-circle" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="16"/><line x1="8" x2="16" y1="12" y2="12"/></svg>
+                     <span class="link-name">Create Ad</span>
+                 </a>
+             </li>
+            <?php endif; ?>
 
             <li class="nav-item">
                 <a class="nav-link" href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/ads">

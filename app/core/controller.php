@@ -284,6 +284,7 @@ class Controller
                         $ad_venue->insert($_POST);
                     }
 
+                    $_SESSION['USER_DATA']->ad_count += 1;
                     message("Ad Creation successful");
                     redirect(strtolower($user_data->user_type) . "/ads");
                 } else {
