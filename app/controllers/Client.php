@@ -108,16 +108,11 @@ class Client extends Controller {
   public function reservations($method = null, $id = null, $action = null) : void
   {
       $db = new Database();
-
-      $data['reservations']=$db->query('SELECT 
-      *, serviceprovider.user_id AS "sp_id"
-        FROM resrequest
-        INNER JOIN  serviceprovider
-        ON resrequest.sp_id = serviceprovider.sp_id
-        INNER JOIN ads
-        ON serviceprovider.user_id = ads.user_id
-        WHERE resrequest.user_id = :user_id AND  ORDER BY resrequest.createdDate', ['user_id'=> Auth::getUser_id()]);
-
+      $data['reservations'] = $db->query('SELECT *
+      FROM resrequest
+      INNER JOIN ads
+      ON resrequest.ad_id = ads.ad_id
+      WHERE resrequest.user_id = :user_id ORDER BY resrequest.createdDate', ['user_id' => Auth::getUser_id()]);
 
       $this->view('client/reservations', $data);
 
@@ -136,15 +131,16 @@ class Client extends Controller {
       $new_id = "RES_" . rand(10, 100000) . "_" . time();
 
       if($_SERVER['REQUEST_METHOD'] == 'POST'){
-
           $_POST['req_id'] = $new_id;
           $_POST['user_id'] = Auth::getUser_id();
           $_POST['sp_id'] = $sp_id;
           $_POST['reservation_id'] = $new_id;
+          $_POST['ad_id'] = $id;
+
 
           $resreq = new Resrequest();
           $resreq->insert($_POST);
-          
+
           redirect("client/reservations");
       }
 

@@ -21,6 +21,7 @@
 @import "modules/forms/user_update_form.css";
 @import "client/bought_tickets.css";
 @import "client/qr.css";
+@import "client/toggle_btn.css";
 
 /*@font-face {*/
 /*    font-family: 'PTSans';*/
