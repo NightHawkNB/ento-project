@@ -5,6 +5,7 @@
 class Controller
 {
 
+    // Function for handling views
     public function view($view, $data = []): void
     {
 
@@ -18,6 +19,7 @@ class Controller
         }
     }
 
+    // Commonly used function that handles profile related routes
     public function profile($method = null): void
     {
 
@@ -125,7 +127,7 @@ class Controller
 
             } else {
 
-                if(!empty($action) && $action == "accept") {
+                if($action == "accept") {
 
                     // Generating a unique ad_id
                     $new_id = "RES_" . rand(10, 100000) . "_" . time();
@@ -146,7 +148,7 @@ class Controller
 
                     redirect($_SESSION['USER_DATA']->user_type."/reservations/requests");
 
-                } else if(!empty($action) && $action == "decline") {
+                } else if($action == "decline") {
 
                     $request = new Resrequest();
 
@@ -160,10 +162,8 @@ class Controller
                 } else {
 
                     $input = ['deleted' => 0, 'user_id' => Auth::getUser_id(), 'req_id' => $id];
-                    $row_data = $db->query("SELECT * FROM resrequest JOIN user ON resrequest.user_id = user.user_id JOIN serviceprovider ON resrequest.sp_id = serviceprovider.sp_id WHERE deleted = :deleted AND serviceprovider.user_id = :user_id and req_id = :req_id", $input);
+                    $row_data = $db->query("SELECT *, resrequest.user_id AS client_id FROM resrequest JOIN user ON resrequest.user_id = user.user_id JOIN serviceprovider ON resrequest.sp_id = serviceprovider.sp_id WHERE deleted = :deleted AND serviceprovider.user_id = :user_id and req_id = :req_id", $input);
                     $data['request'] = ($row_data) ? $row_data[0] : "";
-
-                    show($data['request']);
 
                     $this->view('common/reservations/components/request-details', $data);
 

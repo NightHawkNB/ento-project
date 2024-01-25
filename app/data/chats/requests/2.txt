@@ -1,0 +1,3 @@
+[2024-01-25 15:55:21] | sender : Hi world
+[2024-01-25 15:55:52] | sender : Can i get more info on the time and location ?
+[2024-01-25 15:55:21] | receiver : Hi world
