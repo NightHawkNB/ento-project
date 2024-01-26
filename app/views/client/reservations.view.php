@@ -16,10 +16,10 @@
 
                 <div class="button-box-res dis-flex" >
                     <div class="btn-res"></div>
-                    <button  type="button" class="toggle-btn-res "  onclick="rightClick() ; hideShowOutdated()">
+                    <button  type="button" class="toggle-btn-res "  onclick="hideShowCurrent()">
                         Current
                     </button>
-                    <button  type="button" class="toggle-btn-res"  onclick="leftClick() ; hideShowCurrent()">
+                    <button  type="button" class="toggle-btn-res"  onclick="hideShowOutdated()">
                         Outdated
                     </button>
                 </div>
@@ -91,11 +91,13 @@
         if(!isHiddenOutdated)
         {
             outdated.classList.add('hide');
+            leftClick();
         }
 
         if(isHiddenCurrent)
         {
             current.classList.remove('hide');
+            leftClick();
         }
     }
     function hideShowOutdated()
@@ -107,11 +109,13 @@
         if(!isHiddenCurrent)
         {
             current.classList.add('hide');
+            rightClick();
         }
 
         if(isHiddenOutdated)
         {
             outdated.classList.remove('hide');
+            rightClick();
         }
     }
 
@@ -128,6 +132,7 @@
     document.addEventListener('DOMContentLoaded',function (){
         outdated.classList.add('hide');
         current.classList.remove('hide');
+        leftClick();
     });
 
 </script>
