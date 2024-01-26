@@ -262,8 +262,9 @@ class Controller
                             redirect(strtolower($user_data->user_type) . "/ads");
                         }
                     } else {
-                        message("Cannot have empty file name");
-                        redirect(strtolower($user_data->user_type) . "/ads");
+                        if(empty($row->image)) {
+                            $_POST['image'] = ROOT."/assets/images/ads/general.png";
+                        }
                     }
 
                     $ads->insert($_POST);
@@ -285,7 +286,7 @@ class Controller
                     }
 
                     $_SESSION['USER_DATA']->ad_count += 1;
-                    message("Ad Creation successful");
+                    message("Ad Creation successful", false, 'success');
                     redirect(strtolower($user_data->user_type) . "/ads");
                 } else {
                     message("Data validation failed");
@@ -339,8 +340,9 @@ class Controller
                             redirect(strtolower($user_data->user_type) . "/ads");
                         }
                     } else {
-                        message("Cannot have empty file name");
-                        redirect(strtolower($user_data->user_type) . "/ads");
+                        if(empty($row->image)) {
+                            $_POST['image'] = ROOT."/assets/images/ads/general.png";
+                        }
                     }
 
                     $ads->update($id, $_POST);
@@ -364,7 +366,7 @@ class Controller
                             break;
                     }
 
-                    message("Update successfully - Ad is now in Pending State");
+                    message("Update successfully - Ad is now in Pending State", false, 'success');
                     redirect(strtolower($user_data->user_type) . "/ads");
                 }
             } else if (empty($id)) {
@@ -407,7 +409,8 @@ class Controller
                 show($id);
 
                 $ads->update($id, ['ad_id' => $id, 'deleted' => 1]);
-                message("Deleted successfully");
+                $_SESSION['USER_DATA']->ad_count -= 1;
+                message("Deleted successfully", false, 'success');
                 redirect(strtolower($user_data->user_type) . "/ads");
             }
         } else {
