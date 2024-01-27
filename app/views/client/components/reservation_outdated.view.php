@@ -34,6 +34,47 @@
     }
     ?>
 
+<!--    rating button-->
+
+    <?php if ($status == "Accepted"): ?>
+        <button class="blue-btn" onclick="openRatingPopUp()">Rate and review</button>
+
+        <div id="rating" class="rating-container hide">
+            <div class="rating-content">
+                <span class="close" onclick="closeRatingPopUp()">&times;</span>
+                <h6>Rate and review</h6>
+                <div class="star-container">
+                    <div class="star-widget">
+                        <input type="radio" name="rate" id="rate-5">
+                        <label for="rate-5" >&#9733;</label>
+                        <input type="radio" name="rate" id="rate-4">
+                        <label for="rate-4" >&#9733;</label>
+                        <input type="radio" name="rate" id="rate-3">
+                        <label for="rate-3" >&#9733;</label>
+                        <input type="radio" name="rate" id="rate-2">
+                        <label for="rate-2" >&#9733;</label>
+                        <input type="radio" name="rate" id="rate-1">
+                        <label for="rate-1" >&#9733;</label>
+                        <form action="#">
+                            <header>I don't like it</header>
+                            <div class="textarea">
+                                <textarea name="comment" id="" cols="30" rows="10"></textarea>
+                            </div>
+                            <div class="btn-lay">
+                                <button type="submit">Post</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    <?php endif; ?>
+
+
+    <!--    chat-->
+
     <?php if ($status == "Accepted"): ?>
         <a href="<?= ROOT ?>/chat/reserve/<?= $sp_id ?>/<?= Auth::getUser_id() ?>/<?= $reservation_id ?>">
             <button>Chat</button>
@@ -41,3 +82,17 @@
     <?php endif; ?>
 
 </div>
+<script>
+
+    var rating = document.getElementById('rating');
+
+    function openRatingPopUp() {
+        rating.style.display='flex';
+
+    }
+
+    function closeRatingPopUp() {console.log(rating);
+
+        rating.style.display='none';
+    }
+</script>
