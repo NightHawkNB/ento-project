@@ -32,12 +32,6 @@
             </div>
         </div>
 
-        <div class="dis-flex ju-co-ce al-it-ce">
-            <div class="txt-ali-rig dis-flex ju-co-ce al-it-ce">
-                <p class=""> 30% OFF </p>
-            </div>
-        </div>
-
         <?php if(Auth::logged_in() && Auth::is_client()): ?>     
             <a href="<?= ROOT ?>/client/reservation_form/<?= $ad_id ?>">
                 <button class="btn-lay-2 hover-pointer btn-anima-hover">Reserve</button>

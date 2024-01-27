@@ -57,7 +57,7 @@
 
                 <div class="profile-input-2">
                     <label for="contact_num">Contact Number</label>
-                    <input value="<?= set_value('contact_num', $ads->contact_num) ?>" type="tel" pattern="[0-9]{3}-[0-9]{7}" id="contact_num" name="contact_num">
+                    <input value="<?= set_value('contact_num', $ads->contact_num) ?>" type="tel" pattern="[0-9]{10}" id="contact_num" name="contact_num">
                     <div class="error"></div>
                 </div>
 

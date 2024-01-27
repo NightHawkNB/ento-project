@@ -58,7 +58,7 @@
 
                 <div class="group-content wid-100">
                     <label for="category">Advertisement Category</label>
-                    <select disabled name="category" class="input wid-100" id="category">
+                    <select name="category" class="input wid-100" id="category">
                         <option id="singer_type" value="singer" <?= ($_SESSION['USER_DATA']->user_type == "singer") ? 'selected' : 'disabled' ?> >Singer</option>
                         <option id="band_type" value="band" <?= ($_SESSION['USER_DATA']->user_type == "band") ? 'selected' : 'disabled' ?> >Band</option>
                         <option id="venue_type" value="venue" <?= ($_SESSION['USER_DATA']->user_type == "venuem") ? 'selected' : 'disabled' ?> >Venue</option>
