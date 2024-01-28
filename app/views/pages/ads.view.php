@@ -5,9 +5,9 @@
     <?php $this->view('includes/header') ?>
 
     <main class="dis-flex ju-co-st al-it-st">
-        <div class="dis-flex-col al-it-ce bg-trans wid-100 mar-10 bor-rad-5 over-hide">
+        <div class="dis-flex-col al-it-ce ju-co-ce wid-100 mar-10 bor-rad-5">
 
-            <div class="txt-c-black pad-10 wid-100 flex-1 dis-flex-col gap-10">
+            <div class="txt-c-black pad-10 flex-1 dis-flex al-it-ce gap-10" style="flex-wrap: wrap; width: fit-content;">
                 <?php
 
                     if(!empty($ad_singer)) {

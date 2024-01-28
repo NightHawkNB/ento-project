@@ -74,6 +74,7 @@
     background: #7b51d3;
     color: var(--font-secondary);
     border-radius: 5px;
+    max-height: fit-content;
     border: none;
     outline: none;
     transition: 0.3s;
@@ -83,6 +84,23 @@
 .blue-btn:hover {
     transform: scale(1.1);
     cursor: pointer;
+}
+
+.button-s2 {
+    padding: 10px 40px;
+    background: #7b51d3;
+    color: var(--font-secondary);
+    border-radius: 5px;
+    max-height: fit-content;
+    border: none;
+    outline: none;
+    transition: 0.3s;
+    width: 140px;
+}
+
+.button-s2:hover {
+    cursor: pointer;
+    background-color: mediumpurple;
 }
 
 .back-btn {
