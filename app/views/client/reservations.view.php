@@ -53,7 +53,7 @@
             <div id="outdated">
                 <h1 class="mar-10-0 txt-c-white txt-w-bold" style="font-size: 1.5rem"> Out Dated Reservations</h1>
 
-                <div  class="pad-20 glass-bg wid-100 bor-rad-10  over-scroll dis-flex-col gap-10">
+                <div  class="pad-20 glass-bg wid-100 bor-rad-10 dis-flex-col gap-10">
                     <?php
                     $currentDateTime = date('Y-m-d H:i:s');
 
@@ -66,6 +66,7 @@
                     } else {
                         echo "<h3 class='txt-c-white wid-100 dis-flex ju-co-ce'>No reservations to show</h3>";
                     }
+                    show($_POST);
                     ?>
                 </div>
             </div>
