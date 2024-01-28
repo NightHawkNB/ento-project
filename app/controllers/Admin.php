@@ -112,6 +112,7 @@ Class Admin extends Controller{
             $user = new User();
         
             $data['users']= $user->query("SELECT  user_id,user_type, fname, lname, image, email FROM user ; ");
+
     
             $this->view('admin/useraccounts', $data);
         }
@@ -122,7 +123,9 @@ Class Admin extends Controller{
 
         if (empty($id) && empty($method)) {
 
-            $data['ads'] = $ad->query("SELECT ad_id, title, user_id, category, datetime FROM ads WHERE pending=1");
+            $data['singerads'] = $ad->query("SELECT ad_id, title, user_id, category, datetime FROM ads WHERE pending=1 and category='singer'");
+            $data['bandads'] = $ad->query("SELECT ad_id, title, user_id, category, datetime FROM ads WHERE pending=1 and category='band'");
+            $data['venueads'] = $ad->query("SELECT ad_id, title, user_id, category, datetime FROM ads WHERE pending=1 and category='venue'");
 
             $this->view('admin/adverification', $data);
 
