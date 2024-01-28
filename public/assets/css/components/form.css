@@ -1,5 +1,5 @@
 .form-style {
-    background-color: #b58be2;
+    background-color: #cebeef;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -18,11 +18,24 @@
     border-radius: 5px;
     outline: none;
     border: none;
+    border-bottom: 4px solid rebeccapurple;
+    transition: 1s ease all;
+}
+
+.form-style input:focus,
+.form-style select:focus,
+.form-style textarea:focus {
+    border-bottom: 4px solid purple;
 }
 
 .form-style textarea {
     height: auto;
 }
+
+.form-style select:focus {
+    box-shadow: none;
+}
+
 
 .form-style select {
     font-size: 1rem;
@@ -43,13 +56,15 @@
     gap: 5px;
 }
 
-.form-style .group-content > div:nth-child(1) {
-    align-self: end;
+.form-style .group-content > div {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    color: var(--font-primary);
 }
 
 .form-style textarea:focus {
     box-shadow: none;
-    border: none;
     outline: none;
 }
 
