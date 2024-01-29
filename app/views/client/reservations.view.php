@@ -66,7 +66,6 @@
                     } else {
                         echo "<h3 class='txt-c-white wid-100 dis-flex ju-co-ce'>No reservations to show</h3>";
                     }
-                    show($_POST);
                     ?>
                 </div>
             </div>

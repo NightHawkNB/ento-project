@@ -64,6 +64,21 @@
 .star-container .star-widget input{
     display: none;
 }
+
+.star-widget {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.star-widget > div:nth-child(1) {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+}
+
 .star-widget label{
     font-size: 40px;
     color: #444;
