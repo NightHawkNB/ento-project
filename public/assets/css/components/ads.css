@@ -8,7 +8,8 @@
     padding: 10px;
     border-radius: 5px;
     font-size: 0.8rem;
-    height: fit-content;
+    min-height: 431px;
+    max-height: 476px;
 }
 
 .ad div {

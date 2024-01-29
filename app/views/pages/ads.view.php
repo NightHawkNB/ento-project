@@ -1,32 +1,69 @@
 <html lang="en">
-<?php $this->view('includes/head') ?>
+<?php $this->view('includes/head', ['style' => 'components/ads.css']) ?>
 <body>
+
+<style>
+    .ad-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .ad-container .ad-sub-container {
+        padding: 10px;
+        flex: 1;
+        display: flex;
+        gap: 10px;
+        justify-content: left;
+        align-items: baseline;
+        flex-wrap: wrap;
+    }
+
+    @media screen and (min-width: 1350px) {
+        .ad-container .ad-sub-container {
+            max-width: 1350px;
+        }
+    }
+
+    @media screen and (min-width: 1030px) and (max-width: 1350px) {
+        .ad-container .ad-sub-container {
+            max-width: 1015px;
+        }
+    }
+
+    @media screen and (min-width: 700px) and (max-width: 1030px) {
+        .ad-container .ad-sub-container {
+            max-width: 680px;
+        }
+    }
+
+    @media screen and (max-width: 700px) {
+        .ad-container .ad-sub-container {
+            max-width: 345px;
+        }
+    }
+
+</style>
+
 <div class="main-wrapper">
     <?php $this->view('includes/header') ?>
-
     <main class="dis-flex ju-co-st al-it-st">
-        <div class="dis-flex-col al-it-ce ju-co-ce wid-100 mar-10 bor-rad-5">
+        <div class="ad-container">
 
-            <div class="txt-c-black pad-10 flex-1 dis-flex al-it-ce gap-10" style="flex-wrap: wrap; width: fit-content;">
+            <div class="ad-sub-container">
                 <?php
 
-                    if(!empty($ad_singer)) {
-                        foreach ($ad_singer as $ad) {
-                            $this->view('includes/ad-s', (array)$ad);
-                        }
+                    // Merging the category separated ads(arrays) to a single array
+                    $ads = [];
+                    if(!empty($ad_singer)) $ads = array_merge_recursive($ads, $ad_singer);
+                    if(!empty($ad_band)) $ads = array_merge_recursive($ads, $ad_band);
+                    if(!empty($ad_venue)) $ads = array_merge_recursive($ads, $ad_venue);
+
+                    foreach ($ads as $ad) {
+                        $this->view('includes/components/ad', (array)$ad);
                     }
 
-                    if(!empty($ad_band)) {
-                        foreach ($ad_band as $ad) {
-                            $this->view('includes/ad-b', (array)$ad);
-                        }
-                    }
-
-                    if(!empty($ad_venue)) {
-                        foreach ($ad_venue as $ad) {
-                            $this->view('includes/ad-v', (array)$ad);
-                        }
-                    }
                 ?>
             </div>
         </div>

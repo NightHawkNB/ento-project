@@ -102,7 +102,7 @@ class Home extends Controller{
 
     public function ads($method = null, $id = null): void
     {
-
+        // get_all_ads() function is declared in the controller within the core folder
         $data = get_all_ads();
 
         $this->view('pages/ads', $data);

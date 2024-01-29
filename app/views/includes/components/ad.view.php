@@ -1,14 +1,11 @@
-<div class="ad sh">
-
-    <!-- IMPORTANT Place the below style sheet in a common place -->
-    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/components/ads.css">
+<div class="ad sh" data-category="<?= $category ?>" >
 
     <div class="top">
         <div class="vertical">
             <img src="<?= $image ?>" style="object-fit: cover" alt="user-01">
 
             <h2 class="f-poppins"><?= $title ?></h2>
-            <h4 class="f-poppins" style="color: slategrey"><?= $category ?></h4>
+            <h4 class="f-poppins" style="color: slategrey"><?= strtoupper($category) ?></h4>
 
 
             <div class="horizontal" style="justify-content: space-between; width: 100%">
@@ -21,9 +18,17 @@
                 <?php $rating = 3 ?>
 
                 <div class="horizontal stars">
-                    <span>★</span>
-                    <p> <?= number_format($rating, 1) ?></p>
+
+                    <?php if($category != 'venue'): ?>
+                        <span>★</span>
+                        <p> <?= number_format($rating, 1) ?></p>
+                    <?php else: ?>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M340-720q-33 0-56.5-23.5T260-800q0-33 23.5-56.5T340-880q33 0 56.5 23.5T420-800q0 33-23.5 56.5T340-720Zm220 560H302q-33 0-60.5-23.5T207-240l-87-440h82l88 440h270v80Zm220 80L664-280H386q-29 0-50.5-17.5T308-344l-44-214q-11-48 22.5-85t81.5-37q35 0 63.5 21t36.5 57l44 202h130q21 0 39 11t29 29l140 240-70 40Z"/></svg>
+                        <p><?= $seat_count ?></p>
+                    <?php endif; ?>
+
                 </div>
+
             </div>
         </div>
     </div>
@@ -79,8 +84,8 @@
     <?php endif; ?>
 </div>
 
-
-<!-- Modal for the Popup -->
+<?php if($category == "singer"): ?>
+<!-- Modal for the Popup SINGER -->
 <div class="modal" id="<?= $ad_id ?>">
     <div class="modal-header">
         <div class="title"><?= $title ?></div>
@@ -118,6 +123,107 @@
         </div>
     </div>
 </div>
+<?php endif; ?>
+
+<?php if($category == "venue"): ?>
+<!-- Modal for the Popup VENUE -->
+<div class="modal" id="<?= $ad_id ?>">
+    <div class="modal-header">
+        <div class="title"><?= $title ?></div>
+        <button data-close-btn class="modal-close-btn">&times;</button>
+    </div>
+    <div class="modal-body">
+        <div class="dis-flex-col al-it-ce ju-co-ce gap-10">
+
+            <div class="dis-flex al-it-ce ju-co-ce gap-20">
+                <svg class="feather feather-eye" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <?= ($views) ? $views : 'view count' ?>
+            </div>
+
+            <div class="">
+                <img src="<?= $image ?>" alt="Ad image" style="width: 150px; height: 150px; object-fit: cover" class="bor-rad-5">
+            </div>
+
+            <div>
+                <audio controls>
+                    <source src="<?= ROOT ?>/assets/audio/sample.mp3" type="audio/mpeg">
+                    No audio supported
+                </audio>
+            </div>
+
+            <div class="pad-20 wid-100 dis-flex ju-co-ce gap-10">
+                <h4 class="f-mooli">Seat Count - </h4><?= $seat_count ?>
+            </div>
+
+            <div class="pad-20 wid-100 dis-flex-col gap-10">
+                <h4 class="f-mooli">Details</h4>
+                <?= $details ?>
+            </div>
+
+            <div class="dis-flex-col gap-10 wid-100 pad-20">
+                <h4 class="f-mooli">Seating Arrangements</h4>
+                <div class="dis-flex gap-10 flex-wrap ju-co-ce">
+                    <img src="<?= $image ?>" alt="Ad image" style="width: 100px; height: 100px; object-fit: cover" class="bor-rad-5">
+                    <img src="<?= $image ?>" alt="Ad image" style="width: 100px; height: 100px; object-fit: cover" class="bor-rad-5">
+                    <img src="<?= $image ?>" alt="Ad image" style="width: 100px; height: 100px; object-fit: cover" class="bor-rad-5">
+                </div>
+            </div>
+
+            <div class="pad-20 wid-100 dis-flex gap-10 ju-co-sb">
+                <p><span class="txt-w-bold f-mooli">Average rate : </span> <?= number_format($rates) ?></p>
+                <p><span class="txt-w-bold f-mooli">Posted Date Time : </span> <?= $datetime ?></p>
+            </div>
+
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+
+<?php if($category == "band"): ?>
+<!-- Modal for the Popup BAND -->
+<div class="modal" id="<?= $ad_id ?>">
+    <div class="modal-header">
+        <div class="title"><?= $title ?></div>
+        <button data-close-btn class="modal-close-btn">&times;</button>
+    </div>
+    <div class="modal-body">
+        <div class="dis-flex-col al-it-ce ju-co-ce gap-10">
+
+            <div class="dis-flex al-it-ce ju-co-ce gap-20">
+                <svg class="feather feather-eye" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <?= ($views) ? $views : 'view count' ?>
+            </div>
+
+            <div class="">
+                <img src="<?= $image ?>" alt="Ad image" style="width: 150px; height: 150px; object-fit: cover" class="bor-rad-5">
+            </div>
+
+            <div>
+                <audio controls>
+                    <source src="<?= ROOT ?>/assets/audio/sample.mp3" type="audio/mpeg">
+                    No audio supported
+                </audio>
+            </div>
+
+            <div class="pad-20 wid-100 dis-flex-col gap-10">
+                <h4 class="f-mooli">Details</h4>
+                <?= $details ?>
+            </div>
+
+            <div class="pad-20 wid-100 dis-flex-col gap-10">
+                <h4 class="f-mooli">Packages Available</h4>
+                <?= $packages ?>
+            </div>
+
+            <div class="pad-20 wid-100 dis-flex gap-10 ju-co-sb">
+                <p><span class="txt-w-bold f-mooli">Average rate : </span> <?= number_format($rates) ?></p>
+                <p><span class="txt-w-bold f-mooli">Posted Date Time : </span> <?= $datetime ?></p>
+            </div>
+
+        </div>
+    </div>
+</div>
+<?php endif; ?>
 
 <!-- Modal for the Popup -->
 <div class="" id="overlay"></div>
