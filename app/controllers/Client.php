@@ -107,12 +107,25 @@ class Client extends Controller {
   //reservations
   public function reservations($method = null, $id = null, $action = null) : void
   {
+
       $db = new Database();
       $data['reservations'] = $db->query('SELECT *
       FROM resrequest
       INNER JOIN ads
       ON resrequest.ad_id = ads.ad_id
       WHERE resrequest.user_id = :user_id ORDER BY resrequest.createdDate', ['user_id' => Auth::getUser_id()]);
+
+
+      if($_SERVER['REQUEST_METHOD'] == 'POST'){
+          $target_id = $db->query('SELECT * FROM serviceprovider WHERE sp_id=:sp_id',['sp_id'=>$method])[0]->user_id;
+          $_POST['creator_id'] = Auth::getUser_id();
+          $_POST['target_id'] = $target_id;
+
+          $review = new Review();
+          $review->insert($_POST);
+
+          redirect("client/reservations");
+      }
 
       $this->view('client/reservations', $data);
 

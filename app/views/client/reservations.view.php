@@ -16,10 +16,10 @@
 
                 <div class="button-box-res dis-flex" >
                     <div class="btn-res"></div>
-                    <button  type="button" class="toggle-btn-res "  onclick="rightClick() ; hideShowOutdated()">
+                    <button  type="button" class="toggle-btn-res "  onclick="hideShowCurrent()">
                         Current
                     </button>
-                    <button  type="button" class="toggle-btn-res"  onclick="leftClick() ; hideShowCurrent()">
+                    <button  type="button" class="toggle-btn-res"  onclick="hideShowOutdated()">
                         Outdated
                     </button>
                 </div>
@@ -53,7 +53,7 @@
             <div id="outdated">
                 <h1 class="mar-10-0 txt-c-white txt-w-bold" style="font-size: 1.5rem"> Out Dated Reservations</h1>
 
-                <div  class="pad-20 glass-bg wid-100 bor-rad-10  over-scroll dis-flex-col gap-10">
+                <div  class="pad-20 glass-bg wid-100 bor-rad-10 dis-flex-col gap-10">
                     <?php
                     $currentDateTime = date('Y-m-d H:i:s');
 
@@ -91,11 +91,13 @@
         if(!isHiddenOutdated)
         {
             outdated.classList.add('hide');
+            leftClick();
         }
 
         if(isHiddenCurrent)
         {
             current.classList.remove('hide');
+            leftClick();
         }
     }
     function hideShowOutdated()
@@ -107,11 +109,13 @@
         if(!isHiddenCurrent)
         {
             current.classList.add('hide');
+            rightClick();
         }
 
         if(isHiddenOutdated)
         {
             outdated.classList.remove('hide');
+            rightClick();
         }
     }
 
@@ -128,6 +132,7 @@
     document.addEventListener('DOMContentLoaded',function (){
         outdated.classList.add('hide');
         current.classList.remove('hide');
+        leftClick();
     });
 
 </script>
