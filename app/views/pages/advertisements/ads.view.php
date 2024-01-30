@@ -45,14 +45,23 @@
             justify-content: center;
             align-items: center;
         }
-
-        .filter-bar .search-container {}
-        justify-items: right;
     }
 
     @media screen and (max-width: 700px) {
         .ad-container .ad-sub-container {
             max-width: 345px;
+        }
+
+        .filter-bar {
+            height: fit-content;
+            gap: 10px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .filter-bar .category_filter {
+            flex-wrap: wrap;
         }
     }
 
