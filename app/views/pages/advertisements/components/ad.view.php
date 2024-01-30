@@ -1,4 +1,4 @@
-<div class="ad sh" data-category="<?= $category ?>" >
+<div class="ad sh" data-category="<?= $category ?>" data-title="<?= $title ?>">
 
     <div class="top">
         <div class="vertical">
