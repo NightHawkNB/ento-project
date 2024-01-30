@@ -61,13 +61,44 @@
                     if(!empty($ad_venue)) $ads = array_merge_recursive($ads, $ad_venue);
 
                     foreach ($ads as $ad) {
-                        $this->view('includes/components/ad', (array)$ad);
+                        $this->view('pages/advertisements/components/ad', (array)$ad);
                     }
 
                 ?>
             </div>
         </div>
     </main>
+
+    <script>
+
+
+
+        function update_viewCount(ad_id, views) {
+            let data = {
+                'ad_id' : `${ad_id}`
+            }
+
+            try {
+                fetch(`/ento-project/public/home/ads`, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json; charset=utf-8"
+                    },
+                    body: JSON.stringify(data)
+                }).then(res => {
+                    // console.log(res)
+                    return res.text()
+                }).then(data => {
+                    // Shows the data printed by the targeted php file.
+                    // (stopped printing all data in php file by using die command)
+                    // console.log(data)
+                })
+            } catch (e) {
+                console.log("View count updating failed")
+            }
+        }
+
+    </script>
 
     <?php $this->view('includes/footer') ?>
 </div>

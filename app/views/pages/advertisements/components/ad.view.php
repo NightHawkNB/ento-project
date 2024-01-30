@@ -62,7 +62,7 @@
         <?php endif; ?>
 
         <?php if(Auth::logged_in()): ?>
-            <button class="button-s2" data-modal-target="#<?= $ad_id ?>">More Info</button>
+            <button class="button-s2" data-modal-target="#<?= $ad_id ?>" onclick="update_viewCount('<?= $ad_id ?>')">More Info</button>
         <?php endif; ?>
 
         <?php if($pending != 1 && Auth::logged_in() && (!Auth::is_client()) && !str_contains($_SERVER['QUERY_STRING'], "home/ads") && !str_contains($_SERVER['QUERY_STRING'], "/ads/all-ads") ): ?>

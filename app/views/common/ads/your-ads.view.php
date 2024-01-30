@@ -19,7 +19,7 @@
                     if(!empty($ad_venue)) $ads = array_merge_recursive($ads, $ad_venue);
 
                     foreach ($ads as $ad) {
-                        $this->view('includes/components/ad', (array)$ad);
+                        $this->view('pages/advertisements/components/ad', (array)$ad);
                     }
 
                 ?>
