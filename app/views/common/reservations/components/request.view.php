@@ -20,7 +20,6 @@
 ?>
 
 <div class="requests">
-
     <h3 class="txt-c-black heading"><?= ucfirst($fname) ?>&nbsp;<?= ucfirst($lname) ?></h3>
 
     <div class="time">

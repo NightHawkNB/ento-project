@@ -103,9 +103,25 @@ class Home extends Controller{
     public function ads($method = null, $id = null): void
     {
 
+        if($_SERVER['REQUEST_METHOD'] == "PATCH") {
+            // Content
+            $json_data = file_get_contents("php://input");
+
+            // If the second argument is set to true, the function returns an array. Otherwise, it returns an object
+            $php_data = json_decode($json_data);
+
+
+            $ad = new Ad();
+            $data = $ad->first(['ad_id' => $php_data->ad_id]);
+            $ad->update($php_data->ad_id, ['ad_id' => $php_data->ad_id,'views' => ($data->views+1)]);
+
+            die;
+        }
+
+        // get_all_ads() function is declared in the controller within the core folder
         $data = get_all_ads();
 
-        $this->view('pages/ads', $data);
+        $this->view('pages/advertisements/ads', $data);
     }
 
     public function complaint($method=NULL, $id = null): void
