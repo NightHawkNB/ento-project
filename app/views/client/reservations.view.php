@@ -78,6 +78,9 @@
 </body>
 </html>
 <script>
+
+
+
     var current = document.getElementById('current');
     var outdated = document.getElementById('outdated');
     var buttons = document.querySelector('.btn-res');
@@ -128,11 +131,24 @@
         buttons.style.left = '110px'
     }
 
-// show current data when refresh
+// show current data when refresh and stay on outdated data when rating is added.
+
+    var currentTab="<?=$currentTab?>"
+
     document.addEventListener('DOMContentLoaded',function (){
-        outdated.classList.add('hide');
-        current.classList.remove('hide');
-        leftClick();
+        if(currentTab == 'current'){
+            outdated.classList.add('hide');
+            current.classList.remove('hide');
+            leftClick();
+        }else{
+            current.classList.add('hide');
+            outdated.classList.remove('hide');
+            rightClick();
+        }
+
     });
+
+
+
 
 </script>

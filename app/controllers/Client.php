@@ -115,6 +115,7 @@ class Client extends Controller {
       ON resrequest.ad_id = ads.ad_id
       WHERE resrequest.user_id = :user_id ORDER BY resrequest.createdDate', ['user_id' => Auth::getUser_id()]);
 
+      $currentTab="current";
 
       if($_SERVER['REQUEST_METHOD'] == 'POST'){
           $target_id = $db->query('SELECT * FROM serviceprovider WHERE sp_id=:sp_id',['sp_id'=>$method])[0]->user_id;
@@ -124,8 +125,9 @@ class Client extends Controller {
           $review = new Review();
           $review->insert($_POST);
 
-          redirect("client/reservations");
+          $currentTab="outdated";
       }
+      $data['currentTab']=$currentTab;
 
       $this->view('client/reservations', $data);
 
