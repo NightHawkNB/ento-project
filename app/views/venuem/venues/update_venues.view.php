@@ -23,27 +23,27 @@
 
                     <div class="">
                         <label for="name">Name</label>
-                        <input type="text" name="name" value="<?= set_value('name', $name) ?>">
+                        <input type="text" name="name" value="<?= (!empty($name)) ? $name : '' ?>">
                     </div>
 
                     <div class="">
                         <label for="location">Location</label>
-                        <input type="text" name="location" value="<?= set_value('location', $location) ?>">
+                        <input type="text" name="location" value="<?= (!empty($location)) ? $location : '' ?>">
                     </div>
 
                     <div class="">
                         <label for="seat_count">Seat Count</label>
-                        <input type="number" name="seat_count" value="<?= set_value('seat_count', $seat_count) ?>">
+                        <input type="number" name="seat_count" value="<?= (!empty($seat_count)) ? $seat_count : '' ?>">
                     </div>
 
                     <div class="">
                         <label for="packages">Packages</label>
-                        <textarea name="packages"><?= set_value('packages', $packages) ?></textarea>
+                        <textarea name="packages"><?= (!empty($packages)) ? $packages : '' ?></textarea>
                     </div>
 
                     <div class="">
                         <label for="other">Other Details</label>
-                        <textarea name="other"><?= set_value('other', $other) ?></textarea>
+                        <textarea name="other"><?= (!empty($other)) ? $other : '' ?></textarea>
                     </div>
 
                     <div class="wid-100 dis-flex ju-co-ce button">

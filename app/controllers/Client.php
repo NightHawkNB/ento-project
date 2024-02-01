@@ -1,5 +1,19 @@
 <?php
 class Client extends Controller {
+
+    public function __construct()
+    {
+        if (!Auth::logged_in()) {
+            message("Please Login");
+            redirect('home');
+        }
+
+        if (!Auth::is_client()) {
+            message("Access Denied");
+            redirect('home');
+        }
+    }
+
   public function index(): void
   {
       $this->view('common/dashboard');
@@ -91,7 +105,8 @@ class Client extends Controller {
   }
 
   //reservations
-  public function reservations($method = null, $id = null, $action = null) : void
+    //for current reservations
+  public function reservations_current($method = null, $id = null, $action = null) : void
   {
       $db = new Database();
 
@@ -101,13 +116,34 @@ class Client extends Controller {
         FROM resrequest
         INNER JOIN  serviceprovider
         ON resrequest.sp_id = serviceprovider.sp_id
-        INNER JOIN user
-        ON resrequest.user_id = user.user_id
+        INNER JOIN ads
+        ON serviceprovider.user_id = ads.user_id
         WHERE resrequest.user_id = :user_id ORDER BY resrequest.createdDate', ['user_id'=> Auth::getUser_id()]);
 
-      $this->view('client/reservations', $data);
+
+      $this->view('client/reservations_current', $data);
 
   }
+
+  //for old reservations
+    public function reservations_old($method = null, $id = null, $action = null) : void
+    {
+        $db = new Database();
+
+        $data['reservations']=$db->query('SELECT 
+      *, serviceprovider.user_id AS "sp_id"
+/*        resrequest.status,resrequest.details,resrequest.createdDate,resrequest.end_time,resrequest.start_time,resrequest.location, user.fname,user.lname */
+        FROM resrequest
+        INNER JOIN  serviceprovider
+        ON resrequest.sp_id = serviceprovider.sp_id
+        INNER JOIN ads
+        ON serviceprovider.user_id = ads.user_id
+        WHERE resrequest.user_id = :user_id ORDER BY resrequest.createdDate', ['user_id'=> Auth::getUser_id()]);
+
+
+        $this->view('client/reservations_old', $data);
+
+    }
 
   //reserve a service provider using Ad
   public function reservation_form($id= null) : void
@@ -142,7 +178,7 @@ class Client extends Controller {
         $db = new Database();
 
         $data['bought_tickets']=$db->query('SELECT 
-        event.name AS ename,event.details,event.start_time,event.end_time,event.image,tickets.serial_num, venue.name AS vname
+        event.name AS ename,event.details,event.start_time,event.end_time,event.image,tickets.hash, venue.name AS vname
         FROM event
         INNER JOIN  tickets
         ON event.event_id = tickets.event_id

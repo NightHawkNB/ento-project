@@ -112,36 +112,52 @@ Class Admin extends Controller{
             $user = new User();
         
             $data['users']= $user->query("SELECT  user_id,user_type, fname, lname, image, email FROM user ; ");
+
     
             $this->view('admin/useraccounts', $data);
         }
     }
-
-
-    public function adverify($id=null){
+    
+    public function adverify($id=null,$method=null){
         $ad = new Ad();
 
-        if(empty($id)){
+        if (empty($id) && empty($method)) {
 
-            $data['ads']= $ad->query("SELECT ad_id, title, user_id, category, datetime FROM ads WHERE pending=1; ");
+            $data['singerads'] = $ad->query("SELECT ad_id, title, user_id, category, datetime FROM ads WHERE pending=1 and category='singer'");
+            $data['bandads'] = $ad->query("SELECT ad_id, title, user_id, category, datetime FROM ads WHERE pending=1 and category='band'");
+            $data['venueads'] = $ad->query("SELECT ad_id, title, user_id, category, datetime FROM ads WHERE pending=1 and category='venue'");
 
             $this->view('admin/adverification', $data);
 
-        }
-        else{
+        } elseif (!empty($id) && empty($method)) {
+
             $data['ads'] = $ad->query("SELECT ads.ad_id, ads.datetime, ads.image, ads.details, ads.title, ads.user_id,
-             ads.contact_num , ads.category , user.email , user.fname, user.lname, user.nic_num
-            FROM ads 
-            INNER JOIN user 
-            ON ads.user_id = user.user_id  
-            WHERE ads.pending = 1 AND ads.ad_id = :ad_id" , ['ad_id'=>$id]);
-
-
+                     ads.contact_num, ads.category, ads.contact_email, user.email, user.fname, user.lname, user.nic_num
+                     FROM ads 
+                     INNER JOIN user 
+                     ON ads.user_id = user.user_id  
+                     WHERE ads.pending = 1 AND ads.ad_id = :ad_id", ['ad_id' => $id]);
 
             $this->view('admin/singlead', $data);
-        }
 
-        
+        } elseif (!empty($id) && $method === 'verify') {
+
+            $update = $ad->query("UPDATE ads SET pending = 0 WHERE ad_id = :ad_id", ['ad_id' => $id]);
+
+
+                redirect("Admin/adverify");
+                message("Verification Successfully");
+
+
+        } elseif (!empty($id) && $method === 'decline') {
+
+
+        } elseif (empty($id) && $method === 'back') {
+
+
+        } else {
+
+        }
     }
 
     public function profile($method = null): void

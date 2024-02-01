@@ -116,7 +116,7 @@ header {
             }
 
             a.active {
-                background-color: var(--navbar-dark-300);
+                background-color: var(--navbar-dark-100);
             }
 
             &.active > a {
@@ -293,7 +293,41 @@ header #profile-btn:hover {
 .sub-menu-wrap .sub-menu .user-info {
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
+
+
+
+.sub-menu-wrap .sub-menu .profile-header {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.sub-menu-wrap .sub-menu .user-info .verified-status {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 5px;
+}
+
+.sub-menu-wrap .sub-menu .user-info .verified-status span {
+    font-size: 12px;
+    color: limegreen;
+}
+
+.sub-menu-wrap .sub-menu .user-info .verified-status.verify span {
+    font-size: 12px;
+    color: dodgerblue;
+}
+
+.sub-menu-wrap .sub-menu .user-info .verified-status img {
+    margin: 0;
+    width: 20px;
+    height: 20px;
+}
+
+
 
 .sub-menu-wrap .sub-menu .user-info h3 {
     font-weight: 600;
@@ -352,12 +386,14 @@ header #profile-btn:hover {
 
 #logout, #login {
     background-color: var(--status-pending);
-    color: var(--font-primary);
+    color: var(--font-secondary);
 }
 
 #signup {
-    border: 2px solid var(--status-pending);
-    color: var(--font-primary);
+    border: 2px solid transparent;
+    background-color: var(--dark-grey);
+    color: var(--font-secondary);
+    margin-right: 20px;
 }
 
 .pre-loader {

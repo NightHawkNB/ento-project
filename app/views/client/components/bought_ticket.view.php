@@ -44,22 +44,27 @@ $etime = $edateTime->format('H:i:s');
 <!--qr-->
 <div class="qr_container hide bg-white"  style="width: 300px; height: 300px; border-radius: 5px; ">
     <div id="imgBox" class="wid-100 hei-100 dis-flex-col gap-10 ju-co-ce al-it-ce">
-        <img src="" id="qrImage" alt="qr" style="border: 1px solid black; padding: 10px">
+<!--        <img src="" id="qrImage" alt="qr" style="border: 1px solid black; padding: 10px">-->
+        <div id="qrImage"  style="border: 1px solid black; padding: 10px "></div>
         <button class="btn-lay-2" onclick="close_popup()">Close</button>
     </div>
 </div>
 <script>
     let qrImage = document.getElementById("qrImage");
-    const qr_container = document.querySelector(".qr_container")
-    let qrText = "<?=$serial_num?>";
+    const qr_container = document.querySelector(".qr_container");
 
     function close_popup() {
         qr_container.classList.toggle("hide")
     }
 
     function generateQR(){
-        qr_container.classList.toggle("hide")
-        qrImage.src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Example/<?=$serial_num?>";
+        qr_container.classList.toggle("hide");
+        //qrImage.src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Example/<?php //=$serial_num?>//";
+        qrImage.innerHTML = "";
+        new QRCode(qrImage,
+            {text: "<?=$hash?>",
+                width:100,
+                height:100});
     }
 </script>
 

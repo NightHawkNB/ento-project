@@ -1,17 +1,4 @@
-/* Form Visibility Settings */
-// function changeForm() {
-//     let selected = document.getElementById("user_type")
-//     if(selected.value === "singer") document.getElementById("singer").style.display="block"
-//     else document.getElementById("singer").style.display="none"
-// }
-
-/* END OF FORM VALIDITY */
-
-
 /* START OF AD CREATION FORM */
-
-const ad_form_change = document.getElementById('ad_form')
-
 const create_ad = () => {
     const create_ad_singer = document.getElementById('create_ad_singer')
     const create_ad_band = document.getElementById('create_ad_band')
@@ -138,49 +125,3 @@ if(alert_window) {
 }
 
 /* END OF ALERT MESSAGE SCRIPT */
-
-
-/* START OF MOUSE GLOW SCRIPT */
-
-// const glassDiv = document.querySelector(".glass-container")
-// const mouseGlow = document.querySelector(".mouse-glow")
-// const rect = glassDiv.getBoundingClientRect()
-//
-// glassDiv.addEventListener('mousemove', e => {
-//     let x = e.clientX - rect.left
-//     let y = e.clientY - rect.top
-//
-//     // mouseGlow.style.display = "block"
-//     glassDiv.style.setProperty("--mouse-x", `${x}px`)
-//     glassDiv.style.setProperty("--mouse-y", `${y}px`)
-// })
-
-/* END OF MOUSE GLOW SCRIPT */
-
-/* START OF CUSTOM CURSOR SCRIPT */
-
-// const cursor = document.querySelector(".cursor")
-//
-// let timeout
-//
-// document.addEventListener('mousemove', e => {
-//     let x = e.pageX
-//     let y = e.pageY
-//
-//     cursor.style.top = y + "px"
-//     cursor.style.left = x + "px"
-//     cursor.style.display = "block"
-//
-//     function mouseStopped() {
-//         cursor.style.display = "none"
-//     }
-//
-//     timeout = setTimeout(mouseStopped, 1000)
-//     clearTimeout(timeout)
-// })
-//
-// document.addEventListener("mouseout", () => {
-//     cursor.style.display = "none"
-// })
-
-/* END OF CUSTOM CURSOR SCRIPT */

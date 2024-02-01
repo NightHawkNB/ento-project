@@ -77,7 +77,7 @@ class Model extends Database{
             $data[$key] = $value;
         }
 
-        show($query);
+//        show($query);
         //? $arr['date'] = date('Y-m-d H:i:s');
 
         $this->query($query, $data);
@@ -85,6 +85,15 @@ class Model extends Database{
 
     public function where($data): false|array
     {
+
+        if(!empty($this->allowed_columns)) {
+            foreach($data as $key => $value) {
+                if(!in_array($key, $this->allowed_columns)) {
+//                    if(str_contains($key, 'id')) $temp_id = array($key => $value);
+                    unset($data[$key]);
+                }
+            }
+        }
 
         $keys = array_keys($data);
 

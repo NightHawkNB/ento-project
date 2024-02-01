@@ -1,8 +1,23 @@
 <html lang="en">
 <?php $this->view('includes/head', ['style' => 'auth/login.css']) ?>
 <body>
-    <div class="auth-overlay"></div>
     <div class="dis-flex ju-co-ce al-it-ce pad-20 wid-100 hei-100">
+
+        <!-- Animated Background -->
+        <div class="area">
+            <ul class="circles">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
 
         <?php
         if(message()) {
@@ -50,24 +65,22 @@
                     <h2>Login</h2>
                     <div class="input-box">
                         <label for="email">Email</label>
-                        <input type="email" name="email" required>
+                        <input type="email" name="email" placeholder="Enter your email" required>
                         <i></i>
                     </div>
                     <div class="input-box">
                         <label for="password">Password</label>
-                        <input type="password" name="password" required>
+                        <input type="password" name="password" placeholder="Enter the password" required>
                         <i></i>
                     </div>
-                    <p>Don't have an Account ? <br/> <a href="<?= ROOT ?>/signup">Create an Account</a></p>
+                    <p style="font-size: 0.75rem">Don't have an Account ? <a href="<?= ROOT ?>/signup">Register</a></p>
                     <button class="sh" type="submit">Login</button>
                 </form>
             </div>
 
-            <div class="login right-section">
-                <img src="<?= ROOT ?>/assets/images/icons/auth/login.jpg" alt="login">
+            <div class="login right-section" style="background: blue url('<?= ROOT ?>/assets/images/icons/auth/login.jpg') no-repeat center; background-size: cover;">
             </div>
         </main>
-
     </div>
 </body>
 
