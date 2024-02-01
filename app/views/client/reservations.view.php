@@ -32,6 +32,9 @@
                 <h1 class="mar-10-0 txt-c-white txt-w-bold" style="font-size: 1.5rem"> Current Reservations</h1>
 
                 <div  class="pad-20 glass-bg wid-100 bor-rad-10  over-scroll dis-flex-col gap-10">
+                    <div style="width: 500px">
+<!--                        --><?php //= show($data)?>
+                    </div>
                     <?php
                     $currentDateTime = date('Y-m-d H:i:s');
 
