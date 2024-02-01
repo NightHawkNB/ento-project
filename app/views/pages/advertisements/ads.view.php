@@ -261,7 +261,7 @@
         search_bar.addEventListener('input', () => {
 
             ads.forEach(ad => {
-                if(ad.dataset.title.toLowerCase().indexOf(search_bar.value) === -1) ad.style.display = 'none'
+                if(ad.dataset.title.toLowerCase().indexOf(search_bar.value.toLowerCase()) === -1) ad.style.display = 'none'
                 else ad.style.display = 'flex'
             })
         })

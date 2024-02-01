@@ -115,26 +115,21 @@ class Home extends Controller{
             $data = $ad->first(['ad_id' => $php_data->ad_id]);
 
             $user_id = $data->user_id;
-            show($data);
+//            show($data);
 
             $ad->update($php_data->ad_id, ['ad_id' => $php_data->ad_id,'views' => ($data->views+1)]);
 
-            $db = new Database();
-            $ad_view = $db->query("SELECT * FROM ad_views WHERE user_id = :user_id", ['user_id' => $user_id]);
+            $views = new Ad_view();
+            $ad_view = $views->first(['user_id' => $user_id]);
 
-            show($ad_view);
+//            show($ad_view);
 
-            if(count($ad_view) > 0) {
-                $temp_id = $ad_view[0]->id;
-//                $db->query("UPDATE ad_views SET count = :count WHERE id = :id", ['count' => $ad_view[0], 'id' => $ad_view[0]->id]);
+            if($ad_view) {
+                $temp_id = $ad_view->id;
+                $views->update($temp_id, ['count' => $ad_view->count+1, 'id' => $ad_view->id]);
             } else {
-                $db->query("
-        INSERT INTO ad_views (user_id, count) 
-        VALUES (:user_id, :count)
-        ", ['user_id' => $user_id, 'count' => $data->views+1]);
+                $views->insert(['user_id' => $user_id, 'count' => $data->views+1]);
             }
-
-            show(count($ad_view));
 
             die;
         }
