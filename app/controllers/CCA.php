@@ -85,9 +85,10 @@ class CCA extends Controller{
         } else {
 
             $complaints = new Complaint();
-            $data['complaints'] =$complaints->get_all();    
+            $data['acc'] =$complaints->where(['status' => 'Accepted']);
+            $data['idl'] =$complaints->where(['status' => 'Idle']);
+            $data['assi'] =$complaints->where(['status' => 'Assist']);
             $this->view("pages/complaints/view_complaints",$data);
-
         }
     }
 

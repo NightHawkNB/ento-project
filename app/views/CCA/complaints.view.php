@@ -9,17 +9,32 @@
                 <?php $this->view('includes/sidebar') ?>
             </section>
             <section class="cols-10">
-            <div class="txt-c-white dis-flex-col gap-10">
-                <?php
-                    if(!empty($complaints)) {
-                        foreach ($complaints as $complaint) {
-                            $this->view('pages/complaints/single', (array)$complaint);
-                        }
-                    } else {
-                        echo "No complaints to show";
+                <div id="acceptedsection" class="complaint-section flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="max-height: 60vh; overflow:auto; padding-right: 10px">
+
+                    <?php foreach($acc as $complaint){
+                        $this->view('pages/complaints/single', (array)$complaint);
                     }
-                ?>
-            </div>
+                    ?>
+
+                </div>
+
+                <div id="idleSection" class="complaint-section flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="max-height: 60vh; overflow:auto; padding-right: 10px">
+
+                    <?php show($data);foreach($idl as $complaint){
+                        $this->view('pages/complaints/single', (array)$complaint);
+                    }
+                    ?>
+
+                </div>
+
+                <div id="assistSection" class="complaint-section flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="max-height: 60vh; overflow:auto; padding-right: 10px">
+
+                    <?php foreach($assi as $complaint){
+                        $this->view('pages/complaints/single', (array)$complaint);
+                    }
+                    ?>
+
+                </div>
             </section>
         </main>
     </div>
