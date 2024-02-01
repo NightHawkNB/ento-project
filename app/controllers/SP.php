@@ -23,6 +23,7 @@ class SP extends Controller {
 
         $db = new Database();
 
+        // Inserting the custom events to the database
         if($_SERVER['REQUEST_METHOD'] == "POST") {
 
             $json_data = file_get_contents("php://input");
@@ -45,12 +46,12 @@ class SP extends Controller {
 
             $db->query("INSERT INTO calendar_schedule (user_id, name, start_time, end_time) VALUES (:user_id, :name, :start_time, :end_time)", $input);
 
-//             If we don't stop the execution from here with die,
-//             All the data printed through this function will be sent to the fetch function in js
-//             Prints the entire html page in the console.
             die;
         }
 
+        // Getting data for the charts
+        $data['view_count'] = $db->query('SELECT views FROM ads WHERE user_id = :user_id', ['user_id' => Auth::getUser_id()])[0]->views ?? 0;
+        $data['request_count'] = $db->query('SELECT COUNT(*) AS "count" FROM resrequest JOIN serviceprovider ON resrequest.sp_id = serviceprovider.sp_id WHERE serviceprovider.user_id = :user_id', ['user_id' => Auth::getUser_id()])[0]->count ?? 0;
 
         $data['calendar_events'] = [];
 

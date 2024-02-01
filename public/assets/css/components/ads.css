@@ -1,0 +1,84 @@
+.ad {
+    width: 325px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    min-height: 431px;
+    max-height: 476px;
+}
+
+.ad div {
+    width: 100%;
+}
+
+.ad div.stars > span {
+    font-size: 1.5rem;
+    color: goldenrod;
+}
+
+.ad div.stars > p {
+    font-weight: bold;
+    color: slategray;
+    font-size: 1.1rem;
+}
+
+.ad svg {
+    fill: rebeccapurple;
+    width: 24px;
+    height: 24px;
+}
+
+.ad div.top img {
+    width: 150px;
+    aspect-ratio: 1/1;
+    border-radius: 5px;
+}
+
+.ad div.top {
+    padding: 10px;
+    display: flex;
+}
+
+.ad div.top > div:nth-child(1) {
+    flex: 1;
+    justify-content: left;
+    gap: 5px;
+}
+
+.ad div.horizontal {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.ad div.vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.ad div.bottom {
+    padding: 10px 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ad div.bottom > div.horizontal:nth-child(1) {
+    width: 100%;
+}
+
+.ad div.bottom > div.horizontal:nth-child(2) {
+    width: 100%;
+    justify-content: space-between;
+}

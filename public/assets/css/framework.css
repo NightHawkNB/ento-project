@@ -7,7 +7,7 @@
 @import "sidebar.css";
 @import "common.css";
 @import "grid.css";
-@import "navbar.css";
+@import "components/navbar.css";
 @import "dashboard.css";
 @import "templates.css";
 @import "switches.css";
@@ -21,6 +21,8 @@
 @import "modules/forms/user_update_form.css";
 @import "client/bought_tickets.css";
 @import "client/qr.css";
+@import "client/toggle_btn.css";
+@import "client/rating.css";
 
 /*@font-face {*/
 /*    font-family: 'PTSans';*/
@@ -56,15 +58,6 @@
     --navbar-dark-100: #333;
     --navbar-dark-200: #444;
     --navbar-dark-300: #555;
-
-    --facebook-blue: #1877F2;
-    --bright-blue: #3498db;
-    --primary-blue: #3498db;
-    --dark-blue: #2980b9;
-    --light-blue: #5dade2;
-    --accent-blue: #85c1e9;
-    --text-blue: #21618c;
-    --white: #FFFFFF;
 }
 
 a {

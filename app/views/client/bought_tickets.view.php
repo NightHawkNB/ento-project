@@ -20,7 +20,6 @@
 
                 <?php
                 if(!empty($bought_tickets)) {
-//                    show($bought_tickets);
                     foreach($bought_tickets as $bought_ticket) {
                         $this->view('client/components/bought_ticket', (array)$bought_ticket);
                     }
