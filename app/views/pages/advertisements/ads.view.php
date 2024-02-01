@@ -195,7 +195,7 @@
 
     <script>
 
-        function update_viewCount(ad_id, views) {
+        function update_viewCount(ad_id) {
             let data = {
                 'ad_id' : `${ad_id}`
             }
@@ -213,7 +213,7 @@
                 }).then(data => {
                     // Shows the data printed by the targeted php file.
                     // (stopped printing all data in php file by using die command)
-                    // console.log(data)
+                    console.log(data)
                 })
             } catch (e) {
                 console.log("View count updating failed")

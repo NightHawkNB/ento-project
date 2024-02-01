@@ -2,17 +2,6 @@
 <?php $this->view('includes/head') ?>
 <body>
 
-<?php if(!Auth::is_client() || !Auth::is_admin() || !Auth::is_cca()): ?>
-    <script defer>
-        const calendar_events = <?= json_encode($calendar_events) ?>;
-        const calendar_reservations = <?= json_encode($calendar_reservations) ?>;
-        const personal_schedule = <?= json_encode($personal_schedule) ?>;
-        const user_type = "<?= $_SESSION['USER_DATA']->user_type ?>";
-    </script>
-
-    <script src="<?= ROOT ?>/assets/scripts/calendar.js" defer></script>
-<?php endif; ?>
-
 <div class="main-wrapper">
     <?php $this->view('includes/header') ?>
 
@@ -55,7 +44,7 @@
                 border-radius: 10px;
                 background-color: white;
                 padding: 10px;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                /*box-shadow: 0 2px 5px rgba(0,0,0,0.2);*/
             }
 
             .widget-container .widget > span {
