@@ -138,16 +138,13 @@ class Client extends Controller {
       }
 
 
-      $data['reservations'] = $db->query('SELECT *
+      $data['reservations'] = $db->query('SELECT *, resrequest.reservation_id AS "reservation_id"
       FROM resrequest
       INNER JOIN ads
       ON resrequest.ad_id = ads.ad_id
-      LEFT JOIN review
+      LEFT OUTER JOIN review
       ON resrequest.reservation_id = review.reservation_id
       WHERE resrequest.user_id = :user_id ORDER BY resrequest.createdDate', ['user_id' => Auth::getUser_id()]);
-
-//      show($data['rating']);
-//      die;
 
       $data['currentTab']=$currentTab;
 
