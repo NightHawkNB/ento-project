@@ -37,7 +37,7 @@
 
                     <div class="dis-flex ju-co-se">
                         <a href="<?= ROOT ?>/admin/usermng/add-user">
-                            <button class="btn-lay-2 push-right hover-pointer"  style="background-color:blue ; text-align:right; border: none" >+ Add New</button>
+                            <button class="blue-btn push-right hover-pointer"  style="text-align:right; border: none" >+ Add New</button>
                         </a>
                     </div>                
                 </div >
