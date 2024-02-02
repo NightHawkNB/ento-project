@@ -1,11 +1,16 @@
 <div class="res-out">
 
     <style>
+        *{
+            box-sizing: initial;
+        }
+
         .res-out {
             display: flex;
             flex-direction: column;
             border-radius: 5px;
             overflow: hidden;
+
         }
 
         .res-out > div {
@@ -28,7 +33,8 @@
             display: grid;
             grid-template-columns: 600px 1fr 1fr;
             background-color: grey;
-            padding: 10px;
+            padding: 2px;
+            justify-items: center;
         }
         .res-out > div.lower > div:nth-child(1) {
             display: flex;
@@ -83,16 +89,17 @@
                     <?= number_format($data['rating'], 1) ?>
                 </div>
                 <div class="text">Thanks for rating us!</div>
-                <button class="edit blue-btn" onclick="openRatingPopUp('<?=$review_id?>')">EDIT</button>
+                <button class="edit btn" style="background-color: #878895; font-weight: bold" onclick="openRatingPopUp('<?=$review_id?>')">EDIT</button>
             </div>
 
 <!--    chat-->
             <a href="<?= ROOT ?>/chat/reserve/<?= $sp_id ?>/<?= Auth::getUser_id() ?>/<?= $reservation_id ?>">
-                <button class="blue-btn al-it-ce">Chat</button>
-            </a>
+                <button class="blue-btn" disabled>Chat</button>
 
 <!--    rating button-->
-            <button class="blue-btn" onclick="openRatingPopUp('<?=$review_id?>')">Rate and review</button>
+            <?php if(empty($content)):?>
+                <button class="blue-btn" onclick="openRatingPopUp('<?=$review_id?>')">Rate and review</button>
+            <?php endif; ?>
 
         <?php endif; ?>
     </div>
@@ -165,7 +172,6 @@
     let form1 = document.getElementById('form-'+id)
         form1.style.display = 'block'
     }
-
     <?=(!empty($content))?"showComment('$review_id')":''?>
 
 
