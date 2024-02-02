@@ -41,7 +41,7 @@
                 /*flex-direction: column;*/
                 align-items: center;
                 gap: 10px;
-                width: 210px;
+                width: fit-content;
                 height: 80px;
                 border-radius: 10px;
                 background-color: white;
