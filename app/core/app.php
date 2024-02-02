@@ -1,5 +1,8 @@
 <?php
 
+// Setting the default time zone for the entire application
+date_default_timezone_set('Asia/Kolkata');
+
 class App {
 
     protected $controller = '_404';
