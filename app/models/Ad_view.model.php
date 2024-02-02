@@ -10,7 +10,8 @@ class Ad_view extends model
     protected array $allowed_columns = [
         'id',
         'user_id',
-        'createdAt',
+        'month',
+        'year',
         'count'
     ];
 
