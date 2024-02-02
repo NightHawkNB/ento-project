@@ -32,7 +32,7 @@ class Controller
 
             $allowed_types = ['image/jpeg', 'image/png'];
             $direct_folder = getcwd() . "\assets\images\users" . DIRECTORY_SEPARATOR;
-            $remote_folder = ROOT . "/assets/images/users/";
+            $remote_folder = "/assets/images/users/";
 
             /*  IMPORTANT requires adding enctype="multipart/form-data" to form tag
              *  When saving a file, we have to use a static path since we can't save files via a remote path (url)
@@ -74,7 +74,7 @@ class Controller
                 }
             } else {
                 if(empty($row->image)) {
-                    $_POST['image'] = ROOT."/assets/images/users/general.png";
+                    $_POST['image'] = "/assets/images/users/general.png";
                 }
             }
 
@@ -233,7 +233,7 @@ class Controller
                     // Checking for valid file and moving to public folder
                     $allowed_types = ['image/jpeg', 'image/png'];
                     $direct_folder = getcwd() . "\assets\images\ads" . DIRECTORY_SEPARATOR;
-                    $remote_folder = ROOT . "/assets/images/ads/";
+                    $remote_folder = "/assets/images/ads/";
 
                     /*  IMPORTANT requires adding enctype="multipart/form-data" to form tag
                      *  When saving a file, we have to use a static path since we can't save files via a remote path (url)
@@ -263,7 +263,7 @@ class Controller
                         }
                     } else {
                         if(empty($row->image)) {
-                            $_POST['image'] = ROOT."/assets/images/ads/general.png";
+                            $_POST['image'] = "/assets/images/ads/general.png";
                         }
                     }
 
