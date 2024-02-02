@@ -99,7 +99,7 @@
                     </span>
                     <p>Reservation Requests</p>
                     <div>
-                        <span><?= $request_count ?? 0 ?></span>
+                        <span><?= $stats->request_count ?? 0 ?></span>
                     </div>
                 </div>
 
@@ -109,7 +109,7 @@
                     </span>
                     <p>Accepted Requests</p>
                     <div>
-                        <span><?= $accepted_request_count ?? 0 ?></span>
+                        <span><?= $stats->accepted_request_count ?? 0 ?></span>
                     </div>
                 </div>
 
@@ -119,7 +119,7 @@
                     </span>
                     <p>Pending Requests</p>
                     <div>
-                        <span><?= $pending_request_count ?? 0 ?></span>
+                        <span><?= $stats->pending_request_count ?? 0 ?></span>
                     </div>
                 </div>
             </div>
@@ -200,7 +200,7 @@
             ],
             datasets: [{
                 label: 'Probability',
-                data: [<?= $view_count ?? 0 ?>, <?= $request_count ?? 0 ?>],
+                data: [<?= $stats->view_count ?? 0 ?>, <?= $stats->request_count ?? 0 ?>],
                 backgroundColor: [
                     'rgb(255, 99, 132)',
                     'rgb(54, 162, 235)',
