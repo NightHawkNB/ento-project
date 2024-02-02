@@ -32,6 +32,9 @@
                 <h1 class="mar-10-0 txt-c-white txt-w-bold" style="font-size: 1.5rem"> Current Reservations</h1>
 
                 <div  class="pad-20 glass-bg wid-100 bor-rad-10  over-scroll dis-flex-col gap-10">
+                    <div style="width: 500px">
+<!--                        --><?php //= show($data)?>
+                    </div>
                     <?php
                     $currentDateTime = date('Y-m-d H:i:s');
 
@@ -78,6 +81,9 @@
 </body>
 </html>
 <script>
+
+
+
     var current = document.getElementById('current');
     var outdated = document.getElementById('outdated');
     var buttons = document.querySelector('.btn-res');
@@ -128,11 +134,24 @@
         buttons.style.left = '110px'
     }
 
-// show current data when refresh
+// show current data when refresh and stay on outdated data when rating is added.
+
+    var currentTab="<?=$currentTab?>"
+
     document.addEventListener('DOMContentLoaded',function (){
-        outdated.classList.add('hide');
-        current.classList.remove('hide');
-        leftClick();
+        if(currentTab == 'current'){
+            outdated.classList.add('hide');
+            current.classList.remove('hide');
+            leftClick();
+        }else{
+            current.classList.add('hide');
+            outdated.classList.remove('hide');
+            rightClick();
+        }
+
     });
+
+
+
 
 </script>

@@ -109,23 +109,44 @@ class Client extends Controller {
   {
 
       $db = new Database();
-      $data['reservations'] = $db->query('SELECT *
-      FROM resrequest
-      INNER JOIN ads
-      ON resrequest.ad_id = ads.ad_id
-      WHERE resrequest.user_id = :user_id ORDER BY resrequest.createdDate', ['user_id' => Auth::getUser_id()]);
 
+      $currentTab="current";
 
       if($_SERVER['REQUEST_METHOD'] == 'POST'){
           $target_id = $db->query('SELECT * FROM serviceprovider WHERE sp_id=:sp_id',['sp_id'=>$method])[0]->user_id;
+//          show($target_id);
+//          show($target_id[0]);
+//          show($target_id[0]->user_id);
+//          die;
+          $_POST['reservation_id'] = $id;
           $_POST['creator_id'] = Auth::getUser_id();
           $_POST['target_id'] = $target_id;
 
           $review = new Review();
-          $review->insert($_POST);
 
-          redirect("client/reservations");
+          $review_data = $review->where(['reservation_id'=>$id]);
+
+          if(empty($review_data))
+          {
+              $review->insert($_POST);
+          } else {
+              $_POST['review_id'] = $review_data[0]->review_id;
+              $review->update($id,$_POST);
+          }
+
+          $currentTab="outdated";
       }
+
+
+      $data['reservations'] = $db->query('SELECT *, resrequest.reservation_id AS "reservation_id"
+      FROM resrequest
+      INNER JOIN ads
+      ON resrequest.ad_id = ads.ad_id
+      LEFT OUTER JOIN review
+      ON resrequest.reservation_id = review.reservation_id
+      WHERE resrequest.user_id = :user_id ORDER BY resrequest.createdDate', ['user_id' => Auth::getUser_id()]);
+
+      $data['currentTab']=$currentTab;
 
       $this->view('client/reservations', $data);
 
