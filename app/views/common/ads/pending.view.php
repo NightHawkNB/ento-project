@@ -18,12 +18,13 @@
                 if(!empty($ad_band)) $ads = array_merge_recursive($ads, $ad_band);
                 if(!empty($ad_venue)) $ads = array_merge_recursive($ads, $ad_venue);
 
-
-                foreach ($ads as $ad) {
-                    $this->view('pages/advertisements/components/ad ', (array)$ad);
+                if(empty($ads)) echo "No ads to show";
+                else {
+                    foreach ($ads as $ad) {
+                        $this->view('pages/advertisements/components/ad  ', (array)$ad);
+                    }
                 }
 
-                if(empty($ads)) echo "No ads to show";
             ?>
 
         </section>

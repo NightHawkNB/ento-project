@@ -36,7 +36,19 @@ class Singer extends SP {
 
         // Getting data for the charts
         $data['view_count'] = $db->query('SELECT views FROM ads WHERE user_id = :user_id', ['user_id' => Auth::getUser_id()])[0]->views ?? 0;
-        $data['request_count'] = $db->query('SELECT COUNT(*) AS "count" FROM resrequest JOIN serviceprovider ON resrequest.sp_id = serviceprovider.sp_id WHERE serviceprovider.user_id = :user_id', ['user_id' => Auth::getUser_id()])[0]->count ?? 0;
+        $data['request_count'] = $db->query('SELECT COUNT(*) AS "count" FROM resrequest JOIN serviceprovider ON resrequest.sp_id = serviceprovider.sp_id WHERE serviceprovider.user_id = :user_id', ['user_id' => Auth::getUser_id()])[0]->count ?: 0;
+        $data['accepted_request_count'] = $db->query('SELECT COUNT(*) AS "count" FROM resrequest JOIN serviceprovider ON resrequest.sp_id = serviceprovider.sp_id WHERE serviceprovider.user_id = :user_id AND resrequest.status = "Accepted"', ['user_id' => Auth::getUser_id()])[0]->count ?: 0;
+        $data['pending_request_count'] = $db->query('SELECT COUNT(*) AS "count" FROM resrequest JOIN serviceprovider ON resrequest.sp_id = serviceprovider.sp_id WHERE serviceprovider.user_id = :user_id AND resrequest.status = "Pending"', ['user_id' => Auth::getUser_id()])[0]->count ?: 0;
+
+
+        // Query to get the total views of the ads owned by this user
+        // They will be automatically ordered based on the id which is an auto incremented field
+
+        $ad_views = new Ad_view();
+        $data['views'] = $ad_views->where(['user_id' => Auth::getUser_id()]) ?: 0;
+        if($data['views']) $data['views'] = json_encode($data['views']);
+//        show($data['views']);
+//        die;
 
         $this->view('common/reports/stats', $data);
     }

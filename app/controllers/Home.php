@@ -113,7 +113,26 @@ class Home extends Controller{
 
             $ad = new Ad();
             $data = $ad->first(['ad_id' => $php_data->ad_id]);
+
+            $user_id = $data->user_id;
+//            show($data);
+
             $ad->update($php_data->ad_id, ['ad_id' => $php_data->ad_id,'views' => ($data->views+1)]);
+
+            // Get current month and year
+            $currentYear = date('Y');
+            $currentMonth = date('n');
+
+            $views = new Ad_view();
+            $ad_view = $views->first(['user_id' => $user_id, 'month' => $currentMonth, 'year' => $currentYear]) ?: NULL;
+
+//            show($ad_view);
+
+            if($ad_view) {
+                $views->update($ad_view->id, ['count' => $ad_view->count+1, 'id' => $ad_view->id]);
+            } else {
+                $views->insert(['user_id' => $user_id, 'count' => $data->views+1, 'month' => $currentMonth, 'year' => $currentYear]);
+            }
 
             die;
         }
