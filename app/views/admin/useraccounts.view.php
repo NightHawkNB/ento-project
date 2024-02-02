@@ -77,7 +77,8 @@
             }
 
             // Event listener for search input
-            document.getElementById('search').addEventListener('click', searchUsers);
+            //document.getElementById('search').addEventListener('click', searchUsers);
+            searchInput.addEventListener('input', searchUsers);
 
             // Event listener for filter buttons
             filterButtons.forEach(button => {

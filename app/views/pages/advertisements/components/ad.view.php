@@ -194,6 +194,7 @@
                 <?= ($views) ? $views : 'view count' ?>
             </div>
 
+
             <div class="">
                 <img src="<?= $image ?>" alt="Ad image" style="width: 150px; height: 150px; object-fit: cover" class="bor-rad-5">
             </div>

@@ -36,12 +36,21 @@ body {
     margin-top: 0.3em;
 }
 .button-value {
-    border: 2px solid #7b51d3;
+    /*border: 2px solid #7b51d3;
     padding: 0.6em 2.2em;
     border-radius: 3em;
     background-color: transparent;
     color: #6759ff;
-    cursor: pointer;
+    cursor: pointer;*/
+    padding: 10px 40px;
+    background: #7b51d3;
+    color: var(--font-secondary);
+    border-radius: 5px;
+    max-height: fit-content;
+    border: none;
+    outline: none;
+    transition: 0.3s;
+    width: 140px;
 }
 .active {
     background-color: #7b51d3;
