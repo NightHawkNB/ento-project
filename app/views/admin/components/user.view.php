@@ -1,5 +1,5 @@
 
-    <div class="bg-white txt-c-black dis-flex gap-10  pad-10 bor-rad-5 al-it-ce">
+    <div class="u bg-white txt-c-black dis-flex gap-10  pad-10 bor-rad-5 al-it-ce" data-title="<?=$fname?>">
         <div class="dis-flex al-it-ce gap-10" style="width:250px">
             <img src="<?=$image?>" alt="User Image" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">
             <div>

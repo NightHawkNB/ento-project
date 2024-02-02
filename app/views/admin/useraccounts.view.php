@@ -13,9 +13,10 @@
                 <div class="glass-bg mar-10 wid-100  dis-flex-col pad-20 gap-10 bor-rad-5">
                     <div class="wrapper">
                         <div id="search-container">
-                            <input type="search" id="search-input" placeholder="search product name here..."/>
-                            <button id="search"git>Search</button>
+                            <input type="search" id="search-input" class='js-search' placeholder="search product name here..."/>
+                            <button id="search">Search</button>
                         </div>
+
                         <div id="buttons">
                             <button class="button-value">All</button>
                             <button class="button-value">Client</button>
@@ -43,41 +44,28 @@
             </section>
 
             <script>
-                const user = document.querySelectorAll('.user')
-                const search_bar = document.querySelector('.js-search')
+                const users = document.querySelectorAll('.u');
+                const searchInput = document.querySelector('.js-search');
 
+                function searchUsers() {
+                    const searchTerm = searchInput.value.toLowerCase();
 
-                    ads.forEach(ad => {
-                        if(filter_array.length > 0) {
-                            if(filter_array.includes(ad.dataset.category.toLowerCase())) ad.style.display = 'flex'
-                            else ad.style.display = 'none'
+                    users.forEach(user => {
+                        const userTitle = user.dataset.title.toLowerCase();
+
+                        if (userTitle.indexOf(searchTerm) === -1) {
+                            user.style.display = 'none';
                         } else {
-                            ad.style.display = 'flex'
+                            user.style.display = 'flex';
                         }
-                    })
+                    });
                 }
 
-                search_bar.addEventListener('input', () => {
+                // Event listener changed from 'input' to 'click'
+                document.getElementById('search').addEventListener('click', searchUsers);
 
-                    ads.forEach(ad => {
-                        if(ad.dataset.title.toLowerCase().indexOf(search_bar.value) === -1) ad.style.display = 'none'
-                        else ad.style.display = 'flex'
-                    })
-                })
-
-                function clear_filters() {
-                    ads.forEach(ad => {
-                        ad.style.display = 'flex'
-                    })
-
-                    category_filters.forEach(filter => {
-                        filter.checked = 0
-                        if(filter.parentElement.classList.contains('selected')) filter.parentElement.classList.remove('selected')
-                    })
-
-                    search_bar.value = ''
-                }
-
+                // Call the search function when the page loads
+                searchUsers();
             </script>
         </main>
     </div>
