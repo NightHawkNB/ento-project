@@ -22,6 +22,7 @@
                             <button class="button-value">Admin</button>
                             <button class="button-value">CCA</button>
                             <button class="button-value">SP</button>
+                            <button class="button-value">VenueOperator</button>
                         </div>
                     </div>
 
@@ -40,6 +41,44 @@
                     </div>                
                 </div >
             </section>
+
+            <script>
+                const user = document.querySelectorAll('.user')
+                const search_bar = document.querySelector('.js-search')
+
+
+                    ads.forEach(ad => {
+                        if(filter_array.length > 0) {
+                            if(filter_array.includes(ad.dataset.category.toLowerCase())) ad.style.display = 'flex'
+                            else ad.style.display = 'none'
+                        } else {
+                            ad.style.display = 'flex'
+                        }
+                    })
+                }
+
+                search_bar.addEventListener('input', () => {
+
+                    ads.forEach(ad => {
+                        if(ad.dataset.title.toLowerCase().indexOf(search_bar.value) === -1) ad.style.display = 'none'
+                        else ad.style.display = 'flex'
+                    })
+                })
+
+                function clear_filters() {
+                    ads.forEach(ad => {
+                        ad.style.display = 'flex'
+                    })
+
+                    category_filters.forEach(filter => {
+                        filter.checked = 0
+                        if(filter.parentElement.classList.contains('selected')) filter.parentElement.classList.remove('selected')
+                    })
+
+                    search_bar.value = ''
+                }
+
+            </script>
         </main>
     </div>
 </body>

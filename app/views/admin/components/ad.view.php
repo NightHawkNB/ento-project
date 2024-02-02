@@ -1,5 +1,5 @@
 <a href="<?=ROOT?>/<?=strtolower($_SESSION['USER_DATA']->user_type)?>/adverify/<?=$ad_id?>">
-    <div class="dis-flex wid-100">
+    <div class="user dis-flex wid-100" data-category="<?=$user_type ?>" data-title="<?= $fname ?> >
         <div class="bg-white txt-c-black pad-10-20 bor-rad-5 wid-100 dis-flex al-it-ce ju-co-sb ads sh f-poppins" style="gap: 100px">
             <div class="txt-c-black dis-flex-col gap-10 flex-1">
                 <p class="txt-w-bold">ID</p>
