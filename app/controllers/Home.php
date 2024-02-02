@@ -25,17 +25,45 @@ class Home extends Controller{
                     $merchant_secret = "MTAyMTQ4NTEyNzM0ODAwNzU2NDgxODk4ODgyNzQyMjg1ODU1NjA4OQ==";
                     $currency = "LKR";
 
-//                    $_POST['user_id'] = Auth::getUser_id();
+                    $_POST['user_id'] = Auth::getUser_id();
                     $_POST['event_id'] = $id;
                     $_POST['amount'] = $_POST['tickets'] * $_POST['count'];
 
                     $payment = new Payment();
-//                    $payment->insert($_POST);
-//                    $order = $payment->first(['event_id' => $_POST['event_id'], 'user_id' => $_POST['user_id']]);
-//                    if(empty($order)) {
-//                        message("Order Creation Failed - Payment was not performed");
-//                        redirect('home/events');
-//                    }
+                    $payment->insert($_POST);
+                    $order = $payment->first(['event_id' => $_POST['event_id'], 'user_id' => $_POST['user_id']]);
+
+                    $ticket = new Tickets();
+
+                    $ticket_secret = "AkilaHansiThisaraNipun";
+
+                    $params = [
+                        'event_id' => $id,
+                        'user_id' => Auth::getUser_id(),
+                        'hash' => 'hash',
+                        'type' => 'default',
+                        'price' => $_POST['tickets']
+                    ];
+                    $ticket->insert($params);
+                    $ticket_id = $ticket->query("SELECT * FROM tickets WHERE user_id = :user_id AND event_id = :event_id ORDER BY ticket_id DESC", ['user_id' => Auth::getUser_id(), 'event_id' => $id])[0]->ticket_id ?: NULL;
+
+                    $generated_hash = strtoupper(
+                        md5(
+                            $ticket_id .
+                            $id .
+                            Auth::getUser_id() .
+                            'default' .
+                            $_POST['tickets'] .
+                            strtoupper(md5($ticket_secret))
+                        )
+                    );
+
+                    $ticket->update($ticket_id, ['hash' => $generated_hash, 'ticket_id' => $ticket_id]);
+
+                    if(empty($order)) {
+                        message("Order Creation Failed - Payment was not performed");
+                        redirect('home/events');
+                    }
 
                     $amount = $_POST['amount'];
                     $order_id = rand(10, 1000).$_POST['amount'];

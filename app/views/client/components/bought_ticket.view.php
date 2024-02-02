@@ -63,8 +63,8 @@ $etime = $edateTime->format('H:i:s');
         qrImage.innerHTML = "";
         new QRCode(qrImage,
             {text: "<?=$hash?>",
-                width:100,
-                height:100});
+                width:150,
+                height:150});
     }
 </script>
 
