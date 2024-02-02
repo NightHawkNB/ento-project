@@ -13,19 +13,20 @@
             <div class="glass-bg mar-10 wid-100  dis-flex-col pad-20 gap-10 bor-rad-5">
                 <div class="wrapper">
                     <div id="search-container">
+                        <
                         <input type="search" id="search-input" class='js-search' placeholder="search product name here..."/>
                         <button id="search">Search</button>
                     </div>
 
-                    <div id="buttons">
-                        <button class="button-value" data-category="all">All</button>
-                        <button class="button-value" data-category="client">Client</button>
-                        <button class="button-value" data-category="admin">Admin</button>
-                        <button class="button-value" data-category="singer">Singer</button>
-                        <button class="button-value" data-category="band">Band</button>
-                        <button class="button-value" data-category="cca">CCA</button>
-                        <button class="button-value" data-category="venueo">Venue Operator</button>
-                        <button class="button-value" data-category="venuem">Venue Manager</button>
+                    <div id="buttons" class="dis-flex ju-co-sb">
+                        <button class="blue-btn" data-category="all">All</button>
+                        <button class="blue-btn" data-category="client">Client</button>
+                        <button class="blue-btn" data-category="admin">Admin</button>
+                        <button class="blue-btn" data-category="singer">Singer</button>
+                        <button class="blue-btn" data-category="band">Band</button>
+                        <button class="blue-btn" data-category="cca">CCA</button>
+                        <button class="blue-btn" data-category="venueo">V-Operator</button>
+                        <button class="blue-btn" data-category="venuem">V-Manager</button>
                     </div>
                 </div>
 
@@ -48,7 +49,7 @@
         <script>
             const users = document.querySelectorAll('.u');
             const searchInput = document.querySelector('.js-search');
-            const filterButtons = document.querySelectorAll('.button-value');
+            const filterButtons = document.querySelectorAll('.blue-btn');
 
             function filterUsers(category) {
                 users.forEach(user => {
