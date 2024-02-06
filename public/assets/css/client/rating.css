@@ -4,13 +4,32 @@
     position: fixed;
     z-index: 1;
     left: 50%;
-    transform: translate(-50%,0);
-    top: 0;
+    transform: translate(-50%,-50%) scale(0);
+    transition: 0.3s ease-in-out;
+    top: 50%;
     width: fit-content;
     height: fit-content;
-    overflow: auto;
+    /*overflow: auto;*/
     background-color: rgba(0, 0, 0, 0.5);
 
+    &.active {
+        transform: translate(-50%,-50%) scale(100%);
+    }
+
+    .rating-content {
+        .close {
+            font-size: 1.5rem;
+            font-weight: bold;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        h6 {
+            font-size: 0.7rem;
+        }
+    }
 }
 
 .rating-content {
@@ -29,14 +48,32 @@
 .star-container {
     position: relative;
     width: 400px;
-    background: #111;
+    background: var(--white);
     padding: 20px 30px;
-    border: 1px solid #444;
     border-radius: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction:column;
+
+    .star-widget {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        justify-content: center;
+
+        & > div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        & > div > div {
+            display: flex;
+            justify-content: center;
+        }
+    }
 }
 .star-container .post{
     display: none;
@@ -144,29 +181,74 @@ input#rate-5:checked ~ label{
     font-size: 17px;
     resize: none;
 }
-.form1 .btn{
-    height: 45px;
+/*reservation.css*/
+.reservation-section {
     width: 100%;
-    margin: 15px 0;
+    flex-direction: column;
+    justify-content: center;
+
+
+    .res-container {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        border-radius: 5px;
+        overflow-y: auto;
+
+
+        .res-out {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            background-color: white;
+            border-radius:5px;
+            overflow: hidden;
+
+
+            .upper {
+                /*background-color: red;*/
+                padding: 10px;
+                display: grid;
+                grid-template-columns: 200px 250px 200px auto;
+                justify-items: left;
+
+                div:nth-child(4) {
+                    justify-self: right;
+                }
+
+                div {
+                    display: flex;
+                    gap: 10px;
+                    align-items: center;
+                }
+            }
+
+            .lower {
+                padding: 10px;
+                display: grid;
+                grid-template-columns: 2fr 1fr 1fr;
+                justify-items: left;
+                background-color: white;
+                border-top: 2px solid darkgrey;
+
+                div {
+                    width:70%;
+                    display: flex;
+                    gap: 10px;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    div {
+                        display: flex;
+                        margin: 0;
+                        padding: 0;
+                        justify-content: left;
+                        gap: 15px;
+                    }
+                }
+            }
+        }
+    }
 }
-.form1 .btn button{
-    height: 100%;
-    width: 100%;
-    border: 1px solid #444;
-    outline: none;
-    background: #222;
-    color: #999;
-    font-size: 17px;
-    font-weight: 500;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-.form1 .btn button:hover{
-    background: #1b1b1b;
-}
-
-
-
-
-
