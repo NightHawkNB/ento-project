@@ -8,7 +8,7 @@
         <section class="cols-2 sidebar">
             <?php $this->view('includes/sidebar') ?>
         </section>
-<?=show($data)?>
+<?php //=show($data)?>
         <section  class="wid-100 pad-10 dis-flex-col al-it-ce">
             <div>
                 <!--                <button class="blue-btn" onclick="hideShowOutdated()">OutDated</button>-->
@@ -88,10 +88,6 @@
     var current = document.getElementById('current');
     var outdated = document.getElementById('outdated');
     var buttons = document.querySelector('.btn-res');
-
-    window.onload(() => {
-        hideShowCurrent()
-    })
 
     function hideShowCurrent()
     {
