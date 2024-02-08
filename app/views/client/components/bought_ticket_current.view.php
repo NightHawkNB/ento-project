@@ -14,10 +14,10 @@ $etime = $edateTime->format('H:i:s');
         <h2><?= $ename?></h2>
     </div>
     <div class="card-body" style="background-image: url('<?= ROOT ?>/assets/images/events/<?= $image ?>');
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-size: cover;
-        ">
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            ">
         <div class="ticket-details">
             <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
             <?= $details ?>
@@ -45,19 +45,27 @@ $etime = $edateTime->format('H:i:s');
 <div class="qr_container hide bg-white"  style="width: 300px; height: 300px; border-radius: 5px; ">
     <div id="imgBox" class="wid-100 hei-100 dis-flex-col gap-10 ju-co-ce al-it-ce">
         <!--        <img src="" id="qrImage" alt="qr" style="border: 1px solid black; padding: 10px">-->
-        <div id="qrImage"  style="border: 1px solid black; padding: 10px "></div>
+        <div id="<?= $ticket_id ?>" style="border: 1px solid black; padding: 10px "></div>
         <button class="btn-lay-2" onclick="close_popup()">Close</button>
     </div>
 </div>
 <script>
-    let qrImage = document.getElementById("qrImage");
-    const qr_container = document.querySelector(".qr_container");
+    // let qrImage = document.getElementById("qrImage");
+    // const qr_container = document.querySelector(".qr_container");
 
     function close_popup() {
+        const qrImage = document.getElementById('<?= $ticket_id ?>')
+        const qr_container = qrImage.parentElement.parentElement
         qr_container.classList.toggle("hide")
     }
 
     function generateQR(){
+
+        const qrImage = document.getElementById('<?= $ticket_id ?>')
+        const qr_container = qrImage.closest('.qr_container')
+
+        console.log(qr_container)
+
         qr_container.classList.toggle("hide");
         //qrImage.src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Example/<?php //=$serial_num?>//";
         qrImage.innerHTML = "";
