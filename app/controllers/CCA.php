@@ -98,12 +98,18 @@ class CCA extends Controller{
         $this->view("CCA/chats");
     }
 
-    public function verify(){
+    public function verify($uservid=null){
+
+        if(empty($uservid)){
         
                 $ur = new Uservreq();
                 $data['assists'] = $ur->get_all();
                 $this->view("CCA/verify", $data);
-
+            }else{
+                $ur = new Uservreq();
+                $data['assists'] = $ur->where(['userVreq_id'=>$uservid]);
+                $this->view("CCA/verifydetails", $data);
+            }
     }
 
     public function admanage(){
