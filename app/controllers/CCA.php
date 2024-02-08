@@ -89,6 +89,8 @@ class CCA extends Controller{
             $data['idl'] =$complaints->where(['status' => 'Idle']);
             $data['assi'] =$complaints->where(['status' => 'Assist']);
             $this->view("pages/complaints/view_complaints",$data);
+
+
         }
     }
 

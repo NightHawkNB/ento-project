@@ -19,17 +19,17 @@
                             <ul class="filter-tabs">
                                 <li>
                                     <button class="filter-button filter-active" data-translate-value="0">
-                                        Idle
-                                    </button>
-                                </li>
-                                <li>
-                                    <button class="filter-button" data-translate-value="100%">
                                         Accepted
                                     </button>
                                 </li>
                                 <li>
+                                    <button class="filter-button" data-translate-value="100%">
+                                        Idle
+                                    </button>
+                                </li>
+                                <li>
                                     <button class="filter-button" data-translate-value="200%">
-                                        Handled
+                                        Assists
                                     </button>
                                 </li>
                                
@@ -40,15 +40,50 @@
                         </div>
                     </div>
                 </nav>
-                    <?php
-                    if(!empty($complaints)) {
-                        foreach ($complaints as $complaint) {
-                            $this->view('pages/complaints/single', (array)$complaint);
+                    <div id="acceptedsection" class="complaint-section flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="max-height: 60vh; overflow:auto; padding-right: 10px">
+
+                        <?php
+
+                        if(!empty($acc)) {
+                            foreach($acc as $complaint){
+                                $this->view('pages/complaints/single', (array)$complaint);
+                            }
+                        } else {
+                            echo "no complaints";
                         }
-                    } else {
-                        echo "No complaints to show";
-                    }
-                    ?>
+
+
+                        ?>
+
+                    </div>
+
+                    <div id="idleSection" class="complaint-section flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="max-height: 60vh; overflow:auto; padding-right: 10px">
+
+                        <?php
+                        if(!empty($idl)){
+                            foreach ($idl as $complaint) {
+                                $this->view('pages/complaints/single', (array)$complaint);
+                            }
+                        }else{
+                            echo "no complaints";
+                        }
+                        ?>
+
+                    </div>
+
+                    <div id="assistSection" class="complaint-section flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="max-height: 60vh; overflow:auto; padding-right: 10px">
+
+                        <?php
+                        if(!empty($assi)){
+                            foreach ($assi as $complaint) {
+                                $this->view('pages/complaints/single', (array)$complaint);
+                            }
+                        }else{
+                            echo "no complaints";
+                        }
+                        ?>
+
+                    </div>
                 </div>
             </div>
         </section>
@@ -58,9 +93,9 @@
                 const filterTabs = document.querySelector(".filter-tabs");
                 const filterButtons = document.querySelectorAll(".filter-button");
                 const adSections = {
-                handle: document.getElementById('singersSection'),
-                band: document.getElementById('bandsSection'),
-                venue: document.getElementById('venuesSection')
+                acc: document.getElementById('acceptedsection'),
+                idl: document.getElementById('idleSection'),
+                assi: document.getElementById('assistSection')
             };
 
                 // Initial setup to select the "Singer" tab
@@ -100,8 +135,8 @@
             });
 
                 // Initially hide band and venue sections
-                adSections.band.style.display = 'none';
-                adSections.venue.style.display = 'none';
+                adSections.idl.style.display = 'none';
+                adSections.assi.style.display = 'none';
             });
 
         </script>
