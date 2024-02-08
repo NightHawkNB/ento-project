@@ -1,5 +1,5 @@
 <html lang="en">
-<?php $this->view('includes/head') ?>
+<?php $this->view('includes/head', ['style' => 'client/reservations.css']) ?>
 <body>
 <div class="main-wrapper">
     <?php $this->view('includes/header') ?>
@@ -8,11 +8,11 @@
         <section class="cols-2 sidebar">
             <?php $this->view('includes/sidebar') ?>
         </section>
-
+<?php //=show($data)?>
         <section  class="wid-100 pad-10 dis-flex-col al-it-ce">
             <div>
-<!--                <button class="blue-btn" onclick="hideShowOutdated()">OutDated</button>-->
-<!--                <button class="blue-btn" onclick="hideShowCurrent()">Current</button>-->
+                <!--                <button class="blue-btn" onclick="hideShowOutdated()">OutDated</button>-->
+                <!--                <button class="blue-btn" onclick="hideShowCurrent()">Current</button>-->
 
                 <div class="button-box-res dis-flex" >
                     <div class="btn-res"></div>
@@ -26,14 +26,15 @@
 
             </div>
 
-<!--current reservations-->
 
-            <div id="current">
+            <!--current reservations-->
+
+            <div id="current" class="reservation-section">
                 <h1 class="mar-10-0 txt-c-white txt-w-bold" style="font-size: 1.5rem"> Current Reservations</h1>
 
-                <div  class="pad-20 glass-bg wid-100 bor-rad-10  over-scroll dis-flex-col gap-10">
+                <div  class="res-container glass-bg">
                     <div style="width: 500px">
-<!--                        --><?php //= show($data)?>
+                        <!--                        --><?php //= show($data)?>
                     </div>
                     <?php
                     $currentDateTime = date('Y-m-d H:i:s');
@@ -51,12 +52,12 @@
                 </div>
             </div>
 
-<!--                out dated recervations-->
+            <!--                out dated recervations-->
 
-            <div id="outdated">
+            <div id="outdated" class="reservation-section">
                 <h1 class="mar-10-0 txt-c-white txt-w-bold" style="font-size: 1.5rem"> Out Dated Reservations</h1>
 
-                <div  class="pad-20 glass-bg wid-100 bor-rad-10 dis-flex-col gap-10">
+                <div  class="res-container">
                     <?php
                     $currentDateTime = date('Y-m-d H:i:s');
 
@@ -134,16 +135,19 @@
         buttons.style.left = '110px'
     }
 
-// show current data when refresh and stay on outdated data when rating is added.
+    // show current data when refresh and stay on outdated data when rating is added.
 
-    var currentTab="<?=$currentTab?>"
+
+    let currentTab="<?=$currentTab?>"
 
     document.addEventListener('DOMContentLoaded',function (){
         if(currentTab == 'current'){
+            console.log("current")
             outdated.classList.add('hide');
             current.classList.remove('hide');
             leftClick();
         }else{
+            console.log("outdated")
             current.classList.add('hide');
             outdated.classList.remove('hide');
             rightClick();
@@ -151,7 +155,22 @@
 
     });
 
+    // rating popup calling function
+    function openRatingPopUp(id) {
+        let rating = document.getElementById('rating-'+id);
+        if(!rating.classList.contains('active')) rating.classList.add('active')
+    }
 
+    function closeRatingPopUp(id) {
+        let rating = document.getElementById('rating-'+id);
+        if(rating.classList.contains('active')) rating.classList.remove('active')
+    }
 
+    // to show comment when editing
+    function showComment(id) {
+        let form1 = document.getElementById('form-'+id)
+        form1.style.display = 'flex'
+    }
+    <?=(!empty($content))?"showComment('$review_id')":''?>
 
 </script>
