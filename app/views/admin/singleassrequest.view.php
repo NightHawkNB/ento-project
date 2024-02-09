@@ -13,7 +13,7 @@
             </section>
 
             <section class="cols-10 dis-flex">
-                <div class="bg-black-2 mar-10 wid-100 dis-flex-col pad-20 gap-10 bor-rad-5" style="justify-content: stretch; align-items: stretch;">
+                <div class=" mar-10 wid-100 dis-flex-col pad-20 gap-10 bor-rad-5" style="justify-content: stretch; align-items: stretch;">
                     <div class="flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10">
                         <div class="bg-white txt-c-black pad-10-20 bor-rad-5 wid-100 sh f-poppins">
                             <div class="txt-c-black dis-flex-col gap-10">

@@ -105,33 +105,35 @@
 
 .back-btn {
     align-items: center;
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: transparent 0 0 0 3px,rgba(18, 18, 18, .1) 0 6px 20px;
+    background-color: transparent;
+    border-radius: 10px;
+    border: none;
+    box-shadow: none;
     box-sizing: border-box;
-    color: #121212;
+    color: #7b51d3; /* Initial text color */
     cursor: pointer;
     display: inline-flex;
     flex: 1 1 auto;
-    font-family: Inter,sans-serif;
-    font-size: 1.2rem;
+    font-family: Inter, sans-serif;
+    font-size: 1.1rem;
     font-weight: 700;
     justify-content: center;
     line-height: 1;
     margin: 0;
     outline: none;
-    padding: 1rem 1.2rem;
+    padding: 0.5rem 1.2rem;
     text-align: center;
     text-decoration: none;
-    transition: box-shadow .2s,-webkit-box-shadow .2s;
+    transition: color 0.2s; /* Smooth transition for text color */
     white-space: nowrap;
-    border: 0;
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
 }
 
-.back-btn:hover {
-    box-shadow: #121212 0 0 0 3px, transparent 0 0 0 0;
+.back-btn:hover,
+.back-btn:focus {
+    color: #de2a2a; /* Change text color on hover or focus */
 }
+
 
