@@ -86,6 +86,51 @@
                 font-weight: bold
             }
 
+            .table-container {
+                width: 100%;
+                height: fit-content;
+                padding: 10px;
+                border-radius: 5px;
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+
+
+                .table-row {
+                    background-color: var(--white);
+                    border-radius: 5px;
+                    box-shadow: grey 1px 2px 3px;
+
+                    width: 100%;
+                    display: grid;
+                    grid-template-columns: 60% 40%;
+                    padding: 15px 10px;
+                    /*border-bottom: thin solid darkgrey;*/
+
+                    span {
+                        border-right: 1px solid lightgray;
+                        text-overflow: ellipsis;
+                    }
+
+                    p {
+                        padding-left: 10px;
+                    }
+
+                    &.table-heading {
+                        font-weight: bold;
+                        border: none;
+                        background-color: mediumpurple;
+                        color: white;
+                        /*border: thin solid darkgrey;*/
+                        /*border-radius: 5px 5px 0 0;*/
+                    }
+
+                    &:not(.table-heading):hover {
+                        background-color: ghostwhite;
+                    }
+                }
+            }
+
         </style>
 
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -99,7 +144,7 @@
                     </span>
                     <p>Reservation Requests</p>
                     <div>
-                        <span><?= $request_count ?? 0 ?></span>
+                        <span><?= $stats->request_count ?? 0 ?></span>
                     </div>
                 </div>
 
@@ -109,7 +154,7 @@
                     </span>
                     <p>Accepted Requests</p>
                     <div>
-                        <span><?= $accepted_request_count ?? 0 ?></span>
+                        <span><?= $stats->accepted_request_count ?? 0 ?></span>
                     </div>
                 </div>
 
@@ -119,7 +164,7 @@
                     </span>
                     <p>Pending Requests</p>
                     <div>
-                        <span><?= $pending_request_count ?? 0 ?></span>
+                        <span><?= $stats->pending_request_count ?? 0 ?></span>
                     </div>
                 </div>
             </div>
@@ -133,6 +178,50 @@
                     <canvas id="chart2" width="300" height="300"></canvas>
                 </div>
             </div>
+
+            <div class="table-container">
+                <h2 class="pb-10">Advertisements Stats</h2>
+                <div class="table-row table-heading">
+                    <span>Property</span>
+                    <p>Value</p>
+                </div>
+                <div class="table-row">
+                    <span>Active Advertisement Count</span>
+                    <p><?= $stats->active_ad_count ?></p>
+                </div>
+                <div class="table-row">
+                    <span>Pending Advertisement Count</span>
+                    <p><?= $stats->pending_ad_count ?></p>
+                </div>
+                <div class="table-row">
+                    <span>Total Advertisement Count</span>
+                    <p><?= $stats->total_ad_count ?></p>
+                </div>
+
+            </div>
+
+            <?php if($_SESSION['USER_DATA']->user_type == 'singer'): ?>
+                <div class="table-container">
+                    <h2 class="pb-10">Estimated Earnings</h2>
+                    <div class="table-row table-heading">
+                        <span>Property</span>
+                        <p>Value</p>
+                    </div>
+                    <div class="table-row">
+                        <span>User's Average Rate</span>
+                        <p>LKR <?= number_format($rate, 2) ?></p>
+                    </div>
+                    <div class="table-row">
+                        <span>Expected earning from the accepted reservations</span>
+                        <p>LKR <?= number_format(($stats->accepted_request_count ?? 0) * $rate, 2) ?></p>
+                    </div>
+                    <div class="table-row">
+                        <span>Earning from the completed reservations</span>
+                        <p>LKR <?= number_format(($stats->request_count - ($stats->pending_request_count + $stats->accepted_request_count) ) * $rate, 2) ?></p>
+                    </div>
+
+                </div>
+            <?php endif; ?>
 
 
 
@@ -200,7 +289,7 @@
             ],
             datasets: [{
                 label: 'Probability',
-                data: [<?= $view_count ?? 0 ?>, <?= $request_count ?? 0 ?>],
+                data: [<?= $stats->view_count ?? 0 ?>, <?= $stats->request_count ?? 0 ?>],
                 backgroundColor: [
                     'rgb(255, 99, 132)',
                     'rgb(54, 162, 235)',
