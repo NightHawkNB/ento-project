@@ -119,6 +119,8 @@
                     &.table-heading {
                         font-weight: bold;
                         border: none;
+                        background-color: mediumpurple;
+                        color: white;
                         /*border: thin solid darkgrey;*/
                         /*border-radius: 5px 5px 0 0;*/
                     }
@@ -197,6 +199,29 @@
                 </div>
 
             </div>
+
+            <?php if($_SESSION['USER_DATA']->user_type == 'singer'): ?>
+                <div class="table-container">
+                    <h2 class="pb-10">Estimated Earnings</h2>
+                    <div class="table-row table-heading">
+                        <span>Property</span>
+                        <p>Value</p>
+                    </div>
+                    <div class="table-row">
+                        <span>User's Average Rate</span>
+                        <p>LKR <?= number_format($rate, 2) ?></p>
+                    </div>
+                    <div class="table-row">
+                        <span>Expected earning from the accepted reservations</span>
+                        <p>LKR <?= number_format(($stats->accepted_request_count ?? 0) * $rate, 2) ?></p>
+                    </div>
+                    <div class="table-row">
+                        <span>Earning from the completed reservations</span>
+                        <p>LKR <?= number_format(($stats->request_count - ($stats->pending_request_count + $stats->accepted_request_count) ) * $rate, 2) ?></p>
+                    </div>
+
+                </div>
+            <?php endif; ?>
 
 
 
