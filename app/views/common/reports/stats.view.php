@@ -86,6 +86,49 @@
                 font-weight: bold
             }
 
+            .table-container {
+                width: 100%;
+                height: fit-content;
+                padding: 10px;
+                border-radius: 5px;
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+
+
+                .table-row {
+                    background-color: var(--white);
+                    border-radius: 5px;
+                    box-shadow: grey 1px 2px 3px;
+
+                    width: 100%;
+                    display: grid;
+                    grid-template-columns: 60% 40%;
+                    padding: 15px 10px;
+                    /*border-bottom: thin solid darkgrey;*/
+
+                    span {
+                        border-right: 1px solid lightgray;
+                        text-overflow: ellipsis;
+                    }
+
+                    p {
+                        padding-left: 10px;
+                    }
+
+                    &.table-heading {
+                        font-weight: bold;
+                        border: none;
+                        /*border: thin solid darkgrey;*/
+                        /*border-radius: 5px 5px 0 0;*/
+                    }
+
+                    &:not(.table-heading):hover {
+                        background-color: ghostwhite;
+                    }
+                }
+            }
+
         </style>
 
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -132,6 +175,27 @@
                 <div class="chart">
                     <canvas id="chart2" width="300" height="300"></canvas>
                 </div>
+            </div>
+
+            <div class="table-container">
+                <h2 class="pb-10">Advertisements Stats</h2>
+                <div class="table-row table-heading">
+                    <span>Property</span>
+                    <p>Value</p>
+                </div>
+                <div class="table-row">
+                    <span>Active Advertisement Count</span>
+                    <p><?= $stats->active_ad_count ?></p>
+                </div>
+                <div class="table-row">
+                    <span>Pending Advertisement Count</span>
+                    <p><?= $stats->pending_ad_count ?></p>
+                </div>
+                <div class="table-row">
+                    <span>Total Advertisement Count</span>
+                    <p><?= $stats->total_ad_count ?></p>
+                </div>
+
             </div>
 
 
