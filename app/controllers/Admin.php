@@ -42,7 +42,7 @@ Class Admin extends Controller{
         ON complaint_assist.comp_id = complaints.comp_id 
         WHERE complaint_assist.deleted = 0 AND complaints.comp_id = :comp_id" , ['comp_id'=>$id]); 
 
-        $this->view('admin/test', $data);
+        $this->view('admin/singleassrequest', $data);
 
        }
     }
