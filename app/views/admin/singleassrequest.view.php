@@ -51,14 +51,14 @@
                         </div>
                         <div class="dis-flex " style="background-color: #ffffff; height: 25%;justify-content: flex-end;">
                             <?php if($requests[0]->status=='Idle'):?>
-                                <a href="" >
+                                <a href="<?= ROOT ?>/admin/ccareq/<?= $requests[0]->assist_comp_id ?>/assist" >
                                     <button class="button-s2 " style="width: 150px; text-align: center">
                                         Assisting
                                     </button>
                                 </a>
                             <?php endif; ?>
                             <?php if($requests[0]->status=='assist'):?>
-                                <a href="" >
+                                <a href="<?= ROOT ?>/admin/ccareq/<?= $requests[0]->assist_comp_id ?>/handle" >
                                     <button class="button-s2 " style="width: 150px; text-align: center">
                                         Handled
                                     </button>

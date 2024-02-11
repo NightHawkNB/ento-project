@@ -27,30 +27,24 @@ class Admin extends Controller
 
         $assists = new Assist_req();
 
-        if (empty($id)) {
-            $data['idlerequests'] = $assists->query("SELECT complaint_assist.comp_id, complaint_assist.date_time, complaint_assist.status, complaint_assist.comment, complaints.user_id, complaints.cca_user_id 
-        FROM complaint_assist 
-        INNER JOIN complaints 
-        ON complaint_assist.comp_id = complaints.comp_id 
-        WHERE complaint_assist.deleted = 0 
-        AND complaint_assist.status='idle'");
+        if (!empty($id) && !empty($method)) {
+            if ($method == 'assist') {
+                $update = $assists->query("UPDATE complaint_assist SET status = 'assist' WHERE comp_id = :comp_id", ['comp_id' => $id]);
 
-            $data['assistrequests'] = $assists->query("SELECT complaint_assist.comp_id, complaint_assist.date_time, complaint_assist.status, complaint_assist.comment, complaints.user_id, complaints.cca_user_id 
-        FROM complaint_assist 
-        INNER JOIN complaints 
-        ON complaint_assist.comp_id = complaints.comp_id 
-        WHERE complaint_assist.deleted = 0 
-        AND complaint_assist.status='assist'");
 
-            $data['handledrequests'] = $assists->query("SELECT complaint_assist.comp_id, complaint_assist.date_time, complaint_assist.status, complaint_assist.comment, complaints.user_id, complaints.cca_user_id 
-        FROM complaint_assist 
-        INNER JOIN complaints 
-        ON complaint_assist.comp_id = complaints.comp_id 
-        WHERE complaint_assist.deleted = 0 
-        AND complaint_assist.status='handled'");
+                redirect("Admin/ccareq");
+                message("Assisting");
 
-            $this->view('admin/ccarequests', $data);
-        } else {
+
+            } else {
+                $update = $assists->query("UPDATE complaint_assist SET status = 'handled' WHERE comp_id = :comp_id", ['comp_id' => $id]);
+
+
+                redirect("Admin/ccareq");
+                message("Handled");
+
+            }
+        } elseif (!empty($id)) {
             $data['requests'] = $assists->query("
     SELECT 
         complaint_assist.comp_id AS assist_comp_id, 
@@ -74,11 +68,35 @@ class Admin extends Controller
                 ['comp_id' => $id]
             );
 
-
             $this->view('admin/singleassrequest', $data);
 
+        } else {
+            $data['idlerequests'] = $assists->query("SELECT complaint_assist.comp_id, complaint_assist.date_time, complaint_assist.status, complaint_assist.comment, complaints.user_id, complaints.cca_user_id 
+        FROM complaint_assist 
+        INNER JOIN complaints 
+        ON complaint_assist.comp_id = complaints.comp_id 
+        WHERE complaint_assist.deleted = 0 
+        AND complaint_assist.status='idle'");
+
+            $data['assistrequests'] = $assists->query("SELECT complaint_assist.comp_id, complaint_assist.date_time, complaint_assist.status, complaint_assist.comment, complaints.user_id, complaints.cca_user_id 
+        FROM complaint_assist 
+        INNER JOIN complaints 
+        ON complaint_assist.comp_id = complaints.comp_id 
+        WHERE complaint_assist.deleted = 0 
+        AND complaint_assist.status='assist'");
+
+            $data['handledrequests'] = $assists->query("SELECT complaint_assist.comp_id, complaint_assist.date_time, complaint_assist.status, complaint_assist.comment, complaints.user_id, complaints.cca_user_id 
+        FROM complaint_assist 
+        INNER JOIN complaints 
+        ON complaint_assist.comp_id = complaints.comp_id 
+        WHERE complaint_assist.deleted = 0 
+        AND complaint_assist.status='handled'");
+
+            $this->view('admin/ccarequests', $data);
         }
     }
+
+
 
 
     public function usermng($method = null, $id = null)
