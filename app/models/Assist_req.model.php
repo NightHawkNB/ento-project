@@ -9,6 +9,8 @@ class Assist_req extends Model {
         'comp_id',
         'date_time',
         'status',
-        'comment'
+        'comment',
+        'admin_user_id',
+        'deleted'
     ];
 }

@@ -6,11 +6,13 @@ class Complaint extends Model {
     protected string $pk = "comp_id";
 
     protected array $allowed_columns = [
+        'comp_id',
         'details',
         'files',
         'datetime',
         'user_id',
-        'cust_id',
-        'status'
+        'cca_user_id',
+        'status',
+        'deleted'
     ];
 }
