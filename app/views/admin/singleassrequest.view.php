@@ -39,7 +39,7 @@
                             </div>
                         </div>
                         <div class="" style="background-color: #ffffff; height: 15%">
-                            <p class="txt-ali-lef txt-d-none " style=" "><?= $requests[0]->date_time ?> |  CCA ID : 453687</p>
+                            <p class="txt-ali-lef txt-d-none " style=" "><?= $requests[0]->assist_date_time ?> |  CCA ID : 453687</p>
                         </div>
                         <div class="dis-flex-col" style="background-color: #ffffff; height: 35%">
                             <div class="" style="height:10%">
@@ -64,18 +64,18 @@
                     </div>
                     <div class="bordered-div dis-flex-col" style="height: 50% ; ">
                         <div class="" style="background-color: #ffffff ;height: 15%">
-                            <p class="txt-ali-lef txt-d-none pad-10" style=" ">Complaint ID : <?= $requests[0]->comp_id ?></p>
+                            <p class="txt-ali-lef txt-d-none pad-10" style=" ">Complaint ID : <?= $requests[0]->assist_comp_id ?></p>
                         </div>
                         <div class="dis-flex " style="height: 15%">
                             <div class="dis-flex pad-10" style="background-color: #ffffff ; width: 50%">
-                                <p class="txt-ali-lef txt-d-none" style=" ">02/05/2024 | 23:35</p>
+                                <p class="txt-ali-lef txt-d-none" style=" "><?= $requests[0]->complaint_date_time ?></p>
                             </div>
                             <div class="dis-flex pad-10" style="background-color: #ffffff ;width: 50%">
-                                <p class="txt-ali-lef txt-d-none" style=" ">User ID : 5268741</p>
+                                <p class="txt-ali-lef txt-d-none" style=" ">User ID : <?= $requests[0]->user_id ?></p>
                             </div>
                         </div>
                         <div class="bordered-div pad-10" style="background-color: #ffffff ;height: 45%; margin: 10px 10px 10px 10px;">
-                            <p class="txt-ali-lef txt-d-none" style=" ">In response to the intricate challenges faced by students in comprehending and managing educational content, [Your Application Name] emerges as a sophisticated solution designed to revolutionize the learning experience. Specifically crafted to overcome the identified challenges, our application stands out with its multifaceted approach, integrating state-of-the-art technologies to provide a comprehensive suite of features.</p>
+                            <p class="txt-ali-lef txt-d-none" style=" "><?= $requests[0]->details ?></p>
                         </div>
                         <div class="dis-flex pad-10" style="background-color: #ffffff ;height: 25%">
                             <div class="" style="width:5%">
