@@ -93,7 +93,7 @@
                         <div class="left">
                             <div class="input-box">
                                 <label>Full Name</label>
-                                <input type="text" placeholder="Enter your full name"/>
+                                <input type="text"  placeholder="Enter your address"/>
                             </div>
                             <div class="input-box">
                                 <label>Address</label>
