@@ -107,7 +107,14 @@ class CCA extends Controller{
                 $this->view("CCA/verify", $data);
             }else{
                 $ur = new Uservreq();
-                $data['assists'] = $ur->where(['userVreq_id'=>$uservid]);
+                $data['assists'] = $ur->query("
+                SELECT * FROM uservreq
+                JOIN user
+                ON user.user_id = uservreq.user_id
+                WHERE uservreq.userVreq_id = :userVreq_id
+            ", ['userVreq_id' => $uservid])[0];
+                $this->view("CCA/verifydetails", $data);
+
                 $this->view("CCA/verifydetails", $data);
             }
     }
