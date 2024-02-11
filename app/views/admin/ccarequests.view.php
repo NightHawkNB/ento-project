@@ -10,7 +10,7 @@
             </section>
 
             <section class="cols-10 dis-flex">
-                <div class="bg-black-2 mar-10 wid-100 dis-flex-col pad-20 gap-10 bor-rad-5" style="justify-content:stretch; align-items:stretch">
+                <div class=" mar-10 wid-100 dis-flex-col pad-20 gap-10 bor-rad-5" style="justify-content:stretch; align-items:stretch">
                     <a href="profile/verify" class="push-right">
                         <button class="btn-lay-2 hover-pointer"  style="background-color:purple; text-align:right; border: none" >Filter by</button>
                     </a>
