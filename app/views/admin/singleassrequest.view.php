@@ -39,14 +39,14 @@
                             </div>
                         </div>
                         <div class="" style="background-color: #ffffff; height: 15%">
-                            <p class="txt-ali-lef txt-d-none " style=" ">05/05/2024 | 10:15 | CCA ID : 5263484</p>
+                            <p class="txt-ali-lef txt-d-none " style=" "><?= $requests[0]->date_time ?> |  CCA ID : 453687</p>
                         </div>
                         <div class="dis-flex-col" style="background-color: #ffffff; height: 35%">
                             <div class="" style="height:10%">
                                 <p class="txt-ali-lef txt-d-none " style=" ">Comment : </p>
                             </div>
                             <div class="bordered-div pad-10" style="height: 90%; margin: 10px 0px 10px 0px;">
-                                <p class="txt-ali-lef txt-d-none " style=" ">hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh </p>
+                                <p class="txt-ali-lef txt-d-none " style=" "> <?= $requests[0]->comment ?></p>
                             </div>
                         </div>
                         <div class="dis-flex ju-co-se" style="background-color: #ffffff; height: 25%;align-items: center">
@@ -64,7 +64,7 @@
                     </div>
                     <div class="bordered-div dis-flex-col" style="height: 50% ; ">
                         <div class="" style="background-color: #ffffff ;height: 15%">
-                            <p class="txt-ali-lef txt-d-none pad-10" style=" ">Complaint ID : 45526845</p>
+                            <p class="txt-ali-lef txt-d-none pad-10" style=" ">Complaint ID : <?= $requests[0]->comp_id ?></p>
                         </div>
                         <div class="dis-flex " style="height: 15%">
                             <div class="dis-flex pad-10" style="background-color: #ffffff ; width: 50%">
