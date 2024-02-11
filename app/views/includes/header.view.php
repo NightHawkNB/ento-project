@@ -130,11 +130,34 @@ if (message()) {
             <a href="<?= ROOT ?>/login" id="login" class="btn-lay">Login</a>
             <a href="<?= ROOT ?>/signup" id="signup" class="btn-lay">Signup</a>
         <?php else: ?>
-            <div class="">
-                <svg class="fill-white" xmlns="http://www.w3.org/2000/svg" height="1.25em" viewBox="0 0 448 512">
-                    <path d="M224 0c-17.7 0-32 14.3-32 32V51.2C119 66 64 130.6 64 208v18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416H416c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8V208c0-77.4-55-142-128-156.8V32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z"/>
-                </svg>
-            </div>
+            <!--<div class="">-->
+
+
+<!--                notification icon-->
+<!--                ///////////////////////////////////-->
+
+
+                <div class="notifications_container" onclick="dropdown()">
+
+                    <svg class="fill-white" xmlns="http://www.w3.org/2000/svg" height="1.25em" viewBox="0 0 448 512">
+                        <path d="M224 0c-17.7 0-32 14.3-32 32V51.2C119 66 64 130.6 64 208v18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416H416c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8V208c0-77.4-55-142-128-156.8V32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z"/>
+                    </svg>
+
+                    <div class="dropdown">
+                        <div class="item">Elisebeth</div>
+                        <div class="item">Elisebeth</div>
+                        <div class="item">Elisebeth</div>
+                        <div class="item">Elisebeth</div>
+                    </div>
+                </div>
+
+
+
+<!--            </div>-->
+
+
+
+
             <div id="profile-btn" style="padding: 2px 5px">
                 <img src="<?= $_SESSION['USER_DATA']->image ?>" alt="profile-image"
                      style="width: 35px; border-radius: 50%" class="hover-pointer" onclick="toggleDrop()">
@@ -220,3 +243,41 @@ if (message()) {
 
         <!--    </div>-->
 </header>
+
+<script>
+
+        var data_array = []
+        fetch("<?=ROOT?>/home/notifications",{
+        method: "PATCH",
+        headers:{
+        "Content-Type": "application/json; charset=utf-8"
+    }
+    }).then(res => {
+        console.log(res)
+            return res.text()
+    }).then(data => {
+        data_array = JSON.parse(data)
+            console.log(data)
+            data_array.forEach(notification => {
+        const divElement = document.createElement('div');
+        divElement.innerHTML = `<p>${notification.message}</p>`;
+        dropdown.appendChild(divElement);
+    });
+    }).catch(error => {
+        console.error('Fetch error:', error);
+    });
+
+
+    function dropdown() {
+        const dropdown = document.querySelector('.dropdown')
+
+        if(dropdown.classList.contains('close')){
+            dropdown.classList.remove('close')
+            dropdown.classList.add('open')
+        }else {
+            dropdown.classList.remove('open')
+            dropdown.classList.add('close')
+        }
+
+    }
+</script>

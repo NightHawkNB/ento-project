@@ -230,4 +230,19 @@ class Home extends Controller{
         }
     }
 
+//    notification
+    public function notification(): void
+    {
+        if($_SERVER['REQUEST_METHOD'] == 'PATCH'){
+            $notify = new Notifications();
+            $notifications = $notify->where(['user_id'=>Auth::getUser_id()]);
+
+            if (!empty($notifications)) {
+                echo json_encode($notifications); // Encode retrieved data as JSON
+            } else {
+                echo "no-new-notifications";
+            }
+        }
+    }
+
 }
