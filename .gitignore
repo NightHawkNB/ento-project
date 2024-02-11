@@ -2,3 +2,4 @@
 Dockerfile
 docker-compose.yml
 composer.json
+./app/middleware/fpdf/
