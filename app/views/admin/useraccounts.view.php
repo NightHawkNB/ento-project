@@ -9,13 +9,18 @@
             <?php $this->view('includes/sidebar') ?>
         </section>
 
+        <style>
+            .fa.fa-search {
+                color: white;
+            }
+        </style>
+
         <section class="cols-10 dis-flex">
             <div class="glass-bg mar-10 wid-100  dis-flex-col pad-20 gap-10 bor-rad-5">
                 <div class="wrapper">
                     <div id="search-container">
-                        <
+                        <i class="fa fa-search"></i>
                         <input type="search" id="search-input" class='js-search' placeholder="search product name here..."/>
-                        <button id="search">Search</button>
                     </div>
 
                     <div id="buttons" class="dis-flex ju-co-sb">
