@@ -1,6 +1,7 @@
 <?php
 
-Class Admin extends Controller{
+class Admin extends Controller
+{
 
     public function __construct()
     {
@@ -16,42 +17,41 @@ Class Admin extends Controller{
     }
 
 
-
-
-    public function index(){
+    public function index()
+    {
         $this->view('common/dashboard');
     }
 
-    public function ccareq($id=null, $method=null){
+    public function ccareq($id = null, $method = null)
+    {
 
         $assists = new Assist_req();
 
-       if(empty($id)){
-        $data['idlerequests'] = $assists->query("SELECT complaint_assist.comp_id, complaint_assist.date_time, complaint_assist.status, complaint_assist.comment, complaints.user_id, complaints.cust_id 
+        if (empty($id)) {
+            $data['idlerequests'] = $assists->query("SELECT complaint_assist.comp_id, complaint_assist.date_time, complaint_assist.status, complaint_assist.comment, complaints.user_id, complaints.cca_user_id 
         FROM complaint_assist 
         INNER JOIN complaints 
         ON complaint_assist.comp_id = complaints.comp_id 
         WHERE complaint_assist.deleted = 0 
         AND complaint_assist.status='idle'");
 
-        $data['assistrequests'] = $assists->query("SELECT complaint_assist.comp_id, complaint_assist.date_time, complaint_assist.status, complaint_assist.comment, complaints.user_id, complaints.cust_id 
+            $data['assistrequests'] = $assists->query("SELECT complaint_assist.comp_id, complaint_assist.date_time, complaint_assist.status, complaint_assist.comment, complaints.user_id, complaints.cca_user_id 
         FROM complaint_assist 
         INNER JOIN complaints 
         ON complaint_assist.comp_id = complaints.comp_id 
         WHERE complaint_assist.deleted = 0 
         AND complaint_assist.status='assist'");
 
-        $data['handledrequests'] = $assists->query("SELECT complaint_assist.comp_id, complaint_assist.date_time, complaint_assist.status, complaint_assist.comment, complaints.user_id, complaints.cust_id 
+            $data['handledrequests'] = $assists->query("SELECT complaint_assist.comp_id, complaint_assist.date_time, complaint_assist.status, complaint_assist.comment, complaints.user_id, complaints.cca_user_id 
         FROM complaint_assist 
         INNER JOIN complaints 
         ON complaint_assist.comp_id = complaints.comp_id 
         WHERE complaint_assist.deleted = 0 
         AND complaint_assist.status='handled'");
 
-        $this->view('admin/ccarequests', $data);
-       }
-       else{
-           $data['requests'] = $assists->query("
+            $this->view('admin/ccarequests', $data);
+        } else {
+            $data['requests'] = $assists->query("
     SELECT 
         complaint_assist.comp_id AS assist_comp_id, 
         complaint_assist.date_time AS assist_date_time, 
@@ -60,7 +60,7 @@ Class Admin extends Controller{
         complaints.details, 
         complaints.user_id,
         complaints.date_time AS complaint_date_time, 
-        complaints.cust_id 
+        complaints.cca_user_id 
     FROM 
         complaint_assist 
     INNER JOIN 
@@ -71,87 +71,85 @@ Class Admin extends Controller{
         complaint_assist.deleted = 0 
         AND 
         complaints.comp_id = :comp_id",
-               ['comp_id' => $id]
-           );
+                ['comp_id' => $id]
+            );
 
 
-           $this->view('admin/singleassrequest', $data);
+            $this->view('admin/singleassrequest', $data);
 
-       }
+        }
     }
 
 
-    public function usermng($method=null, $id=null){
-        if($method=='add-user'){
-            if($_SERVER['REQUEST_METHOD'] == "POST") {
+    public function usermng($method = null, $id = null)
+    {
+        if ($method == 'add-user') {
+            if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 $user = new User();
                 show($_POST);
-                $_POST['terms']=1;
-                if($user->validate($_POST)) echo "Valid";
+                $_POST['terms'] = 1;
+                if ($user->validate($_POST)) echo "Valid";
                 else show($user->errors);
-                if($user->validate($_POST)) {
-    
+                if ($user->validate($_POST)) {
+
                     $_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    
+
                     $user->insert($_POST);
-    
-                    message(msg:"Account created succesfully");
-                    redirect(link:"admin/usermng");
+
+                    message(msg: "Account created succesfully");
+                    redirect(link: "admin/usermng");
                 } else {
                     $data['errors'] = $user->errors;
                 }
             }
-        $this->view('admin/add-user');
-        }
-        else if ($method == 'update-user'){
+            $this->view('admin/add-user');
+        } else if ($method == 'update-user') {
 
             $user = new User();
-            $data['user'] = $user->first(['user_id'=>$id]);
+            $data['user'] = $user->first(['user_id' => $id]);
 
-            if($_SERVER['REQUEST_METHOD'] == "POST"){
-                if($user->validate_vo($_POST)){
-                    $_POST['user_id']  =$id;
+            if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                if ($user->validate_vo($_POST)) {
+                    $_POST['user_id'] = $id;
                     $user->update($id, $_POST);
                     message("User Account updated Succesfully");
                     redirect("Admin/usermng");
-                }else{
+                } else {
                     message("Update Failed");
                     redirect("Admin/usermng");
                 }
-            }
-            else{
+            } else {
                 $data['user_id'] = $id;
                 $this->view('admin/update-user', $data);
-                
+
             }
-           
-        }
-        else if ($method == 'delete-user'){
+
+        } else if ($method == 'delete-user') {
 
             $user = new User();
 
-            $delete = $user->query("DELETE FROM user WHERE user_id = :user_id", ['user_id' => $id ]);
+            $delete = $user->query("DELETE FROM user WHERE user_id = :user_id", ['user_id' => $id]);
 
-            if($delete){
+            if ($delete) {
                 message("Delete succesfully");
                 redirect("Admin/usermng");
-            }else{
+            } else {
                 message("Deletion failed");
                 redirect("Admin/usermng");
             }
 
-        }
-        else{
+        } else {
             $user = new User();
-        
-            $data['users']= $user->query("SELECT  user_id,user_type, fname, lname, image, email FROM user ; ");
 
-    
+            $data['users'] = $user->query("SELECT  user_id,user_type, fname, lname, image, email FROM user ; ");
+
+
             $this->view('admin/useraccounts', $data);
         }
     }
-    
-    public function adverify($id=null,$method=null){
+
+    public function adverify($id = null, $method = null)
+    {
         $ad = new Ad();
 
         if (empty($id) && empty($method)) {
@@ -178,8 +176,8 @@ Class Admin extends Controller{
             $update = $ad->query("UPDATE ads SET pending = 0 WHERE ad_id = :ad_id", ['ad_id' => $id]);
 
 
-                redirect("Admin/adverify");
-                message("Verification Successfully");
+            redirect("Admin/adverify");
+            message("Verification Successfully");
 
 
         } elseif (!empty($id) && $method === 'decline') {
@@ -218,20 +216,21 @@ Class Admin extends Controller{
 
     public function reservations($method = null, $id = null, $action = null): void
     {
-        
+
         $db = new Database();
 
-        if(empty($method)) {
+        if (empty($method)) {
 //            Getting all reservations for listing
             $data['records'] = $db->query("SELECT * FROM reservations");
             $this->view('common/reservations/your-reservations', $data);
         }
     }
 
-    public function advertisements($method = null) {
-        
-        if(empty($method)) $this->view('common/ads/your-ads');
+    public function advertisements($method = null)
+    {
+
+        if (empty($method)) $this->view('common/ads/your-ads');
 
     }
-    
+
 }
