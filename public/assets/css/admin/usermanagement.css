@@ -52,7 +52,12 @@ body {
     transition: 0.3s;
     width: 140px;
 }
-.active {
-    background-color: #7b51d3;
-    color: #ffffff;
+
+#buttons button:not(.active) {
+    color: black;
+}
+
+#button button.active {
+    background-color: #7b51d3 !important;
+    color: #ffffff !important;
 }
