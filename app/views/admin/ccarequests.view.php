@@ -55,15 +55,6 @@
                     } ?>
                 </div>
 
-                <div class="dis-flex ju-co-se">
-                    <a href="profile/verify">
-                        <button class="btn-lay-2 push-right hover-pointer" style="background-color:purple; text-align:right; border: none">Handle Requests</button>
-                    </a>
-                    <a href="profile/verify">
-                        <button class="btn-lay-2 push-right hover-pointer" style="background-color:purple; text-align:right; border: none">Pending Requests</button>
-                    </a>
-                </div>
-
             </div >
         </section>
     </main>
