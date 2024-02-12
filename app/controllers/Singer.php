@@ -1,7 +1,5 @@
 <?php
 
-require ('../app/middleware/fpdf/fpdf.php');
-
 class Singer extends SP {
 
     public function __construct()
@@ -17,7 +15,7 @@ class Singer extends SP {
         }
     }
 
-    public function events($method = null)
+    public function events($method = null): void
     {
 
         $db = new Database();
@@ -31,7 +29,8 @@ class Singer extends SP {
         }
     }
 
-    public function stat($method = null) {
+    public function stat($method = null): void
+    {
         $db = new Database();
 
         // Calling a Stored procedure named 'report_singer(user_id)'
