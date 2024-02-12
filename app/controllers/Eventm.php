@@ -1,5 +1,5 @@
 <?php
-class EventM extends controller{
+class Eventm extends controller{
     public function __construct()
     {
         if(!Auth::logged_in())
@@ -20,11 +20,11 @@ class EventM extends controller{
 
     public function event($page = null): void
     {
-        show($page);
+//        show($page);
         $ads = new Ad();
         $data['ads'] = $ads->where(['pending' => 0]);
 
-        if($page == "create-event") $this->view('common/events/create_event');
+        if($page == "create_event") $this->view('common/events/create_event');
         else if($page == 2) $this->view('common/events/create_event_2');
         else if($page == 3) {
             $data['ads'] = $ads->where(['pending' => 0, 'category' => 'venue']);
