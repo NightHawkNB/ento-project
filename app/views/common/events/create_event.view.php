@@ -114,7 +114,7 @@
         /*align-items: center;*/
 
         form {
-            padding: 20px;
+            padding: 20px 20px 0 20px;
             width: 100%;
             height: 100%;
             display: flex;
@@ -131,6 +131,75 @@
             }
         }
     }
+
+    /* SLIDE STYLES ---------------------------------------------------------------------------- */
+
+    .slide-container {
+        /*background-color: black;*/
+
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            border: thin solid aqua;
+            /*display: flex !important;*/
+            justify-content: space-between;
+            gap: 20px;
+
+            .cover-image {
+                position: relative;
+                width: 50%;
+                height: fit-content;
+                margin-right: 30px;
+
+                label {
+                    position: absolute;
+                    width: fit-content;
+                    height: fit-content;
+                    left: 100%;
+                    top: 100%;
+                    transform: translate(-50%, -50%);
+                }
+
+                img {
+                    object-fit: cover;
+                    width: 100%;
+                    min-width: 300px    ;
+                    max-width: 600px;
+                    aspect-ratio: 16/6;
+                }
+            }
+
+            .details,
+            .sides {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                width: 50%;
+
+                .item {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+                    font-family: Poppins, sans-serif;
+
+                    input,
+                    textarea {
+                        outline: none;
+                        border: thin solid lightgrey;
+                        background-color: white;
+                        border-radius: 5px;
+                        padding: 10px;
+
+                        &:focus {
+                            box-shadow: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 </style>
 
 <body>
@@ -178,7 +247,35 @@
 
                     <div class="slide-container">
                         <div class="slide" id="slide-1">
-                            Slide 01
+<!--                            Slide 01-->
+
+                            <div class="sides">
+                                <div class="cover-image">
+                                    <img id="image-ad" class="bor-rad-5" src="<?= ROOT.'/assets/images/ads/general.png' ?>" alt="general image">
+                                    <label for="image" class="pos-abs bor-rad-5 pad-10 bg-grey hover-pointer">
+                                        <svg class="feather txt-c-white feather-upload" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+                                        <input onchange="load_image(this.files[0])" type="file" id="image" name="image" class="hide">
+                                    </label>
+                                    <div class="error"></div>
+                                </div>
+
+                                <div class="item">
+                                    <label for="name">Event Name</label>
+                                    <input type="text" id="name">
+                                </div>
+                            </div>
+
+                            <div class="sides details">
+                                <div class="item">
+                                    <label for="details">Event Details</label>
+                                    <textarea name="details" id="details" cols="30" rows="5"></textarea>
+                                </div>
+                                <div class="item">
+                                    <label for="name">Event Name</label>
+                                    <input type="text" id="name">
+                                </div>
+                            </div>
+
                         </div>
 
                         <div class="slide" id="slide-2">
@@ -202,7 +299,7 @@
                         </div>
                     </div>
 
-                    <div class="wid-100 dis-flex ju-co-sa" style="margin-bottom: 30px">
+                    <div class="wid-100 dis-flex ju-co-sa">
                         <button id="prev" type="button" class="button-s2">Prev</button>
                         <button id="next" type="button" class="button-s2">Next</button>
                     </div>
@@ -267,7 +364,7 @@
         // Showing only the relevant slide
         for(let i = 0; i<slides.length; i++) {
             if(i === 0) {
-                slides[i].style.display = 'block'
+                slides[i].style.display = 'flex'
             } else {
                 slides[i].style.display = 'none'
             }
@@ -327,7 +424,7 @@
             // Showing only the relevant slide
             for(let i = 0; i<slides.length; i++) {
                 if(i === currentActive-1) {
-                    slides[i].style.display = 'block'
+                    slides[i].style.display = 'flex'
                 } else {
                     slides[i].style.display = 'none'
                 }
