@@ -1,4 +1,4 @@
-<?=show($data['requests'])?>
+
 
 <html lang="en">
 <?php $this->view('includes/head') ?>
