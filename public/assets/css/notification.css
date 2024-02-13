@@ -19,7 +19,7 @@
         margin: 25px;
         padding: 20px;
         position:absolute;
-        width: 600px;
+        width: 300px;
         height: fit-content;
         right:1px;
         top: 100%;
@@ -28,6 +28,9 @@
         z-index: 99;
         border: 1px solid var(--facebook-blue);
         border-radius: 5px;
+    }
+    .dropdown > div{
+        /*background: white;*/
     }
 
 }

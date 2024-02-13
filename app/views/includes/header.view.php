@@ -144,10 +144,6 @@ if (message()) {
                     </svg>
 
                     <div class="dropdown">
-                        <div class="item">Elisebeth</div>
-                        <div class="item">Elisebeth</div>
-                        <div class="item">Elisebeth</div>
-                        <div class="item">Elisebeth</div>
                     </div>
                 </div>
 
@@ -247,7 +243,8 @@ if (message()) {
 <script>
 
         var data_array = []
-        fetch("<?=ROOT?>/home/notifications",{
+        const dropdown1 = document.querySelector('.dropdown')
+        fetch("<?=ROOT?>/home/notification",{
         method: "PATCH",
         headers:{
         "Content-Type": "application/json; charset=utf-8"
@@ -261,7 +258,7 @@ if (message()) {
             data_array.forEach(notification => {
         const divElement = document.createElement('div');
         divElement.innerHTML = `<p>${notification.message}</p>`;
-        dropdown.appendChild(divElement);
+        dropdown1.appendChild(divElement);
     });
     }).catch(error => {
         console.error('Fetch error:', error);
