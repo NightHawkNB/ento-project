@@ -12,6 +12,7 @@
 
             <form method="post" enctype="multipart/form-data" class="form-style sh">
 
+                <?php if($_SESSION['USER_DATA']->user_type != "venuem"): ?>
                 <div class="image-upload">
                     <img id="image-ad" class="bor-rad-5" src="<?= ROOT ?>/assets/images/ads/general.png" style="width: 150px; height: 150px; object-fit: cover" alt="general image">
                     <div>
@@ -21,13 +22,28 @@
                         </label>
                     </div>
                 </div>
+                <?php endif; ?>
 
                 <div class="group">
-                    <div class="group-content">
-                        <label for="title">Title</label>
-                        <input type="text" id="title" name="title" placeholder="Name of the Ad">
-                        <div class="error"></div>
-                    </div>
+                    <?php if($_SESSION['USER_DATA']->user_type == "venuem"): ?>
+                        <select name="venue_id" id="venue_id">
+                            <?php
+                                if(!empty($venues)) {
+                                    foreach ($venues as $venue) {
+                                        echo "<option value='$venue->venue_id'>$venue->name</option>";
+                                    }
+                                } else {
+                                    echo "<a href=' " . ROOT. "/venuem/venues/insert'> + Create a Venue</a>";
+                                }
+                            ?>
+                        </select>
+                    <?php else: ?>
+                        <div class="group-content">
+                            <label for="title">Title</label>
+                            <input type="text" id="title" name="title" placeholder="Name of the Ad">
+                            <div class="error"></div>
+                        </div>
+                    <?php endif; ?>
 
                     <div class="group-content">
                         <label for="contact_email">Contact Email</label>
@@ -109,29 +125,6 @@
                     <div class="group-content">
                         <label for="packages">Package Details</label>
                         <input type="text" id="packages" name="packages">
-                        <div class="error"></div>
-                    </div>
-
-                </div>
-                <?php endif; ?>
-
-                <?php if($_SESSION['USER_DATA']->user_type == "venuem"): ?>
-                <div id="create_ad_venue" class="group">
-
-                    <div class="group-content">
-                        <div class="dis-flex gap-20 ju-co-ce wid-100">
-                            <p>Image of Seating Arrangements</p>
-                            <label for="seat_image" class="bor-rad-5 pad-10 bg-indigo-2 hover-pointer">
-                                <svg class="feather txt-c-white feather-upload" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
-                                <input type="file" id="seat_image" name="seat_image" class="hide">
-                            </label>
-                        </div>
-                        <div class="error"></div>
-                    </div>
-
-                    <div class="group-content">
-                        <label for="seat_count">Seat Count</label>
-                        <input type="number" id="seat_count" name="seat_count">
                         <div class="error"></div>
                     </div>
 

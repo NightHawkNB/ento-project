@@ -11,7 +11,7 @@
 
     <div class="upper">
         <div>
-            <img src="<?= $image ?>" alt="name png" class="icon" style="border-radius: 50%" >
+            <img src="<?= ROOT.$image ?>" alt="name png" class="icon" style="border-radius: 50%" >
             <p><?= $title ?></p>
         </div>
 

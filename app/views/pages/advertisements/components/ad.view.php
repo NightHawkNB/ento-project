@@ -2,7 +2,7 @@
 
     <div class="top">
         <div class="vertical">
-            <img src="<?= $image ?>" style="object-fit: cover" alt="user-01">
+            <img src="<?= ROOT.$image ?>" style="object-fit: cover" alt="user-01">
 
             <h2 class="f-poppins"><?= $title ?></h2>
             <h4 class="f-poppins" style="color: slategrey"><?= strtoupper($category) ?></h4>
@@ -100,7 +100,7 @@
             </div>
 
             <div class="">
-                <img src="<?= $image ?>" alt="Ad image" style="width: 150px; height: 150px; object-fit: cover" class="bor-rad-5">
+                <img src="<?= ROOT.$image ?>" alt="Ad image" style="width: 150px; height: 150px; object-fit: cover" class="bor-rad-5">
             </div>
             
             <div>
@@ -141,7 +141,7 @@
             </div>
 
             <div class="">
-                <img src="<?= $image ?>" alt="Ad image" style="width: 150px; height: 150px; object-fit: cover" class="bor-rad-5">
+                <img src="<?= ROOT.$image ?>" alt="Ad image" style="width: 150px; height: 150px; object-fit: cover" class="bor-rad-5">
             </div>
 
             <div>
@@ -163,9 +163,9 @@
             <div class="dis-flex-col gap-10 wid-100 pad-20">
                 <h4 class="f-mooli">Seating Arrangements</h4>
                 <div class="dis-flex gap-10 flex-wrap ju-co-ce">
-                    <img src="<?= $image ?>" alt="Ad image" style="width: 100px; height: 100px; object-fit: cover" class="bor-rad-5">
-                    <img src="<?= $image ?>" alt="Ad image" style="width: 100px; height: 100px; object-fit: cover" class="bor-rad-5">
-                    <img src="<?= $image ?>" alt="Ad image" style="width: 100px; height: 100px; object-fit: cover" class="bor-rad-5">
+                    <img src="<?= ROOT.$image ?>" alt="Ad image" style="width: 100px; height: 100px; object-fit: cover" class="bor-rad-5">
+                    <img src="<?= ROOT.$image ?>" alt="Ad image" style="width: 100px; height: 100px; object-fit: cover" class="bor-rad-5">
+                    <img src="<?= ROOT.$image ?>" alt="Ad image" style="width: 100px; height: 100px; object-fit: cover" class="bor-rad-5">
                 </div>
             </div>
 
@@ -196,7 +196,7 @@
 
 
             <div class="">
-                <img src="<?= $image ?>" alt="Ad image" style="width: 150px; height: 150px; object-fit: cover" class="bor-rad-5">
+                <img src="<?= ROOT.$image ?>" alt="Ad image" style="width: 150px; height: 150px; object-fit: cover" class="bor-rad-5">
             </div>
 
             <div>
