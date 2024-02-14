@@ -120,10 +120,6 @@ CREATE TABLE `ads` (
 --
 
 INSERT INTO `ads` (`ad_id`, `user_id`, `title`, `category`, `details`, `image`, `pending`, `views`, `rates`, `datetime`, `deleted`, `contact_num`, `contact_email`) VALUES
-                                                                                                                                                                        ('AD_1126_1707897948', '58', 'Nelum Pokuna', 'venue', 'Lotus Stadium', '/assets/images/venues/1.jpg', 0, 1, 150000, '2024-02-14 08:05:48', 0, '0712719315', 'nipunbathiya1256@gmail.com'),
-                                                                                                                                                                        ('AD_14484_1707897955', '58', 'Beach Venue', 'venue', 'Brach Data', '/assets/images/venues/2.png', 0, NULL, 150000, '2024-02-14 08:05:55', 0, '0712719315', 'nipunbathiya1256@gmail.com'),
-                                                                                                                                                                        ('AD_48811_1706342678', '44', 'Car guru', 'singer', 'Mobile Musical Shows', '/assets/images/ads/general.png', 0, 38, 15000, '2024-01-27 08:04:39', 0, '071-2845565', 'nipun3@gmail.com'),
-                                                                                                                                                                        ('AD_77956_1706448644', '41', 'Sunflower', 'band', 'Sunflower band official', '/assets/images/ads/AD_77956_1706448644.png', 0, 10, 150000, '2024-01-28 13:30:44', 0, '0712845565', 'sunflower@gmail.com');
 
 --
 -- Triggers `ads`
@@ -476,9 +472,6 @@ CREATE TABLE `notifications` (
 --
 
 INSERT INTO `notifications` (`notification_id`, `user_id`, `status`, `message`, `link`, `deleted`, `viewed`, `createdAt`) VALUES
-                                                                                                                              (1, '38', 'normal', 'Reservation Accepted', 'Reservation_id : RES_37242_1707389070', 0, 0, '2024-02-08 16:17:29'),
-                                                                                                                              (2, '40', 'idle', 'Reservation Accepted', 'reservation link', 0, 0, '2024-02-11 12:30:01'),
-                                                                                                                              (3, '38', 'normal', 'Reservation Accepted', 'Reservation_id : RES_30140_1707904209', 0, 0, '2024-02-14 15:20:09');
 
 -- --------------------------------------------------------
 
@@ -633,6 +626,13 @@ CREATE TABLE `review` (
                           `rating` int(11) NOT NULL,
                           `content` varchar(512) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `review`
+--
+
+INSERT INTO `review` (`review_id`, `reservation_id`, `creator_id`, `target_id`, `rating`, `content`) VALUES
+    (1, 'RES_11700_1706420020', '38', '44', 5, 'Hellow World');
 
 -- --------------------------------------------------------
 
@@ -954,6 +954,13 @@ ALTER TABLE `notifications`
     ADD KEY `fk_notification_user` (`user_id`);
 
 --
+-- Indexes for table `notifications`
+--
+ALTER TABLE `notifications`
+    ADD PRIMARY KEY (`notification_id`),
+  ADD KEY `fk_notification_user` (`user_id`);
+
+--
 -- Indexes for table `payment_log`
 --
 ALTER TABLE `payment_log`
@@ -1076,6 +1083,7 @@ ALTER TABLE `venueoperator`
 --
 
 --
+
 -- AUTO_INCREMENT for table `band`
 --
 ALTER TABLE `band`
@@ -1216,6 +1224,12 @@ ALTER TABLE `event`
 ALTER TABLE `event_singer`
     ADD CONSTRAINT `event_singer_event_event_id_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`event_id`),
     ADD CONSTRAINT `fk_singer_es` FOREIGN KEY (`singer_id`) REFERENCES `singer` (`singer_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `notifications`
+--
+ALTER TABLE `notifications`
+    ADD CONSTRAINT `fk_notification_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `notifications`
