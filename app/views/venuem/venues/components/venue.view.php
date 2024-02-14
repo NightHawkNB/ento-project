@@ -1,6 +1,6 @@
 <div class="venue-op-div">
 
-    <img src="<?= $image ?>" alt="Venue_image">
+    <img src="<?= ROOT.$image ?>" alt="Venue_image">
     <h3 class="txt-c-black"><?= $name ?></h3>
 
     <div class="location">

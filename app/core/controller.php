@@ -32,7 +32,7 @@ class Controller
 
             $allowed_types = ['image/jpeg', 'image/png'];
             $direct_folder = getcwd() . "\assets\images\users" . DIRECTORY_SEPARATOR;
-            $remote_folder = ROOT . "/assets/images/users/";
+            $remote_folder = "/assets/images/users/";
 
             /*  IMPORTANT requires adding enctype="multipart/form-data" to form tag
              *  When saving a file, we have to use a static path since we can't save files via a remote path (url)
@@ -74,7 +74,7 @@ class Controller
                 }
             } else {
                 if(empty($row->image)) {
-                    $_POST['image'] = ROOT."/assets/images/users/general.png";
+                    $_POST['image'] = "/assets/images/users/general.png";
                 }
             }
 
@@ -111,7 +111,30 @@ class Controller
 
             // Getting all reservations for listing
             $input = ['deleted' => 0, 'user_id' => Auth::getUser_id(), 'status' => "Accepted"];
-            $data['reservations'] = $reservation->query("SELECT * FROM reservations JOIN user ON reservations.user_id = user.user_id JOIN resrequest ON reservations.reservation_id = resrequest.reservation_id JOIN serviceprovider ON serviceprovider.sp_id = reservations.sp_id WHERE reservations.deleted = :deleted AND serviceprovider.user_id = :user_id AND resrequest.status = :status", $input);
+            if($_SESSION['USER_DATA']->user_type != "venuem") {
+                $data['reservations'] = $db->query("
+                SELECT * 
+                FROM reservations 
+                    JOIN user ON reservations.user_id = user.user_id 
+                    JOIN resrequest ON reservations.reservation_id = resrequest.reservation_id 
+                    JOIN serviceprovider ON serviceprovider.sp_id = reservations.sp_id 
+                WHERE reservations.deleted = :deleted 
+                  AND serviceprovider.user_id = :user_id 
+                  AND resrequest.status = :status
+            ", $input);
+            } else {
+                $data['reservations'] = $db->query("
+                SELECT * , venue.image as venue_image
+                FROM reservations 
+                    JOIN user ON reservations.user_id = user.user_id 
+                    JOIN resrequest ON reservations.reservation_id = resrequest.reservation_id 
+                    JOIN serviceprovider ON serviceprovider.sp_id = reservations.sp_id 
+                    JOIN venue ON resrequest.location_id = venue.venue_id
+                WHERE reservations.deleted = :deleted 
+                  AND serviceprovider.user_id = :user_id 
+                  AND resrequest.status = :status
+            ", $input);
+            }
 
             $this->view('common/reservations/reservations', $data);
 
@@ -121,7 +144,16 @@ class Controller
             if (empty($id)) {
 
                 $input = ['deleted' => 0, 'user_id' => Auth::getUser_id()];
-                $data['requests'] = $db->query("SELECT * FROM resrequest JOIN user ON resrequest.user_id = user.user_id JOIN serviceprovider ON resrequest.sp_id = serviceprovider.sp_id WHERE deleted = :deleted AND serviceprovider.user_id = :user_id AND status IN ('Pending', 'Declined')", $input);
+                $data['requests'] = $db->query("
+                    SELECT *, venue.image AS venue_image
+                    FROM resrequest
+                    JOIN user ON resrequest.user_id = user.user_id
+                    JOIN serviceprovider ON resrequest.sp_id = serviceprovider.sp_id
+                    JOIN venue ON resrequest.location_id = venue.venue_id
+                    WHERE resrequest.deleted = :deleted
+                      AND serviceprovider.user_id = :user_id
+                      AND status IN ('Pending', 'Declined')
+                ", $input);
 
                 $this->view('common/reservations/requests', $data);
 
@@ -135,16 +167,21 @@ class Controller
                     $request = new Resrequest();
 
                     $input = ['status' => "Accepted", 'reservation_id' => $new_id, 'req_id' => $id];
-                    $row_data = $request->query("UPDATE resrequest SET status = :status, reservation_id = :reservation_id WHERE req_id = :req_id", $input);
 
-                    $request_data = $request->query("SELECT * FROM resrequest WHERE req_id = :req_id", ['req_id' => $id])[0];
+//                    show($id);
+//                    die;
+
+                    $request->update($id, $input);
+
+
+                    $request_data = $request->first(['req_id' => $id]);
 
                     $reservation = new Reservation();
 
                     $input2 = ['reservation_id' => $new_id, 'sp_id' => $request_data->sp_id, 'user_id' => $request_data->user_id];
                     $reservation->insert($input2);
 
-                    message("Request Accepted");
+                    message("Request Accepted", false, 'success');
 
                     redirect($_SESSION['USER_DATA']->user_type."/reservations/requests");
 
@@ -161,8 +198,16 @@ class Controller
 
                 } else {
 
-                    $input = ['deleted' => 0, 'user_id' => Auth::getUser_id(), 'req_id' => $id];
-                    $row_data = $db->query("SELECT *, resrequest.user_id AS client_id FROM resrequest JOIN user ON resrequest.user_id = user.user_id JOIN serviceprovider ON resrequest.sp_id = serviceprovider.sp_id WHERE deleted = :deleted AND serviceprovider.user_id = :user_id and req_id = :req_id", $input);
+                    $input = ['user_id' => Auth::getUser_id(), 'req_id' => $id];
+
+                    $row_data = $db->query("
+                        SELECT *, resrequest.user_id AS 'client_id' 
+                        FROM resrequest JOIN user ON resrequest.user_id = user.user_id 
+                        JOIN serviceprovider ON resrequest.sp_id = serviceprovider.sp_id
+                        WHERE deleted = :deleted AND serviceprovider.user_id = :user_id and req_id = :req_id
+                    ", $input);
+
+
                     $data['request'] = ($row_data) ? $row_data[0] : "";
 
                     $this->view('common/reservations/components/request-details', $data);
@@ -205,6 +250,7 @@ class Controller
     public function ads($method = null, $id = null): void
     {
 
+        $db = new Database();
         $ads = new Ad();
         $user = new User();
         $user_data = $user->first(['user_id' => Auth::getUser_id()]);
@@ -233,7 +279,7 @@ class Controller
                     // Checking for valid file and moving to public folder
                     $allowed_types = ['image/jpeg', 'image/png'];
                     $direct_folder = getcwd() . "\assets\images\ads" . DIRECTORY_SEPARATOR;
-                    $remote_folder = ROOT . "/assets/images/ads/";
+                    $remote_folder = "/assets/images/ads/";
 
                     /*  IMPORTANT requires adding enctype="multipart/form-data" to form tag
                      *  When saving a file, we have to use a static path since we can't save files via a remote path (url)
@@ -243,7 +289,7 @@ class Controller
                      *  TODO deleting an ad doesn't delete the image stored
                      */
 
-                    if (!empty($_FILES['image']['name'])) {
+                    if (!empty($_FILES['image']['name']) && $_SESSION['USER_DATA']->user_type != 'venuem') {
                         if ($_FILES['image']['error'] == 0) {
                             if (in_array($_FILES['image']['type'], $allowed_types)) {
                                 $temp_name = explode(".", $_FILES['image']['name']);
@@ -263,11 +309,23 @@ class Controller
                         }
                     } else {
                         if(empty($row->image)) {
-                            $_POST['image'] = ROOT."/assets/images/ads/general.png";
+                            $_POST['image'] = "/assets/images/ads/general.png";
                         }
                     }
 
+                    if($_SESSION['USER_DATA']->user_type == "venuem") {
+                        $venue = $db->query("
+                            SELECT * FROM venue WHERE venue_id = :venue_id
+                        ", ['venue_id' => $_POST['venue_id']])[0];
+
+                        $_POST['image'] = $venue->image;
+                        $_POST['title'] = $venue->name;
+                        $_POST['seat_count'] = $venue->seat_count;
+                    }
+
                     $ads->insert($_POST);
+
+                    if($_SESSION['USER_DATA']->user_type == "venuem") $db->query("UPDATE venue SET ad_exist = 1 WHERE venue_id = :venue_id", ['venue_id' => $_POST['venue_id']]);
 
                     // Code for inserting data to the ad_singer table
                     // Insert data to ads and ad_singer table separately
@@ -287,7 +345,7 @@ class Controller
 
                     $_SESSION['USER_DATA']->ad_count += 1;
                     message("Ad Creation successful", false, 'success');
-                    redirect(strtolower($user_data->user_type) . "/ads");
+                    redirect(strtolower($user_data->user_type) . "/ads/pending");
                 } else {
                     message("Data validation failed");
                     $data['errors'] = $ads->errors;
@@ -295,7 +353,19 @@ class Controller
                 }
             }
 
-            $this->view('common/ads/create-ad');
+            $data = [];
+            if($_SESSION['USER_DATA']->user_type == "venuem") {
+                $db = new Database();
+                $data['venues'] = $db->query("
+                    SELECT * FROM user
+                    JOIN serviceprovider ON user.user_id = serviceprovider.user_id
+                    JOIN venuemanager ON serviceprovider.sp_id = venuemanager.sp_id
+                    JOIN venue ON venuemanager.venueM_id = venue.venueM_id
+                    WHERE user.user_id = :user_id AND deleted = 0 AND venue.ad_exist = 0
+                ", ['user_id' => Auth::getUser_id()]);
+            }
+
+            $this->view('common/ads/create-ad', $data);
         } else if ($method == 'update-ad') {
 
             if ($_SERVER['REQUEST_METHOD'] == "POST") {
