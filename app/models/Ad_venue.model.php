@@ -8,6 +8,6 @@ class Ad_venue extends model {
     protected array $allowed_columns = [
         'ad_id',
         'seat_count',
-        'seat_image'
+        'venue_id'
     ];
 }

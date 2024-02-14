@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 <div class="" style="height: 55%; overflow: hidden;">
-                    <img src="<?= $ads[0]->image ?>" alt="Advertisement Image" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px; padding: 5px;">
+                    <img src="<?= ROOT.$ads[0]->image ?>" alt="Advertisement Image" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px; padding: 5px;">
                 </div>
                 <div class=" dis-flex" style="height: 30%">
                     <div class="" style="width: 50%">

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 11, 2024 at 09:52 AM
+-- Generation Time: Feb 14, 2024 at 12:36 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -21,28 +21,15 @@ SET time_zone = "+00:00";
 -- Database: `ento_db`
 --
 
-DROP DATABASE IF EXISTS ento_db;
-CREATE DATABASE IF NOT EXISTS `ento_db` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `ento_db`;
-
--- -- DROPPING ALL THE TRIGGERS
--- SELECT CONCAT('DROP TRIGGER ', trigger_name, ';')
--- FROM information_schema.triggers
--- WHERE trigger_schema = 'ento_db';
-
--- -- DROPPING ALL THE PROCEDURES
--- SELECT CONCAT('DROP PROCEDURE ', routine_name, ';')
--- FROM information_schema.routines
--- WHERE routine_schema = 'ento_db' AND routine_type = 'PROCEDURE';
-
--- DROP PROCEDURE IF EXISTS `report_singer`;
+DROP DATABASE ento_db;
+CREATE DATABASE ento_db;
+USE ento_db;
 
 DELIMITER $$
 --
 -- Procedures
 --
-
-CREATE PROCEDURE `report_singer` (IN `user_id` INT)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `report_singer` (IN `user_id` INT)   BEGIN
     -- Declare variables to store counts
     DECLARE view_count INT;
     DECLARE request_count INT;
@@ -133,12 +120,25 @@ CREATE TABLE `ads` (
 --
 
 INSERT INTO `ads` (`ad_id`, `user_id`, `title`, `category`, `details`, `image`, `pending`, `views`, `rates`, `datetime`, `deleted`, `contact_num`, `contact_email`) VALUES
-                                                                                                                                                                        ('AD_16133_1706534517', '58', 'Nelum Pokuna', 'venue', 'Lotus Stadium', 'http://localhost/ento-project/public/assets/images/ads/AD_16133_1706534517.jpg', 0, 8, 500000, '2024-01-29 13:21:58', 0, '0112223265', 'lotusstadium@lanka.lk'),
-                                                                                                                                                                        ('AD_27845_1706535331', '58', 'City', 'venue', 'dasda', 'http://localhost/ento-project/public/assets/images/ads/AD_27845_1706535331.jpg', 0, 5, 75000, '2024-01-29 13:35:31', 0, '0712845565', 'nipun3@gmail.com'),
-                                                                                                                                                                        ('AD_27969_1706535265', '58', 'Beach', 'venue', 'Beach ekak ithin', 'http://localhost/ento-project/public/assets/images/ads/AD_27969_1706535265.png', 0, 1, 150000, '2024-01-29 13:34:25', 0, '0712845565', 'nipun3@gmail.com'),
-                                                                                                                                                                        ('AD_38486_1706418311', 'USER_37338_1706417629', 'James Holland', 'singer', 'Details about himself', 'http://localhost/ento-project/public/assets/images/ads/AD_38486_1706418311.png', 1, NULL, 150000, '2024-01-28 05:05:12', 0, '0712845565', 'nipun3@gmail.com'),
-                                                                                                                                                                        ('AD_48811_1706342678', '44', 'Car guru', 'singer', 'Mobile Musical Shows', 'http://localhost/ento-project/public/assets/images/ads/general.png', 0, 37, 15000, '2024-01-27 08:04:39', 0, '071-2845565', 'nipun3@gmail.com'),
-                                                                                                                                                                        ('AD_77956_1706448644', '41', 'Sunflower', 'band', 'Sunflower band official', 'http://localhost/ento-project/public/assets/images/ads/AD_77956_1706448644.png', 0, 9, 150000, '2024-01-28 13:30:44', 0, '0712845565', 'sunflower@gmail.com');
+                                                                                                                                                                        ('AD_1126_1707897948', '58', 'Nelum Pokuna', 'venue', 'Lotus Stadium', '/assets/images/venues/1.jpg', 0, 1, 150000, '2024-02-14 08:05:48', 0, '0712719315', 'nipunbathiya1256@gmail.com'),
+                                                                                                                                                                        ('AD_14484_1707897955', '58', 'Beach Venue', 'venue', 'Brach Data', '/assets/images/venues/2.png', 0, NULL, 150000, '2024-02-14 08:05:55', 0, '0712719315', 'nipunbathiya1256@gmail.com'),
+                                                                                                                                                                        ('AD_48811_1706342678', '44', 'Car guru', 'singer', 'Mobile Musical Shows', '/assets/images/ads/general.png', 0, 38, 15000, '2024-01-27 08:04:39', 0, '071-2845565', 'nipun3@gmail.com'),
+                                                                                                                                                                        ('AD_77956_1706448644', '41', 'Sunflower', 'band', 'Sunflower band official', '/assets/images/ads/AD_77956_1706448644.png', 0, 10, 150000, '2024-01-28 13:30:44', 0, '0712845565', 'sunflower@gmail.com');
+
+--
+-- Triggers `ads`
+--
+DELIMITER $$
+CREATE TRIGGER `adVenue_adExistUpdate` AFTER UPDATE ON `ads` FOR EACH ROW BEGIN
+    DECLARE venueID INT;
+
+    IF OLD.category = 'venue' THEN
+        SELECT venue_id INTO venueID FROM ad_venue WHERE ad_id = OLD.ad_id;
+        UPDATE venue SET ad_exist = 0 WHERE venue_id = venueID;
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -188,17 +188,16 @@ INSERT INTO `ad_singer` (`ad_id`, `sample_audio`) VALUES
 CREATE TABLE `ad_venue` (
                             `ad_id` varchar(32) NOT NULL,
                             `seat_count` int(11) NOT NULL DEFAULT 0,
-                            `seat_image` varchar(512) DEFAULT NULL
+                            `venue_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `ad_venue`
 --
 
-INSERT INTO `ad_venue` (`ad_id`, `seat_count`, `seat_image`) VALUES
-                                                                 ('AD_16133_1706534517', 1500, NULL),
-                                                                 ('AD_27845_1706535331', 500, NULL),
-                                                                 ('AD_27969_1706535265', 0, NULL);
+INSERT INTO `ad_venue` (`ad_id`, `seat_count`, `venue_id`) VALUES
+                                                               ('AD_1126_1707897948', 2000, 1),
+                                                               ('AD_14484_1707897955', 5000, 2);
 
 -- --------------------------------------------------------
 
@@ -221,7 +220,9 @@ CREATE TABLE `ad_views` (
 INSERT INTO `ad_views` (`id`, `user_id`, `month`, `year`, `count`) VALUES
                                                                        (2, '58', 1, 2024, 8),
                                                                        (3, '41', 12, 2023, 9),
-                                                                       (4, '44', 2, 2024, 37);
+                                                                       (4, '44', 2, 2024, 38),
+                                                                       (0, '41', 2, 2024, 10),
+                                                                       (0, '58', 2, 2024, 1);
 
 -- --------------------------------------------------------
 
@@ -293,7 +294,7 @@ CREATE TABLE `complaints` (
 --
 
 INSERT INTO `complaints` (`comp_id`, `details`, `files`, `date_time`, `user_id`, `cca_user_id`, `status`, `deleted`) VALUES
-                                                                                                                         (8, 'Complaints', 'File - 01', '2023-10-30 08:42:07', '44', NULL, 'Assist', 0),
+                                                                                                                         (8, 'Complaints', 'File - 01', '2023-10-30 08:42:07', '44', NULL, 'Handled', 0),
                                                                                                                          (10, 'Hellow World', 'File_02', '2023-10-31 08:09:18', '38', NULL, 'Assist', 0),
                                                                                                                          (21, 'Something Something\r\n', NULL, '2023-10-31 15:26:53', '48', NULL, 'Assist', 0),
                                                                                                                          (22, 'UI not working', NULL, '2023-11-01 03:59:40', '44', NULL, 'Assist', 0),
@@ -319,7 +320,6 @@ CREATE TABLE `complaint_assist` (
 --
 
 INSERT INTO `complaint_assist` (`comp_id`, `date_time`, `status`, `comment`, `admin_user_id`, `deleted`) VALUES
-                                                                                                             (8, '2024-01-13 20:49:10', 'Idle', NULL, NULL, 0),
                                                                                                              (10, '2023-12-01 19:35:55', 'handled', 'dsdasd', NULL, 0),
                                                                                                              (21, '2023-12-01 19:35:56', 'assist', NULL, NULL, 0),
                                                                                                              (22, '2023-12-01 20:17:04', 'Idle', NULL, NULL, 0);
@@ -422,7 +422,7 @@ CREATE TABLE `event` (
                          `event_id` varchar(32) NOT NULL,
                          `pending` int(11) NOT NULL DEFAULT 1,
                          `name` varchar(45) NOT NULL,
-                         `details` varchar(45) DEFAULT NULL,
+                         `details` varchar(1024) DEFAULT NULL,
                          `ticketing_plan` varchar(45) NOT NULL,
                          `venue_id` int(11) DEFAULT NULL,
                          `band_id` int(11) DEFAULT NULL,
@@ -431,6 +431,7 @@ CREATE TABLE `event` (
                          `start_time` datetime DEFAULT NULL,
                          `end_time` datetime DEFAULT NULL,
                          `image` varchar(512) DEFAULT NULL,
+                         `province` varchar(64) DEFAULT NULL,
                          `district` varchar(64) DEFAULT NULL,
                          `s_image` varchar(512) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -439,8 +440,8 @@ CREATE TABLE `event` (
 -- Dumping data for table `event`
 --
 
-INSERT INTO `event` (`event_id`, `pending`, `name`, `details`, `ticketing_plan`, `venue_id`, `band_id`, `creator_id`, `venueO_id`, `start_time`, `end_time`, `image`, `district`, `s_image`) VALUES
-    ('EVENT_dsadasd', 0, 'Yaathra', 'Musical Event', '5000*20/3000*30/2000*50', 1, 1, '37', NULL, '2023-09-30 12:00:00', '2023-11-30 16:00:00', 'event-01.jpeg', 'Gampaha', NULL);
+INSERT INTO `event` (`event_id`, `pending`, `name`, `details`, `ticketing_plan`, `venue_id`, `band_id`, `creator_id`, `venueO_id`, `start_time`, `end_time`, `image`, `province`, `district`, `s_image`) VALUES
+    ('EVENT_dsadasd', 0, 'Yaathra', 'Musical Event', '5000*20/3000*30/2000*50', 1, 1, '37', NULL, '2023-09-30 12:00:00', '2023-11-30 16:00:00', 'event-01.jpeg', NULL, 'Gampaha', NULL);
 
 -- --------------------------------------------------------
 
@@ -475,8 +476,9 @@ CREATE TABLE `notifications` (
 --
 
 INSERT INTO `notifications` (`notification_id`, `user_id`, `status`, `message`, `link`, `deleted`, `viewed`, `createdAt`) VALUES
-                                                                                                                              (0, '38', 'normal', 'Reservation Accepted', 'Reservation_id : RES_37242_1707389070', 0, 0, '2024-02-08 16:17:29'),
-                                                                                                                              (2, '40', 'idle', 'Reservation Accepted', 'reservation link', 0, 0, '2024-02-11 12:30:01');
+                                                                                                                              (1, '38', 'normal', 'Reservation Accepted', 'Reservation_id : RES_37242_1707389070', 0, 0, '2024-02-08 16:17:29'),
+                                                                                                                              (2, '40', 'idle', 'Reservation Accepted', 'reservation link', 0, 0, '2024-02-11 12:30:01'),
+                                                                                                                              (3, '38', 'normal', 'Reservation Accepted', 'Reservation_id : RES_30140_1707904209', 0, 0, '2024-02-14 15:20:09');
 
 -- --------------------------------------------------------
 
@@ -544,15 +546,7 @@ CREATE TABLE `reservations` (
 --
 
 INSERT INTO `reservations` (`reservation_id`, `sp_id`, `user_id`, `deleted`) VALUES
-                                                                                 ('RES_11700_1706420020', 7, '38', 0),
-                                                                                 ('RES_13475_1700919591', 10, '37', 0),
-                                                                                 ('RES_25664_1699881610', 7, '41', 0),
-                                                                                 ('RES_26646_1702631611', 10, '38', 0),
-                                                                                 ('RES_29653_1703654881', 7, '38', 0),
-                                                                                 ('RES_37242_1707389070', 7, '38', 0),
-                                                                                 ('RES_43305_1699881734', 7, '37', 0),
-                                                                                 ('RES_52827_1706338237', 7, '38', 0),
-                                                                                 ('RES_6519_1702206942', 10, '38', 0);
+    ('RES_30140_1707904209', 10, '38', 0);
 
 -- --------------------------------------------------------
 
@@ -569,6 +563,7 @@ CREATE TABLE `resrequest` (
                               `respondedDate` date DEFAULT NULL,
                               `details` varchar(45) DEFAULT NULL,
                               `location` varchar(64) NOT NULL DEFAULT 'City or Address',
+                              `location_id` int(11) DEFAULT NULL,
                               `start_time` datetime DEFAULT NULL,
                               `end_time` datetime DEFAULT NULL,
                               `status` varchar(32) NOT NULL DEFAULT 'Pending',
@@ -580,21 +575,8 @@ CREATE TABLE `resrequest` (
 -- Dumping data for table `resrequest`
 --
 
-INSERT INTO `resrequest` (`req_id`, `user_id`, `sp_id`, `ad_id`, `createdDate`, `respondedDate`, `details`, `location`, `start_time`, `end_time`, `status`, `deleted`, `reservation_id`) VALUES
-                                                                                                                                                                                             ('3', '37', 10, '', '2023-12-15 14:45:09', NULL, 'Something Something Else', 'City or Address', '2023-12-15 14:00:00', '2023-12-15 16:00:00', 'Pending', 0, NULL),
-                                                                                                                                                                                             ('4', '38', 7, '', '2023-11-12 21:05:25', NULL, 'Something Something', 'City or Address', '2023-05-12 00:00:00', NULL, 'Pending', 0, NULL),
-                                                                                                                                                                                             ('6', '41', 7, '', '2023-11-12 21:22:52', NULL, 'Musical Event', 'City or Address', '2023-11-27 00:00:00', '2023-11-27 12:00:00', 'Accepted', 0, 'RES_25664_1699881610'),
-                                                                                                                                                                                             ('7', '37', 7, '', '2023-11-12 21:30:23', NULL, 'New event', 'City or Address', '2023-11-29 15:00:00', '2023-11-29 17:00:00', 'Accepted', 0, 'RES_43305_1699881734'),
-                                                                                                                                                                                             ('8', '37', 7, '', '2023-11-12 21:30:34', NULL, 'Something Something', 'City or Address', '2023-05-12 00:00:00', NULL, 'Pending', 0, NULL),
-                                                                                                                                                                                             ('9', '37', 7, '', '2023-11-13 18:01:58', NULL, 'eweqeqwewqe', 'City or Address', '2023-11-15 18:01:39', NULL, 'Declined', 0, NULL),
-                                                                                                                                                                                             ('REQ_1251', '37', 10, '', '2023-11-25 16:57:19', NULL, 'Birthday Party', 'Colombo 10', '2023-12-01 16:54:12', '2023-12-01 16:00:00', 'Accepted', 0, 'RES_13475_1700919591'),
-                                                                                                                                                                                             ('RESR_64330_1700149182', '38', 7, '', '2023-11-16 21:09:42', NULL, 'Something Someting', 'daslkdjalskj', '2023-11-01 09:11:00', NULL, 'Pending', 0, NULL),
-                                                                                                                                                                                             ('RES_10637_1707387859', '38', 7, 'AD_48811_1706342678', '2024-02-08 15:54:19', NULL, 'Something', 'Gampaha', '2024-02-09 04:55:00', '2024-02-09 20:54:00', 'Accepted', 0, 'RES_37242_1707389070'),
-                                                                                                                                                                                             ('RES_12404_1706338182', '38', 7, 'AD_45543_1706338132', '2024-01-27 12:19:42', NULL, 'For a party', 'Gampaha', '2024-01-20 12:19:00', '2024-01-20 15:19:00', 'Accepted', 0, 'RES_52827_1706338237'),
-                                                                                                                                                                                             ('RES_34541_1706419982', '38', 7, 'AD_48811_1706342678', '2024-01-28 11:03:02', NULL, 'dd', 'd', '2024-01-12 11:02:00', '2024-02-02 11:03:00', 'Accepted', 0, 'RES_11700_1706420020'),
-                                                                                                                                                                                             ('RES_62820_1702206851', '38', 10, '', '2023-12-10 16:44:11', NULL, 'New Event', 'Fantasy', '2023-12-05 16:44:00', '2023-12-29 16:44:00', 'Accepted', 0, 'RES_26646_1702631611'),
-                                                                                                                                                                                             ('RES_653_1703654799', '38', 7, '', '2023-12-27 10:56:39', NULL, 'Anniversary Party', 'Migamuwa', '2023-12-28 17:00:00', '2023-12-28 00:00:00', 'Accepted', 0, 'RES_29653_1703654881'),
-                                                                                                                                                                                             ('RES_94338_1702206525', '38', 10, '', '2023-12-10 16:38:45', NULL, 'Beach Party', 'West Bridge', '2023-12-13 08:00:00', '2023-12-13 13:00:00', 'Accepted', 0, 'RES_6519_1702206942');
+INSERT INTO `resrequest` (`req_id`, `user_id`, `sp_id`, `ad_id`, `createdDate`, `respondedDate`, `details`, `location`, `location_id`, `start_time`, `end_time`, `status`, `deleted`, `reservation_id`) VALUES
+    ('RESREQ_43970_1707903432', '38', 10, 'AD_14484_1707897955', '2024-02-14 15:07:12', NULL, 'Anniversary Party', 'Migamuwa', 2, '2024-02-21 15:07:00', '2024-02-22 15:07:00', 'Accepted', 0, 'RES_30140_1707904209');
 
 --
 -- Triggers `resrequest`
@@ -651,13 +633,6 @@ CREATE TABLE `review` (
                           `rating` int(11) NOT NULL,
                           `content` varchar(512) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Dumping data for table `review`
---
-
-INSERT INTO `review` (`review_id`, `reservation_id`, `creator_id`, `target_id`, `rating`, `content`) VALUES
-    (1, 'RES_11700_1706420020', '38', '44', 5, 'Hellow World');
 
 -- --------------------------------------------------------
 
@@ -789,8 +764,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `fname`, `lname`, `email`, `nic_num`, `address1`, `address2`, `province`, `district`, `password`, `contact_num`, `user_type`, `image`, `verified`) VALUES
-                                                                                                                                                                                      ('37', 'fname', 'lname', 'cha@ento.com', NULL, 'Colombo', '10', 'western', 'Gampaha', '$2y$10$3d5Ysv6/yADqn9uyj8Sb9.McnVEv1ils1XBoQT16ceTOWauzdRbdS', 'contact_num', 'eventm', 'http://localhost/ento-project/public/assets/images/users/37.jpg', 1),
-                                                                                                                                                                                      ('38', 'fname', 'lname', 'client@ento.com', NULL, 'Address01', 'Address02', 'central', 'Kandy', '$2y$10$jYgsDUVHIzIamk.pq/4igOcOdbUyWdiUTCYQ1P78BSD15OYvwVxna', 'contact_num', 'client', 'http://localhost/ento-project/public/assets/images/users/38.jpg', 0),
+                                                                                                                                                                                      ('37', 'fname', 'lname', 'cha@ento.com', NULL, 'Colombo', '10', 'western', 'Gampaha', '$2y$10$3d5Ysv6/yADqn9uyj8Sb9.McnVEv1ils1XBoQT16ceTOWauzdRbdS', 'contact_num', 'eventm', '/assets/images/users/37.jpg', 1),
+                                                                                                                                                                                      ('38', 'fname', 'lname', 'client@ento.com', NULL, 'Address01', 'Address02', 'central', 'Kandy', '$2y$10$jYgsDUVHIzIamk.pq/4igOcOdbUyWdiUTCYQ1P78BSD15OYvwVxna', 'contact_num', 'client', '/assets/images/users/38.jpg', 0),
                                                                                                                                                                                       ('40', 'admin', '01', 'admin1@ento.com', NULL, 'AD1', 'AD2', 'CT', 'DT', '$2y$10$Yaq0hYCdITLX7CGUYrDiu.v2sO7aUf79mgZmLqJT7CY013YQkWnXS', '0744587584', 'admin', '/assets/images/users/general.jpg', 1),
                                                                                                                                                                                       ('41', 'band', '01', 'band1@ento.com', NULL, '5', '6', '4', '5', '$2y$10$4SbR6UUaBibEYOLWTpfRXOeZF8Qy9azix2AYaK.5cLeJ5NY5TLojW', '4', 'band', '/assets/images/users/general.jpg', 1),
                                                                                                                                                                                       ('44', 'Sadun', 'Prabrashawara', 'singer2@ento.com', NULL, '295/C', 'Pahala Yagoda', 'western', 'Gampaha', '$2y$10$VYwqELysomfvQ7KnpFdJjO213El1HOsJ7wx/3CgBFKCYDtGIe7irK', '0715888588', 'singer', '/assets/images/users/general.jpg', 1),
@@ -858,20 +833,19 @@ CREATE TABLE `venue` (
                          `packages` varchar(45) DEFAULT NULL,
                          `other` varchar(45) DEFAULT NULL,
                          `venueM_id` int(11) DEFAULT NULL,
-                         `deleted` tinyint(1) DEFAULT 0
+                         `deleted` tinyint(1) DEFAULT 0,
+                         `ad_exist` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `venue`
 --
 
-INSERT INTO `venue` (`venue_id`, `name`, `location`, `image`, `seat_count`, `packages`, `other`, `venueM_id`, `deleted`) VALUES
-                                                                                                                             (1, 'Nelum Pokuna', 'Colombo', 'http://localhost/ento-project/public/assets/images/venues/1.jpg', 2000, 'Some kind of description about the available ', 'Luxury', 3, 0),
-                                                                                                                             (2, 'Beach Venue', 'Migamuwa', 'http://localhost/ento-project/public/assets/images/venues/2.png', 5000, '27500', 'Open Area\r\nNo Seats', 3, 0),
-                                                                                                                             (5, 'Underworld', 'Fantasy', 'http://localhost/ento-project/public/assets/images/venues/5.png', 1000, 'sadasd', 'sadsad', 3, 0),
-                                                                                                                             (7, 'NewVenue', 'Gampaha', 'http://localhost/ento-project/public/assets/images/venues/venue.png', 15200, 'packages', 'other', 3, 1),
-                                                                                                                             (13, 'Avalon', 'Albion', 'http://localhost/ento-project/public/assets/images/venues/13.png', 0, 'Package details', 'Other Details', 3, 0),
-                                                                                                                             (14, 'New Venue 2', 'Location', 'http://localhost/ento-project/public/assets/images/venues/14.png', 1500, '', '', 3, 1);
+INSERT INTO `venue` (`venue_id`, `name`, `location`, `image`, `seat_count`, `packages`, `other`, `venueM_id`, `deleted`, `ad_exist`) VALUES
+                                                                                                                                         (1, 'Nelum Pokuna', 'Colombo', '/assets/images/venues/1.jpg', 2000, 'Some kind of description about the available ', 'Luxury', 3, 0, 0),
+                                                                                                                                         (2, 'Beach Venue', 'Migamuwa', '/assets/images/venues/2.png', 5000, '27500', 'Open Area\r\nNo Seats', 3, 0, 0),
+                                                                                                                                         (5, 'Underworld', 'Fantasy', '/assets/images/venues/5.png', 1000, 'sadasd', 'sadsad', 3, 0, 0),
+                                                                                                                                         (13, 'Avalon', 'Albion', '/assets/images/venues/13.png', 0, 'Package details', 'Other Details', 3, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -910,7 +884,7 @@ CREATE TABLE `venueoperator` (
 --
 
 INSERT INTO `venueoperator` (`venueO_id`, `sp_id`, `venue_id`, `venueM_id`) VALUES
-                                                                                (11, 25, 7, 3),
+                                                                                (11, 25, NULL, 3),
                                                                                 (19, 33, 1, 3),
                                                                                 (20, 34, 5, 3);
 
@@ -924,6 +898,13 @@ INSERT INTO `venueoperator` (`venueO_id`, `sp_id`, `venue_id`, `venueM_id`) VALU
 ALTER TABLE `ads`
     ADD PRIMARY KEY (`ad_id`),
     ADD KEY `fk_ads_serviceprovider` (`user_id`);
+
+--
+-- Indexes for table `ad_venue`
+--
+ALTER TABLE `ad_venue`
+    ADD KEY `fk_adVenue_venue` (`venue_id`),
+    ADD KEY `fk_adVenue_ad` (`ad_id`);
 
 --
 -- Indexes for table `band`
@@ -1113,6 +1094,12 @@ ALTER TABLE `customer_care`
     MODIFY `cust_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `notifications`
+--
+ALTER TABLE `notifications`
+    MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `payment_log`
 --
 ALTER TABLE `payment_log`
@@ -1193,6 +1180,13 @@ ALTER TABLE `venueoperator`
 --
 ALTER TABLE `ads`
     ADD CONSTRAINT `fk_ads_serviceprovider` FOREIGN KEY (`user_id`) REFERENCES `serviceprovider` (`user_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `ad_venue`
+--
+ALTER TABLE `ad_venue`
+    ADD CONSTRAINT `fk_adVenue_ad` FOREIGN KEY (`ad_id`) REFERENCES `ads` (`ad_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    ADD CONSTRAINT `fk_adVenue_venue` FOREIGN KEY (`venue_id`) REFERENCES `venue` (`venue_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `band`
