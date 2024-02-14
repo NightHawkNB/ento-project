@@ -1,206 +1,5 @@
 <html lang="en">
-<?php $this->view('includes/head') ?>
-
-<style>
-    input[type=file] {
-        border: none;
-    }
-
-    #svg-01 {
-        height: 1.4rem;
-    }
-
-    .add-btn {
-        height: 40px;
-        width: 40px;
-        padding: 10px;
-        border-radius: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: 1s ease;
-        bottom: 20px;
-        right: 20px;
-        position: absolute;
-        z-index: 1;
-    }
-
-    .add-btn:hover {
-        transform: rotate(90deg);
-    }
-
-    /* PROGRESS BAR STYLES ---------------------------------------------------------------------------- */
-    .progress-container-main {
-        width: 100%;
-        max-width: 800px;
-    }
-
-    .progress-container{
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        /*max-width: 100%;*/
-        /*width: 320px;*/
-        width: 100%;
-        margin-bottom: 30px;
-    }
-
-    .progress-container::before{
-        content: '';
-        position: absolute;
-        background-color: lightgrey;
-        top: 50%;
-        left: 0;
-        height: 4px;
-        width: 98%;
-        z-index: 1;
-        transform: translateY(-50%);
-    }
-
-    .progress{
-        position: absolute;
-        background-color: mediumpurple;
-        top: 50%;
-        left: 0;
-        height: 4px;
-        width: 0;
-        z-index: 2;
-        transform: translateY(-50%);
-        transition: 0.4s ease;
-    }
-
-    .circle{
-        position: relative;
-        background-color: #fff;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 50%;
-        color: rebeccapurple;
-        width: 30px;
-        height: 30px;
-        border: 3px solid #e0e0e0;
-        transition: .4s ease;
-        z-index: 3;
-    }
-
-    .circle .label {
-        position: absolute;
-        top: 120%;
-        left: 50%;
-        height: 100%;
-        width: 450%;
-        z-index: 1;
-        text-align: center;
-        font-family: Poppins, sans-serif;
-        color: var(--font-primary);
-        transform: translate(-50%, 0%);
-    }
-
-    .circle.active{
-        border-color: mediumpurple;
-    }
-
-    .event-form {
-        width: 100%;
-        height: 100%;
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        border-radius: 5px;
-        justify-content: space-between;
-        /*box-shadow: 1px 1px 3px 2px grey;*/
-        /*align-items: center;*/
-
-        form {
-            padding: 20px 20px 0 20px;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-
-            .slide-container {
-                flex: 1;
-
-                .slide {
-                    color: var(--font-primary);
-                }
-            }
-        }
-    }
-
-    /* SLIDE STYLES ---------------------------------------------------------------------------- */
-
-    .slide-container {
-        /*background-color: black;*/
-
-
-        .slide {
-            width: 100%;
-            height: 100%;
-            border: thin solid aqua;
-            /*display: flex !important;*/
-            justify-content: space-between;
-            gap: 20px;
-
-            .cover-image {
-                position: relative;
-                width: 50%;
-                height: fit-content;
-                margin-right: 30px;
-
-                label {
-                    position: absolute;
-                    width: fit-content;
-                    height: fit-content;
-                    left: 100%;
-                    top: 100%;
-                    transform: translate(-50%, -50%);
-                }
-
-                img {
-                    object-fit: cover;
-                    width: 100%;
-                    min-width: 300px    ;
-                    max-width: 600px;
-                    aspect-ratio: 16/6;
-                }
-            }
-
-            .details,
-            .sides {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-                width: 50%;
-
-                .item {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 5px;
-                    font-family: Poppins, sans-serif;
-
-                    input,
-                    textarea {
-                        outline: none;
-                        border: thin solid lightgrey;
-                        background-color: white;
-                        border-radius: 5px;
-                        padding: 10px;
-
-                        &:focus {
-                            box-shadow: none;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-</style>
+<?php $this->view('includes/head', ['style' => "pages/create_event.css"]) ?>
 
 <body>
 <div class="main-wrapper">
@@ -249,7 +48,7 @@
                         <div class="slide" id="slide-1">
 <!--                            Slide 01-->
 
-                            <div class="sides">
+                            <div class="panel">
                                 <div class="cover-image">
                                     <img id="image-ad" class="bor-rad-5" src="<?= ROOT.'/assets/images/ads/general.png' ?>" alt="general image">
                                     <label for="image" class="pos-abs bor-rad-5 pad-10 bg-grey hover-pointer">
@@ -261,25 +60,53 @@
 
                                 <div class="item">
                                     <label for="name">Event Name</label>
-                                    <input type="text" id="name">
+                                    <input type="text" id="name" placeholder="Name of the Event">
+                                    <div class="error"></div>
+                                </div>
+
+                                <div class="item">
+                                    <label for="province">Province</label>
+                                    <select name="province" id="province" onchange="updateDistrict()">
+                                        <option value="central">Central</option>
+                                        <option value="eastern">Eastern</option>
+                                        <option value="northCentral">North Central</option>
+                                        <option value="northern">Northern</option>
+                                        <option value="northWestern">North Western</option>
+                                        <option value="sabaragamuwa">Sabaragamuwa</option>
+                                        <option value="southern">Southern</option>
+                                        <option value="uva">Uva</option>
+                                        <option value="western">Western</option>
+                                    </select>
+                                </div>
+
+                                <div class="item">
+                                    <label for="district">District</label>
+                                    <select name="district" id="district"></select>
                                 </div>
                             </div>
 
-                            <div class="sides details">
-                                <div class="item">
+                            <div class="panel details">
+                                <div class="item" style="flex: 1">
                                     <label for="details">Event Details</label>
-                                    <textarea name="details" id="details" cols="30" rows="5"></textarea>
+                                    <textarea style="flex: 1" name="details" id="details" cols="30" rows="5"></textarea>
+                                    <div class="error"></div>
                                 </div>
                                 <div class="item">
-                                    <label for="name">Event Name</label>
-                                    <input type="text" id="name">
+                                    <label for="start_time">Starting Date & Time</label>
+                                    <input type="datetime-local" id="start_time">
+                                    <div class="error"></div>
+                                </div>
+                                <div class="item">
+                                    <label for="end_time">Ending Date & Time</label>
+                                    <input type="datetime-local" id="end_time">
+                                    <div class="error"></div>
                                 </div>
                             </div>
 
                         </div>
 
                         <div class="slide" id="slide-2">
-                            Slide 02
+                            Venue Data
                         </div>
 
                         <div class="slide" id="slide-3">
@@ -311,6 +138,22 @@
     </main>
 
     <script>
+
+        // Form element selection
+
+        // For slide 01
+        const event_name =document.querySelector('#name')
+        const province =document.querySelector('#province')
+        const district =document.querySelector('#district')
+        const details =document.querySelector('#details')
+        const start_time = document.querySelector('#start_time')
+        const end_time = document.querySelector('#end_time')
+
+        let starting_time
+        let ending_time
+        let current_time
+
+
         const progress = document.getElementById('progress')
         const prev = document.getElementById('prev')
         const next = document.getElementById('next')
@@ -327,36 +170,70 @@
         // Validation function
         function validate(page) {
             errors = []
+            document.querySelectorAll('.error').forEach(element => {
+                element.textContent = ''
+            })
 
-            // switch (page) {
-            //     case 1 :
-            //         if(fname.value === "") errors.push("fname")
-            //         if(lname.value === "") errors.push("lname")
-            //         if(!emailRegex.test(email.value)) {
-            //             errors.push("email")
-            //             email_error.textContent = "Invalid email format"
-            //         }
-            //         if(contact_num.value === "") errors.push("contact_num")
-            //         break
-            //
-            //     case 2:
-            //         if(address1.value === "") errors.push("address1")
-            //         if(address2.value === "") errors.push("address2")
-            //         break
-            //
-            //     case 3:
-            //         if(password.value === "") errors.push("password")
-            //         if(confirmPass.value === "") errors.push("confirmPass")
-            //         if(confirmPass.value !== password.value) {
-            //             errors.push("confirmPass")
-            //             confirmPass_error.textContent = "Passwords donot match"
-            //         }
-            //         break
-            //
-            //     default:
-            //         errors = []
-            //         break
-            // }
+            switch (page) {
+                case 1 :
+                    if(event_name.value === "") {
+                        errors.push("event_name")
+                        event_name.nextElementSibling.textContent = "Event name cannot be empty"
+                    }
+
+                    if(details.value === "") {
+                        errors.push("details")
+                        details.nextElementSibling.textContent = "Event details cannot be empty"
+                    }
+
+                    if(start_time.value === "") {
+                        errors.push("start_time")
+                        start_time.nextElementSibling.textContent = "Enter the event starting time"
+                    } else {
+                        // Converting the datetime to a JS Date object
+                        starting_time = new Date(start_time.value)
+                        // console.log(starting_time)
+                    }
+
+                    if(end_time.value === "") {
+                        errors.push("end_time")
+                        end_time.nextElementSibling.textContent = "Enter the event ending time"
+                    } else {
+                        // Converting the datetime to a JS Date object
+                        ending_time = new Date(end_time.value)
+                        // console.log(ending_time)
+                    }
+
+                    let minimum_ending_time = new Date(starting_time.getTime() + (2 * 60 * 60 * 1000))
+                    let maximum_ending_time = new Date(starting_time.getTime() + (10 * 60 * 60 * 1000))
+                    if(ending_time <= minimum_ending_time) {
+                        errors.push("invalid_duration")
+                        end_time.nextElementSibling.textContent = "The minimum time duration for an event is 2 Hours"
+                    } else if(ending_time >= maximum_ending_time) {
+                        errors.push("invalid_duration")
+                        end_time.nextElementSibling.textContent = "The maximum time duration for an event is 10 Hours"
+                    }
+
+                    break
+
+                // case 2:
+                //     if(address1.value === "") errors.push("address1")
+                //     if(address2.value === "") errors.push("address2")
+                //     break
+                //
+                // case 3:
+                //     if(password.value === "") errors.push("password")
+                //     if(confirmPass.value === "") errors.push("confirmPass")
+                //     if(confirmPass.value !== password.value) {
+                //         errors.push("confirmPass")
+                //         confirmPass_error.textContent = "Passwords donot match"
+                //     }
+                //     break
+
+                default:
+                    errors = []
+                    break
+            }
 
             return errors.length <= 0
         }
@@ -460,7 +337,52 @@
                 else terms_error.textContent = "Please agree to terms and conditions"
 
             }
+
         }
+
+
+        // Function for selecting the district and province for the event location
+        // City data for each province
+        const cityData = {
+            northern: ["Jaffna", "Kilinochchi", "Manner", "Mullaitivu", "Vavuniya"],
+            northWestern: ["Puttalam", "Kurunegala"],
+            western: ["Colombo", "Gampaha", "Kalutara"],
+            northCentral: ["Anuradhapura", "Polonnaruwa"],
+            central: ["Kandy", "Nuwara Eliya", "Matale"],
+            sabaragamuwa: ["Kegalle", "Ratnapura"],
+            eastern: ["Trincomalee", "Batticaloa", "Ampara"],
+            uva: ["Badulla", "Monaragala"],
+            southern: ["Hambantota", "Matara", "Galle"]
+        };
+
+        // Function to update the district options based on the selected province
+        function updateDistrict() {
+
+            const provinceSelect = document.getElementById("province")
+            const districtSelect = document.getElementById("district")
+
+            districtSelect.innerHTML = ""
+
+            const selectedProvince = provinceSelect.value
+
+            const districts = cityData[selectedProvince]
+
+            if (districts) {
+                districts.forEach(district => {
+                    const option = document.createElement("option")
+                    option.value = district
+                    option.textContent = district
+
+                    districtSelect.appendChild(option)
+                });
+            } else {
+                const option = document.createElement("option")
+                option.textContent = "No cities available"
+                districtSelect.appendChild(option)
+            }
+        }
+
+        updateDistrict()
     </script>
 
 </div>

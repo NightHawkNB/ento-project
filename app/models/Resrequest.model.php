@@ -14,9 +14,11 @@ class Resrequest extends Model{
         'respondedDate',
         'details',
         'location',
+        'location_id',
         'start_time',
         'end_time',
         'status',
-        'deleted'
+        'deleted',
+        'reservation_id'
     ];
 }
