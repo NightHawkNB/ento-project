@@ -1,4 +1,4 @@
-
+<?=show($data['requests'])?>
 
 <html lang="en">
 <?php $this->view('includes/head') ?>
@@ -49,21 +49,17 @@
                                 <p class="txt-ali-lef txt-d-none " style=" "> <?= $requests[0]->comment ?></p>
                             </div>
                         </div>
-                        <div class="dis-flex " style="background-color: #ffffff; height: 25%;justify-content: flex-end;">
-                            <?php if($requests[0]->status=='Idle'):?>
-                                <a href="<?= ROOT ?>/admin/ccareq/<?= $requests[0]->assist_comp_id ?>/assist" >
-                                    <button class="button-s2 " style="width: 150px; text-align: center">
-                                        Assisting
-                                    </button>
-                                </a>
-                            <?php endif; ?>
-                            <?php if($requests[0]->status=='assist'):?>
-                                <a href="<?= ROOT ?>/admin/ccareq/<?= $requests[0]->assist_comp_id ?>/handle" >
-                                    <button class="button-s2 " style="width: 150px; text-align: center">
-                                        Handled
-                                    </button>
-                                </a>
-                            <?php endif; ?>
+                        <div class="dis-flex ju-co-se" style="background-color: #ffffff; height: 25%;align-items: center">
+                            <a href="" >
+                                <button class="button-s2 " style="width: 150px; text-align: center">
+                                    Assisting
+                                </button>
+                            </a>
+                            <a href=" ">
+                                <button class="button-s2" style="width:150px; text-align: center ">
+                                    Handled
+                                </button>
+                            </a>
                         </div>
                     </div>
                     <div class="bordered-div dis-flex-col" style="height: 50% ; ">
@@ -97,8 +93,6 @@
 </div>
 </body>
 </html>
-
-
 
 
 
