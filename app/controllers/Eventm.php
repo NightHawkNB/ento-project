@@ -26,15 +26,14 @@ class Eventm extends controller{
         $data['venues'] = $ads->query('
             SELECT ADS.ad_id, ADS.user_id, ADS.title, ADS.details, ADS.image, V.seat_count, V.location, V.other
             FROM ads ADS
-            JOIN serviceprovider SP ON SP.user_id = ads.user_id
-            JOIN venuemanager VM ON VM.sp_id = SP.sp_id
-            RIGHT JOIN venue V ON V.venueM_id = VM.venueM_id
+            JOIN ad_venue ADV ON ADS.ad_id = ADV.ad_id
+            JOIN venue V ON ADV.venue_id = V.venue_id
         ');
 
-        show($data);
-        die;
+//        show($data);
+//        die;
 
-        $this->view('common/events/create_event');
+        $this->view('common/events/create_event', $data);
 
     }
 

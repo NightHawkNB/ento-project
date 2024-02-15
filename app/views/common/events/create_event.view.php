@@ -106,7 +106,15 @@
                         </div>
 
                         <div class="slide" id="slide-2">
-                            Venue Data
+                            <?php
+                                if(!empty($venues)) {
+                                    foreach ($venues as $venue) {
+                                        $this->view('common/events/components/venue', (array)$venue);
+                                    }
+                                } else {
+                                    echo "No Venues to Display";
+                                }
+                            ?>
                         </div>
 
                         <div class="slide" id="slide-3">
