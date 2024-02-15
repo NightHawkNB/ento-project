@@ -36,6 +36,10 @@ class Admin extends Controller
                 message("Assisting");
 
 
+            }elseif($method=='todo'){
+                $update1 = $assists->query("UPDATE complaint_assisgt SET comment = 'todo' WHERE comp_id= :comp_id", ['comp_id' => $id] );
+                $update2 = $assists->query("UPDATE complaint_assisgt SET status = 'todo' WHERE comp_id= :comp_id", ['comp_id' => $id] );
+
             } else {
                 $update = $assists->query("UPDATE complaint_assist SET status = 'handled' WHERE comp_id = :comp_id", ['comp_id' => $id]);
 

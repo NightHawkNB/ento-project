@@ -9,6 +9,48 @@
         border-radius: 5px;
         margin: 10px 0px 10px 0px;
     }
+
+    .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(1);
+        background-color: #a0d8ee;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        z-index: 5;
+    }
+
+    .popup.active{
+        display: flex;
+    }
+
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 4;
+    }
+
+    .button-close {
+        padding: 10px 40px;
+        margin: 5px;
+        background: #7b51d3;
+        color: var(--font-secondary);
+        border-radius: 5px;
+        max-height: fit-content;
+        border: none;
+        outline: none;
+        transition: 0.3s;
+        width: 140px;
+    }
+
 </style>
 
 <body>
@@ -49,12 +91,10 @@
                                 <p class="txt-ali-lef txt-d-none " style=" "> <?= $requests[0]->comment ?></p>
                             </div>
                         </div>
-                        <div class="dis-flex ju-co-se" style="background-color: #ffffff; height: 25%;align-items: center">
-                            <a href="" >
-                                <button class="button-s2 " style="width: 150px; text-align: center">
-                                    Assisting
-                                </button>
-                            </a>
+                        <div class="dis-flex ju-co-se"  style="background-color: #ffffff; height: 25%;align-items: center">
+                            <button class="button-s2" type="button" onclick="openPopup()" style="width: 150px; text-align: center">
+                                Todo
+                            </button>
                             <a href=" ">
                                 <button class="button-s2" style="width:150px; text-align: center ">
                                     Handled
@@ -87,6 +127,34 @@
                         </div>
                     </div>
                 </div>
+                <div id="popup" class="popup dis-flex-col">
+                    <p style="color: black; font-weight: bold">Comment</p>
+                    <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
+                    <button class="button-close" style="align-self: flex-end" onclick="closePopup()">Save</button>
+                </div>
+
+                <!-- Overlay -->
+                <div id="overlay" class="overlay"></div>
+
+                <script>
+
+
+                    // Function to open the popup
+                    function openPopup() {
+                        const pop = document.querySelector('.popup')
+                        const overlay = document.querySelector('.overlay')
+                        pop.classList.toggle('active')
+                        overlay.style.display = 'flex'
+                    }
+
+                    // Function to close the popup
+                    function closePopup() {
+                        const pop = document.querySelector('.popup')
+                        const overlay = document.querySelector('.overlay')
+                        pop.classList.toggle('active')
+                        overlay.style.display = 'none'
+                    }
+                </script>
             </div>
         </section>
     </main>
