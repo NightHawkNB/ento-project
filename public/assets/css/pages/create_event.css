@@ -143,6 +143,37 @@ input[type=file] {
         justify-content: space-between;
         gap: 15px;
 
+        label {
+            font-family: Poppins, sans-serif;
+            width: 100%;
+            border: thin solid transparent;
+            border-radius: 5px;
+
+            &.selected {
+                border: thin solid mediumpurple;
+
+                .venue-item {
+                    background-color: #cebeef;
+                }
+            }
+        }
+
+        &.venue-data {
+            flex-direction: column;
+            gap: 10px;
+            justify-content: start;
+
+            .venue-item {
+                border-radius: 5px;
+                background-color: var(--white-link);
+                padding: 5px;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+        }
+
         .cover-image {
             position: relative;
             width: 80%;

@@ -24,7 +24,7 @@ class Eventm extends controller{
         $ads = new Ad();
 
         $data['venues'] = $ads->query('
-            SELECT ADS.ad_id, ADS.user_id, ADS.title, ADS.details, ADS.image, V.seat_count, V.location, V.other
+            SELECT ADS.ad_id, ADS.user_id, ADS.title, ADS.details, ADS.image, V.seat_count, V.location, V.other, V.venue_id
             FROM ads ADS
             JOIN ad_venue ADV ON ADS.ad_id = ADV.ad_id
             JOIN venue V ON ADV.venue_id = V.venue_id

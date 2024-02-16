@@ -105,12 +105,19 @@
 
                         </div>
 
-                        <div class="slide" id="slide-2">
+                        <div class="slide venue-data" id="slide-2">
                             <?php
                                 if(!empty($venues)) {
                                     foreach ($venues as $venue) {
                                         $this->view('common/events/components/venue', (array)$venue);
-                                    }
+                                    };
+                                    echo `
+                                        <label class="venue_label" onclick="radio_check(this)">
+                                            <div class="venue-item">
+                                            </div>
+                                            <input type="radio" name="venue_id" value="None" style="display: none">
+                                        </label>
+                                    `;
                                 } else {
                                     echo "No Venues to Display";
                                 }
@@ -388,6 +395,15 @@
                 option.textContent = "No cities available"
                 districtSelect.appendChild(option)
             }
+        }
+
+        function radio_check(element) {
+            const venue_items = document.querySelectorAll('.venue_label')
+            venue_items.forEach(item => {
+                item.classList.remove('selected')
+            })
+
+            element.classList.add('selected')
         }
 
         updateDistrict()

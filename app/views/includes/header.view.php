@@ -40,7 +40,8 @@ if (message()) {
     <div id="main-navbar">
         <div class="container">
             <div class="mobile-nav-content">
-                <button id="menu-toggler" style="margin-left: auto"><i class="fa fa-bars"> </i><i class="fa fa-close"> </i></button>
+                <button id="menu-toggler" style="margin-left: auto"><i class="fa fa-bars"> </i><i
+                            class="fa fa-close"> </i></button>
             </div>
             <ul class="menu">
                 <li><a class="<?= (str_ends_with($_SERVER['REQUEST_URI'], "home")) ? 'active' : '' ?>"
@@ -133,25 +134,22 @@ if (message()) {
             <!--<div class="">-->
 
 
-<!--                notification icon-->
-<!--                ///////////////////////////////////-->
+            <!--                notification icon-->
+            <!--                ///////////////////////////////////-->
 
 
-                <div class="notifications_container" onclick="dropdown()">
+            <div class="notifications_container" onclick="dropdown()">
 
-                    <svg class="fill-white" xmlns="http://www.w3.org/2000/svg" height="1.25em" viewBox="0 0 448 512">
-                        <path d="M224 0c-17.7 0-32 14.3-32 32V51.2C119 66 64 130.6 64 208v18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416H416c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8V208c0-77.4-55-142-128-156.8V32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z"/>
-                    </svg>
+                <svg class="fill-white" xmlns="http://www.w3.org/2000/svg" height="1.25em" viewBox="0 0 448 512">
+                    <path d="M224 0c-17.7 0-32 14.3-32 32V51.2C119 66 64 130.6 64 208v18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416H416c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8V208c0-77.4-55-142-128-156.8V32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z"/>
+                </svg>
 
-                    <div class="dropdown close">
-                    </div>
+                <div class="dropdown close">
                 </div>
+            </div>
 
 
-
-<!--            </div>-->
-
-
+            <!--            </div>-->
 
 
             <div id="profile-btn" style="padding: 2px 5px">
@@ -167,15 +165,17 @@ if (message()) {
                             <img src="<?= ROOT . $_SESSION['USER_DATA']->image ?>" alt="profile-image">
                             <h3><?= ucfirst($_SESSION['USER_DATA']->fname) . " " . ucfirst($_SESSION['USER_DATA']->lname) ?></h3>
                         </div>
-                        <?php if($_SESSION['USER_DATA']->verified): ?>
-                        <div class="verified-status">
-                            <img src="<?= ROOT ?>/assets/images/icons/status_symbols/verified.png" alt="verified-image">
-                            <span>Verified</span>
-                        </div>
+                        <?php if ($_SESSION['USER_DATA']->verified): ?>
+                            <div class="verified-status">
+                                <img src="<?= ROOT ?>/assets/images/icons/status_symbols/verified.png"
+                                     alt="verified-image">
+                                <span>Verified</span>
+                            </div>
                         <?php else: ?>
                             <a href="<?= ROOT ?>/mailer/email_verification">
                                 <div class="verified-status verify">
-                                    <img src="<?= ROOT ?>/assets/images/icons/status_symbols/not_verified.png" alt="verify-image">
+                                    <img src="<?= ROOT ?>/assets/images/icons/status_symbols/not_verified.png"
+                                         alt="verify-image">
                                     <span>Not Verified</span>
                                 </div>
                             </a>
@@ -242,24 +242,26 @@ if (message()) {
 
 <script>
 
-        var data_array = []
-        const dropdown1 = document.querySelector('.dropdown')
-        fetch("<?=ROOT?>/home/notification",{
+    var data_array = []
+    const dropdown1 = document.querySelector('.dropdown')
+    fetch("<?=ROOT?>/home/notification", {
         method: "PATCH",
-        headers:{
-        "Content-Type": "application/json; charset=utf-8"
-    }
+        headers: {
+            "Content-Type": "application/json; charset=utf-8"
+        }
     }).then(res => {
         console.log(res)
-            return res.text()
+        return res.text()
     }).then(data => {
-        data_array = JSON.parse(data)
-            console.log(data)
+        console.log(data)
+        if(data !== 'no-new-notifications') {
+            data_array = JSON.parse(data)
             data_array.forEach(notification => {
-        const divElement = document.createElement('div');
-        divElement.innerHTML = `<p>${notification.message}</p>`;
-        dropdown1.appendChild(divElement);
-    });
+                const divElement = document.createElement('div');
+                divElement.innerHTML = `<p>${notification.message}</p>`;
+                dropdown1.appendChild(divElement);
+            });
+        }
     }).catch(error => {
         console.error('Fetch error:', error);
     });
@@ -268,10 +270,10 @@ if (message()) {
     function dropdown() {
         const dropdown = document.querySelector('.dropdown')
 
-        if(dropdown.classList.contains('close')){
+        if (dropdown.classList.contains('close')) {
             dropdown.classList.remove('close')
             dropdown.classList.add('open')
-        }else {
+        } else {
             dropdown.classList.remove('open')
             dropdown.classList.add('close')
         }
