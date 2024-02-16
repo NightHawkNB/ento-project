@@ -111,13 +111,36 @@
                                     foreach ($venues as $venue) {
                                         $this->view('common/events/components/venue', (array)$venue);
                                     };
-                                    echo `
+                                    echo '
                                         <label class="venue_label" onclick="radio_check(this)">
-                                            <div class="venue-item">
+                                            <div class="venue-item" style="display: flex; justify-content: space-between; gap: 10px">
+                                            
+                                                <h3>Add Custom Venue</h3>
+                                            
+                                                <input type="text" name="address" placeholder="address">
+                                                
+                                                <div class="item">
+                                                    <label for="venue_province">Province</label>
+                                                    <select name="venue_province" id="venue_province" onchange="updateDistrict(2)">
+                                                        <option value="central">Central</option>
+                                                        <option value="eastern">Eastern</option>
+                                                        <option value="northCentral">North Central</option>
+                                                        <option value="northern">Northern</option>
+                                                        <option value="northWestern">North Western</option>
+                                                        <option value="sabaragamuwa">Sabaragamuwa</option>
+                                                        <option value="southern">Southern</option>
+                                                        <option value="uva">Uva</option>
+                                                        <option value="western" selected>Western</option>
+                                                    </select>
+                                                </div>
+                                                <div>
+                                                    <label for="venue_district">District</label>
+                                                    <select name="venue_district" id="venue_district"></select>
+                                                </div>
+                          
                                             </div>
                                             <input type="radio" name="venue_id" value="None" style="display: none">
-                                        </label>
-                                    `;
+                                        </label>';
                                 } else {
                                     echo "No Venues to Display";
                                 }
@@ -371,10 +394,10 @@
         };
 
         // Function to update the district options based on the selected province
-        function updateDistrict() {
+        function updateDistrict(action = 1) {
 
-            const provinceSelect = document.getElementById("province")
-            const districtSelect = document.getElementById("district")
+            const provinceSelect = (action === 1) ? document.getElementById("province") : document.getElementById("venue_province")
+            const districtSelect = (action === 1) ? document.getElementById("district") : document.getElementById("venue_district")
 
             districtSelect.innerHTML = ""
 

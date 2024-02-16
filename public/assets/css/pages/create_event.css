@@ -171,6 +171,20 @@ input[type=file] {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
+
+                div {
+                    width: fit-content;
+                }
+
+                input,
+                select,
+                option {
+                    outline: none;
+                    border: thin solid lightgrey;
+                    background-color: white;
+                    border-radius: 5px;
+                    padding: 10px;
+                }
             }
         }
 
