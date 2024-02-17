@@ -242,7 +242,18 @@ class Home extends Controller{
             } else {
                 echo "no-new-notifications";
             }
-        }
+        }else if($_SERVER['REQUEST_METHOD'] == 'PUT') {
+            $json_data = file_get_contents("php://input");
+            // If the second argument is set to true, the function returns an array. Otherwise, it returns an object
+            $php_data = json_decode($json_data);//json object
+
+            $notify = new Notifications();
+            $dataToUpdate = ['viewed' => 1];
+            $notify->update($php_data->notification_id,$dataToUpdate);
+            echo "Notification viewed status updated successfully.";
+
+            }
+
     }
 
 }
