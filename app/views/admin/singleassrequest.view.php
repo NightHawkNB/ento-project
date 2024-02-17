@@ -127,11 +127,15 @@
                         </div>
                     </div>
                 </div>
+
+                <form id="commentForm" method="POST" action="">
                 <div id="popup" class="popup dis-flex-col">
                     <p style="color: black; font-weight: bold">Comment</p>
                     <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
                     <button class="button-close" style="align-self: flex-end" onclick="closePopup()">Save</button>
                 </div>
+                </form>
+                
 
                 <!-- Overlay -->
                 <div id="overlay" class="overlay"></div>
