@@ -156,13 +156,13 @@ class Client extends Controller {
     public function reservation_form($id= null) : void
     {
         $db = new Database();
-
-        $sp_id = $db->query("SELECT * FROM ads
+      
+      $sp_data = $db->query("SELECT * FROM ads
         INNER JOIN serviceprovider
-        ON ads.user_id = serviceprovider.user_id WHERE ads.ad_id = :ad_id", ['ad_id' => $id])[0]->sp_id;
+        ON ads.user_id = serviceprovider.user_id WHERE ads.ad_id = :ad_id", ['ad_id' => $id])[0];
+      $sp_id = $sp_data->sp_id;
 
-        // Generating a unique res_id
-        $new_id = "RES_" . rand(10, 100000) . "_" . time();
+      $new_id = "RESREQ_" . rand(10, 100000) . "_" . time();
 
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $_POST['req_id'] = $new_id;
@@ -171,6 +171,19 @@ class Client extends Controller {
             $_POST['reservation_id'] = $new_id;
             $_POST['ad_id'] = $id;
 
+          if($sp_data->sp_type == "venuem") {
+
+              $venuedata = $db->query("
+                SELECT * FROM ads
+                JOIN ad_venue ON ad_venue.ad_id = ads.ad_id
+                JOIN venue ON ad_venue.venue_id = venue.venue_id
+                WHERE ads.ad_id = :ad_id
+              ", ['ad_id' => $id])[0];
+
+              $_POST['location_id'] = $venuedata->venue_id;
+              $_POST['location'] = $venuedata->location;
+          }
+
 
             $resreq = new Resrequest();
             $resreq->insert($_POST);
@@ -178,8 +191,10 @@ class Client extends Controller {
             redirect("client/reservations");
         }
 
-        $this->view('client/reservation_form');
-    }
+      $data['ad_owner_type'] = $sp_data->sp_type;
+
+      $this->view('client/reservation_form', $data);
+  }
 
     public function bought_tickets($method = null, $id = null, $action = null) : void
     {

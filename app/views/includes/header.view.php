@@ -151,7 +151,7 @@ if (message()) {
             </div>
 
             <div id="profile-btn" style="padding: 2px 5px">
-                <img src="<?= $_SESSION['USER_DATA']->image ?>" alt="profile-image"
+                <img src="<?= ROOT . $_SESSION['USER_DATA']->image ?>" alt="profile-image"
                      style="width: 35px; border-radius: 50%" class="hover-pointer" onclick="toggleDrop()">
             </div>
 
@@ -159,7 +159,7 @@ if (message()) {
                 <div class="sub-menu">
                     <div class="user-info">
                         <div class="profile-header">
-                            <img src="<?= $_SESSION['USER_DATA']->image ?>" alt="profile-image">
+                            <img src="<?= ROOT . $_SESSION['USER_DATA']->image ?>" alt="profile-image">
                             <h3><?= ucfirst($_SESSION['USER_DATA']->fname) . " " . ucfirst($_SESSION['USER_DATA']->lname) ?></h3>
                         </div>
                         <?php if ($_SESSION['USER_DATA']->verified): ?>
