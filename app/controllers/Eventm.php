@@ -30,6 +30,11 @@ class Eventm extends controller{
             JOIN venue V ON ADV.venue_id = V.venue_id
         ');
 
+        $data['bands'] = $ads->query('
+            SELECT ADS.ad_id, ADS.user_id, ADS.title, ADS.details, ADS.image
+            FROM ads ADS
+        ');
+
 //        show($data);
 //        die;
 

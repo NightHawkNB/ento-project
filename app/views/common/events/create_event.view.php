@@ -105,7 +105,11 @@
 
                         </div>
 
+                        <!-- Slide 02 -->
                         <div class="slide venue-data" id="slide-2">
+
+                            <div class="error"></div>
+
                             <?php
                                 if(!empty($venues)) {
                                     foreach ($venues as $venue) {
@@ -117,7 +121,7 @@
                                             
                                                 <h3>Add Custom Venue</h3>
                                             
-                                                <input type="text" name="address" placeholder="address">
+                                                <input type="text" name="address" placeholder="Address">
                                                 
                                                 <div class="item">
                                                     <label for="venue_province">Province</label>
@@ -148,7 +152,48 @@
                         </div>
 
                         <div class="slide" id="slide-3">
-                            Slide 03
+
+                            <div class="error"></div>
+
+                            <?php
+                            if(!empty($bands)) {
+                                foreach ($bands as $band) {
+                                    $this->view('common/events/components/band', (array)$band);
+                                };
+                                echo '
+                                        <label class="venue_label" onclick="radio_check(this)">
+                                            <div class="venue-item" style="display: flex; justify-content: space-between; gap: 10px">
+                                            
+                                                <h3>Add Custom Venue</h3>
+                                            
+                                                <input type="text" name="address" placeholder="Address">
+                                                
+                                                <div class="item">
+                                                    <label for="venue_province">Province</label>
+                                                    <select name="venue_province" id="venue_province" onchange="updateDistrict(2)">
+                                                        <option value="central">Central</option>
+                                                        <option value="eastern">Eastern</option>
+                                                        <option value="northCentral">North Central</option>
+                                                        <option value="northern">Northern</option>
+                                                        <option value="northWestern">North Western</option>
+                                                        <option value="sabaragamuwa">Sabaragamuwa</option>
+                                                        <option value="southern">Southern</option>
+                                                        <option value="uva">Uva</option>
+                                                        <option value="western" selected>Western</option>
+                                                    </select>
+                                                </div>
+                                                <div>
+                                                    <label for="venue_district">District</label>
+                                                    <select name="venue_district" id="venue_district"></select>
+                                                </div>
+                          
+                                            </div>
+                                            <input type="radio" name="venue_id" value="None" style="display: none">
+                                        </label>';
+                            } else {
+                                echo "No Venues to Display";
+                            }
+                            ?>
                         </div>
 
                         <div class="slide" id="slide-4">
@@ -191,6 +236,11 @@
         let ending_time
         let current_time
 
+        // For slide 02
+        const venue_items = document.querySelectorAll('.venue_label')
+        const slide2 = document.getElementById('slide-2')
+        const slide3 = document.getElementById('slide-3')
+        const slide4 = document.getElementById('slide-4')
 
         const progress = document.getElementById('progress')
         const prev = document.getElementById('prev')
@@ -214,6 +264,10 @@
 
             switch (page) {
                 case 1 :
+
+                    let maximum_ending_time
+                    let minimum_ending_time
+
                     if(event_name.value === "") {
                         errors.push("event_name")
                         event_name.nextElementSibling.textContent = "Event name cannot be empty"
@@ -230,6 +284,9 @@
                     } else {
                         // Converting the datetime to a JS Date object
                         starting_time = new Date(start_time.value)
+
+                        minimum_ending_time = new Date(starting_time.getTime() + (2 * 60 * 60 * 1000))
+
                         // console.log(starting_time)
                     }
 
@@ -239,26 +296,42 @@
                     } else {
                         // Converting the datetime to a JS Date object
                         ending_time = new Date(end_time.value)
+                        maximum_ending_time = new Date(starting_time.getTime() + (10 * 60 * 60 * 1000))
                         // console.log(ending_time)
                     }
 
-                    let minimum_ending_time = new Date(starting_time.getTime() + (2 * 60 * 60 * 1000))
-                    let maximum_ending_time = new Date(starting_time.getTime() + (10 * 60 * 60 * 1000))
-                    if(ending_time <= minimum_ending_time) {
-                        errors.push("invalid_duration")
-                        end_time.nextElementSibling.textContent = "The minimum time duration for an event is 2 Hours"
-                    } else if(ending_time >= maximum_ending_time) {
-                        errors.push("invalid_duration")
-                        end_time.nextElementSibling.textContent = "The maximum time duration for an event is 10 Hours"
+                    if(start_time.value !== "" && end_time.value !== "") {
+                        if(ending_time <= minimum_ending_time) {
+                            errors.push("invalid_duration")
+                            end_time.nextElementSibling.textContent = "The minimum time duration for an event is 2 Hours"
+                        } else if(ending_time >= maximum_ending_time) {
+                            errors.push("invalid_duration")
+                            end_time.nextElementSibling.textContent = "The maximum time duration for an event is 10 Hours"
+                        }
                     }
+
+
+
+
 
                     break
 
-                // case 2:
-                //     if(address1.value === "") errors.push("address1")
-                //     if(address2.value === "") errors.push("address2")
-                //     break
-                //
+                case 2:
+                    let selected = false
+
+                    for(let i = 0;i < venue_items.length; i++) {
+                        // console.log(venue_items[i])
+                        if(venue_items[i].querySelector('input').checked) {
+                            selected = true
+                            break
+                        }
+                    }
+                    if(!selected) {
+                        errors.push("no venue selected")
+                        slide02.querySelector('.error').textContent = "Please Select a venue or Add a custom venue"
+                    }
+                    break
+
                 // case 3:
                 //     if(password.value === "") errors.push("password")
                 //     if(confirmPass.value === "") errors.push("confirmPass")
@@ -318,7 +391,7 @@
 
             update()
             circles[currentActive].querySelector('p').style.display = 'block'
-            circles[currentActive].querySelector('svg').remove()
+            if(circles[currentActive].querySelector('svg')) circles[currentActive].querySelector('svg').remove()
 
         })
 
@@ -420,16 +493,25 @@
             }
         }
 
-        function radio_check(element) {
-            const venue_items = document.querySelectorAll('.venue_label')
-            venue_items.forEach(item => {
-                item.classList.remove('selected')
-            })
+        function radio_check(element, slide = 2) {
+            let slideN = window['slide' + slide];
+            if (slideN) {
+                slideN.querySelector('.error').textContent = "";
 
-            element.classList.add('selected')
+                const venue_items = slideN.querySelectorAll('.venue_label');
+                venue_items.forEach(item => {
+                    item.classList.remove('selected');
+                });
+
+                element.classList.add('selected');
+            } else {
+                console.error(`Slide ${slide} not found.`);
+            }
         }
 
-        updateDistrict()
+
+        updateDistrict(1)
+        updateDistrict(2)
     </script>
 
 </div>
