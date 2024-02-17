@@ -21,6 +21,7 @@
         border: 1px solid #ccc;
         border-radius: 5px;
         z-index: 5;
+        width: auto;
     }
 
     .popup.active{
@@ -95,11 +96,9 @@
                             <button class="button-s2" type="button" onclick="openPopup()" style="width: 150px; text-align: center">
                                 Todo
                             </button>
-                            <a href=" ">
-                                <button class="button-s2" style="width:150px; text-align: center ">
-                                    Handled
-                                </button>
-                            </a>
+                            <button class="button-s2" type="button" onclick="openPopup()" style="width:150px; text-align: center ">
+                                Handled
+                            </button>
                         </div>
                     </div>
                     <div class="bordered-div dis-flex-col" style="height: 50% ; ">
@@ -128,12 +127,20 @@
                     </div>
                 </div>
 
-                <form id="commentForm" method="POST" action="">
+                <form id="commentForm1" method="POST" action="<?=ROOT.'/admin/ccareq/'.$requests[0]->assist_comp_id.'/todo'?>">
                 <div id="popup" class="popup dis-flex-col">
                     <p style="color: black; font-weight: bold">Comment</p>
                     <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
                     <button class="button-close" style="align-self: flex-end" onclick="closePopup()">Save</button>
                 </div>
+                </form>
+
+                <form id="commentForm2" method="POST" action="<?=ROOT.'/admin/ccareq/'.$requests[0]->assist_comp_id.'/handled'?>">
+                    <div id="popup" class="popup dis-flex-col">
+                        <p style="color: black; font-weight: bold">Comment</p>
+                        <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
+                        <button class="button-close" style="align-self: flex-end" onclick="closePopup()">Save</button>
+                    </div>
                 </form>
                 
 

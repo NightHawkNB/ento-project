@@ -28,17 +28,33 @@ class Admin extends Controller
         $assists = new Assist_req();
 
         if (!empty($id) && !empty($method)) {
-            if ($method == 'assist') {
-                $update = $assists->query("UPDATE complaint_assist SET status = 'assist' WHERE comp_id = :comp_id", ['comp_id' => $id]);
+            if ($method == 'handled') {
 
+                if(empty($_POST['comment'])){
+                    $_POST['comment'] = "no comments";
+                }
 
-                redirect("Admin/ccareq");
-                message("Assisting");
+                echo($_POST);
+                die;
+
+                $assists->update($id, ['comment'=>$_POST['comment']]);
+                $assists->update($id, ['status'=>'Handled']);
+
+                //redirect("Admin/ccareq");
+               // message("Assistant complaint handled");
 
 
             }elseif($method=='todo'){
-                $update1 = $assists->query("UPDATE complaint_assisgt SET comment = 'todo' WHERE comp_id= :comp_id", ['comp_id' => $id] );
-                $update2 = $assists->query("UPDATE complaint_assisgt SET status = 'todo' WHERE comp_id= :comp_id", ['comp_id' => $id] );
+
+                if(empty($_POST['comment'])){
+                    $_POST['comment'] = "no comments";
+                }
+
+                $assists->update($id, ['comment'=>$_POST['comment']]);
+                $assists->update($id, ['status'=>'Todo']);
+
+                message("Send to Todo list", false , 'success');
+                redirect('Admin/ccareq');
 
             } else {
                 $update = $assists->query("UPDATE complaint_assist SET status = 'handled' WHERE comp_id = :comp_id", ['comp_id' => $id]);
