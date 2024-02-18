@@ -7,7 +7,7 @@ class Auth {
             $_SESSION['USER_DATA'] = $row;
 
             // Code to get the ad count of a Service provider and insert it into the session variable
-            if($row->user_type == 'singer' OR $row->user_type == 'band' OR $row->user_type == 'venuem') {
+            if($row->user_type == 'singer' OR $row->user_type == 'band' OR $row->user_type == 'venuem' OR $row->user_type == 'eventm') {
                 $ads = new Ad();
                 $data = $ads->where(['user_id' => $row->user_id, 'deleted' => 0]);
 

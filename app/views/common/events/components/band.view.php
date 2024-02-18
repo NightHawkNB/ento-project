@@ -4,5 +4,5 @@
         <p><?= $title ?></p>
         <p><?= $details ?></p>
     </div>
-    <input type="radio" name="venue_id" id="BAND_<?= $ad_id ?>" value="<?= $venue_id ?>" style="display: none">
+    <input type="radio" name="band_data" id="BAND_<?= $ad_id ?>" value="<?= $ad_id ?>" style="display: none">
 </label>

@@ -138,6 +138,7 @@ input[type=file] {
     .slide {
         width: 100%;
         height: 100%;
+        font-family: Poppins, sans-serif;
         /*border: thin solid aqua;*/
         /*display: flex !important;*/
         justify-content: space-between;
@@ -158,7 +159,10 @@ input[type=file] {
             }
         }
 
-        &.venue-data {
+        &.venue-data,
+        &.band-data,
+        &.singer-data,
+        &.ticket-data {
             flex-direction: column;
             gap: 10px;
             justify-content: start;
@@ -185,6 +189,33 @@ input[type=file] {
                     border-radius: 5px;
                     padding: 10px;
                 }
+            }
+        }
+
+        &.ticket-data {
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+
+            .slide-inner {
+                display: flex;
+                gap: 20px;
+                width: 100%;
+                height: 100%;
+                justify-content: center;
+            }
+
+            label {
+                width: fit-content;
+                min-height: 350px;
+            }
+
+            .venue-item {
+                padding: 20px 10px;
+                flex-direction: column;
+                width: fit-content;
+                gap: 10px;
+                height: 100%;
             }
         }
 
