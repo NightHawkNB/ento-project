@@ -12,7 +12,7 @@
         <section class="cols-10 pad-10 dis-flex ju-co-st al-it-st">
             <div class="event-form bg-white">
 
-                <form id="form" method="post">
+                <form id="form" method="post" enctype="multipart/form-data">
                     <div style="text-align: center" class="progress-container-main">
                         <div class="progress-container">
                             <div class="progress" id="progress"></div>
@@ -126,25 +126,6 @@
                                     <h3>Add Custom Venue</h3>
 
                                     <input type="text" name="custom_venue_address" placeholder="Address">
-
-                                    <div class="item">
-                                        <label for="venue_province">Province</label>
-                                        <select name="venue_province" id="venue_province" onchange="updateDistrict(2)">
-                                            <option value="central">Central</option>
-                                            <option value="eastern">Eastern</option>
-                                            <option value="northCentral">North Central</option>
-                                            <option value="northern">Northern</option>
-                                            <option value="northWestern">North Western</option>
-                                            <option value="sabaragamuwa">Sabaragamuwa</option>
-                                            <option value="southern">Southern</option>
-                                            <option value="uva">Uva</option>
-                                            <option value="western" selected>Western</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label for="venue_district">District</label>
-                                        <select name="venue_district" id="venue_district"></select>
-                                    </div>
 
                                 </div>
                             </label>
