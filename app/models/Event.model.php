@@ -6,20 +6,24 @@ class Event extends Model{
     protected string $pk = "event_id";
 
     protected array $allowed_columns = [
+        'event_id',
+        'status',
         'name',
-        'pending',
         'details',
         'ticketing_plan',
-        'DataTime',
-        'image',
-        's_image',
-        'district',
         'venue_id',
         'band_id',
-        'venueO_id'
+        'creator_id',
+        'venueO_id',
+        'start_time',
+        'end_time',
+        'image',
+        'province',
+        'district'
     ];
 
-    public function validate($data) {
+    public function validate($data): bool
+    {
         $this->errors = [];
 
         if(empty($data['name'])) $this->errors['name'] = "Name cannot be empty";
