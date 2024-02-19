@@ -1,7 +1,10 @@
 /* Styles for Event Listing */
 .event-image {
-  max-height: 150px;
+  /*max-height: 150px;*/
   width: 250px;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  object-position: center;
 }
 
 .event-cover-image {

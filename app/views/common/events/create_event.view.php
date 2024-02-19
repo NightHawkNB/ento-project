@@ -12,7 +12,7 @@
         <section class="cols-10 pad-10 dis-flex ju-co-st al-it-st">
             <div class="event-form bg-white">
 
-                <form id="form" method="post">
+                <form id="form" method="post" enctype="multipart/form-data">
                     <div style="text-align: center" class="progress-container-main">
                         <div class="progress-container">
                             <div class="progress" id="progress"></div>
@@ -66,7 +66,7 @@
 
                                 <div class="item">
                                     <label for="province">Province</label>
-                                    <select name="province" id="province" onchange="updateDistrict()">
+                                    <select name="province" id="province" onchange="updateDistrict(); get_venues()">
                                         <option value="central">Central</option>
                                         <option value="eastern">Eastern</option>
                                         <option value="northCentral">North Central</option>
@@ -81,7 +81,7 @@
 
                                 <div class="item">
                                     <label for="district">District</label>
-                                    <select name="district" id="district"></select>
+                                    <select name="district" id="district" onchange="get_venues()"></select>
                                 </div>
                             </div>
 
@@ -110,15 +110,15 @@
 
                             <div class="error"></div>
 
-                            <?php
-                                if(!empty($venues)) {
-                                    foreach ($venues as $venue) {
-                                        $this->view('common/events/components/venue', (array)$venue);
-                                    };
-                                } else {
-                                    echo "No Venues to Display";
-                                }
-                            ?>
+<!--                            --><?php
+//                                if(!empty($venues)) {
+//                                    foreach ($venues as $venue) {
+//                                        $this->view('common/events/components/venue', (array)$venue);
+//                                    };
+//                                } else {
+//                                    echo "No Venues to Display";
+//                                }
+//                            ?>
 
                             <label class="venue_label custom_venue" for="custom_venue" onclick="radio_check(this)">
                                 <div class="venue-item" style="display: flex; justify-content: space-between; gap: 10px">
@@ -127,27 +127,9 @@
 
                                     <input type="text" name="custom_venue_address" placeholder="Address">
 
-                                    <div class="item">
-                                        <label for="venue_province">Province</label>
-                                        <select name="venue_province" id="venue_province" onchange="updateDistrict(2)">
-                                            <option value="central">Central</option>
-                                            <option value="eastern">Eastern</option>
-                                            <option value="northCentral">North Central</option>
-                                            <option value="northern">Northern</option>
-                                            <option value="northWestern">North Western</option>
-                                            <option value="sabaragamuwa">Sabaragamuwa</option>
-                                            <option value="southern">Southern</option>
-                                            <option value="uva">Uva</option>
-                                            <option value="western" selected>Western</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label for="venue_district">District</label>
-                                        <select name="venue_district" id="venue_district"></select>
-                                    </div>
-
                                 </div>
                             </label>
+
                         </div>
 
                         <!-- Slide 03 -->
@@ -263,6 +245,72 @@
             </div>
         </section>
     </main>
+
+    <script>
+
+        let chosen_district
+        const ROOT = '<?= ROOT ?>'
+
+        function get_venues() {
+
+            const venue_div = document.querySelector('.venue-data')
+            const existingElement = document.querySelector('.custom_venue')
+
+            venue_div.querySelectorAll('.removable').forEach(item => {
+                item.remove()
+            })
+
+            chosen_district = document.querySelector('#district').value
+            console.log(chosen_district)
+            let data = {'district': chosen_district}
+
+            fetch(`/ento-project/public/eventm/create_event`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+                },
+                body: JSON.stringify(data)
+            }).then(res => {
+                // console.log(res)
+                return res.text()
+            }).then(data => {
+                // Shows the data printed by the targeted php file.
+                // (stopped printing all data in php file by using die command)
+                console.log(data)
+
+                if(data !== 'no_venues') {
+
+                    console.log(venue_div)
+                    console.log(existingElement)
+
+                    data = JSON.parse(data)
+                    console.log(data)
+
+                    data.forEach(item => {
+                        const newElement = document.createElement('div')
+                        newElement.innerHTML = `
+                        <label for="VEN_${item.venue_id}" class="venue_label removable" onclick="radio_check(this)">
+                            <div class="venue-item" data-location="${item.location}">
+                                <img src="${ROOT + item.image}" alt="venue-image" style="width: 50px; aspect-ratio: 1/1; border-radius: 50%">
+                                <p>${item.name}</p>
+                                <p>${item.seat_count}</p>
+                                <p>${item.location}</p>
+                            </div>
+                            <input type="radio" name="venue_id" id="VEN_${item.venue_id}" value="${item.venue_id}" style="display: none">
+                        </label>
+                    `
+                        venue_div.insertBefore(newElement, existingElement)
+                    })
+
+                } else console.log("No venue data found")
+
+            })
+        }
+
+        document.querySelector('#district').addEventListener('change', () => {
+
+        })
+    </script>
 
     <script src="<?= ROOT ?>/assets/scripts/pages/create_event.js" defer></script>
 

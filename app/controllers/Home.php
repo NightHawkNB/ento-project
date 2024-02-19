@@ -10,7 +10,11 @@ class Home extends Controller{
     {
 
         $event = new Event();
-        $data['record'] = $event->where(['pending' => 0]);
+        $data['record'] = $event->query("
+            SELECT *
+            FROM event
+            WHERE status != 'Pending'
+        ");
 
         if(empty($id)) $this->view('events', $data);
         else {
