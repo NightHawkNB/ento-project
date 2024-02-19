@@ -9,6 +9,49 @@
         border-radius: 5px;
         margin: 10px 0px 10px 0px;
     }
+
+    .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(1);
+        background-color: #a0d8ee;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        z-index: 5;
+        width: auto;
+    }
+
+    .popup.active{
+        display: flex;
+    }
+
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 4;
+    }
+
+    .button-close {
+        padding: 10px 40px;
+        margin: 5px;
+        background: #7b51d3;
+        color: var(--font-secondary);
+        border-radius: 5px;
+        max-height: fit-content;
+        border: none;
+        outline: none;
+        transition: 0.3s;
+        width: 140px;
+    }
+
 </style>
 
 <body>
@@ -49,17 +92,21 @@
                                 <p class="txt-ali-lef txt-d-none " style=" "> <?= $requests[0]->comment ?></p>
                             </div>
                         </div>
-                        <div class="dis-flex ju-co-se" style="background-color: #ffffff; height: 25%;align-items: center">
-                            <a href="" >
-                                <button class="button-s2 " style="width: 150px; text-align: center">
-                                    Assisting
+                        <div class="dis-flex ju-co-se"  style="background-color: #ffffff; height: 25%;align-items: center">
+                            <?php if($requests[0]->status ==='Idle'):?>
+                                <button class="button-s2" type="button" onclick="openPopup(1)" style="width: 150px; text-align: center">
+                                    Todo
                                 </button>
-                            </a>
-                            <a href=" ">
-                                <button class="button-s2" style="width:150px; text-align: center ">
+                                <button class="button-s2" type="button" onclick="openPopup(2)" style="width:150px; text-align: center ">
                                     Handled
                                 </button>
-                            </a>
+                            <?php elseif ($requests[0]->status === "Todo"): ?>
+                                <div style="margin-left: auto;">
+                                    <button class="button-s2" type="button" onclick="openPopup(2)" style="width:150px;">
+                                        Handled
+                                    </button>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <div class="bordered-div dis-flex-col" style="height: 50% ; ">
@@ -69,7 +116,7 @@
                         <div class="dis-flex " style="height: 15%">
                             <div class="dis-flex pad-10" style="background-color: #ffffff ; width: 50%">
                                 <p class="txt-ali-lef txt-d-none" style=" "><?= $requests[0]->complaint_date_time ?></p>
-                            </div>
+                             </div>
                             <div class="dis-flex pad-10" style="background-color: #ffffff ;width: 50%">
                                 <p class="txt-ali-lef txt-d-none" style=" ">User ID : <?= $requests[0]->user_id ?></p>
                             </div>
@@ -87,6 +134,46 @@
                         </div>
                     </div>
                 </div>
+
+                <form id="commentForm1" method="POST" action="<?=ROOT.'/admin/ccareq/'.$requests[0]->assist_comp_id.'/todo'?>">
+                <div id="popup1" class="popup dis-flex-col">
+                    <p style="color: black; font-weight: bold">Comment</p>
+                    <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
+                    <button class="button-close" style="align-self: flex-end" onclick="closePopup()">Save</button>
+                </div>
+                </form>
+
+                <form id="commentForm2" method="POST" action="<?=ROOT.'/admin/ccareq/'.$requests[0]->assist_comp_id.'/handled'?>">
+                    <div id="popup2" class="popup dis-flex-col">
+                        <p style="color: black; font-weight: bold">Comment</p>
+                        <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
+                        <button class="button-close" style="align-self: flex-end" onclick="closePopup()">Save</button>
+                    </div>
+                </form>
+                
+
+                <!-- Overlay -->
+                <div id="overlay" class="overlay"></div>
+
+                <script>
+
+
+                    // Function to open the popup
+                    function openPopup(value) {
+                        const pop = value === 1  ? document.querySelector('#popup1'):document.querySelector('#popup2')
+                        const overlay = document.querySelector('.overlay')
+                        pop.classList.toggle('active')
+                        overlay.style.display = 'flex'
+                    }
+
+                    // Function to close the popup
+                    function closePopup() {
+                        const pop = document.querySelector('.popup')
+                        const overlay = document.querySelector('.overlay')
+                        pop.classList.toggle('active')
+                        overlay.style.display = 'none'
+                    }
+                </script>
             </div>
         </section>
     </main>
