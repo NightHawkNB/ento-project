@@ -162,6 +162,23 @@ class Eventm extends controller{
 
             redirect('eventm');
 
+        } else if($_SERVER['REQUEST_METHOD'] == "PUT") {
+            $json_data = file_get_contents("php://input");
+            $php_data = json_decode($json_data);
+
+            $venues = new Venue();
+
+            $data = $venues->where(['location' => strtolower($php_data->district)]);
+            if(!empty($data)) {
+                echo json_encode($data);
+            } else {
+                echo "no_venues";
+            }
+
+
+
+//            show($php_data);
+            die;
         }
 
     }

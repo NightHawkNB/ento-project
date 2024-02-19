@@ -132,6 +132,7 @@ function validate(page) {
                 errors.push("no venue selected")
                 slide2.querySelector('.error').textContent = "Please Select a venue or Add a custom venue"
             }
+
             break
 
 
@@ -336,10 +337,10 @@ const cityData = {
 };
 
 // Function to update the district options based on the selected province
-function updateDistrict(action = 1) {
+function updateDistrict() {
 
-    const provinceSelect = (action === 1) ? document.getElementById("province") : document.getElementById("venue_province")
-    const districtSelect = (action === 1) ? document.getElementById("district") : document.getElementById("venue_district")
+    const provinceSelect = document.getElementById("province")
+    const districtSelect = document.getElementById("district")
 
     districtSelect.innerHTML = ""
 
