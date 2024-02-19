@@ -35,14 +35,12 @@ class Admin extends Controller
                 }
 
                 echo($_POST);
-                die;
 
                 $assists->update($id, ['comment'=>$_POST['comment']]);
                 $assists->update($id, ['status'=>'Handled']);
 
-                //redirect("Admin/ccareq");
-               // message("Assistant complaint handled");
-
+                message("Assistant complaint handled");
+                redirect("Admin/ccareq");
 
             }elseif($method=='todo'){
 
@@ -103,7 +101,7 @@ class Admin extends Controller
         INNER JOIN complaints 
         ON complaint_assist.comp_id = complaints.comp_id 
         WHERE complaint_assist.deleted = 0 
-        AND complaint_assist.status='assist'");
+        AND complaint_assist.status='Todo'");
 
             $data['handledrequests'] = $assists->query("SELECT complaint_assist.comp_id, complaint_assist.date_time, complaint_assist.status, complaint_assist.comment, complaints.user_id, complaints.cca_user_id 
         FROM complaint_assist 
@@ -166,15 +164,11 @@ class Admin extends Controller
 
             $user = new User();
 
-            $delete = $user->query("DELETE FROM user WHERE user_id = :user_id", ['user_id' => $id]);
+            $user->query("DELETE FROM user WHERE user_id = :user_id", ['user_id' => $id]);
 
-            if ($delete) {
-                message("Delete succesfully");
-                redirect("Admin/usermng");
-            } else {
-                message("Deletion failed");
-                redirect("Admin/usermng");
-            }
+            message("Delete succesfully", false, "success");
+            redirect("Admin/usermng");
+
 
         } else {
             $user = new User();

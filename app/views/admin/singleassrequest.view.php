@@ -93,12 +93,20 @@
                             </div>
                         </div>
                         <div class="dis-flex ju-co-se"  style="background-color: #ffffff; height: 25%;align-items: center">
-                            <button class="button-s2" type="button" onclick="openPopup()" style="width: 150px; text-align: center">
-                                Todo
-                            </button>
-                            <button class="button-s2" type="button" onclick="openPopup()" style="width:150px; text-align: center ">
-                                Handled
-                            </button>
+                            <?php if($requests[0]->status ==='Idle'):?>
+                                <button class="button-s2" type="button" onclick="openPopup(1)" style="width: 150px; text-align: center">
+                                    Todo
+                                </button>
+                                <button class="button-s2" type="button" onclick="openPopup(2)" style="width:150px; text-align: center ">
+                                    Handled
+                                </button>
+                            <?php elseif ($requests[0]->status === "Todo"): ?>
+                                <div style="margin-left: auto;">
+                                    <button class="button-s2" type="button" onclick="openPopup(2)" style="width:150px;">
+                                        Handled
+                                    </button>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <div class="bordered-div dis-flex-col" style="height: 50% ; ">
@@ -108,7 +116,7 @@
                         <div class="dis-flex " style="height: 15%">
                             <div class="dis-flex pad-10" style="background-color: #ffffff ; width: 50%">
                                 <p class="txt-ali-lef txt-d-none" style=" "><?= $requests[0]->complaint_date_time ?></p>
-                            </div>
+                             </div>
                             <div class="dis-flex pad-10" style="background-color: #ffffff ;width: 50%">
                                 <p class="txt-ali-lef txt-d-none" style=" ">User ID : <?= $requests[0]->user_id ?></p>
                             </div>
@@ -128,7 +136,7 @@
                 </div>
 
                 <form id="commentForm1" method="POST" action="<?=ROOT.'/admin/ccareq/'.$requests[0]->assist_comp_id.'/todo'?>">
-                <div id="popup" class="popup dis-flex-col">
+                <div id="popup1" class="popup dis-flex-col">
                     <p style="color: black; font-weight: bold">Comment</p>
                     <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
                     <button class="button-close" style="align-self: flex-end" onclick="closePopup()">Save</button>
@@ -136,7 +144,7 @@
                 </form>
 
                 <form id="commentForm2" method="POST" action="<?=ROOT.'/admin/ccareq/'.$requests[0]->assist_comp_id.'/handled'?>">
-                    <div id="popup" class="popup dis-flex-col">
+                    <div id="popup2" class="popup dis-flex-col">
                         <p style="color: black; font-weight: bold">Comment</p>
                         <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
                         <button class="button-close" style="align-self: flex-end" onclick="closePopup()">Save</button>
@@ -151,8 +159,8 @@
 
 
                     // Function to open the popup
-                    function openPopup() {
-                        const pop = document.querySelector('.popup')
+                    function openPopup(value) {
+                        const pop = value === 1  ? document.querySelector('#popup1'):document.querySelector('#popup2')
                         const overlay = document.querySelector('.overlay')
                         pop.classList.toggle('active')
                         overlay.style.display = 'flex'

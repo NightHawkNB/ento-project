@@ -58,16 +58,17 @@
                 </div>
 
                 <div id="pending-assist" class="flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="display: none;">
-                    <?php foreach($idlerequests as $request){
-                        $this->view('admin/components/assrequests',(array)$request);
-                    } ?>
+                    <?php foreach($idlerequests as $request): ?>
+                        <?php $this->view('admin/components/assrequests', (array)$request); ?>
+                    <?php endforeach; ?>
                 </div>
+
                 <div id="assisting" class="flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="display: none;">
                     <?php foreach($assistrequests as $request){
                         $this->view('admin/components/assrequests',(array)$request);
                     } ?>
                 </div>
-                <div id="handled" class="flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="display: none;">
+                <div id="handled" class="flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="display: none;background-color: #00c853; max-height: 70vh; overflow: auto;padding-right: 10px">
                     <?php foreach($handledrequests as $request){
                         $this->view('admin/components/assrequests',(array)$request);
                     } ?>
