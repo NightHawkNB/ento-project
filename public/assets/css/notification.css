@@ -1,6 +1,6 @@
 .notifications_container {
-    background-color: blue;
-    width: 20px;
+    background-color: rgba(180, 169, 169, 0.42);
+    min-width: 20px;
     aspect-ratio: 1/1;
     padding:5px;
     margin: 10px;
@@ -32,11 +32,24 @@
     .dropdown > div{
         /*background: white;*/
     }
-
 }
 .open{
     transform: scaleY(1);
 }
 .close{
     transform: scaleY(0);
+}
+.notifiCounter {
+    position: absolute !important;
+    top: -10px !important;
+    right: -10px !important;
+    width: 18px !important;
+    height: 18px !important;
+    background: red !important;
+    color: #ffffff !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    border-radius: 50% !important;
+    font-weight: bold;
 }
