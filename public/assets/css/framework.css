@@ -70,7 +70,7 @@ a {
 }
 
 body {
-    position: relative;
+    /*position: relative;*/
     font-size: 1rem;
 }
 
@@ -93,10 +93,12 @@ body {
 /* Form Styles */
 form {
     width: 90%;
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 15px;
     color: white;
+    height: fit-content;
 }
 
 form div{
