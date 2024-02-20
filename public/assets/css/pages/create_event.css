@@ -138,10 +138,86 @@ input[type=file] {
     .slide {
         width: 100%;
         height: 100%;
+        font-family: Poppins, sans-serif;
         /*border: thin solid aqua;*/
         /*display: flex !important;*/
         justify-content: space-between;
         gap: 15px;
+
+        label {
+            font-family: Poppins, sans-serif;
+            width: 100%;
+            border: thin solid transparent;
+            border-radius: 5px;
+
+            &.selected {
+                /*border: thin solid mediumpurple;*/
+
+                .venue-item {
+                    background-color: #cebeef;
+                }
+            }
+        }
+
+        &.venue-data,
+        &.band-data,
+        &.singer-data,
+        &.ticket-data {
+            flex-direction: column;
+            gap: 10px;
+            justify-content: start;
+
+            .venue-item {
+                border-radius: 5px;
+                background-color: var(--white-link);
+                padding: 5px;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                div {
+                    width: fit-content;
+                }
+
+                input,
+                select,
+                option {
+                    outline: none;
+                    border: thin solid lightgrey;
+                    background-color: white;
+                    border-radius: 5px;
+                    padding: 10px;
+                }
+            }
+        }
+
+        &.ticket-data {
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+
+            .slide-inner {
+                display: flex;
+                gap: 20px;
+                width: 100%;
+                height: 100%;
+                justify-content: center;
+            }
+
+            label {
+                width: fit-content;
+                min-height: 350px;
+            }
+
+            .venue-item {
+                padding: 20px 10px;
+                flex-direction: column;
+                width: fit-content;
+                gap: 10px;
+                height: 100%;
+            }
+        }
 
         .cover-image {
             position: relative;
