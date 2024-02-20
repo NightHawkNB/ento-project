@@ -142,9 +142,13 @@ if (message()) {
 
                 <div class="dropdown close">
                     <h6>New</h6>
+                    <br>
                     <div class="new"></div>
+                    <br>
                     <hr style="color: whitesmoke">
+                    <br>
                     <h6>Viewed</h6>
+                    <br>
                     <div class="viewed"></div>
 
                 </div>

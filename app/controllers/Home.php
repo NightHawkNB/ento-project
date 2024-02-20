@@ -237,6 +237,29 @@ class Home extends Controller{
             $notify = new Notifications();
             $notifications = $notify->where(['user_id'=>Auth::getUser_id()]);
 
+
+//            $fields = ['*'];
+//            $first_table = 'notifications';
+//            $other_tables = [
+//                ['resrequest', 'notifications.user_id = resrequest.user_id'],
+//                ['ads', 'resrequest.ad_id = ads.ad_id']
+//            ];
+//            $filter = 'notifications.user_id = :user_id';
+//            $data = [ 'user_id' => Auth::getUser_id()];
+//            $db = new database();
+//
+//            $result = $db->join_tables($fields, $first_table, $other_tables, $filter, $data);
+
+//            $db = new database();
+//            $result = $db-> query("
+//                                            SELECT *
+//                                            FROM notifications AS n
+//                                            JOIN resrequest AS r
+//                                            ON n.user_id = r.user_id
+//                                            JOIN ads AS a
+//                                            ON r.ad_id = a.ad_id
+//                                            WHERE n.user_id = :user_id", ['user_id' => Auth::getUser_id()]);
+
             if (!empty($notifications)) {
                 echo json_encode($notifications); // Encode retrieved data as JSON
             } else {
@@ -251,9 +274,7 @@ class Home extends Controller{
             $dataToUpdate = ['viewed' => 1];
             $notify->update($php_data->notification_id,$dataToUpdate);
             echo "Notification viewed status updated successfully.";
-
             }
-
     }
 
 }
