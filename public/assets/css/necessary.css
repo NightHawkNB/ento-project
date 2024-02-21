@@ -16,6 +16,7 @@ main {
     /* Moved the background style to BODY */
     padding-top: 67px;
     grid-row: span 2;
+    z-index: 1;
 }
 
 main section:last-child {

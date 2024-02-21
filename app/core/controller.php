@@ -177,22 +177,58 @@ class Controller
                     // Generating a unique ad_id
                     $new_id = "RES_" . rand(10, 100000) . "_" . time();
 
+                    // Updating the Reservation Request
                     $request = new Resrequest();
 
-                    $input = ['status' => "Accepted", 'reservation_id' => $new_id, 'req_id' => $id];
+                    $input = [
+                        'status' => "Accepted",
+                        'reservation_id' => $new_id,
+                        'req_id' => $id,
+                        'respondedDate' => date('Y-m-d H:i:s')];
 
 //                    show($id);
 //                    die;
-
                     $request->update($id, $input);
+
 
 
                     $request_data = $request->first(['req_id' => $id]);
 
                     $reservation = new Reservation();
 
-                    $input2 = ['reservation_id' => $new_id, 'sp_id' => $request_data->sp_id, 'user_id' => $request_data->user_id];
+                    $input2 = [
+                        'reservation_id' => $new_id,
+                        'sp_id' => $request_data->sp_id,
+                        'user_id' => $request_data->user_id
+                    ];
                     $reservation->insert($input2);
+
+
+                    // Updating the user's last response time
+                    $prev_resreq = $db->query("
+                        SELECT *
+                        FROM serviceprovider
+                        JOIN resrequest ON serviceprovider.sp_id = resrequest.sp_id
+                        WHERE serviceprovider.user_id = :user_id
+                    ", ['user_id' => Auth::getUser_id()])[0];
+
+                    $current_time = new DateTime();
+                    $current_response_time = $current_time->diff(new DateTime($prev_resreq->createdDate));
+
+                    $last_resTime = implode('-',
+                        [$current_response_time->y, $current_response_time->m, $current_response_time->d]
+                    )." ".implode(':',
+                        [$current_response_time->h, $current_response_time->i, $current_response_time->s]
+                    );
+                    show('last response time => '.$last_resTime);
+
+
+                    $db->query('
+                        UPDATE serviceprovider
+                        SET last_response_time = :last_response_time
+                        WHERE user_id = :user_id
+                    ', ['last_response_time' => $last_resTime , 'user_id' => Auth::getUser_id()]);
+
 
                     message("Request Accepted", false, 'success');
 
@@ -211,7 +247,7 @@ class Controller
 
                 } else {
 
-                    $input = ['user_id' => Auth::getUser_id(), 'req_id' => $id];
+                    $input = ['deleted' => 0, 'user_id' => Auth::getUser_id(), 'req_id' => $id];
 
                     $row_data = $db->query("
                         SELECT *, resrequest.user_id AS 'client_id' 
