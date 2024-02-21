@@ -85,8 +85,11 @@ class CCA extends Controller{
         } else {
 
             $complaints = new Complaint();
-            $data['complaints'] =$complaints->get_all();    
+            $data['acc'] =$complaints->where(['status' => 'Accepted']);
+            $data['idl'] =$complaints->where(['status' => 'Idle']);
+            $data['assi'] =$complaints->where(['status' => 'Assist']);
             $this->view("pages/complaints/view_complaints",$data);
+
 
         }
     }
@@ -95,12 +98,23 @@ class CCA extends Controller{
         $this->view("CCA/chats");
     }
 
-    public function verify(){
+    public function verify($uservid=null){
+
+        if(empty($uservid)){
         
                 $ur = new Uservreq();
                 $data['assists'] = $ur->get_all();
                 $this->view("CCA/verify", $data);
-
+            }else{
+                $ur = new Uservreq();
+                $data['assists'] = $ur->query("
+                SELECT * FROM uservreq
+                JOIN user
+                ON user.user_id = uservreq.user_id
+                WHERE uservreq.userVreq_id = :userVreq_id
+            ", ['userVreq_id' => $uservid])[0];
+                $this->view("CCA/verifydetails", $data);
+            }
     }
 
     public function admanage(){

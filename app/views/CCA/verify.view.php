@@ -9,11 +9,10 @@
                 <?php $this->view('includes/sidebar') ?>
             </section>
             <section class="cols-10">
-                <h1>verify page</h1>
                 <div>
                     <?php
                     foreach($assists as $assist ){
-                        $this->view("CCA/components/assistance", (array)$assist);
+                        $this->view("CCA/components/single_verification", (array)$assist);
                     }
                     ?>
                 </div>

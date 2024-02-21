@@ -13,7 +13,7 @@
 
             <h1 class="mar-10-0 txt-c-white txt-w-bold" style="font-size: 1.5rem">Staff Management</h1>
 
-            <div style="background-color: #cebeef" class="mar-10 hei-100 wid-100 dis-flex-col pad-20 gap-10 bor-rad-5 over-scroll">
+            <div class="hei-100 wid-100 dis-flex-col pad-20 gap-10 bor-rad-5">
                 <div class="dis-flex wid-100 ju-co-sb">
                     <a href="<?= ROOT ?>/venuem/staff/insert">
                         <button class="blue-btn">+ Add New</button>
@@ -41,7 +41,7 @@
                     </div>
                 </div>
 
-                <div class="flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10">
+                <div class="flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="overflow-y: auto; padding-right: 5px;">
                     <?php
                         if(!empty($users)) {
                             foreach ($users as $user) {
