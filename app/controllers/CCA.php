@@ -114,8 +114,6 @@ class CCA extends Controller{
                 WHERE uservreq.userVreq_id = :userVreq_id
             ", ['userVreq_id' => $uservid])[0];
                 $this->view("CCA/verifydetails", $data);
-
-                $this->view("CCA/verifydetails", $data);
             }
     }
 
