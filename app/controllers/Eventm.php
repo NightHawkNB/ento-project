@@ -22,7 +22,6 @@ class Eventm extends controller{
     {
         $db = new Database();
 
-//        show($page);
         if($_SERVER['REQUEST_METHOD'] == 'GET') {
             $ads = new Ad();
 
@@ -49,9 +48,6 @@ class Eventm extends controller{
                 JOIN singer S ON SP.sp_id = S.sp_id
                 WHERE ADS.deleted = 0
             ');
-
-//        show($data);
-//        die;
 
             $this->view('common/events/create_event', $data);
 
@@ -80,15 +76,6 @@ class Eventm extends controller{
 
                 createReservation($venue_data->sp_id, $venue_data->ad_id);
             }
-
-//            if(!empty($_POST['venue_id'])) {
-//                $ad_venue = new Ad_venue();
-//                $venue = $ad_venue->where(['venue' => $_POST['venue_id']])[0];
-//                show($venue);
-//                $_POST['venue_id'] = $venue->venue_id;
-//            } else {
-//                $_POST['custom_venue'] = $_POST['custom_venue_address'];
-//            }
 
             // Image Uploading part
             $allowed_types = ['image/jpeg', 'image/png'];
@@ -153,7 +140,6 @@ class Eventm extends controller{
             }
             if(!$custom_band) unset($_POST['custom_band']);
 
-
             // Adding the ticketing plan
             $ticketing = [];
             if(!empty($_POST['basic_ticket_price'])) $ticketing[] = strval($_POST['basic_ticket_price']).'*'.strval($_POST['basic_ticket_count']);
@@ -165,10 +151,6 @@ class Eventm extends controller{
             // Data formatting
             $_POST['province'] = ucfirst(strtolower($_POST['province']));
             $_POST['district'] = ucfirst(strtolower($_POST['district']));
-            show($singers);
-            show($ticketing);
-            show($_POST);
-            die;
 
             $event = new Event();
             $event_singers = new Event_singers();
@@ -180,6 +162,7 @@ class Eventm extends controller{
                 createReservation($singer->sp_id, $singer->ad_id);
             }
 
+            message("Event Created Successfully", false, 'success');
             redirect('eventm');
 
         } else if($_SERVER['REQUEST_METHOD'] == "PUT") {
@@ -195,10 +178,24 @@ class Eventm extends controller{
                 echo "no_venues";
             }
 
-
-
-//            show($php_data);
             die;
+        }
+
+    }
+
+    public function view_events($event_id = null): void
+    {
+
+        if(empty($event_id)) {
+            $event = new Event();
+            $data['events'] = $event->where(['creator_id' => Auth::getUser_id()]);
+
+            $this->view('common/events/view_events', $data);
+        } else {
+            $event = new Event();
+            $data['events'] = $event->first(['event_id' => $event_id]);
+
+            $this->view('common/events/components/event_status', $data);
         }
 
     }

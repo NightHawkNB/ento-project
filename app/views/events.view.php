@@ -7,7 +7,11 @@
         <main>
             <div class="dis-flex gap-20 pad-20 flex-wrap">
                 <?php
-                    foreach ($record as $event) $this->view('common/events/list-item', (array)$event);
+                    if(!empty($record)) {
+                        foreach ($record as $event) $this->view('common/events/components/list-item', (array)$event);
+                    } else {
+                        echo "No events listed yet";
+                    }
                 ?>
             </div>
         </main>
