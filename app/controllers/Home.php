@@ -10,7 +10,11 @@ class Home extends Controller{
     {
 
         $event = new Event();
-        $data['record'] = $event->where(['pending' => 0]);
+        $data['record'] = $event->query("
+            SELECT *
+            FROM event
+            WHERE status != 'Pending'
+        ");
 
         if(empty($id)) $this->view('events', $data);
         else {
@@ -25,17 +29,45 @@ class Home extends Controller{
                     $merchant_secret = "MTAyMTQ4NTEyNzM0ODAwNzU2NDgxODk4ODgyNzQyMjg1ODU1NjA4OQ==";
                     $currency = "LKR";
 
-//                    $_POST['user_id'] = Auth::getUser_id();
+                    $_POST['user_id'] = Auth::getUser_id();
                     $_POST['event_id'] = $id;
                     $_POST['amount'] = $_POST['tickets'] * $_POST['count'];
 
                     $payment = new Payment();
-//                    $payment->insert($_POST);
-//                    $order = $payment->first(['event_id' => $_POST['event_id'], 'user_id' => $_POST['user_id']]);
-//                    if(empty($order)) {
-//                        message("Order Creation Failed - Payment was not performed");
-//                        redirect('home/events');
-//                    }
+                    $payment->insert($_POST);
+                    $order = $payment->first(['event_id' => $_POST['event_id'], 'user_id' => $_POST['user_id']]);
+
+                    $ticket = new Tickets();
+
+                    $ticket_secret = "AkilaHansiThisaraNipun";
+
+                    $params = [
+                        'event_id' => $id,
+                        'user_id' => Auth::getUser_id(),
+                        'hash' => 'hash',
+                        'type' => 'default',
+                        'price' => $_POST['tickets']
+                    ];
+                    $ticket->insert($params);
+                    $ticket_id = $ticket->query("SELECT * FROM tickets WHERE user_id = :user_id AND event_id = :event_id ORDER BY ticket_id DESC", ['user_id' => Auth::getUser_id(), 'event_id' => $id])[0]->ticket_id ?: NULL;
+
+                    $generated_hash = strtoupper(
+                        md5(
+                            $ticket_id .
+                            $id .
+                            Auth::getUser_id() .
+                            'default' .
+                            $_POST['tickets'] .
+                            strtoupper(md5($ticket_secret))
+                        )
+                    );
+
+                    $ticket->update($ticket_id, ['hash' => $generated_hash, 'ticket_id' => $ticket_id]);
+
+                    if(empty($order)) {
+                        message("Order Creation Failed - Payment was not performed");
+                        redirect('home/events');
+                    }
 
                     $amount = $_POST['amount'];
                     $order_id = rand(10, 1000).$_POST['amount'];
@@ -102,10 +134,45 @@ class Home extends Controller{
 
     public function ads($method = null, $id = null): void
     {
+
+        if($_SERVER['REQUEST_METHOD'] == "PATCH") {
+            // Content
+            $json_data = file_get_contents("php://input");
+
+            // If the second argument is set to true, the function returns an array. Otherwise, it returns an object
+            $php_data = json_decode($json_data);
+
+
+            $ad = new Ad();
+            $data = $ad->first(['ad_id' => $php_data->ad_id]);
+
+            $user_id = $data->user_id;
+//            show($data);
+
+            $ad->update($php_data->ad_id, ['ad_id' => $php_data->ad_id,'views' => ($data->views+1)]);
+
+            // Get current month and year
+            $currentYear = date('Y');
+            $currentMonth = date('n');
+
+            $views = new Ad_view();
+            $ad_view = $views->first(['user_id' => $user_id, 'month' => $currentMonth, 'year' => $currentYear]) ?: NULL;
+
+//            show($ad_view);
+
+            if($ad_view) {
+                $views->update($ad_view->id, ['count' => $ad_view->count+1, 'id' => $ad_view->id]);
+            } else {
+                $views->insert(['user_id' => $user_id, 'count' => $data->views+1, 'month' => $currentMonth, 'year' => $currentYear]);
+            }
+
+            die;
+        }
+
         // get_all_ads() function is declared in the controller within the core folder
         $data = get_all_ads();
 
-        $this->view('pages/ads', $data);
+        $this->view('pages/advertisements/ads', $data);
     }
 
     public function complaint($method=NULL, $id = null): void
@@ -165,6 +232,42 @@ class Home extends Controller{
                 redirect('support');
             }
         }
+    }
+
+//    notification
+    public function notification(): void
+    {
+        if($_SERVER['REQUEST_METHOD'] == 'PATCH'){
+//            $notify = new Notifications();
+//            $notifications = $notify->where(['user_id'=>Auth::getUser_id()]);
+
+            $db = new database();
+
+            $result = $db->query("SELECT * FROM
+            notifications n 
+            JOIN reservations r 
+            ON n.id= r.reservation_id
+            JOIN resrequest rr
+            ON r.reservation_id = rr.reservation_id
+            JOIN ads a
+            ON rr.ad_id = a.ad_id
+            WHERE n.user_id = :user_id",['user_id'=>Auth::getUser_id()]);
+
+            if (!empty($result)) {
+                echo json_encode($result); // Encode retrieved data as JSON
+            } else {
+                echo "no-new-notifications";
+            }
+        }else if($_SERVER['REQUEST_METHOD'] == 'PUT') {
+            $json_data = file_get_contents("php://input");
+            // If the second argument is set to true, the function returns an array. Otherwise, it returns an object
+            $php_data = json_decode($json_data);//json object
+
+            $notify = new Notifications();
+            $dataToUpdate = ['viewed' => 1];
+            $notify->update($php_data->notification_id,$dataToUpdate);
+            echo "Notification viewed status updated successfully.";
+            }
     }
 
 }

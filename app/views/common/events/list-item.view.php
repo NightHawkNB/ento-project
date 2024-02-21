@@ -1,6 +1,6 @@
 <div class="dis-flex-col bg-white bor-rad-5 f-poppins over-hide event-card sh">
     <a href=<?= ROOT."/home/events/".$event_id ?>>
-        <img src="<?= ROOT ?>/assets/images/events/<?= $image ?>" alt="<?= $name ?>" class="event-image">
+        <img src="<?= ROOT.$image ?>" alt="<?= $name ?>" class="event-image">
     </a>
     <div class="dis-flex ju-co-sb pad-10 bg-black-1 txt-c-white fill-white">
         <div class="dis-flex al-it-ce gap-10">
@@ -21,7 +21,7 @@
             <h5 class="flex-1 mar-0 f-space-1">Buy Tickets</h5>
             <div class="dis-flex gap-10 al-it-ce">
                 <?php
-                    $ticketing_plan = explode("/", $ticketing_plan);
+                    $ticketing_plan = explode("|", $ticketing_plan);
                     foreach ($ticketing_plan as $ticket) {
                         $item = explode("*", $ticket);
                         echo "<div class='bor-rad-10 bor-1-sol-white bg-trans pad-5-10 hover-pointer'>$item[0]</div>";

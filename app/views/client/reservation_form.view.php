@@ -32,11 +32,13 @@
                     <div class="error"></div>
                 </div>
 
+                <?php if($ad_owner_type != "venuem"): ?>
                 <div class="profile-input-2">
                     <label for="location"> Enter the location</label>
                     <input type="text" id="location" name="location">
                     <div class="error"></div>
                 </div>
+                <?php endif; ?>
 
                 <div class="wid-100 dis-flex ju-co-ce">
                     <button type="submit" class="btn-lay-2 btn-anima-hover">Submit</button>

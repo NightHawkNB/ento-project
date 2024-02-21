@@ -23,6 +23,9 @@ if($_SERVER['SERVER_NAME'] != 'localhost') {
     define('ROOT', 'http://localhost/ento-project/public');
 
 } else {
+
+    // For hosting within a Virtual Machine Instance
+
     define('ROOT', 'http://localhost/ento-project/public');
 //    ? cinfig for your web server
     define('DB_HOST', 'localhost');

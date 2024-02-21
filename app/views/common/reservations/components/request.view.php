@@ -20,7 +20,14 @@
 ?>
 
 <div class="requests">
-    <h3 class="txt-c-black heading"><?= ucfirst($fname) ?>&nbsp;<?= ucfirst($lname) ?></h3>
+    <?php if($sp_type != "venuem"): ?>
+        <h3 class="txt-c-black heading"><?= ucfirst($fname) ?>&nbsp;<?= ucfirst($lname) ?></h3>
+    <?php else: ?>
+        <div class="gap-10">
+            <img src="<?= ROOT.$venue_image ?>" alt="seat-image" class="icon"  style="border-radius: 50%">
+            <p class="txt-c-black" style="font-family: Poppins, sans-serif"><b>Client</b> : <?= ucfirst($fname) ?>&nbsp;<?= ucfirst($lname) ?></p>
+        </div>
+    <?php endif; ?>
 
     <div class="time">
         <img src="<?= ROOT ?>/assets/images/icons/clock.png" alt="seat-image" class="icon">

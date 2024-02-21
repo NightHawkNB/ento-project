@@ -2,7 +2,7 @@
 
 class Chat extends controller {
 
-    public function __contruct() {
+    public function __construct() {
         // Constructor
     }
 

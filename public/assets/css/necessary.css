@@ -4,7 +4,8 @@ body {
     font-family: Inter, sans-serif;
     font-size: 14px;
     color: black;
-    height: 100vh;
+    min-height: 100vh;
+    height: 100%;
     background: white url("../images/bg5.jpg") no-repeat fixed;
     background-size: cover;
     background-clip: border-box;
@@ -13,31 +14,38 @@ body {
 main {
     /*background-color: white;*/
     /* Moved the background style to BODY */
+    padding-top: 67px;
+    grid-row: span 2;
+}
+
+main section:last-child {
+    overflow-y: scroll !important;
+    flex: 1;
 }
 
 /* START OF STYLES FOR ALL AD COMPONENTS */
-@media screen and (max-width: 700px) {
-    #sub-container > div {
-        width: 100%;
-    }
+/*@media screen and (max-width: 700px) {*/
+/*    #sub-container > div {*/
+/*        width: 100%;*/
+/*    }*/
 
-    #sub-container {
-        display: flex;
-        flex-direction: column;
-    }
+/*    #sub-container {*/
+/*        display: flex;*/
+/*        flex-direction: column;*/
+/*    }*/
 
-    #sub-container div {
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
+/*    #sub-container div {*/
+/*        justify-content: center;*/
+/*        align-items: center;*/
+/*        text-align: center;*/
+/*    }*/
 
-    #main-container {
-        align-items: center;
-        justify-content: center;
-    }
+/*    #main-container {*/
+/*        align-items: center;*/
+/*        justify-content: center;*/
+/*    }*/
 
-}
+/*}*/
 
 @media screen and (min-width: 700px) {
     #sub-container {

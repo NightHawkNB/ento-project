@@ -24,7 +24,7 @@ class Ad extends model {
     public function validate($data) {
         $this->errors = [];
 
-        if(empty($data['title'])) $this->errors['title'] = "Title cannot be Empty";
+        if($_SESSION['USER_DATA']->user_type != 'venuem') if(empty($data['title'])) $this->errors['title'] = "Title cannot be Empty";
 
         if(empty($data['details'])) $this->errors['details'] = "Details cannot be empty";
 

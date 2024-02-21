@@ -1,0 +1,55 @@
+.notifications_container {
+    background-color: rgba(180, 169, 169, 0.42);
+    min-width: 20px;
+    aspect-ratio: 1/1;
+    padding:5px;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: white;
+    position: relative;
+
+    &:hover {
+        cursor: pointer;
+    }
+    .dropdown {
+        background-color: #27282b;
+        margin: 25px;
+        padding: 20px;
+        position:absolute;
+        width: 300px;
+        height: fit-content;
+        right:1px;
+        top: 100%;
+        transition: 0.3s ease-in-out;
+        transform-origin:top;
+        z-index: 99;
+        border: 1px solid var(--facebook-blue);
+        border-radius: 5px;
+    }
+    .dropdown > div{
+        /*background: white;*/
+    }
+}
+.open{
+    transform: scaleY(1);
+}
+.close{
+    transform: scaleY(0);
+}
+.notifiCounter {
+    position: absolute !important;
+    top: -10px !important;
+    right: -10px !important;
+    width: 18px !important;
+    height: 18px !important;
+    background: red !important;
+    color: #ffffff !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    border-radius: 50% !important;
+    font-weight: bold;
+}

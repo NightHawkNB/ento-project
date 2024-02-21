@@ -8,7 +8,7 @@
         <section class="cols-2 sidebar">
             <?php $this->view('includes/sidebar') ?>
         </section>
-        <section class="dis-flex-col pad-20 gap-10 cols-10 wid-80 flex-wrap">
+        <section class="cols-10 dis-flex flex-wrap pad-20 gap-10 wid-80">
 
             <?php
 
@@ -18,12 +18,13 @@
                 if(!empty($ad_band)) $ads = array_merge_recursive($ads, $ad_band);
                 if(!empty($ad_venue)) $ads = array_merge_recursive($ads, $ad_venue);
 
-
-                foreach ($ads as $ad) {
-                    $this->view('includes/components/ad ', (array)$ad);
+                if(empty($ads)) echo "No ads to show";
+                else {
+                    foreach ($ads as $ad) {
+                        $this->view('pages/advertisements/components/ad', (array)$ad);
+                    }
                 }
 
-                if(empty($ads)) echo "No ads to show";
             ?>
 
         </section>

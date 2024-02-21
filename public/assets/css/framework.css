@@ -23,6 +23,7 @@
 @import "client/qr.css";
 @import "client/toggle_btn.css";
 @import "client/rating.css";
+@import "notification.css";
 
 /*@font-face {*/
 /*    font-family: 'PTSans';*/
@@ -55,6 +56,9 @@
     --line-secondary: grey;
     --maxwidth: auto;
 
+    --white-link: #ECF3F9;
+    --white: white;
+
     --navbar-dark-100: #333;
     --navbar-dark-200: #444;
     --navbar-dark-300: #555;
@@ -66,7 +70,7 @@ a {
 }
 
 body {
-    position: relative;
+    /*position: relative;*/
     font-size: 1rem;
 }
 
@@ -89,10 +93,12 @@ body {
 /* Form Styles */
 form {
     width: 90%;
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 15px;
     color: white;
+    height: fit-content;
 }
 
 form div{
