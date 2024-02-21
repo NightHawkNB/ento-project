@@ -20,6 +20,8 @@ class Eventm extends controller{
 
     public function create_event($page = null): void
     {
+        $db = new Database();
+
 //        show($page);
         if($_SERVER['REQUEST_METHOD'] == 'GET') {
             $ads = new Ad();
@@ -66,6 +68,17 @@ class Eventm extends controller{
             if($_POST['venue_id'] == 'custom') {
                 $_POST['custom_venue'] = $_POST['custom_venue_address'];
                 unset($_POST['venue_id']);
+            } else {
+                unset($_POST['custom_venue']);
+                $venue_data = $db->query('
+                    SELECT VM.sp_id AS sp_id, ADV.ad_id
+                    FROM venue V
+                    JOIN venuemanager VM ON V.venueM_id = VM.venueM_id
+                    JOIN ad_venue ADV ON V.venue_id = ADV.venue_id
+                    WHERE V.venue_id = :venue_id
+                ', ['venue_id' => $_POST['venue_id']])[0];
+
+                createReservation($venue_data->sp_id, $venue_data->ad_id);
             }
 
 //            if(!empty($_POST['venue_id'])) {
@@ -114,16 +127,23 @@ class Eventm extends controller{
                 if (str_contains($key, 'BAND_AD_')) {
                     $custom_band = false;
 
-                    $_POST['band_id'] = $ads->query('
-                        SELECT B.band_id
+                    $band = $ads->query('
+                        SELECT B.band_id, B.sp_id, ADS.ad_id
                         FROM ads ADS
                         JOIN serviceprovider SP ON ADS.user_id = SP.user_id
                         JOIN band B ON SP.sp_id = B.sp_id
                         WHERE ADS.ad_id = :ad_id AND ADS.deleted = 0
                     ', ['ad_id' => $value])[0];
+
+                    // Creating the reservation for the band
+                    createReservation($band->sp_id, $band->ad_id);
+
+                    // Inserting the data to the POST variable
+                    $_POST['band_id'] = $band->band_id;
+
                 } else if(str_contains($key, 'SING_AD_')) {
                     $singers[] = $ads->query('
-                        SELECT S.singer_id
+                        SELECT S.singer_id, S.sp_id, ADS.ad_id
                         FROM ads ADS
                         JOIN serviceprovider SP ON ADS.user_id = SP.user_id
                         JOIN singer S ON SP.sp_id = S.sp_id
@@ -148,7 +168,7 @@ class Eventm extends controller{
             show($singers);
             show($ticketing);
             show($_POST);
-//            die;
+            die;
 
             $event = new Event();
             $event_singers = new Event_singers();
@@ -157,8 +177,8 @@ class Eventm extends controller{
 
             foreach ($singers as $singer) {
                 $event_singers->insert(['event_id' => $_POST['event_id'], 'singer_id' => $singer->singer_id]);
+                createReservation($singer->sp_id, $singer->ad_id);
             }
-
 
             redirect('eventm');
 
@@ -183,4 +203,26 @@ class Eventm extends controller{
 
     }
 
+}
+
+// Function to send a reservation request when creating an event
+function createReservation($sp_id, $ad_id) : void
+{
+
+    $resreq = new Resrequest();
+
+    $inputs = [
+        'req_id' => "RESREQ_" . rand(10, 100000) . "_" . time(),
+        'user_id' => Auth::getUser_id(),
+        'sp_id' => $sp_id,
+        'ad_id' => $ad_id,
+        'type' => 'Event',
+        'details' => $_POST['details'],
+        'location' => $_POST['province'].", ".$_POST['district'],
+        'location_id' => (is_numeric($_POST['venue_id'])) ? $_POST['venue_id'] : NULL,
+        'start_time' => $_POST['start_time'],
+        'end_time' => $_POST['end_time']
+    ];
+
+    $resreq->insert($inputs);
 }

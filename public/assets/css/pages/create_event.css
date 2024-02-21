@@ -124,6 +124,7 @@ input[type=file] {
 
             .slide {
                 color: var(--font-primary);
+                overflow-y: scroll;
             }
         }
     }

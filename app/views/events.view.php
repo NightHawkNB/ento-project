@@ -11,8 +11,6 @@
                 ?>
             </div>
         </main>
-
-        <?php $this->view('includes/footer') ?>
     </div>
 </body>
 </html>

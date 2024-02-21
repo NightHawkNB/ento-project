@@ -9,7 +9,7 @@ header {
     position: fixed;
     justify-content: space-between;
     align-items: center;
-    background-color: rebeccapurple;
+    background-color: var(--purple-primary);
     padding: 10px;
     z-index: 10;
 }
@@ -88,7 +88,7 @@ header {
         margin: 0;
         list-style-type: none;
         display: none;
-        background-color: rebeccapurple;
+        background-color: var(--purple-primary);
         align-items: stretch;
         flex-direction: column;
         /*border-top: 1px solid var(--navbar-dark-200);*/
@@ -108,7 +108,7 @@ header {
                 padding: 10px 16px;
 
                 &:hover {
-                    background-color: mediumpurple;
+                    background-color: var(--purple-secondary);
                 }
 
                 .fa {
@@ -118,11 +118,11 @@ header {
             }
 
             a.active {
-                background-color: mediumpurple;
+                background-color: var(--purple-secondary);
             }
 
             &.active > a {
-                background-color: mediumpurple;
+                background-color: var(--purple-secondary);
             }
 
             &.active > a > .fa {
@@ -140,7 +140,7 @@ header {
             list-style-type: none;
             display: none;
             flex-direction: column;
-            background-color: mediumpurple;
+            background-color: var(--purple-secondary);
             animation: fadeIn 0.5s;
 
             li {
@@ -148,12 +148,12 @@ header {
                     padding: 8px 16px 8px 24px;
 
                     &:hover {
-                        background-color: rebeccapurple;
+                        background-color: var(--purple-primary);
                     }
                 }
 
                 &.active > a {
-                    background-color: rebeccapurple;
+                    background-color: var(--purple-primary);
                 }
 
                 &.has-dropdown.active > a {
@@ -162,19 +162,19 @@ header {
             }
 
             & .submenu {
-                background-color: rebeccapurple;
+                background-color: var(--purple-primary);
 
                 li {
                     a {
                         padding: 8px 16px 8px 32px;
 
                         &:hover {
-                            background-color: mediumpurple;
+                            background-color: var(--purple-secondary);
                         }
                     }
 
                     &.active > a {
-                        background-color: mediumpurple;
+                        background-color: var(--purple-secondary);
                     }
                 }
             }
@@ -286,7 +286,7 @@ header #profile-btn:hover {
 }
 
 .sub-menu-wrap .sub-menu {
-    background: var(--dark-bg);
+    background: #735DA5;
     padding: 20px;
     margin: 10px;
 }
@@ -319,7 +319,7 @@ header #profile-btn:hover {
 
 .sub-menu-wrap .sub-menu .user-info .verified-status.verify span {
     font-size: 12px;
-    color: dodgerblue;
+    color: royalblue;
 }
 
 .sub-menu-wrap .sub-menu .user-info .verified-status img {

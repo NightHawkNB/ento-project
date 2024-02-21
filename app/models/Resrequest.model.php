@@ -10,6 +10,7 @@ class Resrequest extends Model{
         'user_id',
         'sp_id',
         'ad_id',
+        'type',
         'createdDate',
         'respondedDate',
         'details',
