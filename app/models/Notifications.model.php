@@ -12,7 +12,9 @@ class Notifications extends Model {
         'message',
         'link',
         'deleted',
-        'viewed'
+        'viewed',
+        'id',
+        'type'
     ];
 
 }

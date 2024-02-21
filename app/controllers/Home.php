@@ -238,11 +238,23 @@ class Home extends Controller{
     public function notification(): void
     {
         if($_SERVER['REQUEST_METHOD'] == 'PATCH'){
-            $notify = new Notifications();
-            $notifications = $notify->where(['user_id'=>Auth::getUser_id()]);
+//            $notify = new Notifications();
+//            $notifications = $notify->where(['user_id'=>Auth::getUser_id()]);
 
-            if (!empty($notifications)) {
-                echo json_encode($notifications); // Encode retrieved data as JSON
+            $db = new database();
+
+            $result = $db->query("SELECT * FROM
+            notifications n 
+            JOIN reservations r 
+            ON n.id= r.reservation_id
+            JOIN resrequest rr
+            ON r.reservation_id = rr.reservation_id
+            JOIN ads a
+            ON rr.ad_id = a.ad_id
+            WHERE n.user_id = :user_id",['user_id'=>Auth::getUser_id()]);
+
+            if (!empty($result)) {
+                echo json_encode($result); // Encode retrieved data as JSON
             } else {
                 echo "no-new-notifications";
             }
@@ -255,9 +267,7 @@ class Home extends Controller{
             $dataToUpdate = ['viewed' => 1];
             $notify->update($php_data->notification_id,$dataToUpdate);
             echo "Notification viewed status updated successfully.";
-
             }
-
     }
 
 }

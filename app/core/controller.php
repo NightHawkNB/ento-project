@@ -144,7 +144,9 @@ class Controller
             if (empty($id)) {
 
                 $input = ['deleted' => 0, 'user_id' => Auth::getUser_id()];
-                $data['requests'] = $db->query("
+
+                if($_SESSION['USER_DATA']->user_type == 'venuem') {
+                    $data['requests'] = $db->query("
                     SELECT *, venue.image AS venue_image
                     FROM resrequest
                     JOIN user ON resrequest.user_id = user.user_id
@@ -154,6 +156,17 @@ class Controller
                       AND serviceprovider.user_id = :user_id
                       AND status IN ('Pending', 'Declined')
                 ", $input);
+                } else {
+                    $data['requests'] = $db->query("
+                    SELECT *
+                    FROM resrequest
+                    JOIN user ON resrequest.user_id = user.user_id
+                    JOIN serviceprovider ON resrequest.sp_id = serviceprovider.sp_id
+                    WHERE resrequest.deleted = :deleted
+                      AND serviceprovider.user_id = :user_id
+                      AND status IN ('Pending', 'Declined')
+                ", $input);
+                }
 
                 $this->view('common/reservations/requests', $data);
 

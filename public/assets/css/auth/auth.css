@@ -1,3 +1,7 @@
+main {
+    padding-top: 0;
+}
+
 .auth-container {
     z-index: 3;
     border-radius: 10px;
@@ -27,13 +31,6 @@
     align-items: center;
     justify-content: center;
     width: fit-content;
-}
-
-.auth-container .login.right-section {
-    background: var(--primary-blue);
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .auth-container input,

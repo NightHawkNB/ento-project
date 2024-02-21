@@ -3,10 +3,6 @@
     /*background-color: var(--bg-primary);*/
 }
 
-.dashboard-main section:nth-child(2) {
-    flex: 1;
-}
-
 .tile-container {
     display: flex;
     flex-wrap: wrap;
