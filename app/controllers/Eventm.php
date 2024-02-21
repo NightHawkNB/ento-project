@@ -111,7 +111,7 @@ class Eventm extends controller{
             // Adding the band and the singer list
             foreach ($_POST as $key => $value) {
                 // Check if the key contains 'BAND_AD_'
-                if (str_contains($key, 'BAND_AD_')) {
+                if (str_contains($key, 'band_data')) {
                     $custom_band = false;
 
                     $band = $ads->query('
