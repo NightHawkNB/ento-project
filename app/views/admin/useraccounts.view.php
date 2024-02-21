@@ -1,5 +1,6 @@
 <html lang="en">
 <?php $this->view('includes/head',['style'=>'admin/usermanagement.css']) ?>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.1/css/boxicons.min.css">
 <body>
 <div class="main-wrapper">
     <?php $this->view('includes/header') ?>
@@ -13,18 +14,60 @@
             .fa.fa-search {
                 color: white;
             }
+            .fa
+            .select-menu-container{
+                position: relative;
+            }
+
+            .select-menu{
+                pos
+            }
         </style>
 
         <section class="cols-10 dis-flex">
             <div class="glass-bg mar-10 wid-100  dis-flex-col pad-20 gap-10 bor-rad-5">
                 <div class="wrapper">
-                    <div id="search-container">
-                        <i class="fa fa-search"></i>
-                        <input type="search" id="search-input" class='js-search' placeholder="search product name here..."/>
+                    <div class="dis-flex ju-co-se">
+                        <div id="search-container" style="width: 50%; min-width: 525px">
+                            <i class="fa fa-search"></i>
+                            <input type="search" id="search-input" class='js-search' placeholder="search product name here..."/>
+                        </div>
+                        <div class=" select-menu-container style="width: 50%; background-color: #1a9be6;">
+                            <div class="select-menu" style="">
+                                <div class="select-btn">
+                                    <span class="sBtn-text">Filter by user</span>
+                                    <i class="bx bx-chevron-down"></i>
+                                </div>
+
+                                <ul class="options">
+                                    <li class="option" data-category="client">
+                                        <span class="option-text">Client</span>
+                                    </li>
+                                    <li class="option" data-category="admin">
+                                        <span class="option-text">Admin</span>
+                                    </li>
+                                    <li class="option" data-category="singer">
+                                        <span class="option-text">Singer</span>
+                                    </li>
+                                    <li class="option" data-category="band">
+                                        <span class="option-text">Band</span>
+                                    </li>
+                                    <li class="option" data-category="cca">
+                                        <span class="option-text">CCA</span>
+                                    </li>
+                                    <li class="option" data-category="venueo">
+                                        <span class="option-text">Venue Operator</span>
+                                    </li>
+                                    <li class="option" data-category="venuem">
+                                        <span class="option-text">Venue manager</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
                     </div>
 
                     <div id="buttons" class="dis-flex ju-co-sb">
-                        <button class="blue-btn" data-category="all">All</button>
                         <button class="blue-btn" data-category="client">Client</button>
                         <button class="blue-btn" data-category="admin">Admin</button>
                         <button class="blue-btn" data-category="singer">Singer</button>
@@ -55,6 +98,7 @@
             const users = document.querySelectorAll('.u');
             const searchInput = document.querySelector('.js-search');
             const filterButtons = document.querySelectorAll('.blue-btn');
+            const options = document.querySelectorAll('.options .option');
 
             function filterUsers(category) {
                 users.forEach(user => {
@@ -83,7 +127,6 @@
             }
 
             // Event listener for search input
-            //document.getElementById('search').addEventListener('click', searchUsers);
             searchInput.addEventListener('input', searchUsers);
 
             // Event listener for filter buttons
@@ -103,8 +146,32 @@
                 });
             });
 
-            // Set 'All' as the default active button and show all users on page load
-            filterButtons[0].click();
+            // Event listener for select options
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    const category = option.dataset.category.toLowerCase();
+                    filterUsers(category);
+                });
+            });
+
+            // Show all users by default
+            filterUsers('all');
+
+            const optionMenu = document.querySelector(".select-menu"),
+                selectBtn = optionMenu.querySelector(".select-btn"),
+                sBtn_text = optionMenu.querySelector(".sBtn-text");
+
+            selectBtn.addEventListener("click", ()=> optionMenu.classList.toggle("active"));
+
+            options.forEach(option=>{
+                option.addEventListener("click",()=>{
+                    let selectedOption = option.querySelector(".option-text").innerText;
+                    sBtn_text.innerText=selectedOption;
+
+                    optionMenu.classList.remove("active");
+                })
+            })
+
         </script>
     </main>
 </div>
