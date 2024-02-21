@@ -150,10 +150,8 @@ if (message()) {
                     <h6>Viewed</h6>
                     <br>
                     <div class="viewed"></div>
-
                 </div>
             </div>
-
 
             <div id="profile-btn" style="padding: 2px 5px">
                 <img src="<?= ROOT . $_SESSION['USER_DATA']->image ?>" alt="profile-image"
@@ -268,8 +266,6 @@ if (message()) {
             "Content-Type": "application/json; charset=utf-8"
         }
     }).then(res => {
-
-        // console.log(res)
         return res.text()
     }).then(data => {
         data_array = JSON.parse(data)
@@ -303,13 +299,11 @@ if (message()) {
     });
 
  // to update the viewed column
-
     function update_notification(notification_id) {
 
         let data = {
             'notification_id': notification_id,
             'viewed': 1
-
         }
 
         fetch("<?=ROOT?>/home/notification", {
@@ -319,8 +313,10 @@ if (message()) {
             },
             body: JSON.stringify(data)
         }).then(res => {
+
             return res.text()
         }).then(data => {
+            console.log("//////////////////////////////")
             console.log(data)
         }).catch(error => {
             console.error('Fetch error:', error);

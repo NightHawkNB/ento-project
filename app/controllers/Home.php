@@ -238,9 +238,6 @@ class Home extends Controller{
     public function notification(): void
     {
         if($_SERVER['REQUEST_METHOD'] == 'PATCH'){
-//            $notify = new Notifications();
-//            $notifications = $notify->where(['user_id'=>Auth::getUser_id()]);
-
             $db = new database();
 
             $result = $db->query("SELECT * FROM
