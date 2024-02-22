@@ -6,7 +6,7 @@
                 <p class="txt-c-black"><?= $fname ?><?= $lname ?></p>
             </div>
         </div>
-        <div style="width: 200px">
+        <div style="width: 300px">
             <?= $email ?>    
         </div>
         <div style="width: 100px">
