@@ -222,7 +222,6 @@
 
     </script>
 
-    <?php $this->view('includes/footer') ?>
 
     <script>
         const ads = document.querySelectorAll('.ad')

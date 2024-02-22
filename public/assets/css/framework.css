@@ -24,14 +24,7 @@
 @import "client/toggle_btn.css";
 @import "client/rating.css";
 @import "notification.css";
-
-/*@font-face {*/
-/*    font-family: 'PTSans';*/
-/*    src : url('../fonts/PTSans-Regular.ttf') format('ttf');*/
-/*    font-weight: normal;*/
-/*    font-style: normal;*/
-/*}*/
-
+@import "colors.css";
 
 /* CSS COLORS */
 :root {
@@ -41,7 +34,6 @@
     /* hwb(263 6% 5%) - Previous purple */
 
     --alert-indigo: rgba(102, 16, 242, 0.5);
-    --medium-purple: mediumpurple;
     --indigo-6: #E0CFFC;
     --dark-grey: #323232;
     --dark-bg: #27282B;
@@ -58,10 +50,6 @@
 
     --white-link: #ECF3F9;
     --white: white;
-
-    --navbar-dark-100: #333;
-    --navbar-dark-200: #444;
-    --navbar-dark-300: #555;
 }
 
 a {
@@ -70,7 +58,7 @@ a {
 }
 
 body {
-    position: relative;
+    /*position: relative;*/
     font-size: 1rem;
 }
 
@@ -93,10 +81,12 @@ body {
 /* Form Styles */
 form {
     width: 90%;
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 15px;
     color: white;
+    height: fit-content;
 }
 
 form div{
