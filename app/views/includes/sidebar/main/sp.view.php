@@ -1,5 +1,5 @@
 <?php if (Auth::is_singer() || Auth::is_band() || Auth::is_venuem()): ?>
-    <li class="nav-item sub-menu-header" onclick="open_submenu(this)">
+    <li class="nav-item sub-menu-header <?= set_activated($_SESSION['USER_DATA']->user_type.'/ads') ?>" onclick="open_submenu(this)">
         <svg class="feather feather-send" fill="none" height="24" stroke="currentColor" stroke-linecap="round"
              stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
             <line x1="22" x2="11" y1="2" y2="13"/>
@@ -9,7 +9,7 @@
     </li>
     <ul class="sub-menu" id="subm">
         <?php if (($_SESSION['USER_DATA']->ad_count == 0 && $_SESSION['USER_DATA']->user_type != 'venuem') or $_SESSION['USER_DATA']->user_type == 'venuem'): ?>
-            <li class="nav-item">
+            <li class="nav-item <?= set_activated($_SESSION['USER_DATA']->user_type.'/ads/create-ad') ?>">
                 <a class="nav-link"
                    href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/ads/create-ad">
                     <svg class="feather feather-plus-circle" fill="none" height="24" stroke="currentColor"
@@ -62,7 +62,7 @@
         </li>
     </ul>
 
-    <li class="nav-item sub-menu-header" onclick="open_submenu(this)">
+    <li class="nav-item sub-menu-header <?= set_activated($_SESSION['USER_DATA']->user_type.'/reservations') ?>" onclick="open_submenu(this)">
         <svg class="feather feather-edit" fill="none" height="24" stroke="currentColor" stroke-linecap="round"
              stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
