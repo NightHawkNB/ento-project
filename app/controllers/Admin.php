@@ -96,7 +96,7 @@ class Admin extends Controller
         INNER JOIN complaints 
         ON complaint_assist.comp_id = complaints.comp_id 
         WHERE complaint_assist.deleted = 0 
-        AND complaint_assist.status='Idle' AND  ORDER BY complaint_assist.date_time DESC ");
+        AND complaint_assist.status='Idle'  ORDER BY complaint_assist.date_time DESC ");
 
             $data['assistrequests'] = $assists->query("SELECT complaint_assist.comp_id, complaint_assist.date_time, complaint_assist.status, complaint_assist.comment, complaints.user_id, complaints.cca_user_id 
         FROM complaint_assist 

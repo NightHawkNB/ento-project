@@ -58,7 +58,7 @@
                 </div>
 
             <!-- Idle Requests -->
-                <div id="pending-assist" class="flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="display: none; background-color: #00c853; max-height: 70vh; overflow: auto;padding-right: 10px">
+                <div id="pending-assist" class="flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="display: none; max-height: 70vh; overflow: auto;padding-right: 10px">
                     <?php if (empty($idlerequests)): ?>
                         <p style="color: #e3f2fd; font-weight: bold;font-size: 20px;">No todo requests</p>
                     <?php else: ?>
@@ -69,7 +69,7 @@
                 </div>
 
                 <!-- To do Requests -->
-                <div id="assisting" class="flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="display: none;background-color: #00c853; max-height: 70vh; overflow: auto;padding-right: 10px">
+                <div id="assisting" class="flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="display: none;max-height: 70vh; overflow: auto;padding-right: 10px">
                     <?php if (empty($assistrequests)): ?>
                         <p style="color: #e3f2fd; font-weight: bold;font-size: 20px;">No todo requests</p>
                     <?php else: ?>
@@ -80,7 +80,7 @@
                 </div>
 
                 <!--Handled Request-->
-                <div id="handled" class="flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="display: none;background-color: #00c853; max-height: 70vh; overflow: auto;padding-right: 10px">
+                <div id="handled" class="flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="display: none;max-height: 70vh; overflow: auto;padding-right: 10px">
                     <?php if (empty($handledrequests)): ?>
                         <p style="color: #e3f2fd; font-weight: bold;font-size: 20px;">No handled requests</p>
                     <?php else: ?>
