@@ -275,7 +275,7 @@ class Home extends Controller{
             $dataToUpdate = ['viewed' => 1];
             $notify->update($php_data->notification_id,$dataToUpdate);
             echo "Notification viewed status updated successfully.";
-            }
+        }
     }
 
 }
