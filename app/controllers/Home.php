@@ -244,14 +244,22 @@ class Home extends Controller{
             $db = new database();
 
             $result = $db->query("SELECT * FROM
-            notifications n 
-            JOIN reservations r 
-            ON n.id= r.reservation_id
-            JOIN resrequest rr
-            ON r.reservation_id = rr.reservation_id
-            JOIN ads a
-            ON rr.ad_id = a.ad_id
-            WHERE n.user_id = :user_id",['user_id'=>Auth::getUser_id()]);
+                notifications n 
+                JOIN reservations r 
+                ON n.id= r.reservation_id
+                JOIN resrequest rr
+                ON r.reservation_id = rr.reservation_id
+                JOIN ads a
+                ON rr.ad_id = a.ad_id
+                WHERE n.user_id = :user_id && n.type = 'Reservation'",['user_id'=>Auth::getUser_id()]);
+
+            $notify = new Notifications();
+            $other_notifications = $notify->query("
+                SELECT *
+                FROM notifications
+                WHERE user_id = :user_id AND type != :type
+            ",['user_id'=>Auth::getUser_id(), 'type' => 'Reservation']);
+            foreach($other_notifications as $notification) $result[] = $notification;
 
             if (!empty($result)) {
                 echo json_encode($result); // Encode retrieved data as JSON
@@ -267,7 +275,7 @@ class Home extends Controller{
             $dataToUpdate = ['viewed' => 1];
             $notify->update($php_data->notification_id,$dataToUpdate);
             echo "Notification viewed status updated successfully.";
-            }
+        }
     }
 
 }
