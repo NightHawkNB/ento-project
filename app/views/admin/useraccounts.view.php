@@ -1,5 +1,5 @@
 <html lang="en">
-<?php $this->view('includes/head',['style'=>'admin/usermanagement.css']) ?>
+<?php $this->view('includes/head',['style'=>['admin/usermanagement.css']]) ?>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.1/css/boxicons.min.css">
 <body>
 <div class="main-wrapper">
@@ -100,8 +100,10 @@
                     <button class="blue-btn push-right hover-pointer"  style="text-align:right; border: none" >+ Add New</button>
                 </a>
             </div>
+        </section>
+    </main>
 </div >
-</section>
+
 
 <script>
     const users = document.querySelectorAll('.u');
@@ -191,7 +193,5 @@
     })
 
 </script>
-</main>
-</div>
 </body>
 </html>

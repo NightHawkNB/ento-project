@@ -19,8 +19,22 @@ class Admin extends Controller
 
     public function index()
     {
-        $this->view('common/dashboard');
+        $db=new Database();
+
+        $data['pending_ads']=$db->query("SELECT COUNT(*) FROM ads WHERE pending=1" );
+        $data['pending_assreq']=$db->query("SELECT COUNT(*) FROM complaint_assist WHERE status='Idle' ");
+
+        $userTypeData=$db->query("SELECT user_type,Count(*) AS count FROM user GROUP BY user_type");
+        $data['plabels'] = array_column($userTypeData, 'user_type');
+        $data['pdata'] = array_column($userTypeData, 'count');
+
+        $data['plabels'] = json_encode($data['plabels']);
+        $data['pdata'] = json_encode($data['pdata']);
+
+        $this->view('admin/dashboard', $data);
+
     }
+
 
     public function ccareq($id = null, $method = null)
     {
