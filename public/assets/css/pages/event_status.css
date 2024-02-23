@@ -35,7 +35,7 @@
 
             .participants {
                 color: var(--font-primary);
-                min-width: 300px;
+                min-width: 350px;
                 padding: 10px;
                 border-radius: 10px;
                 background-color: var(--white-link);
@@ -48,20 +48,82 @@
                     display: flex;
                     gap: 10px;
                     align-items: center;
+
+                    .es-image {
+                        width: 100px;
+                        border-radius: 10px;
+                        aspect-ratio: 1/1;
+                        object-fit: cover;
+                    }
+
+                    .es-content {
+                        border-radius: 10px;
+                        height: 100%;
+                        width: 100%;
+                        padding: 10px;
+                        background-color: white;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 10px;
+
+                        .es-status {
+                            width: 100%;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            gap: 5px;
+
+                            span {
+                                color: var(--font-secondary);
+                                letter-spacing: 1px;
+                                font-weight: bold;
+                                padding: 5px;
+                                border-radius: 5px;
+                                min-width: 100px;
+                                text-align: center;
+                            }
+                        }
+
+                        .es-buttons {
+                            display: flex;
+                            gap: 10px;
+
+                            .es-button {
+                                display: flex;
+                                align-items: center;
+                                justify-content: space-around;
+                                gap: 5px;
+
+                                svg {
+                                    min-width: 24px;
+                                    height: 24px;
+                                    aspect-ratio: 1/1;
+                                }
+                            }
+
+                            .es-button:disabled {
+                                background-color: #737373;
+                            }
+                        }
+
+                        .es-title {
+                            display: flex;
+                            gap: 5px;
+                            justify-content: flex-start;
+                        }
+                    }
                 }
 
                 h2 {
-                    text-shadow:2px 2px 4px rgba(0, 0, 0, 0.5);
+                    color: var(--purple-tirtiary);
+                    font-family: Poppins, sans-serif;
+                    letter-spacing: 2px;
+                    font-weight: bold;
+                    text-shadow:1px 1px 2px rgba(0, 0, 0, 0.5);
                 }
 
-                .es-image {
-                    width: 100px;
-                    border-radius: 10px;
-                    aspect-ratio: 1/1;
-                    object-fit: cover;
-                }
-
-                &.venue {
+                &.venue,
+                &.band {
                     width: fit-content;
                 }
             }
