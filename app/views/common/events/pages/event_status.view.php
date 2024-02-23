@@ -51,68 +51,69 @@
                         <p>singer3</p>
                     </div>
 
-                    <!-- Band Part -->
-                    <div class="participants band">
-                        <h2>Band</h2>
-                        <div>
-                            <img class="es-image" src="<?= ($custom->band) ? ROOT.'/assets/images/bands/general.png' : ($reservations['band'] ? ROOT.$band->image : ROOT.'/assets/images/bands/general.png' ) ?>" alt="band_image">
-                            <div class="es-content">
+                    <div class="temp-div dis-flex gap-10">
+                        <!-- Band Part -->
+                        <div class="participants band">
+                            <h2>Band</h2>
+                            <div>
+                                <img class="es-image" src="<?= ($custom->band) ? ROOT.'/assets/images/bands/general.png' : ($reservations['band'] ? ROOT.$band->image : ROOT.'/assets/images/bands/general.png' ) ?>" alt="band_image">
+                                <div class="es-content">
 
-                                <?php
-                                if(!$custom->band && $reservations['band']) {
-                                    switch ($band->status) {
-                                        case 'Pending':
-                                            $band_color = 'var(--status-pending-bg)';
-                                            break;
+                                    <?php
+                                    if(!$custom->band && $reservations['band']) {
+                                        switch ($band->status) {
+                                            case 'Pending':
+                                                $band_color = 'var(--status-pending-bg)';
+                                                break;
 
-                                        case 'Accepted':
-                                            $band_color = 'var(--status-approve-bg)';
-                                            break;
+                                            case 'Accepted':
+                                                $band_color = 'var(--status-approve-bg)';
+                                                break;
 
-                                        case 'Denied':
-                                            $band_color = 'var(--status-error-bg)';
-                                            break;
+                                            case 'Denied':
+                                                $band_color = 'var(--status-error-bg)';
+                                                break;
 
-                                        default:
-                                            $band_color = 'var(--status-unknown-bg)';
-                                            break;
+                                            default:
+                                                $band_color = 'var(--status-unknown-bg)';
+                                                break;
+                                        }
+                                    } else {
+                                        $band_color = 'var(--status-unknown-bg)';
                                     }
-                                } else {
-                                    $band_color = 'var(--status-unknown-bg)';
-                                }
-                                ?>
+                                    ?>
 
-                                <div class="es-status">
-                                    <p> Request Status : </p>
-                                    <span style="background-color: <?= $band_color ?>"><?= ($custom->band) ? 'Unknown' : (($reservations['band']) ? $band->status : 'Not Selected') ?></span>
-                                </div>
+                                    <div class="es-status">
+                                        <p> Request Status : </p>
+                                        <span style="background-color: <?= $band_color ?>"><?= ($custom->band) ? 'Unknown' : (($reservations['band']) ? $band->status : 'Not Selected') ?></span>
+                                    </div>
 
-                                <div class="es-title">
-                                    <h3>Name : </h3>
-                                    <span><?= (!$reservations['band'] && $custom->band) ? $band : "Not Selected" ?></span>
-                                </div>
+                                    <div class="es-title">
+                                        <h3>Name : </h3>
+                                        <span><?= (!$reservations['band'] && $custom->band) ? $band : "Not Selected" ?></span>
+                                    </div>
 
-                                <div class="es-buttons">
-                                    <button class="button-s2 es-button" type="button" <?= ($custom->band) ? 'disabled' : ($reservations['band'] ? '' : 'disabled') ?> >
-                                        <svg class="feather feather-x" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
-                                        <span>Cancel</span>
-                                    </button>
-                                    <button class="button-s2 es-button" onclick="cancelRR(this, '<?php if(!$custom->band) echo $band->req_id; else echo 'NULL' ?>', 'band')" type="button" <?= ($custom->band) ? 'disabled' : ($reservations['band'] ? '' : 'disabled') ?> >
-                                        <svg class="feather feather-phone" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                                        <span>Call</span>
-                                    </button>
+                                    <div class="es-buttons">
+                                        <button class="button-s2 es-button" type="button" <?= ($custom->band) ? 'disabled' : ($reservations['band'] ? '' : 'disabled') ?> >
+                                            <svg class="feather feather-x" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
+                                            <span>Cancel</span>
+                                        </button>
+                                        <button class="button-s2 es-button" onclick="cancelRR(this, '<?php if(!$custom->band) echo $band->req_id; else echo 'NULL' ?>', 'band')" type="button" <?= ($custom->band) ? 'disabled' : ($reservations['band'] ? '' : 'disabled') ?> >
+                                            <svg class="feather feather-phone" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                                            <span>Call</span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
 
-                    <!-- Venue Part -->
-                    <div class="participants venue">
-                        <h2>Venue</h2>
-                        <div>
-                            <img class="es-image" src="<?= ($custom->venue) ? ROOT.'/assets/images/bands/general.png' : ($reservations['venue'] ? ROOT.$venue->image : ROOT.'/assets/images/bands/general.png') ?>" alt="venue_image">
-                            <?php
+                        <!-- Venue Part -->
+                        <div class="participants venue">
+                            <h2>Venue</h2>
+                            <div>
+                                <img class="es-image" src="<?= ($custom->venue) ? ROOT.'/assets/images/bands/general.png' : ($reservations['venue'] ? ROOT.$venue->image : ROOT.'/assets/images/bands/general.png') ?>" alt="venue_image">
+                                <?php
                                 if(!$custom->venue && $reservations['venue']) {
                                     switch ($venue->status) {
                                         case 'Pending':
@@ -134,31 +135,33 @@
                                 } else {
                                     $venue_color = 'var(--status-unknown-bg)';
                                 }
-                            ?>
-                            <div class="es-content">
-                                <div class="es-status">
-                                    <p> Request Status : </p>
-                                    <span style="background-color: <?= $venue_color ?>"><?= ($custom->venue) ? 'Unknown' : (($reservations['venue'] != 0) ? $venue->status : 'Not Selected') ?></span>
-                                </div>
+                                ?>
+                                <div class="es-content">
+                                    <div class="es-status">
+                                        <p> Request Status : </p>
+                                        <span style="background-color: <?= $venue_color ?>"><?= ($custom->venue) ? 'Unknown' : (($reservations['venue'] != 0) ? $venue->status : 'Not Selected') ?></span>
+                                    </div>
 
-                                <div class="es-title">
-                                    <h3>Name : </h3>
-                                    <span><?= (!$reservations['venue'] && $custom->venue) ? $venue : "Not Selected" ?></span>
-                                </div>
+                                    <div class="es-title">
+                                        <h3>Name : </h3>
+                                        <span><?= (!$reservations['venue'] && $custom->venue) ? $venue : "Not Selected" ?></span>
+                                    </div>
 
-                                <div class="es-buttons">
-                                    <button class="button-s2 es-button" onclick="cancelRR(this, '<?= (!$custom->venue) ? ($reservations['venue'] ? $venue->req_id : 'NULL') : 'NULL' ?>', 'venue')" type="button" <?= ($custom->venue) ? 'disabled' : ($reservations['venue'] ? '' : 'disabled') ?> >
-                                        <svg class="feather feather-x" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
-                                        <span>Cancel</span>
-                                    </button>
-                                    <button class="button-s2 es-button" type="button" <?= ($custom->venue) ? 'disabled' : ($reservations['venue'] ? '' : 'disabled') ?> >
-                                        <svg class="feather feather-phone" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                                        <span>Call</span>
-                                    </button>
+                                    <div class="es-buttons">
+                                        <button class="button-s2 es-button" onclick="cancelRR(this, '<?= (!$custom->venue) ? ($reservations['venue'] ? $venue->req_id : 'NULL') : 'NULL' ?>', 'venue')" type="button" <?= ($custom->venue) ? 'disabled' : ($reservations['venue'] ? '' : 'disabled') ?> >
+                                            <svg class="feather feather-x" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
+                                            <span>Cancel</span>
+                                        </button>
+                                        <button class="button-s2 es-button" type="button" <?= ($custom->venue) ? 'disabled' : ($reservations['venue'] ? '' : 'disabled') ?> >
+                                            <svg class="feather feather-phone" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                                            <span>Call</span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
 
                 <div>
