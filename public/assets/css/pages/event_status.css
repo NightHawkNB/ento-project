@@ -3,6 +3,7 @@
     overflow-y: auto;
 
     .event-status-container {
+        border: 5px solid white;
         background-color: var(--white);
         width: 100%;
         height: 100%;
@@ -12,10 +13,58 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        gap: 20px;
 
         .progress-container-main {
-            width: 100%;
+            min-width: 100%;
+            background-color: var(--white-link);
+            padding: 10px 55px 10px 55px;
+            border-radius: 10px;
+
+            /* Progress bar color */
+            .progress-container::before {
+                background-color: ghostwhite !important;
+            }
         }
 
+        .participant-container {
+            min-width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            .participants {
+                color: var(--font-primary);
+                min-width: 300px;
+                padding: 10px;
+                border-radius: 10px;
+                background-color: var(--white-link);
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+
+                & > div {
+                    display: flex;
+                    gap: 10px;
+                    align-items: center;
+                }
+
+                h2 {
+                    text-shadow:2px 2px 4px rgba(0, 0, 0, 0.5);
+                }
+
+                .es-image {
+                    width: 100px;
+                    border-radius: 10px;
+                    aspect-ratio: 1/1;
+                    object-fit: cover;
+                }
+
+                &.venue {
+                    width: fit-content;
+                }
+            }
+        }
     }
 }

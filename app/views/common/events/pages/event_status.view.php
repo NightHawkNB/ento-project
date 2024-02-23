@@ -15,11 +15,10 @@
 
                 <div style="text-align: center" class="progress-container-main">
                     <div class="progress-container">
-                        <?php $progress = 3; ?>
-                        <div class="progress" id="progress" style="width: <?= $progress*20 ?>%"></div>
+                        <?php $progress_count = 3; ?>
+                        <div class="progress" id="progress" style="width: <?= $progress_count*20 ?>%"></div>
                         <div class="circle active">
                             <span class="label">General Details</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" style="fill: mediumpurple"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
                         </div>
                         <div class="circle <?= (empty($something)) ? 'active' : '' ?>">
                             <span class="label">Venue</span>
@@ -45,7 +44,32 @@
 
                 </div>
 
-                <div>Other Content</div>
+                <div class="participant-container">
+                    <div class="participants">
+                        <h2>Singers</h2>
+                        <p>singer2</p>
+                        <p>singer3</p>
+                    </div>
+
+                    <div class="participants band">
+                        <h2>Band</h2>
+                        <div>
+                            <p>singer2</p>
+                            <p>singer3</p>
+                        </div>
+                    </div>
+
+                    <div class="participants venue">
+                        <h2>Venue</h2>
+                        <div>
+                            <img class="es-image" src="<?= ROOT.$venue->image ?>" alt="venue_image">
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <?= show($data) ?>
+                </div>
 
             </div>
 
@@ -59,8 +83,9 @@
         const svg = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" style="fill: mediumpurple"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>`
         nodes.forEach(node => {
             if(node.classList.contains('active')) {
-                node.querySelector('p').remove()
                 node.insertAdjacentHTML('beforeend', svg)
+                const para = node.querySelector('p')
+                if(para) para.remove()
             }
         })
     </script>

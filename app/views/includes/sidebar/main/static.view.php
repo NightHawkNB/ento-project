@@ -1,4 +1,4 @@
-<li class="nav-item" id="btn" >
+<li class="nav-item collapse-button" id="btn" >
     <!-- id="navBtn" -->
     <a class="nav-link">
         <svg class="feather feather-chevrons-right" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>

@@ -186,6 +186,7 @@ class Eventm extends controller{
     public function manage_events($event_id = null): void
     {
 
+        $db = new Database();
         $event = new Event();
 
         if(empty($event_id)) {
@@ -193,7 +194,36 @@ class Eventm extends controller{
 
             $this->view('common/events/view_events', $data);
         } else {
-            $data['events'] = $event->where(['event_id' => $event_id])[0];
+            $event_data = $event->where(['event_id' => $event_id])[0];
+
+            if(empty($event_data->custom_band)) {
+                $band_data = $db->query('
+                    SELECT * 
+                    FROM event E
+                    JOIN band B ON E.band_id = B.band_id
+                    JOIN serviceprovider SP ON B.sp_id = SP.sp_id
+                    JOIN ads ADS ON SP.user_id = ADS.user_id
+                ')[0];
+            }
+
+            if(empty($event_data->custom_venue)) {
+                $venue_data = $db->query('
+                    SELECT V.name, E.province, E.district, V.image, V.seat_count,
+                           V.packages, V.other, SP.last_response_time, ADS.views, 
+                           ADS.contact_email, ADS.contact_num, RR.*
+                    FROM event E
+                    JOIN venue V ON E.venue_id = V.venue_id
+                    JOIN venuemanager VM ON V.venueM_id = VM.venueM_id
+                    JOIN serviceprovider SP ON VM.sp_id = SP.sp_id
+                    JOIN ads ADS ON SP.user_id = ADS.user_id
+                    JOIN resrequest RR ON SP.sp_id = RR.sp_id
+                    WHERE RR.user_id =:user_id
+                ', ['user_id' => Auth::getUser_id()])[0];
+            }
+
+            $data['event'] = $event_data;
+            $data['band'] = $band_data ?? [];
+            $data['venue'] = $venue_data ?? [];
 
             $this->view('common/events/pages/event_status', $data);
         }

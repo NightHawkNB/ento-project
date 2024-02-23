@@ -13,6 +13,24 @@
     flex-direction: column;
 
 
+    li:first-child.collapse-button {
+
+      &.active:after {
+        content: "";
+      }
+
+      &:after {
+        content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='15' height='15'><path d='M0,15 A15,15 0 0,0 15,0 L15,15 Z' fill='%235809ab'/></svg>");
+        width: 15px;
+        height: 15px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 10;
+        transform: rotate(180deg) translateX(-100%);
+      }
+    }
+
     li.nav-item {
       position: relative;
       display: flex;

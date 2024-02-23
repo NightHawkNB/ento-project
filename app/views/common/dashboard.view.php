@@ -1,5 +1,5 @@
 <html lang="en">
-<?php $this->view('includes/head', ['style' => 'pages/create_event.css']) ?>
+<?php $this->view('includes/head', ['style' => ['pages/create_event.css']]) ?>
 <body>
 
 <?php if (!Auth::is_client() || !Auth::is_admin() || !Auth::is_cca()): ?>
