@@ -1,6 +1,6 @@
 .reservation,
 .requests {
-    background: var(--bg-primary);
+    background: var(--white);
     display: flex;
     padding: 10px;
     border-radius: 5px;

@@ -1,5 +1,5 @@
 <html lang="en">
-<?php $this->view('includes/head', ['style' => 'pages/home.css']) ?>
+<?php $this->view('includes/head', ['style' => ['pages/home.css']]) ?>
 
 <style>
     .banner {

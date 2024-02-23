@@ -6,6 +6,11 @@ function show($stuff) {
     echo "</pre>";
 }
 
+function set_activated($needle, $end = false) : string {
+    if(!$end) return str_contains($_SERVER['REQUEST_URI'], $needle) ? 'activated' : '';
+    else return preg_match('/'.$needle.'$/', $_SERVER['REQUEST_URI']) ? 'activated' : '';
+}
+
 function set_value($default) {
     if(!empty($default)) return $default;
     else return '';
