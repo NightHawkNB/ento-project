@@ -1,5 +1,5 @@
 <div class="dis-flex-col bg-white bor-rad-5 f-poppins over-hide event-card sh">
-    <a href=<?= ROOT."/eventm/view_events/".$event_id ?>>
+    <a href=<?= ROOT."/eventm/manage_events/".$event_id ?>>
         <img src="<?= ROOT.$image ?>" alt="<?= $name ?>" class="event-image">
     </a>
     <div class="dis-flex ju-co-sb pad-10 bg-black-1 txt-c-white fill-white">
