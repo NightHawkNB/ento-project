@@ -183,19 +183,19 @@ class Eventm extends controller{
 
     }
 
-    public function view_events($event_id = null): void
+    public function manage_events($event_id = null): void
     {
 
+        $event = new Event();
+
         if(empty($event_id)) {
-            $event = new Event();
             $data['events'] = $event->where(['creator_id' => Auth::getUser_id()]);
 
             $this->view('common/events/view_events', $data);
         } else {
-            $event = new Event();
-            $data['events'] = $event->first(['event_id' => $event_id]);
+            $data['events'] = $event->where(['event_id' => $event_id])[0];
 
-            $this->view('common/events/components/event_status', $data);
+            $this->view('common/events/pages/event_status', $data);
         }
 
     }

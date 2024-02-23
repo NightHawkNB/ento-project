@@ -1,5 +1,5 @@
 <html lang="en">
-<?php $this->view('includes/head', ['style' => "pages/view_events.css"]) ?>
+<?php $this->view('includes/head', ['style' => ["pages/view_events.css"]]) ?>
 
 <body>
 <div class="main-wrapper">

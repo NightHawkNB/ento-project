@@ -1,5 +1,5 @@
 <html lang="en">
-<?php $this->view('includes/head', ['style' => 'auth/login.css']) ?>
+<?php $this->view('includes/head', ['style' => ['auth/login.css']]) ?>
 <body>
     <div class="dis-flex ju-co-ce al-it-ce pad-20 wid-100 hei-100">
 

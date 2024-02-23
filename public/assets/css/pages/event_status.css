@@ -1,0 +1,21 @@
+.event_status {
+    padding: 10px;
+    overflow-y: auto;
+
+    .event-status-container {
+        background-color: var(--white);
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        overflow-y: auto;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .progress-container-main {
+            width: 100%;
+        }
+
+    }
+}

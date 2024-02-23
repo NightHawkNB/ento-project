@@ -8,7 +8,11 @@
     <script src="<?= ROOT ?>/assets/scripts/script.js" defer></script>
     <script src="<?= ROOT ?>/assets/scripts/validation.js" defer></script>
     <link href="<?= ROOT ?>/assets/logo.png" rel="icon">
-    <?php if(!empty($style)): ?>
-    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/<?= $style ?>">
-    <?php endif; ?>
+        <?php
+            if(!empty($style)) {
+                foreach ($style as $link) {
+                    echo '<link rel="stylesheet" href="'.ROOT.'/assets/css/'.$link.'">';
+                }
+            }
+        ?>
 </head>

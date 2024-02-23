@@ -1,5 +1,5 @@
 .alert {
-    background-color: var(--bg-primary);
+    background-color: var(--white);
     padding: 15px 25px;
     position: fixed;
     width: fit-content;

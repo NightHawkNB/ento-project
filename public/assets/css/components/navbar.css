@@ -386,13 +386,13 @@ header #profile-btn:hover {
 }
 
 #logout, #login {
-    background-color: var(--status-pending);
-    color: var(--font-secondary);
+    background-color: var(--white);
+    color: var(--font-primary);
 }
 
 #signup {
     border: 2px solid transparent;
-    background-color: var(--dark-grey);
+    background-color: var(--purple-secondary);
     color: var(--font-secondary);
     margin-right: 20px;
 }
