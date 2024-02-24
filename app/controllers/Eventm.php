@@ -262,8 +262,13 @@ class Eventm extends controller{
             $json_data = file_get_contents("php://input");
             $php_data = json_decode($json_data);
 
+//            show($php_data);
+
             $rr = new Resrequest();
             $rr->update($php_data->req_id, ['deleted' => 1]);
+
+            $event = new Event();
+            $event->update($php_data->event_id, ['venue_id' => NULL]);
 
             echo "success";
         } catch (Exception $error) {

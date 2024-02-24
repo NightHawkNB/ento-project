@@ -16,7 +16,7 @@
                 <div style="text-align: center" class="progress-container-main">
                     <div class="progress-container">
                         <?php $progress_count = 3; ?>
-                        <div class="progress" id="progress" style="width: <?= $progress_count*20 ?>%"></div>
+                        <div class="progress" id="progress" style="width: <?= $progress_count * 20 ?>%"></div>
                         <div class="circle active">
                             <span class="label">General Details</span>
                         </div>
@@ -56,11 +56,13 @@
                         <div class="participants band">
                             <h2>Band</h2>
                             <div>
-                                <img class="es-image" src="<?= ($custom->band) ? ROOT.'/assets/images/bands/general.png' : ($reservations['band'] ? ROOT.$band->image : ROOT.'/assets/images/bands/general.png' ) ?>" alt="band_image">
+                                <img class="es-image"
+                                     src="<?= ($custom->band) ? ROOT . '/assets/images/bands/general.png' : ($reservations['band'] ? ROOT . $band->image : ROOT . '/assets/images/bands/general.png') ?>"
+                                     alt="band_image">
                                 <div class="es-content">
 
                                     <?php
-                                    if(!$custom->band && $reservations['band']) {
+                                    if (!$custom->band && $reservations['band']) {
                                         switch ($band->status) {
                                             case 'Pending':
                                                 $band_color = 'var(--status-pending-bg)';
@@ -94,12 +96,27 @@
                                     </div>
 
                                     <div class="es-buttons">
-                                        <button class="button-s2 es-button" type="button" <?= ($custom->band) ? 'disabled' : ($reservations['band'] ? '' : 'disabled') ?> >
-                                            <svg class="feather feather-x" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
-                                            <span>Cancel</span>
+
+                                        <button class="button-s2 es-button main-button"
+                                                data-req_id="<?= ($custom->band) ? 'NULL' : ($reservations['band'] ? $band->req_id : 'NULL') ?>"
+                                                data-type="band"
+                                                type="button" <?= ($custom->band) ? 'disabled' : '' ?> >
+                                            <svg class="feather feather-x" fill="none" stroke="currentColor"
+                                                 stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                 viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                                <line x1="18" x2="6" y1="6" y2="18"/>
+                                                <line x1="6" x2="18" y1="6" y2="18"/>
+                                            </svg>
+                                            <span><?= ($custom->band) ? 'Remove' : ($reservations['band'] ? 'Cancel' : 'Add Band') ?></span>
                                         </button>
-                                        <button class="button-s2 es-button" onclick="cancelRR(this, '<?php if(!$custom->band) echo $band->req_id; else echo 'NULL' ?>', 'band')" type="button" <?= ($custom->band) ? 'disabled' : ($reservations['band'] ? '' : 'disabled') ?> >
-                                            <svg class="feather feather-phone" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+
+                                        <button class="button-s2 es-button"
+                                                type="button" <?= ($custom->band) ? 'disabled' : ($reservations['band'] ? '' : 'disabled') ?> >
+                                            <svg class="feather feather-phone" fill="none" stroke="currentColor"
+                                                 stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                 viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                            </svg>
                                             <span>Call</span>
                                         </button>
                                     </div>
@@ -112,9 +129,11 @@
                         <div class="participants venue">
                             <h2>Venue</h2>
                             <div>
-                                <img class="es-image" src="<?= ($custom->venue) ? ROOT.'/assets/images/bands/general.png' : ($reservations['venue'] ? ROOT.$venue->image : ROOT.'/assets/images/bands/general.png') ?>" alt="venue_image">
+                                <img class="es-image"
+                                     src="<?= ($custom->venue) ? ROOT . '/assets/images/bands/general.png' : ($reservations['venue'] ? ROOT . $venue->image : ROOT . '/assets/images/bands/general.png') ?>"
+                                     alt="venue_image">
                                 <?php
-                                if(!$custom->venue && $reservations['venue']) {
+                                if (!$custom->venue && $reservations['venue']) {
                                     switch ($venue->status) {
                                         case 'Pending':
                                             $venue_color = 'var(--status-pending-bg)';
@@ -148,12 +167,26 @@
                                     </div>
 
                                     <div class="es-buttons">
-                                        <button class="button-s2 es-button" onclick="cancelRR(this, '<?= (!$custom->venue) ? ($reservations['venue'] ? $venue->req_id : 'NULL') : 'NULL' ?>', 'venue')" type="button" <?= ($custom->venue) ? 'disabled' : ($reservations['venue'] ? '' : 'disabled') ?> >
-                                            <svg class="feather feather-x" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
-                                            <span>Cancel</span>
+                                        <button class="button-s2 es-button main-button"
+                                                data-state="<?= ($custom->venue) ? 'custom' : ($reservations['venue'] ? 'selected' : 'choose') ?>"
+                                                data-req_id="<?= (!$custom->venue) ? ($reservations['venue'] ? $venue->req_id : 'NULL') : 'NULL' ?>"
+                                                data-type="venue"
+                                                type="button" <?= ($custom->venue) ? 'disabled' : '' ?> >
+                                            <svg class="feather feather-x" fill="none" stroke="currentColor"
+                                                 stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                 viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                                <line x1="18" x2="6" y1="6" y2="18"/>
+                                                <line x1="6" x2="18" y1="6" y2="18"/>
+                                            </svg>
+                                            <span><?= ($custom->venue) ? 'Remove' : ($reservations['venue'] ? 'Cancel' : 'Add Venue') ?></span>
                                         </button>
-                                        <button class="button-s2 es-button" type="button" <?= ($custom->venue) ? 'disabled' : ($reservations['venue'] ? '' : 'disabled') ?> >
-                                            <svg class="feather feather-phone" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                                        <button class="button-s2 es-button"
+                                                type="button" <?= ($custom->venue) ? 'disabled' : ($reservations['venue'] ? '' : 'disabled') ?> >
+                                            <svg class="feather feather-phone" fill="none" stroke="currentColor"
+                                                 stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                 viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                            </svg>
                                             <span>Call</span>
                                         </button>
                                     </div>
@@ -175,26 +208,85 @@
     </main>
 
 
+    <div class="es-overlay"></div>
+
+    <div class="venue-popup popup open-popup">
+        <!--        <input type="text" name="custom_band_name" id="custom_band_name" placeholder="Enter the name of the band ... ">-->
+        <div class="dis-flex" style="justify-content: flex-end">
+            <button type="button" onclick="togglePopup('venue', false)">&cross;</button>
+        </div>
+
+        <nav class="amazing-tabs">
+            <div class="filters-container">
+                <div class="filters-wrapper">
+                    <ul class="filter-tabs">
+                        <li>
+                            <button class="filter-button filter-active" data-translate-value="0">
+                                Available
+                            </button>
+                        </li>
+                        <li>
+                            <button class="filter-button" data-translate-value="100%">
+                                Custom
+                            </button>
+                        </li>
+                    </ul>
+                    <div class="filter-slider" aria-hidden="true">
+                        <div class="filter-slider-rect">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div id="availableSection" class="es-popup-content">
+
+            Page 1
+
+        </div>
+
+        <div id="customSection" class="es-popup-content">
+
+            Page 2
+
+        </div>
+
+    </div>
+
+
     <script>
         const nodes = document.querySelectorAll('.circle')
         const svg = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" style="fill: mediumpurple"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>`
         nodes.forEach(node => {
-            if(node.classList.contains('active')) {
+            if (node.classList.contains('active')) {
                 node.insertAdjacentHTML('beforeend', svg)
                 const para = node.querySelector('p')
-                if(para) para.remove()
+                if (para) para.remove()
             }
         })
 
 
-        function cancelRR(element, req_id, type) {
+        const main_buttons = document.querySelectorAll('.es-button.main-button')
+        main_buttons.forEach(button => {
+            if (button.dataset.state === 'selected') button.addEventListener('click', () => cancelRR(button))
+            else if (button.dataset.state === 'choose') button.addEventListener('click', () => togglePopup(button.dataset.type))
+            else button.addEventListener('click', () => cancelRR(button))
+        })
+
+        function cancelRR(element) {
+
+
+            let req_id = element.dataset.req_id
+            let type = element.dataset.type
+
             console.log(element, req_id)
 
             // Confirming before deleting the Reservation Request
             const confirmation = confirm('Are you sure you want to delete this request?')
             if (confirmation) {
 
-                let data = {req_id}
+                let event_id = '<?= $event->event_id ?>'
+
+                let data = {req_id, event_id}
 
                 fetch(`/ento-project/public/eventm/cancel_request/${req_id}`, {
                     method: "POST",
@@ -208,17 +300,25 @@
                 }).then(data => {
                     // Shows the data printed by the targeted php file.
                     // (stopped printing all data in php file by using die command)
-
-                    if(data === 'success') {
+                    console.log(data)
+                    if (data === 'success') {
                         element.innerHTML = `<span>Choose ${type}</span>`;
                         const image = element.parentElement.parentElement.parentElement.querySelector('img')
                         const status = element.parentElement.parentElement.querySelector('.es-status span')
 
-                        if(type === 'venue') image.src = '<?=  ROOT.'/assets/images/venues/venue.png' ?>'
-                        else if(type === 'band') image.src = '<?=  ROOT.'/assets/images/bands/general.png' ?>'
+                        if (type === 'venue') image.src = '<?=  ROOT . '/assets/images/venues/venue.png' ?>'
+                        else if (type === 'band') image.src = '<?=  ROOT . '/assets/images/bands/general.png' ?>'
 
                         status.style.backgroundColor = `var(--status-unknown-bg)`
                         status.textContent = 'Unknown'
+
+                        console.log(element.onclick)
+
+                        // Removing the current onclick event
+                        element.removeEventListener('click', () => cancelRR(element))
+                        element.addEventListener('click', () => togglePopup(element.dataset.type))
+
+                        console.log(element.onclick)
                     } else {
                         alert("Error occurred. Try Again later or Contact Customer Care Agent")
                     }
@@ -231,6 +331,90 @@
                 console.log('User canceled');
             }
         }
+
+        function togglePopup(type, open = true) {
+
+            let popup
+            const overlay = document.querySelector('.es-overlay')
+
+            switch (type) {
+                case 'venue':
+                    popup = document.querySelector('.venue-popup')
+                    break
+
+                case 'band':
+                    popup = document.querySelector('.band-popup')
+                    break
+
+                case 'singer':
+                    popup = document.querySelector('.singer-popup')
+                    break
+
+                default:
+                    alert('Invalid Popup Type')
+                    return
+            }
+
+
+            if (open) {
+                popup.classList.add('open-popup')
+                overlay.classList.remove('hide')
+            } else {
+                popup.classList.remove('open-popup')
+                overlay.classList.add('hide')
+            }
+
+        }
+
+
+        // ##################################### Slider Script ###############################################
+        document.addEventListener("DOMContentLoaded", function () {
+            const filterTabs = document.querySelector(".filter-tabs");
+            const filterButtons = document.querySelectorAll(".filter-button");
+            const adSections = {
+                available: document.getElementById('availableSection'),
+                custom: document.getElementById('customSection'),
+            };
+
+            // Initial setup to select the "Available" tab
+            const initialTab = filterButtons[0]; // Select the first button (Available)
+            initialTab.classList.add("filter-active");
+
+            const root = document.documentElement;
+            const targetTranslateValue = initialTab.dataset.translateValue;
+            root.style.setProperty("--translate-filters-slider", targetTranslateValue);
+
+            // Function to handle active tab
+            const handleActiveTab = (targetTab) => {
+                filterButtons.forEach((tab) => {
+                    tab.classList.remove("filter-active");
+                });
+
+                targetTab.classList.add("filter-active");
+
+                // Show the corresponding ad section and hide others
+                const selectedCategory = targetTab.innerText.toLowerCase();
+                for (const category in adSections) {
+                    if (category === selectedCategory) {
+                        adSections[category].style.display = 'flex'; // Show selected section
+                    } else {
+                        adSections[category].style.display = 'none'; // Hide other sections
+                    }
+                }
+            };
+
+            // Event listener for filter tabs
+            filterTabs.addEventListener("click", (event) => {
+                if (event.target.classList.contains("filter-button")) {
+                    const targetTranslateValue = event.target.dataset.translateValue;
+                    root.style.setProperty("--translate-filters-slider", targetTranslateValue);
+                    handleActiveTab(event.target)
+                }
+            })
+
+            // Initially hide band and venue sections
+            adSections.custom.style.display = 'none';
+        })
     </script>
 
 
