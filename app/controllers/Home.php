@@ -235,14 +235,16 @@ class Home extends Controller{
     }
 
 //    notification
-    public function notification(): void
+    public function notification($method = NULL): void
     {
-        if($_SERVER['REQUEST_METHOD'] == 'PATCH'){
+        if(empty($method)){
+            $this->view('common/notifications');
+        } else if($_SERVER['REQUEST_METHOD'] == 'PATCH' && $method == 'fetch'){
 //            $notify = new Notifications();
 //            $notifications = $notify->where(['user_id'=>Auth::getUser_id()]);
 
             $db = new database();
-
+//for type = Reservations
             $result = $db->query("SELECT * FROM
                 notifications n 
                 JOIN reservations r 
@@ -252,13 +254,24 @@ class Home extends Controller{
                 JOIN ads a
                 ON rr.ad_id = a.ad_id
                 WHERE n.user_id = :user_id && n.type = 'Reservation'",['user_id'=>Auth::getUser_id()]);
-
+//for type = Reminder
+            $reminder_notifications = $db->query("SELECT * FROM
+                notifications n 
+                JOIN reservations r 
+                ON n.id= r.reservation_id
+                JOIN resrequest rr
+                ON r.reservation_id = rr.reservation_id
+                JOIN ads a
+                ON rr.ad_id = a.ad_id
+                WHERE n.user_id = :user_id && n.type = 'Reminder'",['user_id'=>Auth::getUser_id()]);
+            foreach($reminder_notifications as $reminder_notification) $result[] = $reminder_notification;
+//for type = other
             $notify = new Notifications();
             $other_notifications = $notify->query("
                 SELECT *
                 FROM notifications
-                WHERE user_id = :user_id AND type != :type
-            ",['user_id'=>Auth::getUser_id(), 'type' => 'Reservation']);
+                WHERE user_id = :user_id AND type != :type1 AND type != :type2
+            ",['user_id'=>Auth::getUser_id(), 'type1' => 'Reservation', 'type2' => 'Reminder']);
             foreach($other_notifications as $notification) $result[] = $notification;
 
             if (!empty($result)) {
@@ -266,7 +279,7 @@ class Home extends Controller{
             } else {
                 echo "no-new-notifications";
             }
-        }else if($_SERVER['REQUEST_METHOD'] == 'PUT') {
+        }else if($_SERVER['REQUEST_METHOD'] == 'PUT' && $method == 'fetch') {
             $json_data = file_get_contents("php://input");
             // If the second argument is set to true, the function returns an array. Otherwise, it returns an object
             $php_data = json_decode($json_data);//json object

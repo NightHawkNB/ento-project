@@ -260,7 +260,7 @@ if (message()) {
     const new_notification = document.querySelector('.new')
     const viewed_notification = document.querySelector('.viewed')
 
-    fetch("<?=ROOT?>/home/notification", {
+    fetch("<?=ROOT?>/home/notification/fetch", {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json; charset=utf-8"
@@ -268,21 +268,30 @@ if (message()) {
     }).then(res => {
         return res.text()
     }).then(data => {
-        data_array = JSON.parse(data)
         console.log(data)
+        data_array = JSON.parse(data)
         data_array.forEach(notification => {
-            console.log(notification.viewed)
-            const divElement = document.createElement('div');
-            divElement.innerHTML = `<a href="<?=ROOT?>${notification.link}">${notification.message} by ${notification.title}</a>`;
+            const divElement1 = document.createElement('div');
+            const divElement2 = document.createElement('div');
+
+            divElement1.innerHTML = `<a href="<?=ROOT?>${notification.link}">${notification.message} by ${notification.title}</a>`;
+            divElement2.innerHTML = `<a href="<?=ROOT?>${notification.link}">${notification.message} status:${notification.status} service provider:${notification.title}</a>`
             if (notification.viewed === 0) {
                 // to take count of new notifications
                 count += 1
-                new_notification.appendChild(divElement);
-                divElement.onclick = () => {
+                // for reservation_reminders
+                new_notification.appendChild(divElement2);
+                divElement2.onclick = () => {
+                    update_notification(notification.notification_id)
+                }
+
+                // for reservations
+                new_notification.appendChild(divElement1);
+                divElement1.onclick = () => {
                     update_notification(notification.notification_id)
                 }
             }else if (notification.viewed === 1){
-                viewed_notification.appendChild(divElement);
+                viewed_notification.appendChild(divElement1);
             }
         });
 // create span to display count of notifications
@@ -306,17 +315,15 @@ if (message()) {
             'viewed': 1
         }
 
-        fetch("<?=ROOT?>/home/notification", {
+        fetch("<?=ROOT?>/home/notification/fetch", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json; charset=utf-8"
             },
             body: JSON.stringify(data)
         }).then(res => {
-
             return res.text()
         }).then(data => {
-            console.log("//////////////////////////////")
             console.log(data)
         }).catch(error => {
             console.error('Fetch error:', error);
