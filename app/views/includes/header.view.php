@@ -40,8 +40,7 @@ if (message()) {
     <div id="main-navbar">
         <div class="container">
             <div class="mobile-nav-content">
-                <button id="menu-toggler" style="margin-left: auto"><i class="fa fa-bars"> </i><i
-                            class="fa fa-close"> </i></button>
+                <button id="menu-toggler" style="margin-left: auto"><i class="fa fa-bars"> </i><i class="fa fa-close"> </i></button>
             </div>
             <ul class="menu">
                 <li><a class="<?= (str_ends_with($_SERVER['REQUEST_URI'], "home")) ? 'active' : '' ?>"
@@ -153,11 +152,14 @@ if (message()) {
                 </div>
             </div>
 
+            <!-- Profile Button -->
             <div id="profile-btn" style="padding: 2px 5px">
                 <img src="<?= ROOT . $_SESSION['USER_DATA']->image ?>" alt="profile-image"
                      style="width: 35px; border-radius: 50%" class="hover-pointer" onclick="toggleDrop()">
             </div>
 
+
+            <!-- Profile Dropdown -->
             <div class="sub-menu-wrap" id="js-sub-menu">
                 <div class="sub-menu">
                     <div class="user-info">
