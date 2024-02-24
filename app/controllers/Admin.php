@@ -31,6 +31,53 @@ class Admin extends Controller
         $data['plabels'] = json_encode($data['plabels']);
         $data['pdata'] = json_encode($data['pdata']);
 
+        //user accounts created for each month - line graph
+
+        $oneYearAgoMonth = date('Y-m', strtotime('-1 year'));
+        $result = $db->query("SELECT
+    SUBSTRING(joined_year_month, 1, 4) AS year,
+    SUBSTRING(joined_year_month, 6, 2) AS month,
+    user_type,
+    COUNT(*) AS count,
+    (
+        SELECT COUNT(*)
+        FROM user u2
+        WHERE u2.user_type = u.user_type
+        AND u2.joined_year_month <= u.joined_year_month
+    ) AS cumulative_count
+FROM
+    user u
+WHERE
+    joined_year_month >= DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 YEAR), '%Y-%m')
+    AND user_type IN ('client', 'singer', 'band', 'venue', 'eventm')
+GROUP BY
+    SUBSTRING(joined_year_month, 1, 4),
+    SUBSTRING(joined_year_month, 6, 2),
+    user_type");
+
+        $userTypeData = array();
+
+        foreach ($result as $row) {
+            $userType = $row->user_type;
+            $yearMonth = $row->year . '-' . $row->month;
+            $count = $row->count;
+            $cumulativeCount = $row->cumulative_count;
+
+            if (!isset($userTypeData[$userType])) {
+                $userTypeData[$userType] = array();
+            }
+
+            $userTypeData[$userType][$yearMonth] = array(
+                'count' => $count,
+                'cumulative_count' => $cumulativeCount
+            );
+        }
+
+        ;
+        $data['userTypeData'] = $userTypeData;
+        $data['userTypeData'] = json_encode($data['userTypeData']);
+
+
         $this->view('admin/dashboard', $data);
 
     }

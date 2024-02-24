@@ -167,6 +167,7 @@
     }
 
     .cardBox .card{
+        width: 100%;
         position: relative;
         background: var(--white);
         padding: 30px;
@@ -199,7 +200,7 @@
     }
 
     .cardBox .card:hover{
-        background: var(--purple);
+        background: var(--purple-secondary);
     }
 
     .cardBox .card:hover .numbers,
@@ -281,6 +282,13 @@
         text-align: center;
     }
 
+    .userAcc-container{
+        width: 500px;
+        height:300px;
+        margin: 30px;
+        background-color: var(--white);
+        border-radius: 10px;
+    }
 </style>
 
 <div class="main-wrapper">
@@ -291,43 +299,49 @@
             <?php $this->view('includes/sidebar') ?>
         </section>
 
-        <section class="bg-white cols-10 dis-flex-col wid-90">
+        <section class=" cols-10 dis-flex-col wid-100">
 
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
             <div class="cardBox">
-                <div class="card">
-                    <div>
-                        <div class="numbers"><?= $data['pending_ads'][0]->{'COUNT(*)'} ?></div>
-                        <div class="cardname">Pending Assistant Requests</div>
+                <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/adverify">
+                    <div class="card">
+                        <div>
+                            <div class="numbers"><?= $data['pending_ads'][0]->{'COUNT(*)'} ?></div>
+                            <div class="cardname">Pending Assistant Requests</div>
+                        </div>
+                        <div class="iconbox">
+                            <i class="fa-regular fa-envelope"></i>
+                        </div>
                     </div>
-                    <div class="iconbox">
-                        <ion-icon name="person-add-outline"></ion-icon>
+                </a>
+                <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/ccareq">
+                    <div class="card">
+                        <div>
+                            <div class="numbers"><?= $data['pending_assreq'][0]->{'COUNT(*)'} ?></div>
+                            <div class="cardname">Pending Ads</div>
+                        </div>
+                        <div class="iconbox">
+                            <i class="fa-brands fa-adversal"></i>
+                        </div>
                     </div>
-                </div>
-                <div class="card">
-                    <div>
-                        <div class="numbers"><?= $data['pending_assreq'][0]->{'COUNT(*)'} ?></div>
-                        <div class="cardname">Pending Ads</div>
+                </a>
+                <a href="">
+                    <div class="card">
+                        <div>
+                            <div class="numbers">8</div>
+                            <div class="cardname">Upcoming Evenets</div>
+                        </div>
+                        <div class="iconbox">
+                            <i class="fa-regular fa-calendar-check"></i>
+                        </div>
                     </div>
-                    <div class="iconbox">
-                        <ion-icon name="alert-circle-outline"></ion-icon>
-                    </div>
-                </div>
-                <div class="card">
-                    <div>
-                        <div class="numbers">8</div>
-                        <div class="cardname">Upcoming Evenets</div>
-                    </div>
-                    <div class="iconbox">
-                        <ion-icon name="eye-outline"></ion-icon>
-                    </div>
-                </div>
+                </a>
             </div>
 
             <div class="dis-flex charts mar-20 wid-100 ju-co-st">
-                <div class="" style="width: 450px;height:300px; margin: 30px;">
-                    <canvas id="myChart" width="300px" height="300px" >
+                <div class="userAcc-container dis-flex ju-co-ce" style="">
+                    <canvas id="userTypeChart" width="600px" height="450px;" >
 
                     </canvas>
                 </div>
@@ -373,6 +387,76 @@
                     }]
                 }
             });
+
+            // Extract userTypeData from PHP code
+            let userTypeData = <?= $userTypeData ?>;
+
+            // Extract unique user types
+            let userTypes = Object.keys(userTypeData);
+
+            // Get the latest 12 months including the current month
+            let latestMonths = [];
+            let currentDate = new Date();
+            let currentYear = currentDate.getFullYear();
+            let currentMonth = currentDate.getMonth() + 1; // Adding 1 because getMonth() returns zero-based month index
+            for (let i = 0; i < 12; i++) {
+                if (currentMonth === 0) {
+                    currentMonth = 12; // If the current month is January, set it to December of the previous year
+                    currentYear--;
+                }
+                latestMonths.unshift(`${currentYear}-${currentMonth.toString().padStart(2, '0')}`);
+                currentMonth--;
+            }
+
+            // Prepare data for each user type
+            let datasets = userTypes.map(userType => {
+                let userData = userTypeData[userType];
+                let counts = latestMonths.map(month => {
+                    if (userData && userData[month]) {
+                        return userData[month].cumulative_count;
+                    } else {
+                        return 0;
+                    }
+                });
+                return {
+                    label: userType,
+                    data: counts,
+                    borderColor: getRandomColor(),
+                    fill: false
+                };
+            });
+
+            // Function to generate random color
+            function getRandomColor() {
+                return '#' + Math.floor(Math.random() * 16777215).toString(16);
+            }
+
+            // Create the line chart
+            const ctx = document.getElementById('userTypeChart').getContext('2d');
+            const userTypeChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: latestMonths,
+                    datasets: datasets
+                },
+                options: {
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Months'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Cumulative Count'
+                            }
+                        }
+                    }
+                }
+            });
+
 
 
         </script>
