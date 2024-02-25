@@ -240,7 +240,15 @@
 
         <div id="availableSection" class="es-popup-content">
 
-            Page 1
+            <?php
+                if(!empty($venue_set)) {
+                    foreach ($venue_set as $single_venue) {
+                        $this->view('common/events/components/venue', (array)$single_venue);
+                    };
+                } else {
+                    echo "No Venues to Display";
+                }
+            ?>
 
         </div>
 

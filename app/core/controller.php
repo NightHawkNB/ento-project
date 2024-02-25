@@ -154,7 +154,7 @@ class Controller
                     JOIN venue ON resrequest.location_id = venue.venue_id
                     WHERE resrequest.deleted = :deleted
                       AND serviceprovider.user_id = :user_id
-                      AND status IN ('Pending', 'Declined')
+                      AND status IN ('Pending', 'Denied')
                 ", $input);
                 } else {
                     $data['requests'] = $db->query("
@@ -164,7 +164,7 @@ class Controller
                     JOIN serviceprovider ON resrequest.sp_id = serviceprovider.sp_id
                     WHERE resrequest.deleted = :deleted
                       AND serviceprovider.user_id = :user_id
-                      AND status IN ('Pending', 'Declined')
+                      AND status IN ('Pending', 'Denied')
                 ", $input);
                 }
 
@@ -237,9 +237,7 @@ class Controller
                 } else if($action == "decline") {
 
                     $request = new Resrequest();
-
-                    $input = ['status' => "Declined", 'req_id' => $id];
-                    $row_data = $request->query("UPDATE resrequest SET status = :status WHERE req_id = :req_id", $input);
+                    $request->update($id, ['status' => "Denied"]);
 
                     message("Request Declined");
 
