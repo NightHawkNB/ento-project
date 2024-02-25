@@ -240,12 +240,15 @@ class Home extends Controller{
         if(empty($method)){
             $this->view('common/notifications');
         } else if($_SERVER['REQUEST_METHOD'] == 'PATCH' && $method == 'fetch'){
-//            $notify = new Notifications();
-//            $notifications = $notify->where(['user_id'=>Auth::getUser_id()]);
-
+            $result = [];
+            $reservation_notifications = [];
+            $reminder_notifications = [];
             $db = new database();
-//for type = Reservations
-            $result = $db->query("SELECT * FROM
+//for type = Reservation
+            $reservation_notifications = $db->query("SELECT *,
+                rr.type AS reservation_type, 
+                n.type AS type  
+                FROM
                 notifications n 
                 JOIN reservations r 
                 ON n.id= r.reservation_id
@@ -254,8 +257,16 @@ class Home extends Controller{
                 JOIN ads a
                 ON rr.ad_id = a.ad_id
                 WHERE n.user_id = :user_id && n.type = 'Reservation'",['user_id'=>Auth::getUser_id()]);
+            if ($reservation_notifications !== false) {
+                foreach ($reservation_notifications as $reservation_notification) {
+                    $result[] = $reservation_notification;
+                }
+            }
 //for type = Reminder
-            $reminder_notifications = $db->query("SELECT * FROM
+            $reminder_notifications = $db->query("SELECT *,
+                rr.type AS reservation_type,
+                n.type AS type
+                FROM
                 notifications n 
                 JOIN reservations r 
                 ON n.id= r.reservation_id
@@ -264,7 +275,11 @@ class Home extends Controller{
                 JOIN ads a
                 ON rr.ad_id = a.ad_id
                 WHERE n.user_id = :user_id && n.type = 'Reminder'",['user_id'=>Auth::getUser_id()]);
-            foreach($reminder_notifications as $reminder_notification) $result[] = $reminder_notification;
+            if ($reminder_notifications !== false) {
+                foreach ($reminder_notifications as $reminder_notification) {
+                    $result[] = $reminder_notification;
+                }
+            }
 //for type = other
             $notify = new Notifications();
             $other_notifications = $notify->query("
@@ -272,7 +287,11 @@ class Home extends Controller{
                 FROM notifications
                 WHERE user_id = :user_id AND type != :type1 AND type != :type2
             ",['user_id'=>Auth::getUser_id(), 'type1' => 'Reservation', 'type2' => 'Reminder']);
-            foreach($other_notifications as $notification) $result[] = $notification;
+            if ($other_notifications !== false) {
+                foreach ($other_notifications as $notification) {
+                    $result[] = $notification;
+                }
+            }
 
             if (!empty($result)) {
                 echo json_encode($result); // Encode retrieved data as JSON

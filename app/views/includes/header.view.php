@@ -132,24 +132,13 @@ if (message()) {
         <?php else: ?>
 
             <!--notification icon-->
+            <div class="notifications_container">
 
-            <div class="notifications_container" onclick="dropdown()">
-
-                <svg class="fill-white" xmlns="http://www.w3.org/2000/svg" height="1.25em" viewBox="0 0 448 512">
-                    <path d="M224 0c-17.7 0-32 14.3-32 32V51.2C119 66 64 130.6 64 208v18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416H416c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8V208c0-77.4-55-142-128-156.8V32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z"/>
-                </svg>
-
-                <div class="dropdown close">
-                    <h6>New</h6>
-                    <br>
-                    <div class="new"></div>
-                    <br>
-                    <hr style="color: whitesmoke">
-                    <br>
-                    <h6>Viewed</h6>
-                    <br>
-                    <div class="viewed"></div>
-                </div>
+                <a href="<?=ROOT?>/home/notification">
+                    <svg class="fill-white" xmlns="http://www.w3.org/2000/svg" height="1.25em" viewBox="0 0 448 512">
+                        <path d="M224 0c-17.7 0-32 14.3-32 32V51.2C119 66 64 130.6 64 208v18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416H416c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8V208c0-77.4-55-142-128-156.8V32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z"/>
+                    </svg>
+                </a>
             </div>
 
             <!-- Profile Button -->
@@ -183,7 +172,7 @@ if (message()) {
                             </a>
                         <?php endif; ?>
                     </div>
-                    <hr>
+                    <hr class="bg-white">
                     <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/profile/edit-profile"
                        class="sub-menu-link">
                         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title/>
@@ -240,101 +229,4 @@ if (message()) {
         </script>
 </header>
 
-<script>
-    // function for dropdown
-    function dropdown() {
-        const dropdown = document.querySelector('.dropdown')
 
-        if (dropdown.classList.contains('close')) {
-            dropdown.classList.remove('close')
-            dropdown.classList.add('open')
-        } else {
-            dropdown.classList.remove('open')
-            dropdown.classList.add('close')
-        }
-
-    }
-
-    // to get notification data from database
-
-    let data_array = []
-    let count = 0
-    const new_notification = document.querySelector('.new')
-    const viewed_notification = document.querySelector('.viewed')
-
-    fetch("<?=ROOT?>/home/notification/fetch", {
-        method: "PATCH",
-        headers: {
-            "Content-Type": "application/json; charset=utf-8"
-        }
-    }).then(res => {
-        return res.text()
-    }).then(data => {
-        console.log(data)
-        data_array = JSON.parse(data)
-        data_array.forEach(notification => {
-            const divElement1 = document.createElement('div');
-            const divElement2 = document.createElement('div');
-
-            divElement1.innerHTML = `<a href="<?=ROOT?>${notification.link}">${notification.message} by ${notification.title}</a>`;
-            divElement2.innerHTML = `<a href="<?=ROOT?>${notification.link}">${notification.message} status:${notification.status} service provider:${notification.title}</a>`
-            if (notification.viewed === 0) {
-                // to take count of new notifications
-                count += 1
-                // for reservation_reminders
-                new_notification.appendChild(divElement2);
-                divElement2.onclick = () => {
-                    update_notification(notification.notification_id)
-                }
-
-                // for reservations
-                new_notification.appendChild(divElement1);
-                divElement1.onclick = () => {
-                    update_notification(notification.notification_id)
-                }
-            }else if (notification.viewed === 1){
-                viewed_notification.appendChild(divElement1);
-            }
-        });
-// create span to display count of notifications
-        if (count > 0) {
-            const notifiContainer = document.querySelector('.notifications_container');
-            const newElement = document.createElement('span')
-            newElement.classList.add('notifiCounter')
-            newElement.innerHTML = count.toString()
-            notifiContainer.appendChild(newElement)
-        }
-
-    }).catch(error => {
-        console.error('Fetch error:', error);
-    });
-
- // to update the viewed column
-    function update_notification(notification_id) {
-
-        let data = {
-            'notification_id': notification_id,
-            'viewed': 1
-        }
-
-        fetch("<?=ROOT?>/home/notification/fetch", {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json; charset=utf-8"
-            },
-            body: JSON.stringify(data)
-        }).then(res => {
-            return res.text()
-        }).then(data => {
-            console.log(data)
-        }).catch(error => {
-            console.error('Fetch error:', error);
-        });
-    }
-
-// take the count of the new notifications
-    if (count === 0) {
-        const notifiCounter = document.querySelector('.notifiCounter');
-        if(notifiCounter) notifiCounter.remove()
-    }
-</script>
