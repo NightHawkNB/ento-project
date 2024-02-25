@@ -8,9 +8,14 @@
     --white: white;
 
     /* Status Colors */
-    --status-error: #F00;
-    --status-approve: rgb(57, 251, 57);
-    --status-pending:  #007afa;
+    --status-error: rgba(255, 0, 0, 1);
+    --status-approve: rgba(57, 251, 57, 1);
+    --status-pending:  rgba(0, 122,250, 1);
+    --status-unknown: rgba(255, 127, 0, 1);
+    --status-error-bg: rgba(255, 0, 0, 0.5);
+    --status-approve-bg: rgba(57, 251, 57, 0.5);
+    --status-pending-bg:  rgba(0, 122,250, 0.5);
+    --status-unknown-bg: rgba(255, 127, 0, 0.5);
 
     /* Font Colors */
     --font-primary: black;
