@@ -47,7 +47,7 @@
                                 </div>
                             </div>
                             <div class="dis-flex gap-20">
-                                <div class="">
+                                <div class="dis-flex-col">
                                     <label for="province">Province</label>
                                     <select name="province" class="input" id="province" onchange="updateDistrict()">
                                         <option value="central" <?= ($user->province == "central") ? 'selected' : '' ?>>Central</option>

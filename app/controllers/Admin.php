@@ -50,12 +50,14 @@ class Admin extends Controller
 
                 $assists->update($id, ['comment'=>$_POST['comment']]);
                 $assists->update($id, ['status'=>'Todo']);
+                $assists->update($id, ['admin_user_id'=>$_SESSION['USER_DATA']->user_id]);
 
                 message("Send to Todo list", false , 'success');
                 redirect('Admin/ccareq');
 
             } else {
-                $update = $assists->query("UPDATE complaint_assist SET status = 'handled' WHERE comp_id = :comp_id", ['comp_id' => $id]);
+                $assists->update($id, ['status'=>'handled']);
+                $assists->update($id, ['admin_user_id'=>$_SESSION['USER_DATA']->user_id]);
 
 
                 redirect("Admin/ccareq");
@@ -94,21 +96,29 @@ class Admin extends Controller
         INNER JOIN complaints 
         ON complaint_assist.comp_id = complaints.comp_id 
         WHERE complaint_assist.deleted = 0 
-        AND complaint_assist.status='idle'");
+        AND complaint_assist.status='Idle'  ORDER BY complaint_assist.date_time DESC ");
 
             $data['assistrequests'] = $assists->query("SELECT complaint_assist.comp_id, complaint_assist.date_time, complaint_assist.status, complaint_assist.comment, complaints.user_id, complaints.cca_user_id 
         FROM complaint_assist 
         INNER JOIN complaints 
         ON complaint_assist.comp_id = complaints.comp_id 
         WHERE complaint_assist.deleted = 0 
-        AND complaint_assist.status='Todo'");
+        AND complaint_assist.status='Todo'  ORDER BY complaint_assist.date_time DESC");
+
+            if(empty($data['assistrequests'])){
+                $data['assistrequests']=[];
+            }
 
             $data['handledrequests'] = $assists->query("SELECT complaint_assist.comp_id, complaint_assist.date_time, complaint_assist.status, complaint_assist.comment, complaints.user_id, complaints.cca_user_id 
         FROM complaint_assist 
         INNER JOIN complaints 
         ON complaint_assist.comp_id = complaints.comp_id 
         WHERE complaint_assist.deleted = 0 
-        AND complaint_assist.status='handled'");
+        AND complaint_assist.status='handled' ORDER BY complaint_assist.date_time DESC");
+
+            if(empty($data['handledrequests'])){
+                $data['handledrequests']=[];
+            }
 
             $this->view('admin/ccarequests', $data);
         }

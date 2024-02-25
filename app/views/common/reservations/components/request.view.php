@@ -4,7 +4,7 @@
         case "Pending":
             $status_class = "pending";
             break;
-        case "Declined":
+        case "Denied":
             $status_class = "declined";
             break;
         case "Expired":

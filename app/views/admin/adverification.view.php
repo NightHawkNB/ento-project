@@ -10,8 +10,8 @@
             <?php $this->view('includes/sidebar') ?>
         </section>
 
-        <section class="cols-10 dis-flex">
-            <div class="glass-bg mar-10 wid-100 dis-flex-col pad-20 gap-10 bor-rad-5" style="justify-content:stretch; align-items:stretch">
+        <section class="cols-10 dis-flex wid-100">
+            <div class="mar-10 wid-100 dis-flex-col pad-20 gap-10 bor-rad-5" style="justify-content:stretch; align-items:stretch">
 
                 <nav class="amazing-tabs">
                     <div class="filters-container">
