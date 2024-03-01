@@ -10,7 +10,7 @@
         </section>
         <section class="wid-100 pad-10 dis-flex-col al-it-ce">
 
-            <h1 class="mar-10-0 txt-c-white txt-w-bold" style="font-size: 1.5rem"> Notifications</h1>
+            <h1 class="mar-10-0 txt-c-black txt-b-bold" style="font-size: 1.5rem"> Notifications</h1>
             <div class="txt-ali-lef bg-black-1 txt-c-white wid-100 mar-10 pad-10 bor-rad-5">
                 <h3>New</h3>
                 <br>
