@@ -22,4 +22,4 @@ jobs:
         run: ssh -o StrictHostKeyChecking=no nighthawk@20.42.96.235 'sudo rm -rf /var/www/html/*'
 
       - name: Clone repository to Azure VM
-        run: ssh -o StrictHostKeyChecking=no nighthawk@20.42.96.235 'git clone https://github.com/nighthawknb/ento-project /var/www/html'
+        run: ssh -o StrictHostKeyChecking=no nighthawk@20.42.96.235 'git clone https://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@github.com/nighthawknb/ento-project /var/www/html'
