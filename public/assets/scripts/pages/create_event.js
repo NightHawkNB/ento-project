@@ -91,8 +91,10 @@ function validate(page) {
                 // Converting the datetime to a JS Date object
                 starting_time = new Date(start_time.value)
 
+                let currentDate = new Date()
+
                 minimum_ending_time = new Date(starting_time.getTime() + (2 * 60 * 60 * 1000))
-                minimum_starting_time = new Date(starting_time.getTime() + (60*60*24))
+                minimum_starting_time = new Date(currentDate.getTime() + (24 * 60 * 60 * 1000))
 
                 // console.log(starting_time)
             }

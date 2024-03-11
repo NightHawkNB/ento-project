@@ -242,6 +242,26 @@ class Eventm extends controller{
                 $custom->venue = 1;
             }
 
+            $data['venue_set'] = $db->query('
+                SELECT 
+                    V.venue_id, 
+                    V.image, 
+                    V.name, 
+                    V.seat_count, 
+                    V.packages, 
+                    V.other, 
+                    V.location,
+                    SP.sp_id, 
+                    AD.ad_id,  
+                    AD.title, 
+                    AD.details
+                FROM ads AD
+                JOIN ad_venue ADV ON AD.ad_id = ADV.ad_id
+                JOIN venue V ON ADV.venue_id = V.venue_id
+                JOIN serviceprovider SP ON AD.user_id = SP.user_id
+                WHERE V.location = :location AND AD.deleted = 0 AND V.deleted = 0
+            ', ['location' => $event_data->district]);
+
             $data['event'] = $event_data;
             $data['band'] = $band_data ?? [];
             $data['venue'] = $venue_data ?? [];
@@ -276,6 +296,55 @@ class Eventm extends controller{
         }
     }
 
+    // Function to add custom venue
+    public function add_custom_venue($page = null): void
+    {
+        $json_data = file_get_contents("php://input");
+        $php_data = json_decode($json_data);
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            try {
+                $event = new Event();
+                $event->update($php_data->event_id, ['venue_id' => NULL, 'custom_venue' => $php_data->custom_venue]);
+
+                echo "success";
+            } catch (Exception $error) {
+                echo "failed";
+            }
+
+        }
+    }
+
+    public function add_venue($page = null): void
+    {
+        $json_data = file_get_contents("php://input");
+        $php_data = json_decode($json_data);
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            try {
+                $event = new Event();
+                $event->update($php_data->event_id, ['venue_id' => $php_data->venue_id, 'custom_venue' => NULL]);
+                $event_data = $event->where(['event_id' => $php_data->event_id])[0];
+
+                $_POST['details'] = "Reservation for the event: ".$event_data->name;
+                $_POST['province'] = $event_data->province;
+                $_POST['district'] = $event_data->district;
+                $_POST['start_time'] = $event_data->start_time;
+                $_POST['end_time'] = $event_data->end_time;
+                $_POST['venue_id'] = $php_data->venue_id;
+
+                createReservation($php_data->sp_id, $php_data->ad_id);
+
+                echo "success";
+            } catch (Exception $error) {
+                echo "failed";
+            }
+
+        }
+    }
+
 }
 
 // Function to send a reservation request when creating an event
@@ -292,7 +361,7 @@ function createReservation($sp_id, $ad_id) : void
         'type' => 'Event',
         'details' => $_POST['details'],
         'location' => $_POST['province'].", ".$_POST['district'],
-        'location_id' => (is_numeric($_POST['venue_id'])) ? $_POST['venue_id'] : NULL,
+        'location_id' => (array_key_exists('venue_id', $_POST) AND is_numeric($_POST['venue_id'])) ? $_POST['venue_id'] : NULL,
         'start_time' => $_POST['start_time'],
         'end_time' => $_POST['end_time']
     ];
