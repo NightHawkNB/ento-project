@@ -23,3 +23,11 @@ jobs:
 
       - name: Clone repository to Azure VM
         run: ssh -o StrictHostKeyChecking=no nighthawk@20.42.96.235 'git clone https://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@github.com/nighthawknb/ento-project /var/www/html'
+
+      - name: Log into MySQL and Remove ento_db
+        run: |
+          ssh -o StrictHostKeyChecking=no nighthawk@20.42.96.235 'mysql -u nighthawk -pnighthawkpass -e "DROP DATABASE IF EXISTS ento_db;"'
+
+      - name: Import MySQL Database
+        run: |
+          ssh -o StrictHostKeyChecking=no nighthawk@20.42.96.235 'mysql -u nighthawk -pnighthawkpass ento_db < /var/www/html/ento_db.sql'
