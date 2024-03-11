@@ -18,8 +18,8 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+      - name: Clear contents of /var/www/html
+        run: ssh -o StrictHostKeyChecking=no nighthawk@20.42.96.235 'sudo rm -rf /var/www/html/*'
+
       - name: Clone repository to Azure VM
         run: ssh -o StrictHostKeyChecking=no nighthawk@20.42.96.235 'git clone https://github.com/nighthawknb/ento-project /var/www/html'
-
-      - name: Move repository contents
-        run: ssh -o StrictHostKeyChecking=no nighthawk@20.42.96.235 'sudo mv /var/www/html/ento-project/* /var/www/html && sudo rm -rf /var/www/html/ento-project'
