@@ -1,0 +1,25 @@
+name: Deploy to Azure VM
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Clone repository to Azure VM
+        run: ssh -o StrictHostKeyChecking=no nighthawk@20.42.96.235 'git clone https://github.com/nighthawknb/ento-project /var/www/html'
+
+      - name: Move repository contents
+        run: ssh -o StrictHostKeyChecking=no nighthawk@20.42.96.235 'sudo mv /var/www/html/ento-project/* /var/www/html && sudo rm -rf /var/www/html/ento-project'
