@@ -70,6 +70,7 @@ function validate(page) {
     switch (page) {
         case 1 :
 
+            let minimum_starting_time
             let maximum_ending_time
             let minimum_ending_time
 
@@ -90,7 +91,10 @@ function validate(page) {
                 // Converting the datetime to a JS Date object
                 starting_time = new Date(start_time.value)
 
+                let currentDate = new Date()
+
                 minimum_ending_time = new Date(starting_time.getTime() + (2 * 60 * 60 * 1000))
+                minimum_starting_time = new Date(currentDate.getTime() + (24 * 60 * 60 * 1000))
 
                 // console.log(starting_time)
             }
@@ -106,7 +110,10 @@ function validate(page) {
             }
 
             if(start_time.value !== "" && end_time.value !== "") {
-                if(ending_time <= minimum_ending_time) {
+                if(starting_time < minimum_starting_time) {
+                    errors.push("minimum starting time error")
+                    end_time.nextElementSibling.textContent = "The event should be created at least one day before the starting time"
+                }else if(ending_time <= minimum_ending_time) {
                     errors.push("invalid_duration")
                     end_time.nextElementSibling.textContent = "The minimum time duration for an event is 2 Hours"
                 } else if(ending_time >= maximum_ending_time) {
