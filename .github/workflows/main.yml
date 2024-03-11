@@ -34,4 +34,4 @@ jobs:
 
       - name: Import MySQL Database
         run: |
-          ssh -o StrictHostKeyChecking=no nighthawk@20.42.96.235 'mysql -u nighthawk -pnighthawkpass ento_db < /var/www/html/ento_db.sql'
+          ssh -o StrictHostKeyChecking=no nighthawk@20.42.96.235 'mysql -u nighthawk -pnighthawkpass -e "CREATE DATABASE IF NOT EXISTS ento_db" && mysql -u nighthawk -p ento_db < /var/www/html/ento_db.sql'
