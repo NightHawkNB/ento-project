@@ -42,9 +42,6 @@ class Controller
              *  TODO deleting an ad doesn't delete the image stored
              */
 
-            show($_POST);
-            show($_FILES);
-
             // Removing the previous profile image was not necessary since the new file will replace the previous one
 //                if(!empty($row->image)) {
 //                    if(!unlink($row->image)) {
@@ -78,9 +75,18 @@ class Controller
                 }
             }
 
-            $user->update(Auth::getUser_id(), $_POST);
-            message("Profile Updated Successfully", false, "success");
-            redirect("$row->user_type/profile/edit-profile/" . $row->user_id);
+            try {
+                $user->update(Auth::getUser_id(), $_POST);
+                $_SESSION['USER_DATA']->fname = $_POST['fname'];
+                $_SESSION['USER_DATA']->lname = $_POST['lname'];
+
+                message("Profile Updated Successfully", false, "success");
+            } catch (Exception $e) {
+                message('Profile Updation Failed', false, 'failed');
+            }
+
+            redirect("$row->user_type/profile/edit-profile");
+
         }
 
         if (empty($method)) redirect('client/profile/edit-profile');

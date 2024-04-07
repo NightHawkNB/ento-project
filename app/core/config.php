@@ -20,7 +20,7 @@ if($_SERVER['SERVER_NAME'] != 'localhost') {
     define('DB_DRIVER', 'mysql');
 
     //? ROOT path
-    define('ROOT', 'http://localhost/ento-project/public');
+    define('ROOT', 'http://20.42.96.235/ento-project/public');
 
 } else {
 

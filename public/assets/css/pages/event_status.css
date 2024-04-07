@@ -211,6 +211,71 @@
         height: 100%;
         border-radius: 10px;
         padding: 10px;
+        overflow: auto;
+    }
+
+    &.venue-popup {
+        .es-popup-content {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            .venue_label {
+                background-color: var(--white);
+                width: 100%;
+                height: fit-content;
+                padding: 10px;
+                border-radius: 10px;
+                border: 2px solid transparent;
+
+                div {
+                    display: flex;
+                    gap: 10px;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    border: 2px solid var(--purple-primary);
+                }
+            }
+
+            .title {
+                color: var(--font-primary);
+                font-family: Poppins, sans-serif;
+                font-size: 1.1rem;
+                letter-spacing: 2px;
+                font-weight: bold;
+                background-color: var(--white);
+                border-radius: 0.8rem;
+                text-align: center;
+                padding: 5px 20px;
+            }
+
+            input {
+                font-size: 1.05rem;
+                width: 100%;
+                padding: 10px 10px 10px 20px;
+                border-radius: 10px;
+                border: none;
+                outline: none;
+            }
+
+            div.button-container {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+
+                button {
+                    aspect-ratio: auto;
+                    padding: 10px 20px;
+                    font-size: 0.9rem;
+                    width: fit-content;
+                    max-height: fit-content;
+                }
+            }
+        }
     }
 
 

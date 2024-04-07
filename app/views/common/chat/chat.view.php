@@ -25,7 +25,7 @@
         </section>
         <section class="wid-100 ju-co-ce pad-10 dis-flex hei-100">
 
-            <div class="glass-bg wid-100 hei-100 bor-rad-5 dis-flex-col al-it-ce ju-co-ce pad-20 gap-20">
+            <div class="wid-100 hei-100 bor-rad-5 dis-flex-col al-it-ce ju-co-ce pad-20 gap-20">
                 <div class="chat-wrapper">
                     <div id="chat" class="chat-container wid-100 bg-black-2 hei-100 pad-10 bor-rad-5 gap-10" style="height: 65vh; overflow-y: auto">
                         <h3 class="txt-c-white">Message Box</h3>

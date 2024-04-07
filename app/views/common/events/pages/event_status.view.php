@@ -243,7 +243,7 @@
             <?php
                 if(!empty($venue_set)) {
                     foreach ($venue_set as $single_venue) {
-                        $this->view('common/events/components/venue', (array)$single_venue);
+                        $this->view('common/events/components/venue_select', (array)$single_venue);
                     };
                 } else {
                     echo "No Venues to Display";
@@ -254,7 +254,11 @@
 
         <div id="customSection" class="es-popup-content">
 
-            Page 2
+            <div class="title">Add custom venue details</div>
+            <input type="text" name="venue_name" id="custom_venue_input" placeholder="Enter the name of the venue ... ">
+            <div class="button-container">
+                <button type="button" onclick="select_custom_venue()" class="button-s2">Add Custom Venue</button>
+            </div>
 
         </div>
 
@@ -423,6 +427,70 @@
             // Initially hide band and venue sections
             adSections.custom.style.display = 'none';
         })
+
+        // ##################################### Selecting within the popup ###############################################
+        function select_venue(element) {
+            // send post with venue_id and event_id to update the event
+            let venue_id = element.dataset.venueid
+            let event_id = '<?= $event->event_id ?>'
+            let sp_id = element.dataset.spid
+            let ad_id = element.dataset.adid
+
+            let data = {venue_id, event_id, sp_id, ad_id}
+
+            fetch(`/ento-project/public/eventm/add_venue`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+                },
+                body: JSON.stringify(data)
+            }).then(res => {
+                // console.log(res)
+                return res.text()
+            }).then(data => {
+                // Shows the data printed by the targeted php file.
+                // (stopped printing all data in php file by using die command)
+                console.log(data)
+                if (data === 'success') {
+                    alert('Venue Added Successfully')
+                    location.reload()
+                } else {
+                    alert("Error occurred. Try Again later or Contact Customer Care Agent")
+                }
+
+                console.log(data)
+            })
+        }
+
+        function select_custom_venue() {
+            let custom_venue = document.getElementById('custom_venue_input').value
+            let event_id = '<?= $event->event_id ?>'
+
+            let data = {custom_venue, event_id}
+
+            fetch(`/ento-project/public/eventm/add_custom_venue`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+                },
+                body: JSON.stringify(data)
+            }).then(res => {
+                // console.log(res)
+                return res.text()
+            }).then(data => {
+                // Shows the data printed by the targeted php file.
+                // (stopped printing all data in php file by using die command)
+                console.log(data)
+                if (data === 'success') {
+                    alert('Venue Added Successfully')
+                    location.reload()
+                } else {
+                    alert("Error occurred. Try Again later or Contact Customer Care Agent")
+                }
+
+                console.log(data)
+            })
+        }
     </script>
 
 
