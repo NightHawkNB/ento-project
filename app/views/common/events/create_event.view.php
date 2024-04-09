@@ -1,5 +1,5 @@
 <html lang="en">
-<?php $this->view('includes/head', ['style' => "pages/create_event.css"]) ?>
+<?php $this->view('includes/head', ['style' => ["pages/create_event.css", "components/progress_bar.css"]]) ?>
 
 <body>
 <div class="main-wrapper">
@@ -10,7 +10,7 @@
             <?php $this->view('includes/sidebar') ?>
         </section>
         <section class="cols-10 pad-10 dis-flex ju-co-st al-it-st">
-            <div class="event-form bg-white">
+            <div class="event-form bg-white sh">
 
                 <form id="form" method="post" enctype="multipart/form-data">
                     <div style="text-align: center" class="progress-container-main">
@@ -162,13 +162,13 @@
                             <div class="error"></div>
 
                             <?php
-                            if(!empty($singers)) {
-                                foreach ($singers as $singer) {
-                                    $this->view('common/events/components/singer', (array)$singer);
-                                };
-                            } else {
-                                echo "No Bands to Display";
-                            }
+                                if(!empty($singers)) {
+                                    foreach ($singers as $singer) {
+                                        $this->view('common/events/components/singer', (array)$singer);
+                                    };
+                                } else {
+                                    echo "No Bands to Display";
+                                }
                             ?>
 
                             <label id="custom_singer_label" for="singer_checkbox" class="venue_label custom_singer" onclick="checkbox_select()">
@@ -306,10 +306,6 @@
 
             })
         }
-
-        document.querySelector('#district').addEventListener('change', () => {
-
-        })
     </script>
 
     <script src="<?= ROOT ?>/assets/scripts/pages/create_event.js" defer></script>

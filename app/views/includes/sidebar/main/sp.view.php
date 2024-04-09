@@ -1,5 +1,5 @@
 <?php if (Auth::is_singer() || Auth::is_band() || Auth::is_venuem()): ?>
-    <li class="nav-item sub-menu-header" onclick="open_submenu(this)">
+    <li class="nav-item sub-menu-header <?= set_activated($_SESSION['USER_DATA']->user_type.'/ads') ?>" onclick="open_submenu(this)">
         <svg class="feather feather-send" fill="none" height="24" stroke="currentColor" stroke-linecap="round"
              stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
             <line x1="22" x2="11" y1="2" y2="13"/>
@@ -9,7 +9,7 @@
     </li>
     <ul class="sub-menu" id="subm">
         <?php if (($_SESSION['USER_DATA']->ad_count == 0 && $_SESSION['USER_DATA']->user_type != 'venuem') or $_SESSION['USER_DATA']->user_type == 'venuem'): ?>
-            <li class="nav-item">
+            <li class="nav-item <?= set_activated($_SESSION['USER_DATA']->user_type.'/ads/create-ad') ?>">
                 <a class="nav-link"
                    href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/ads/create-ad">
                     <svg class="feather feather-plus-circle" fill="none" height="24" stroke="currentColor"
@@ -62,7 +62,7 @@
         </li>
     </ul>
 
-    <li class="nav-item sub-menu-header" onclick="open_submenu(this)">
+    <li class="nav-item sub-menu-header <?= set_activated($_SESSION['USER_DATA']->user_type.'/reservations') ?>" onclick="open_submenu(this)">
         <svg class="feather feather-edit" fill="none" height="24" stroke="currentColor" stroke-linecap="round"
              stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
@@ -120,7 +120,7 @@
 <?php endif; ?>
 
 <?php if (Auth::is_venuem()): ?>
-    <li class="nav-item <?= (str_contains($_SERVER['REQUEST_URI'], "venuem/staff")) ? 'active' : '' ?>">
+    <li class="nav-item <?= set_activated($_SESSION['USER_DATA']->user_type.'/staff') ?>">
         <a class="nav-link" href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/staff">
             <svg class="feather feather-users" fill="none" height="24" stroke="currentColor" stroke-linecap="round"
                  stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24"
@@ -134,7 +134,7 @@
         </a>
     </li>
 
-    <li class="nav-item">
+    <li class="nav-item <?= set_activated($_SESSION['USER_DATA']->user_type.'/venues') ?>">
         <a class="nav-link" href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/venues">
             <svg class="feather feather-map" fill="none" height="24" stroke="currentColor" stroke-linecap="round"
                  stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24"
@@ -149,7 +149,7 @@
 <?php endif; ?>
 
 <?php if (Auth::is_venueo()): ?>
-    <li class="nav-item">
+    <li class="nav-item <?= set_activated($_SESSION['USER_DATA']->user_type.'/scanner') ?>">
         <a class="nav-link" href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/scanner">
             <svg id="scanner-icon" style="enable-background:new 0 0 24 24;" viewBox="0 0 24 24" xml:space="preserve"
                  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Layer_1"/>
@@ -170,7 +170,7 @@
 <!-- The report button will only be shown to the Singer for now -->
 <?php if ($_SESSION['USER_DATA']->user_type == 'singer'): ?>
 
-    <li class="nav-item">
+    <li class="nav-item <?= set_activated($_SESSION['USER_DATA']->user_type.'/stat') ?>">
         <a class="nav-link" href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/stat">
             <svg xmlns="http://www.w3.org/2000/svg" style="fill: white" height="24" viewBox="0 -960 960 960" width="24">
                 <path d="M120-120v-80l80-80v160h-80Zm160 0v-240l80-80v320h-80Zm160 0v-320l80 81v239h-80Zm160 0v-239l80-80v319h-80Zm160 0v-400l80-80v480h-80ZM120-327v-113l280-280 160 160 280-280v113L560-447 400-607 120-327Z"/>

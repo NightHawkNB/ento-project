@@ -4,7 +4,7 @@
 <div class="main-wrapper">
     <?php $this->view('includes/header') ?>
 
-    <main class="bg-lightgray">
+    <main class="dashboard-main">
 
         <div class="mar-10 over-hide bor-rad-5 dis-flex-col sh">
             <img src="<?= ROOT ?>/assets/images/events/event-01.cover.jpeg" alt="cover-image" class="wid-100 event-cover-image">

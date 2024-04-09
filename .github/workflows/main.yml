@@ -1,0 +1,37 @@
+name: Deploy to Azure VM
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Clear contents of /var/www/html
+        run: |
+          ssh -o StrictHostKeyChecking=no nighthawk@20.42.96.235 'sudo rm -rf /var/www/html/*'
+          ssh -o StrictHostKeyChecking=no nighthawk@20.42.96.235 'sudo rm -rf /var/www/html/.git'
+          ssh -o StrictHostKeyChecking=no nighthawk@20.42.96.235 'sudo rm -f /var/www/html/.gitignore'
+          ssh -o StrictHostKeyChecking=no nighthawk@20.42.96.235 'sudo rm -rf /var/www/html/.github'
+
+      - name: Clone repository to Azure VM
+        run: ssh -o StrictHostKeyChecking=no nighthawk@20.42.96.235 'git clone https://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@github.com/nighthawknb/ento-project /var/www/html'
+
+      - name: Log into MySQL and Remove ento_db
+        run: |
+          ssh -o StrictHostKeyChecking=no nighthawk@20.42.96.235 'mysql -u nighthawk -pnighthawkpass -e "DROP DATABASE IF EXISTS ento_db;"'
+
+      - name: Import MySQL Database
+        run: |
+          ssh -o StrictHostKeyChecking=no nighthawk@20.42.96.235 'mysql -u nighthawk -pnighthawkpass -e "CREATE DATABASE IF NOT EXISTS ento_db" && mysql -u nighthawk -pnighthawkpass ento_db < /var/www/html/ento_db.sql'

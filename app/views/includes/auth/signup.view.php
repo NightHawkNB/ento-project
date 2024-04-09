@@ -1,5 +1,5 @@
 <html lang="en">
-<?php $this->view('includes/head', ['style' => 'auth/signup.css']) ?>
+<?php $this->view('includes/head', ['style' => ['auth/signup.css']]) ?>
 <body>
 
 <!-- Animated Background -->

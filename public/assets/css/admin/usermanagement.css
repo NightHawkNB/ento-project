@@ -15,7 +15,7 @@ body {
 }
 #search-container {
     margin: 0.5em 0;
-    padding:0.5em;
+    padding: 0.5em;
 }
 #search-container input {
     background-color: transparent;
@@ -36,12 +36,6 @@ body {
     margin-top: 0.3em;
 }
 .button-value {
-    /*border: 2px solid #7b51d3;
-    padding: 0.6em 2.2em;
-    border-radius: 3em;
-    background-color: transparent;
-    color: #6759ff;
-    cursor: pointer;*/
     padding: 10px 40px;
     background: #7b51d3;
     color: var(--font-secondary);
@@ -59,5 +53,84 @@ body {
 
 #button button.active {
     background-color: #7b51d3 !important;
-    color: #ffffff !important;
+    color: #ffffff !important;
+}
+
+.select-menu-container {
+    position: relative;
+    width: 100% ;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.select-menu {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    width: 300px;
+}
+
+.select-menu .select-btn {
+    display: flex;
+    height: 55px;
+    background: #c1abec;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 400;
+    border-radius: 3px;
+    align-items: center;
+    cursor: pointer;
+    justify-content: space-between;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.select-btn i {
+    font-size: 20px;
+    transition: 0.3s;
+}
+
+.select-menu.active .select-btn i {
+    transform: rotate(-180deg);
+}
+
+.select-menu .options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 3px;
+    background: #c1abec;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+    display: none;
+    width: 300px;
+}
+
+.select-menu.active .options {
+    display: block;
+}
+
+.options .option {
+    display: flex;
+    height: 35px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 3px;
+    align-items: center;
+    background: #c1abec;
+}
+
+.options .option:hover {
+    background: #f2f2f2;
+}
+
+.option i {
+    font-size: 20px;
+    margin-right: 8px;
+}
+
+.option .option-text {
+    font-size: 14px;
+    color: #333333;
 }

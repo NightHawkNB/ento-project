@@ -1,5 +1,27 @@
 :root {
+    /* Color Palette */
+    --alert-indigo: rgba(102, 16, 242, 0.5);
     --purple-primary: #5809ab;
     --purple-secondary: mediumpurple;
     --purple-tirtiary: mediumslateblue;
+    --white-link: #d9daf3;
+    --white: white;
+
+    /* Status Colors */
+    --status-error: rgba(255, 0, 0, 1);
+    --status-approve: rgba(57, 251, 57, 1);
+    --status-pending:  rgba(0, 122,250, 1);
+    --status-unknown: rgba(255, 127, 0, 1);
+    --status-error-bg: rgba(255, 0, 0, 0.5);
+    --status-approve-bg: rgba(57, 251, 57, 0.5);
+    --status-pending-bg:  rgba(0, 122,250, 0.5);
+    --status-unknown-bg: rgba(255, 127, 0, 0.5);
+
+    /* Font Colors */
+    --font-primary: black;
+    --font-secondary: white;
+    --font-3: lightgrey;
+
+    /* Lien Colors */
+    --line-primary: black;
 }
