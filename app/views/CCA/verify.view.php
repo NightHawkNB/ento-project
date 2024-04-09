@@ -8,11 +8,11 @@
             <section class="cols-2 sidebar">
                 <?php $this->view('includes/sidebar') ?>
             </section>
-            <section class="cols-10">
+            <section class="cols-10 dis-flex-col gap-20 pad-10 hei-100%">
                 <div>
                     <?php
                     foreach($assists as $assist ){
-                        $this->view("CCA/components/single_verification", (array)$assist);
+                        $this->view("CCA/components/verification", (array)$assist);
                     }
                     ?>
                 </div>

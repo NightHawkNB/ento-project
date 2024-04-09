@@ -10,7 +10,7 @@
                 <?php $this->view('includes/sidebar') ?>
             </section>
         <?php endif; ?>
-        <section class="cols-10 pad-20 mar-bot-10">
+        <section class="cols-10 pad-20 mar-bot-10"　 style="width: 100%">
             <div class="bg-trans dis-flex-col gap-20 bg-lightgray flex-1 pad-20">
                 <div class="dis-flex-col bg-trans gap-10 pad-20 txt-ali-cen">
                 <nav class="amazing-tabs">
@@ -43,7 +43,7 @@
                     <div id="acceptedsection" class="complaint-section flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="max-height: 60vh; overflow:auto; padding-right: 10px">
 
                         <?php
-
+show('simething');
                         if(!empty($acc)) {
                             foreach($acc as $complaint){
                                 $this->view('pages/complaints/single', (array)$complaint);

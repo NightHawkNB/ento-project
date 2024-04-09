@@ -1,6 +1,6 @@
 <a href="<?= ROOT ?>/cca/verify/<?= $userVreq_id ?>">
-<div class="dis-flex wid-100">
-        <div class="bg-white txt-c-black pad-10-20 bor-rad-5 wid-100 dis-flex al-it-ce ju-co-sb ads sh f-poppins">
+<div class="dis-flex wid-100 ">
+        <div class="bg-white txt-c-black pad-10-20 bor-rad-5 wid-100 dis-flex al-it-ce ju-co-sb ads sh f-poppins ">
             <div class="txt-c-black dis-flex gap-20 ju-co-sb wid-100" style="gap: 100px">
                 <div class="dis-flex-col txt-c-black gap-10">
                     <h4>Verify ID</h4>

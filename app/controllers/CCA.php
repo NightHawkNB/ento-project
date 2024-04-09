@@ -15,7 +15,9 @@ class CCA extends Controller{
 }
 
     public function index(){
-        $this->view("common/dashboard");
+        $comp = new Complaint();
+        $data["complaints"] = $comp->query("SELECT * FROM complaints WHERE deleted = :deleted LIMIT 3", ["deleted"=>0]);
+        $this->view("CCA/dashboard",$data);
     }
 
     public function complaints($method = null, $id = null, $id2 = null){
@@ -24,7 +26,7 @@ class CCA extends Controller{
 
                 $req = new Assist_req();
                 $data['assists'] = $req->get_all();
-                $this->view("pages/complaints/assist_requests", $data);
+                $this->view("cca/assist_requests", $data);
 
             } else if(is_numeric($id)) {
 
@@ -101,20 +103,20 @@ class CCA extends Controller{
     public function verify($uservid=null){
 
         if(empty($uservid)){
-        
-                $ur = new Uservreq();
-                $data['assists'] = $ur->get_all();
-                $this->view("CCA/verify", $data);
-            }else{
-                $ur = new Uservreq();
-                $data['assists'] = $ur->query("
-                SELECT * FROM uservreq
-                JOIN user
-                ON user.user_id = uservreq.user_id
-                WHERE uservreq.userVreq_id = :userVreq_id
-            ", ['userVreq_id' => $uservid])[0];
-                $this->view("CCA/verifydetails", $data);
-            }
+            $ur = new Uservreq();
+            $data['assists'] = $ur->get_all();
+            $this->view("CCA/verify", $data);
+        }else{
+            $ur = new Uservreq();
+            $data['assists'] = $ur->query("
+            SELECT * FROM uservreq
+            JOIN user
+            ON user.user_id = uservreq.user_id
+            WHERE uservreq.userVreq_id = :userVreq_id
+        ", ['userVreq_id' => $uservid])[0];
+           
+            $this->view("CCA/verifydetails", $data);
+        }
     }
 
     public function admanage(){
