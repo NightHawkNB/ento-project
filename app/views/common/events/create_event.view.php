@@ -162,13 +162,13 @@
                             <div class="error"></div>
 
                             <?php
-                            if(!empty($singers)) {
-                                foreach ($singers as $singer) {
-                                    $this->view('common/events/components/singer', (array)$singer);
-                                };
-                            } else {
-                                echo "No Bands to Display";
-                            }
+                                if(!empty($singers)) {
+                                    foreach ($singers as $singer) {
+                                        $this->view('common/events/components/singer', (array)$singer);
+                                    };
+                                } else {
+                                    echo "No Bands to Display";
+                                }
                             ?>
 
                             <label id="custom_singer_label" for="singer_checkbox" class="venue_label custom_singer" onclick="checkbox_select()">

@@ -15,7 +15,7 @@ body {
 main {
     /*background-color: white;*/
     /* Moved the background style to BODY */
-    padding-top: 67px;
+    padding-top: 75px;
     grid-row: span 2;
     z-index: 1;
 }
