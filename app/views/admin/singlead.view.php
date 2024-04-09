@@ -3,11 +3,7 @@
 
 <body>
 <div class="main-wrapper">
-    <?php $this->view('includes/header') ?><a href="<?= ROOT ?>/admin/adverify" >
-        <button class="back-btn " style="width: 50px; text-align: center">
-            < Back
-        </button>
-    </a>
+    <?php $this->view('includes/header') ?>
 
     <main class="dashboard-main">
         <section class="cols-2 sidebar">
