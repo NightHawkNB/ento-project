@@ -1,5 +1,5 @@
 <html lang="en">
-<?php $this->view('includes/head', ['style' => 'client/reservations.css']) ?>
+<?php $this->view('includes/head', ['style' => ['client/reservations.css']]) ?>
 <body>
 <div class="main-wrapper">
     <?php $this->view('includes/header') ?>
@@ -30,7 +30,7 @@
             <!--current reservations-->
 
             <div id="current" class="reservation-section">
-                <h1 class="mar-10-0 txt-c-white txt-w-bold" style="font-size: 1.5rem"> Current Reservations</h1>
+                <h1 class="mar-10-0 txt-c-black txt-w-bold" style="font-size: 1.5rem"> Current Reservations</h1>
 
                 <div  class="res-container glass-bg">
                     <div style="width: 500px">
@@ -55,7 +55,7 @@
             <!--                out dated recervations-->
 
             <div id="outdated" class="reservation-section">
-                <h1 class="mar-10-0 txt-c-white txt-w-bold" style="font-size: 1.5rem"> Out Dated Reservations</h1>
+                <h1 class="mar-10-0 txt-c-black txt-w-bold" style="font-size: 1.5rem"> Out Dated Reservations</h1>
 
                 <div  class="res-container">
                     <?php

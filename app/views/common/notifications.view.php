@@ -1,5 +1,5 @@
 <html lang="en">
-<?php $this->view('includes/head', ['style' => 'client/reservations.css']) ?>
+<?php $this->view('includes/head', ['style' => ['client/reservations.css']]) ?>
 <body>
 <div class="main-wrapper">
     <?php $this->view('includes/header') ?>
