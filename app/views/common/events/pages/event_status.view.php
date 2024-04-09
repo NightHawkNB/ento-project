@@ -92,15 +92,16 @@
 
                                     <div class="es-title">
                                         <h3>Name : </h3>
-                                        <span><?= (!$reservations['band'] && $custom->band) ? $band : "Not Selected" ?></span>
+                                        <span><?= (!$reservations['band'] && $custom->band) ? $band : (($reservations['band'] && !$custom->band) ? $band->name : "Not Selected") ?></span>
                                     </div>
 
                                     <div class="es-buttons">
 
                                         <button class="button-s2 es-button main-button"
                                                 data-req_id="<?= ($custom->band) ? 'NULL' : ($reservations['band'] ? $band->req_id : 'NULL') ?>"
+                                                data-state="<?= ($custom->band) ? 'custom' : ($reservations['band'] ? 'selected' : 'choose') ?>"
                                                 data-type="band"
-                                                type="button" <?= ($custom->band) ? 'disabled' : '' ?> >
+                                                type="button" <?= ($event->time_left < 7) ? 'disabled' : '' ?> >
                                             <svg class="feather feather-x" fill="none" stroke="currentColor"
                                                  stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                  viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -163,7 +164,7 @@
 
                                     <div class="es-title">
                                         <h3>Name : </h3>
-                                        <span><?= (!$reservations['venue'] && $custom->venue) ? $venue : "Not Selected" ?></span>
+                                        <span><?= (!$reservations['venue'] && $custom->venue) ? $venue : (($reservations['venue'] && !$custom->venue) ? $venue->name : "Not Selected") ?></span>
                                     </div>
 
                                     <div class="es-buttons">
@@ -171,7 +172,7 @@
                                                 data-state="<?= ($custom->venue) ? 'custom' : ($reservations['venue'] ? 'selected' : 'choose') ?>"
                                                 data-req_id="<?= (!$custom->venue) ? ($reservations['venue'] ? $venue->req_id : 'NULL') : 'NULL' ?>"
                                                 data-type="venue"
-                                                type="button" <?= ($custom->venue) ? 'disabled' : '' ?> >
+                                                type="button" <?= ($event->time_left < 7) ? 'disabled' : '' ?> >
                                             <svg class="feather feather-x" fill="none" stroke="currentColor"
                                                  stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                  viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -298,7 +299,13 @@
 
                 let event_id = '<?= $event->event_id ?>'
 
-                let data = {req_id, event_id}
+                let data
+
+                if(element.dataset.state === "custom") {
+                    data = {event_id, type}
+                } else {
+                    data = {req_id, event_id, type}
+                }
 
                 fetch(`/ento-project/public/eventm/cancel_request/${req_id}`, {
                     method: "POST",
@@ -314,6 +321,7 @@
                     // (stopped printing all data in php file by using die command)
                     console.log(data)
                     if (data === 'success') {
+                        location.reload()
                         element.innerHTML = `<span>Choose ${type}</span>`;
                         const image = element.parentElement.parentElement.parentElement.querySelector('img')
                         const status = element.parentElement.parentElement.querySelector('.es-status span')
