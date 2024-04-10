@@ -24,7 +24,8 @@ class Admin extends Controller
         $data['pending_ads']=$db->query("SELECT COUNT(*) FROM ads WHERE pending=1" );
         $data['pending_assreq']=$db->query("SELECT COUNT(*) FROM complaint_assist WHERE status='Idle' ");
 
-        $userTypeData=$db->query("SELECT user_type,Count(*) AS count FROM user GROUP BY user_type");
+        $userTypeData = $db->query("SELECT user_type, COUNT(*) AS count FROM user WHERE user_type IN ('singer', 'venuem', 'band', 'eventm') GROUP BY user_type");
+
         $data['plabels'] = array_column($userTypeData, 'user_type');
         $data['pdata'] = array_column($userTypeData, 'count');
 
