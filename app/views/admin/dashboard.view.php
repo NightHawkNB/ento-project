@@ -298,9 +298,10 @@
             <?php $this->view('includes/sidebar') ?>
         </section>
 
-        <section class=" cols-10 dis-flex-col wid-100">
+        <section class=" cols-10 dis-flex-col wid-100" >
 
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.js"></script>
 
             <div class="cardBox">
                 <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/adverify">
@@ -338,7 +339,7 @@
                 </a>
             </div>
 
-            <div class="dis-flex charts wid-100 ju-co-st gap-20"style="margin: 0 20px">
+            <div class="dis-flex charts wid-100 ju-co-st gap-20" id="dash" style="margin: 0 20px">
                 <div class="userAcc-container dis-flex ju-co-ce" style="background-color: white">
                     <canvas id="userTypeChart" width="600px" height="450px;" >
 
@@ -356,62 +357,65 @@
                     <div class="wid-100 dis-flex-col al-it-ce ju-co-ce" style="height:50px;font-weight: bold;background-color: mediumpurple;font-size: large ">
                         <p style="color: white;">Pending </p>
                     </div>
-                    <div class="dis-flex ju-co-ce ju-it-ce wid-100">
-                        <div class="dis-flex wid-50 ju-co-ce ju-it-ce" style="height:50px;font-weight: bold;">
+                    <div class="dis-flex ju-co-ce al-it-ce wid-100">
+                        <div class="dis-flex wid-50 ju-co-ce al-it-ce" style="height:50px;font-weight: bold;">
                             <p style="color: black;margin: 0;vertical-align: center;">Singer Ads</p>
                         </div>
-                        <div class="dis-flex wid-50 ju-co-ce ju-it-ce" style="height:50px;font-weight: bold;">
+                        <div class="dis-flex wid-50 ju-co-ce al-it-ce" style="height:50px;font-weight: bold;">
                             <p style="color: black;">7</p>
                         </div>
                     </div>
                     <hr style="width: 100%;">
-                    <div class="dis-flex ju-co-ce ju-it-ce wid-100">
-                        <div class="wid-50 dis-flex ju-co-ce ju-it-ce " style="w:50px;font-weight: bold;">
+                    <div class="dis-flex ju-co-ce al-it-ce wid-100">
+                        <div class="wid-50 dis-flex ju-co-ce al-it-ce " style="w:50px;font-weight: bold;">
                             <p style="color: black;">Band Ads</p>
                         </div>
-                        <div class="dis-flex  wid-50 ju-co-ce ju-it-ce" style="height:50px;font-weight: bold;">
+                        <div class="dis-flex  wid-50 ju-co-ce al-it-ce" style="height:50px;font-weight: bold;">
                             <p style="color: black;">4</p>
                         </div>
                     </div>
                     <hr style="width: 100%;">
-                    <div class="dis-flex ju-co-ce ju-it-ce wid-100">
-                        <div class="dis-flex wid-50 ju-co-ce ju-it-ce" style="height:50px;font-weight: bold;">
+                    <div class="dis-flex ju-co-ce al-it-ce wid-100">
+                        <div class="dis-flex wid-50 ju-co-ce al-it-ce" style="height:50px;font-weight: bold;">
                             <p style="color: black;">Venue Ads</p>
                         </div>
-                        <div class="dis-flex wid-50 ju-co-ce ju-it-ce" style="height:50px;font-weight: bold;">
+                        <div class="dis-flex wid-50 ju-co-ce al-it-ce" style="height:50px;font-weight: bold;">
                             <p style="color: black;">1</p>
                         </div>
                     </div>
                     <div class="wid-100 dis-flex-col al-it-ce ju-co-ce" style="height:50px;font-weight: bold;background-color: mediumpurple;font-size: large ">
                         <p style="color: white;">Posted</p>
                     </div>
-                    <div class="dis-flex ju-co-ce ju-it-ce wid-100">
-                        <div class="dis-flex wid-50 ju-co-ce ju-it-ce" style="height:50px;font-weight: bold;">
-                            <p style="color: black;margin: 0;vertical-align: center;">Singer Ads</p>
+                    <div class="dis-flex ju-co-ce al-it-ce wid-100">
+                        <div class="dis-flex wid-50 ju-co-ce al-it-ce" style="height:50px;font-weight: bold;">
+                            <p style="color: black;margin: 0;">Singer Ads</p>
                         </div>
-                        <div class="dis-flex wid-50 ju-co-ce ju-it-ce" style="height:50px;font-weight: bold;">
+                        <div class="dis-flex wid-50 ju-co-ce al-it-ce" style="height:50px;font-weight: bold;">
                             <p style="color: black;">31</p>
                         </div>
                     </div>
                     <hr style="width: 100%;">
-                    <div class="dis-flex ju-co-ce ju-it-ce wid-100">
-                        <div class="wid-50 dis-flex ju-co-ce ju-it-ce " style="w:50px;font-weight: bold;">
+                    <div class="dis-flex ju-co-ce al-it-ce wid-100">
+                        <div class="wid-50 dis-flex ju-co-ce al-it-ce " style="w:50px;font-weight: bold;">
                             <p style="color: black;">Band Ads</p>
                         </div>
-                        <div class="dis-flex  wid-50 ju-co-ce ju-it-ce" style="height:50px;font-weight: bold;">
+                        <div class="dis-flex  wid-50 ju-co-ce al-it-ce" style="height:50px;font-weight: bold;">
                             <p style="color: black;">15</p>
                         </div>
                     </div>
                     <hr style="width: 100%;">
-                    <div class="dis-flex ju-co-ce ju-it-ce wid-100">
-                        <div class="dis-flex wid-50 ju-co-ce ju-it-ce" style="height:50px;font-weight: bold;">
+                    <div class="dis-flex ju-co-ce al-it-ce wid-100">
+                        <div class="dis-flex wid-50 ju-co-ce al-it-ce" style="height:50px;font-weight: bold;">
                             <p style="color: black;">Venue Ads</p>
                         </div>
-                        <div class="dis-flex wid-50 ju-co-ce ju-it-ce" style="height:50px;font-weight: bold;">
+                        <div class="dis-flex wid-50 ju-co-ce al-it-ce" style="height:50px;font-weight: bold;">
                             <p style="color: black;">12</p>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div>
+                <button class="btn-lay-2" id="download">Download</button>
             </div>
 
             
@@ -514,8 +518,12 @@
             });
 
 
-
-
+            document.getElementById("download").addEventListener("click",()=>{
+                const invoice = document.getElementById("dash");
+                console.log(invoice);
+                console.log(window);
+                html2pdf().from(invoice).save()
+            })
 
         </script>
 
