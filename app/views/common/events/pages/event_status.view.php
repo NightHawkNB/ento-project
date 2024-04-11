@@ -211,7 +211,8 @@
 
     <div class="es-overlay"></div>
 
-    <div class="venue-popup popup open-popup">
+<!--  Venue selection popup  -->
+    <div class="venue-popup popup">
         <!--        <input type="text" name="custom_band_name" id="custom_band_name" placeholder="Enter the name of the band ... ">-->
         <div class="dis-flex" style="justify-content: flex-end">
             <button type="button" onclick="togglePopup('venue', false)">&cross;</button>
@@ -263,6 +264,60 @@
 
         </div>
 
+    </div>
+
+
+<!--  Band selection popup  -->
+    <div class="band-popup popup open-popup">
+        <!--        <input type="text" name="custom_band_name" id="custom_band_name" placeholder="Enter the name of the band ... ">-->
+        <div class="dis-flex" style="justify-content: flex-end">
+            <button type="button" onclick="togglePopup('band', false)">&cross;</button>
+        </div>
+
+        <nav class="amazing-tabs">
+            <div class="filters-container">
+                <div class="filters-wrapper">
+                    <ul class="filter-tabs">
+                        <li>
+                            <button class="filter-button filter-active" data-translate-value="0">
+                                Available
+                            </button>
+                        </li>
+                        <li>
+                            <button class="filter-button" data-translate-value="100%">
+                                Custom
+                            </button>
+                        </li>
+                    </ul>
+                    <div class="filter-slider" aria-hidden="true">
+                        <div class="filter-slider-rect">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div id="availableSection2" class="es-popup-content">
+
+            <?php
+            if(!empty($band_set)) {
+                foreach ($band_set as $single_band) {
+                    $this->view('common/events/components/band_select', (array)$single_band);
+                };
+            } else {
+                echo "No Bands to Display";
+            }
+            ?>
+
+        </div>
+
+        <div id="customSection2" class="es-popup-content">
+
+            <div class="title">Add custom venue details</div>
+            <input type="text" name="venue_name" id="custom_venue_input" placeholder="Enter the name of the venue ... ">
+            <div class="button-container">
+                <button type="button" onclick="select_custom_venue()" class="button-s2">Add Custom Venue</button>
+            </div>
+        </div>
     </div>
 
 
@@ -396,6 +451,11 @@
                 custom: document.getElementById('customSection'),
             };
 
+            const adSections2 = {
+                available2: document.getElementById('availableSection2'),
+                custom2: document.getElementById('customSection2'),
+            }
+
             // Initial setup to select the "Available" tab
             const initialTab = filterButtons[0]; // Select the first button (Available)
             initialTab.classList.add("filter-active");
@@ -414,11 +474,20 @@
 
                 // Show the corresponding ad section and hide others
                 const selectedCategory = targetTab.innerText.toLowerCase();
+                const selectedCategory2 = targetTab.innerText.toLowerCase() + '2';
                 for (const category in adSections) {
                     if (category === selectedCategory) {
                         adSections[category].style.display = 'flex'; // Show selected section
                     } else {
                         adSections[category].style.display = 'none'; // Hide other sections
+                    }
+                }
+
+                for (const category in adSections2) {
+                    if (category === selectedCategory2) {
+                        adSections2[category].style.display = 'flex'; // Show selected section
+                    } else {
+                        adSections2[category].style.display = 'none'; // Hide other sections
                     }
                 }
             };
@@ -434,6 +503,7 @@
 
             // Initially hide band and venue sections
             adSections.custom.style.display = 'none';
+            adSections2.custom2.style.display = 'none';
         })
 
         // ##################################### Selecting within the popup ###############################################

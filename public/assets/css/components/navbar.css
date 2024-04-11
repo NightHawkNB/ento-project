@@ -12,6 +12,11 @@ header {
     background-color: var(--purple-primary);
     padding: 10px;
     z-index: 10;
+    min-height: 75px;
+
+    #logo {
+        margin: 0 10px;
+    }
 }
 
 .container {

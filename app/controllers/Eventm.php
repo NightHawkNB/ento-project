@@ -270,6 +270,17 @@ class Eventm extends controller{
                 WHERE V.location = :location AND AD.deleted = 0 AND V.deleted = 0
             ', ['location' => $event_data->district]);
 
+            $data['band_set'] = $db->query('
+                SELECT 
+                    SP.sp_id, 
+                    ADB.*, 
+                    AD.*
+                FROM ads AD
+                JOIN ad_band ADB ON AD.ad_id = ADB.ad_id
+                JOIN serviceprovider SP ON AD.user_id = SP.user_id
+                WHERE AD.deleted = 0
+            ');
+
             $data['event'] = $event_data;
             $data['band'] = $band_data ?? [];
             $data['venue'] = $venue_data ?? [];
