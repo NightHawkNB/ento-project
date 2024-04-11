@@ -1,5 +1,5 @@
 <html lang="en">
-<?php $this->view('includes/head', ['style' => 'pages/create_event.css']) ?>
+<?php $this->view('includes/head', ['style' => ['pages/create_event.css']]) ?>
 <body>
 
     <?php if(!Auth::is_client() || !Auth::is_admin() || !Auth::is_cca()): ?>
@@ -36,7 +36,6 @@
   
 
 </style>
-
         <div class="dis-grid-c3 wid-100 pad-10 gap-10 cards">
             <div class=" card">
                 <div>
@@ -130,7 +129,7 @@
                                 <tr>
                             <td>$complain->comp_id</td>
                             <td>$complain->details</td>
-                            <td>$complain->datetime</td>
+                            <td>$complain->date_time</td>
                             <td><span class='status Accept'>$complain->status</span></td>
                         </tr>
                             ";
@@ -156,24 +155,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Nipun</td>
-                            <td>12:00</td>
-                            <td><span class="status Accept">Accept</span></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Akila</td>
-                            <td>11:00</td>
-                            <td><span class="status Pending">Pending</span></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Madusha</td>
-                            <td>02:00</td>
-                            <td><span class="status Denied">Denied</span></td>
-                        </tr>
+                    <?php
+                        if(!empty($uservreqs)){
+                            foreach($uservreqs as $ureq){
+                                echo "
+                                <tr>
+                                <td>$ureq->userVreq_id</td>
+                                <td>$ureq->user_id</td>
+                                <td>$ureq->timestamps</td>
+                                <td>$ureq->resources</td>
+                                </tr>
+                                ";
+                            }
+                        }
+                        else{
+                            echo "No user verification Request";
+                        }
+                        ?>
                     </tbody>
                 </table>
             
