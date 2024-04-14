@@ -42,12 +42,15 @@
                     color: gray;
                 }
 
-                input:disabled {
+                input:disabled,
+                select:disabled {
                     background-color: var(--white-link);
                     border: none;
                     text-align: center;
                     letter-spacing: 2px;
                     font-weight: bold;
+                    color: var(--font-primary);
+                    opacity: 100%;
                 }
 
                 div.p-img {
@@ -115,12 +118,15 @@
                 <form method="post" enctype="multipart/form-data" class="">
                     <div class="pos-rel p-img">
                         <img id="image-ad" class="bor-rad-5" src="<?= (str_contains($user->image, 'general')) ? ROOT.'assets/images/ads/general.png' :  ROOT.$user->image ?>" alt="general image">
+                        <?php if($user->user_id == Auth::getUser_id()) : ?>
                         <label for="image">
                             <svg class="feather txt-c-white feather-upload" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
                             <input onchange="load_image(this.files[0])" type="file" id="image" name="image" class="hide">
                         </label>
+                        <?php endif; ?>
                         <div class="error"></div>
 
+                        <?php if($user->user_id == Auth::getUser_id()) : ?>
                         <div class="profile_visibility">
                             <h2>Profile Visibility</h2>
 
@@ -136,6 +142,7 @@
                                 </div>
                             </div>
                         </div>
+                        <?php endif; ?>
 
                         <script>
                             // Script for changing the public_profile's visibility
@@ -340,24 +347,24 @@
                     <div class="p-i-container" style="padding-top: 20px">
                         <div class="">
                             <label for="fname">First Name</label>
-                            <input type="text" name="fname" value="<?= set_value($user->fname) ?>">
+                            <input type="text" name="fname" value="<?= set_value($user->fname) ?>" <?= $user->user_id == Auth::getUser_id() ? '' : 'disabled' ?>>
                         </div>
 
                         <div class="">
                             <label for="lname">Last Name</label>
-                            <input type="text" name="lname" value="<?= set_value($user->lname) ?>">
+                            <input type="text" name="lname" value="<?= set_value($user->lname) ?>" <?= $user->user_id == Auth::getUser_id() ? '' : 'disabled' ?>>
                         </div>
                     </div>
 
                     <div class="p-i-container">
                         <div class="">
                             <label for="email">Email</label>
-                            <input type="text" name="email" value='<?= $user->email ?>' >
+                            <input type="text" name="email" value='<?= $user->email ?>' <?= $user->user_id == Auth::getUser_id() ? '' : 'disabled' ?>>
                         </div>
 
                         <div class="">
                             <label for="contact_num">Contact Number</label>
-                            <input type="tel" size="10" pattern="[0]{1}[0-9]{9}" name="contact_num" value="<?= set_value($user->contact_num) ?>">
+                            <input type="tel" size="10" pattern="[0]{1}[0-9]{9}" name="contact_num" value="<?= set_value($user->contact_num) ?>" <?= $user->user_id == Auth::getUser_id() ? '' : 'disabled' ?>>
                         </div>
                     </div>
 
@@ -372,7 +379,7 @@
 
                         <div class="">
                             <label for="province">Province</label>
-                            <select name="province" id="province" onchange="updateDistrict()">
+                            <select name="province" id="province" onchange="updateDistrict()" <?= $user->user_id == Auth::getUser_id() ? '' : 'disabled' ?>>
                                 <option value="central" <?= ($user->province == "central") ? 'selected' : '' ?>>Central</option>
                                 <option value="eastern" <?= ($user->province == "eastern") ? 'selected' : '' ?>>Eastern</option>
                                 <option value="northCentral" <?= ($user->province == "northCentral") ? 'selected' : ''?>>North Central</option>
@@ -387,25 +394,27 @@
 
                         <div class="">
                             <label for="district">District</label>
-                            <select name="district" id="district"></select>
+                            <select name="district" id="district" <?= $user->user_id == Auth::getUser_id() ? '' : 'disabled' ?>></select>
                         </div>
                     </div>
 
                     <div class="p-i-container">
                         <div class="">
                             <label for="address1">Address 01</label>
-                            <input type="text" name="address1" value="<?= $user->address1 ?>" >
+                            <input type="text" name="address1" value="<?= $user->address1 ?>" <?= $user->user_id == Auth::getUser_id() ? '' : 'disabled' ?>>
                         </div>
 
                         <div class="">
                             <label for="address2">Address 02</label>
-                            <input type="text" name="address2" value="<?= $user->address2 ?>" >
+                            <input type="text" name="address2" value="<?= $user->address2 ?>" <?= $user->user_id == Auth::getUser_id() ? '' : 'disabled' ?>>
                         </div>
                     </div>
 
+                    <?php if($user->user_id == Auth::getUser_id()) : ?>
                     <div class="wid-100 dis-flex ju-co-ce">
                         <button type="submit" class="button-s2">Save Changes</button>
                     </div>
+                    <?php endif; ?>
                 </form>
             </div>
         </section>
