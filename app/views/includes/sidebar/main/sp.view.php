@@ -1,4 +1,6 @@
-<?php if (Auth::is_singer() || Auth::is_band() || Auth::is_venuem()): ?>
+<?php if (Auth::is_singer() || Auth::is_band() || Auth::is_venuem() || Auth::is_eventm()): ?>
+
+    <?php if (!Auth::is_singer() AND !Auth::is_eventm()): ?>
     <li class="nav-item sub-menu-header <?= set_activated($_SESSION['USER_DATA']->user_type.'/ads') ?>" onclick="open_submenu(this)">
         <svg class="feather feather-send" fill="none" height="24" stroke="currentColor" stroke-linecap="round"
              stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -7,8 +9,8 @@
         </svg>
         <span class="link-name">Advertisements</span>
     </li>
+
     <ul class="sub-menu" id="subm">
-        <?php if (($_SESSION['USER_DATA']->ad_count == 0 && $_SESSION['USER_DATA']->user_type != 'venuem') or $_SESSION['USER_DATA']->user_type == 'venuem'): ?>
             <li class="nav-item <?= set_activated($_SESSION['USER_DATA']->user_type.'/ads/create-ad') ?>">
                 <a class="nav-link"
                    href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/ads/create-ad">
@@ -22,7 +24,6 @@
                     <span class="link-name">Create Ad</span>
                 </a>
             </li>
-        <?php endif; ?>
 
         <li class="nav-item">
             <a class="nav-link" href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/ads">
@@ -61,6 +62,18 @@
             </a>
         </li>
     </ul>
+    <?php else: ?>
+
+        <li class="nav-item <?= set_activated($_SESSION['USER_DATA']->user_type.'/public_profile') ?>">
+            <a class="nav-link" href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/public_profile">
+                <svg class="feather feather-award" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="8" r="7"/>
+                    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+                <span class="link-name">Public Profile</span>
+            </a>
+        </li>
+
+    <?php endif; ?>
 
     <li class="nav-item sub-menu-header <?= set_activated($_SESSION['USER_DATA']->user_type.'/reservations') ?>" onclick="open_submenu(this)">
         <svg class="feather feather-edit" fill="none" height="24" stroke="currentColor" stroke-linecap="round"

@@ -277,19 +277,19 @@
         <nav class="amazing-tabs">
             <div class="filters-container">
                 <div class="filters-wrapper">
-                    <ul class="filter-tabs">
+                    <ul class="filter-tabs-2">
                         <li>
-                            <button class="filter-button filter-active" data-translate-value="0">
+                            <button class="filter-button-2 filter-active" data-translate-value="0">
                                 Available
                             </button>
                         </li>
                         <li>
-                            <button class="filter-button" data-translate-value="100%">
+                            <button class="filter-button-2" data-translate-value="100%">
                                 Custom
                             </button>
                         </li>
                     </ul>
-                    <div class="filter-slider" aria-hidden="true">
+                    <div class="filter-slider-2" aria-hidden="true">
                         <div class="filter-slider-rect">&nbsp;</div>
                     </div>
                 </div>
@@ -442,7 +442,7 @@
         }
 
 
-        // ##################################### Slider Script ###############################################
+        // ##################################### Slider Script for VENUE ###############################################
         document.addEventListener("DOMContentLoaded", function () {
             const filterTabs = document.querySelector(".filter-tabs");
             const filterButtons = document.querySelectorAll(".filter-button");
@@ -450,11 +450,6 @@
                 available: document.getElementById('availableSection'),
                 custom: document.getElementById('customSection'),
             };
-
-            const adSections2 = {
-                available2: document.getElementById('availableSection2'),
-                custom2: document.getElementById('customSection2'),
-            }
 
             // Initial setup to select the "Available" tab
             const initialTab = filterButtons[0]; // Select the first button (Available)
@@ -474,7 +469,6 @@
 
                 // Show the corresponding ad section and hide others
                 const selectedCategory = targetTab.innerText.toLowerCase();
-                const selectedCategory2 = targetTab.innerText.toLowerCase() + '2';
                 for (const category in adSections) {
                     if (category === selectedCategory) {
                         adSections[category].style.display = 'flex'; // Show selected section
@@ -482,15 +476,56 @@
                         adSections[category].style.display = 'none'; // Hide other sections
                     }
                 }
-
-                for (const category in adSections2) {
-                    if (category === selectedCategory2) {
-                        adSections2[category].style.display = 'flex'; // Show selected section
-                    } else {
-                        adSections2[category].style.display = 'none'; // Hide other sections
-                    }
-                }
             };
+
+            // ##################################### Slider Script for BAND ###############################################
+            document.addEventListener("DOMContentLoaded", function () {
+                const filterTabs = document.querySelector(".filter-tabs");
+                const filterButtons = document.querySelectorAll(".filter-button");
+                const adSections = {
+                    available: document.getElementById('availableSection'),
+                    custom: document.getElementById('customSection'),
+                };
+
+                // Initial setup to select the "Available" tab
+                const initialTab = filterButtons[0]; // Select the first button (Available)
+                initialTab.classList.add("filter-active");
+
+                const root = document.documentElement;
+                const targetTranslateValue = initialTab.dataset.translateValue;
+                root.style.setProperty("--translate-filters-slider", targetTranslateValue);
+
+                // Function to handle active tab
+                const handleActiveTab = (targetTab) => {
+                    filterButtons.forEach((tab) => {
+                        tab.classList.remove("filter-active");
+                    });
+
+                    targetTab.classList.add("filter-active");
+
+                    // Show the corresponding ad section and hide others
+                    const selectedCategory = targetTab.innerText.toLowerCase();
+                    for (const category in adSections) {
+                        if (category === selectedCategory) {
+                            adSections[category].style.display = 'flex'; // Show selected section
+                        } else {
+                            adSections[category].style.display = 'none'; // Hide other sections
+                        }
+                    }
+                };
+
+                // Event listener for filter tabs
+                filterTabs.addEventListener("click", (event) => {
+                    if (event.target.classList.contains("filter-button")) {
+                        const targetTranslateValue = event.target.dataset.translateValue;
+                        root.style.setProperty("--translate-filters-slider", targetTranslateValue);
+                        handleActiveTab(event.target)
+                    }
+                })
+
+                // Initially hide band and venue sections
+                adSections.custom.style.display = 'none';
+            })
 
             // Event listener for filter tabs
             filterTabs.addEventListener("click", (event) => {
@@ -503,7 +538,6 @@
 
             // Initially hide band and venue sections
             adSections.custom.style.display = 'none';
-            adSections2.custom2.style.display = 'none';
         })
 
         // ##################################### Selecting within the popup ###############################################
