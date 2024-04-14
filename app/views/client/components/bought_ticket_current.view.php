@@ -9,7 +9,7 @@ $etime = $edateTime->format('H:i:s');
 ?>
 
 
-<div class="card txt-c-white">
+<div class="card txt-c-black">
     <div class="card-header">
         <h2><?= $ename?></h2>
     </div>
