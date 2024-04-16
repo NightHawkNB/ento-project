@@ -20,10 +20,11 @@ class Controller
     }
 
     // Commonly used function that handles profile related routes
-    public function profile($method = null): void
+    public function profile($method = null, $action = null): void
     {
 
         $user = new User();
+        $db = new Database();
 
         $data['user'] = $row = $user->first(['user_id' => Auth::getUser_id()]);
 
@@ -89,8 +90,68 @@ class Controller
 
         }
 
-        if (empty($method)) redirect('client/profile/edit-profile');
-        if ($method === 'edit-profile') $this->view('common/profile/edit', $data);
+        if (empty($method)) redirect($row->user_type . '/profile/edit-profile');
+        if ($method === 'edit-profile') {
+
+            if($row->user_type == 'singer') {
+                $data['past_events'] = $db->query("
+                    SELECT E.image, E.name, E.details
+                    FROM event E
+                ");
+//                $data['past_events'] = $db->query("
+//                    SELECT E.image, E.name, E.details
+//                    FROM event E
+//                    JOIN event_singer ES ON E.event_id = ES.event_id
+//                    JOIN singer S ON ES.singer_id = S.singer_id
+//                    JOIN serviceprovider SP ON S.sp_id = SP.sp_id
+//                    JOIN user U ON SP.user_id = U.user_id
+//                    WHERE E.status = 'Completed' AND U.user_id = :user_id AND E.end_time < CURRENT_TIMESTAMP
+//                ", ['user_id' => Auth::getUser_id()]);
+            } else if($row->user_type == 'band') {
+                $data['past_events'] = $db->query("
+                    SELECT E.image, E.name, E.details
+                    FROM event E
+                    JOIN band B ON E.band_id = B.band_id
+                    JOIN serviceprovider SP ON B.sp_id = SP.sp_id
+                    JOIN user U ON SP.user_id = U.user_id
+                    WHERE E.status = 'Completed' AND U.user_id = :user_id AND E.end_time < CURRENT_TIMESTAMP
+                ", ['user_id' => Auth::getUser_id()]);
+            }
+
+            $data['reviews'] = $db->query("
+                SELECT *
+                FROM review R
+                JOIN user U1 ON R.creator_id = U1.user_id
+                JOIN user U2 ON R.creator_id = U2.user_id
+                WHERE R.target_id = :user_id
+            ", ['user_id' => Auth::getUser_id()]);
+
+            if($action == "visibility") {
+                // Updating the visibility of the user based on the toggle button in the public profile page
+
+                try {
+
+                    $row = $user->first(['user_id' => Auth::getUser_id()]);
+
+                    // Accessing the raw JSON data sent from the client
+                    $json_data = file_get_contents("php://input");
+
+                    // If the second argument is set to true, the function returns an array. Otherwise, it returns an object
+                    $php_data = json_decode($json_data);
+
+                    $user->update(Auth::getUser_id(), ['visible' => $php_data->visibility]);
+                    $_SESSION['USER_DATA']->visible = $php_data->visibility;
+
+                    echo "success";
+                } catch (Exception $e) {
+                    echo "failed";
+                }
+
+                die;
+            } else {
+                $this->view('common/profile/edit', $data);
+            }
+        }
         else if ($method === 'settings') $this->view('common/profile/settings', $data);
         else if ($method === 'verify') $this->view('common/profile/verify', $data);
         else if ($method === 'change-password') $this->view('common/profile/change-password', $data);
