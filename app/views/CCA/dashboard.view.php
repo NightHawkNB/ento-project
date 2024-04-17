@@ -39,8 +39,8 @@
         <div class="dis-grid-c3 wid-100 pad-10 gap-10 cards">
             <div class=" card">
                 <div>
-                    <div class="numbers">102</div>
-                    <div class="cardname">Verify</div>
+                    <div class="numbers"><?= $count ?></div>
+                    <div class="cardname">New Users</div>
                 </div>
                 <div class="iconbox">
                     <ion-icon name="person-add-outline"></ion-icon>
@@ -57,11 +57,11 @@
             </div>
             <div class="card">
                 <div>
-                    <div class="numbers">1504</div>
-                    <div class="cardname">Daily Views</div>
+                    <div class="numbers">20</div>
+                    <div class="cardname">Venue</div>
                 </div>
                 <div class="iconbox">
-                    <ion-icon name="eye-outline"></ion-icon>
+                    <ion-icon name="alert-circle-outline"></ion-icon>
                 </div>
             </div>
         </div>
@@ -100,7 +100,7 @@
                 align-item:left;
                 margin-bottom: 20px;
             }
-            .details .cardheader .btn{
+            .details .cardheader a.btn{
                 position: relative;
                 padding: 5px 10px;
                 color: black;
@@ -111,7 +111,7 @@
             <div class="Complaints">
                 <div class="cardheader">
                     <h2>Complaints</h2>
-                    <a href="#" class="btn">View All</a>
+                    <a href="<?= ROOT ?>/cca/complaints/" class="btn">View All</a>
                 </div>
                 <table>
                     <thead>
@@ -143,7 +143,7 @@
             
                 <div class="cardheader">
                     <h2>New Users</h2>
-                    <a href="#" class="btn">View All</a>
+                    <a href="<?= ROOT ?>/cca/verify/" class="btn">View All</a>
                 </div>
                 <table>
                     <thead>

@@ -1,5 +1,5 @@
 <html lang="en">
-<?php $this->view('includes/head' ,['style'=>['admin/adverification.css']]) ?>
+<?php $this->view('includes/head' ,['style'=>['cca/complaints.css']]) ?>
 <body>
 <div class="main-wrapper">
     <?php $this->view('includes/header') ?>
@@ -13,44 +13,44 @@
         <section class="cols-10 pad-20 mar-bot-10"　 style="width: 100%">
             <div class="bg-trans dis-flex-col gap-20 bg-lightgray flex-1 pad-20">
                 <div class="dis-flex-col bg-trans gap-10 pad-20 txt-ali-cen">
-                <nav class="amazing-tabs">
-                    <div class="filters-container">
-                        <div class="filters-wrapper">
-                            <ul class="filter-tabs">
-                                <li>
-                                    <button class="filter-button filter-active" data-translate-value="0">
-                                        Accepted
-                                    </button>
-                                </li>
-                                <li>
-                                    <button class="filter-button" data-translate-value="100%">
-                                        Idle
-                                    </button>
-                                </li>
-                                <li>
-                                    <button class="filter-button" data-translate-value="200%">
-                                        Assists
-                                    </button>
-                                </li>
-                                <li>
-                                    <button class="filter-button" data-translate-value="300%">
-                                        Handled
-                                    </button>
-                                </li>
-                               
-                            </ul>
-                            <div class="filter-slider" aria-hidden="true">
-                                <div class="filter-slider-rect">&nbsp;</div>
+                    <nav class="amazing-tabs">
+                        <div class="filters-container">
+                            <div class="filters-wrapper">
+                                <ul class="filter-tabs">
+                                    <li>
+                                        <button class="filter-button filter-active" data-translate-value="0">
+                                            Accepted
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button class="filter-button" data-translate-value="100%">
+                                            Idle
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button class="filter-button" data-translate-value="200%">
+                                            Assists
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button class="filter-button" data-translate-value="300%">
+                                            Handled
+                                        </button>
+                                    </li>
+
+                                </ul>
+                                <div class="filter-slider" aria-hidden="true">
+                                    <div class="filter-slider-rect">&nbsp;</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </nav>
+                    </nav>
                     <div id="acceptedsection" class="complaint-section flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="max-height: 60vh; overflow:auto; padding-right: 10px">
 
                         <?php
                         if(!empty($acc)) {
                             foreach($acc as $complaint){
-                                $this->view('pages/complaints/single_request', (array)$complaint);
+                                $this->view('CCA/components/complaint_filter/accepted', (array)$complaint);
                             }
                         } else {
                             echo "no complaints";
@@ -66,7 +66,7 @@
                         <?php
                         if(!empty($idl)){
                             foreach ($idl as $complaint) {
-                                $this->view('pages/complaints/single_request', (array)$complaint);
+                                $this->view('CCA/components/complaint_filter/idle', (array)$complaint);
                             }
                         }else{
                             echo "no complaints";
@@ -80,7 +80,7 @@
                         <?php
                         if(!empty($assi)){
                             foreach ($assi as $complaint) {
-                                $this->view('pages/complaints/single_request', (array)$complaint);
+                                $this->view('CCA/components/complaint_filter/assists', (array)$complaint);
                             }
                         }else{
                             echo "no complaints";
@@ -94,7 +94,7 @@
                         <?php
                         if(!empty($hand)) {
                             foreach($hand as $complaint){
-                                $this->view('pages/complaints/single_request', (array)$complaint);
+                                $this->view('CCA/components/complaint_filter/handled', (array)$complaint);
                             }
                         } else {
                             echo "no complaints";

@@ -1,7 +1,7 @@
 <html lang="en">
 <?php $this->view('includes/head') ?>
 <style>
-    .verify-container {
+    .complaint-container {
         width: 100%;
         height: 100%;
         background: #fff;
@@ -18,7 +18,7 @@
         }
     }
 
-    .verify-container header {
+    .complaint-container header {
         font-size: 1.5rem;
         color: #333;
         font-weight: 500;
@@ -58,7 +58,7 @@
         color: #333;
     }
 
-    .verify-container .right {
+    .complaint-container .right {
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -71,7 +71,7 @@
         }
     }
 
-    .verify-container .left {
+    .complaint-container .left {
         display: flex;
         flex-direction: column;
         gap: 20px;
