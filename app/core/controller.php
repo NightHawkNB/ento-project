@@ -599,6 +599,46 @@ class Controller
         }
     }
 
+
+    // Showing the user profiles to the public
+    public function user_profile($id = null) {
+        $user = new User();
+        $db = new Database();
+
+        $data['user'] = $user->first(['user_id' => $id]);
+
+        if($row->user_type == 'singer') {
+            $data['past_events'] = $db->query("
+                    SELECT E.image, E.name, E.details
+                    FROM event E
+                    JOIN event_singer ES ON E.event_id = ES.event_id
+                    JOIN singer S ON ES.singer_id = S.singer_id
+                    JOIN serviceprovider SP ON S.sp_id = SP.sp_id
+                    JOIN user U ON SP.user_id = U.user_id
+                    WHERE E.status = 'Completed' AND U.user_id = :user_id AND E.end_time < CURRENT_TIMESTAMP
+                ", ['user_id' => Auth::getUser_id()]);
+        } else if($row->user_type == 'band') {
+            $data['past_events'] = $db->query("
+                    SELECT E.image, E.name, E.details
+                    FROM event E
+                    JOIN band B ON E.band_id = B.band_id
+                    JOIN serviceprovider SP ON B.sp_id = SP.sp_id
+                    JOIN user U ON SP.user_id = U.user_id
+                    WHERE E.status = 'Completed' AND U.user_id = :user_id AND E.end_time < CURRENT_TIMESTAMP
+                ", ['user_id' => Auth::getUser_id()]);
+        }
+
+        $data['reviews'] = $db->query("
+                SELECT *
+                FROM review R
+                JOIN user U1 ON R.creator_id = U1.user_id
+                JOIN user U2 ON R.creator_id = U2.user_id
+                WHERE R.target_id = :user_id
+            ", ['user_id' => Auth::getUser_id()]);
+
+        $this->view('common/profile/edit', $data);
+    }
+
 }
 
 function get_all_ads($pending = 0, $deleted = 0): array
