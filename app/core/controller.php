@@ -97,16 +97,12 @@ class Controller
                 $data['past_events'] = $db->query("
                     SELECT E.image, E.name, E.details
                     FROM event E
-                ");
-//                $data['past_events'] = $db->query("
-//                    SELECT E.image, E.name, E.details
-//                    FROM event E
-//                    JOIN event_singer ES ON E.event_id = ES.event_id
-//                    JOIN singer S ON ES.singer_id = S.singer_id
-//                    JOIN serviceprovider SP ON S.sp_id = SP.sp_id
-//                    JOIN user U ON SP.user_id = U.user_id
-//                    WHERE E.status = 'Completed' AND U.user_id = :user_id AND E.end_time < CURRENT_TIMESTAMP
-//                ", ['user_id' => Auth::getUser_id()]);
+                    JOIN event_singer ES ON E.event_id = ES.event_id
+                    JOIN singer S ON ES.singer_id = S.singer_id
+                    JOIN serviceprovider SP ON S.sp_id = SP.sp_id
+                    JOIN user U ON SP.user_id = U.user_id
+                    WHERE E.status = 'Completed' AND U.user_id = :user_id AND E.end_time < CURRENT_TIMESTAMP
+                ", ['user_id' => Auth::getUser_id()]);
             } else if($row->user_type == 'band') {
                 $data['past_events'] = $db->query("
                     SELECT E.image, E.name, E.details
