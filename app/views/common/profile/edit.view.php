@@ -309,12 +309,25 @@
                     .rating {
                         background-color: white;
                         border-radius: 5px;
-                        padding: 0 10px;
+                        /*padding: 0 10px;*/
+                        width: fit-content;
                         display: flex;
+                        align-items: center;
+                    }
+
+                    &.review {
+                        background-color: white;
+                        display: flex;
+                        padding: 10px 20px 10px 10px
+                        justify-content: space-between;
                         align-items: center;
                     }
                 }
             }
+        }
+
+        .past_review_section {
+            background-color: transparent;
         }
 
         /* Star Coloring Scheme */
@@ -337,7 +350,7 @@
             <?php $this->view('includes/sidebar') ?>
         </section>
 
-        <section class="wid-100 dis-flex-col ju-co-sa gap-20" style="padding: 0 10px 10px 10px">
+        <section class="wid-100 dis-flex-col ju-co-sa" style="padding: 10px 10px 10px 10px; gap: 30px;">
 
             <div class="option-bar">
 
@@ -357,13 +370,6 @@
                                 <p class="js-right-text">HIDDEN</p>
                             </div>
                         </div>
-                    </div>
-                <?php endif; ?>
-
-
-                <?php if($user->user_id == Auth::getUser_id()) : ?>
-                    <div class="dis-flex ju-co-ce">
-                        <button type="submit" class="button-s2">Save Changes</button>
                     </div>
                 <?php endif; ?>
 
@@ -510,6 +516,13 @@
                             <input type="text" name="address2" value="<?= $user->address2 ?>" <?= $user->user_id == Auth::getUser_id() ? '' : 'disabled' ?>>
                         </div>
                     </div>
+
+                    <?php if($user->user_id == Auth::getUser_id()) : ?>
+                        <div class="dis-flex ju-co-ce">
+                            <button type="submit" class="button-s2">Save Changes</button>
+                        </div>
+                    <?php endif; ?>
+
                 </form>
 
             </div>
