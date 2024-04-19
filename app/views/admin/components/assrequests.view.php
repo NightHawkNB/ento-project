@@ -8,7 +8,7 @@
 
             <div class="dis-flex-col txt-c-black gap-10">
                 <p class="txt-w-bold">Date and Time</p>
-                <p><?= $date_time ?></p>
+                <p><?= $created_at ?></p>
             </div>
 
             <div class="dis-flex-col txt-c-black gap-10">
