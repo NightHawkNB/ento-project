@@ -1,5 +1,5 @@
 <html lang="en">
-<?php $this->view('includes/head',['style'=>'admin/adverification.css']) ?>
+<?php $this->view('includes/head',['style'=>['admin/adverification.css']]) ?>
 <body>
 <div class="main-wrapper">
     <?php $this->view('includes/header') ?>

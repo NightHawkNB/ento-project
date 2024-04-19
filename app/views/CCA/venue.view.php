@@ -19,7 +19,7 @@
                                 <ul class="filter-tabs">
                                     <li>
                                         <button class="filter-button filter-active" data-translate-value="0">
-                                            New Users
+                                            New Venue
                                         </button>
                                     </li>
                                     <li>
@@ -39,7 +39,7 @@
                             </div>
                         </div>
                     </nav>
-                    <div id="newusersection" class="complaint-section flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="max-height: 60vh; overflow:auto; padding-right: 10px">
+                    <div id="newvenuesection" class="complaint-section flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="max-height: 60vh; overflow:auto; padding-right: 10px">
 
                         <?php
                         if(!empty($userid)){
@@ -85,59 +85,6 @@
                 </div>
             </div>
         </section>
-        <script>
-
-            document.addEventListener("DOMContentLoaded", function() {
-                const filterTabs = document.querySelector(".filter-tabs");
-                const filterButtons = document.querySelectorAll(".filter-button");
-                const verifySections = {
-                    newuser: document.getElementById('newusersection'),
-                    verified: document.getElementById('verifiedsection'),
-                    declined: document.getElementById('declinedsection')
-                };
-
-                // Initial setup to select the "Singer" tab
-                const initialTab = filterButtons[0]; // Select the first button (Singer)
-                initialTab.classList.add("filter-active");
-
-                const root = document.documentElement;
-                const targetTranslateValue = initialTab.dataset.translateValue;
-                root.style.setProperty("--translate-filters-slider", targetTranslateValue);
-
-                // Function to handle active tab
-                const handleActiveTab = (targetTab) => {
-                    filterButtons.forEach((tab) => {
-                        tab.classList.remove("filter-active");
-                    });
-
-                    targetTab.classList.add("filter-active");
-
-                    // Show the corresponding ad section and hide others
-                    const selectedCategory = targetTab.innerText.toLowerCase();
-                    for (const category in verifySections) {
-                        if (category === selectedCategory) {
-                            verifySections[category].style.display = 'flex'; // Show selected section
-                        } else {
-                            verifySections[category].style.display = 'none'; // Hide other sections
-                        }
-                    }
-                };
-
-                // Event listener for filter tabs
-                filterTabs.addEventListener("click", (event) => {
-                    if (event.target.classList.contains("filter-button")) {
-                        const targetTranslateValue = event.target.dataset.translateValue;
-                        root.style.setProperty("--translate-filters-slider", targetTranslateValue);
-                        handleActiveTab(event.target);
-                    }
-                });
-
-                // Initially hide band and venue sections
-                verifySections.verified.style.display = 'none';
-                verifySections.declined.style.display = 'none';
-            });
-
-        </script>
     </main>
 </div>
 </body>

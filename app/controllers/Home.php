@@ -310,4 +310,28 @@ class Home extends Controller{
         }
     }
 
+    //notifications details for page
+    public function all_notifications($method = null, $id = null, $action = null) : void
+    {
+        $db = new Database();
+
+//        $data['all_notifications']=$db->query('SELECT * From notifications n
+//        WHERE n.user_id = :user_id ', ['user_id'=> Auth::getUser_id()]);
+        $data['all_notifications'] = $db->query("SELECT *,
+                rr.type AS reservation_type,
+                n.type AS type
+                FROM
+                notifications n
+                JOIN reservations r
+                ON n.id= r.reservation_id
+                JOIN resrequest rr
+                ON r.reservation_id = rr.reservation_id
+                JOIN ads a
+                ON rr.ad_id = a.ad_id
+                WHERE n.user_id = :user_id && n.type = 'Reservation'",['user_id'=>Auth::getUser_id()]);
+
+        $this->view('common/notifications', $data);
+    }
+
+
 }

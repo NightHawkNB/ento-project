@@ -15,109 +15,161 @@ class CCA extends Controller{
 }
 
     public function index(){
-        $this->view("common/dashboard");
+        $comp = new Complaint(); //get the complaint count
+        $data["complaints"] = $comp->query("SELECT status, COUNT(*) AS complaints FROM complaints GROUP BY status");
+        $uservreq = new Uservreq();
+        $data["uservreqs"] = $uservreq->query("SELECT status, COUNT(*) AS uservreqs FROM uservreq GROUP BY status");
+//        $uservreq = new Uservreq();
+//        $data["uservreqs"] = $uservreq->query("SELECT status, COUNT(*) AS uservreqs FROM uservreq GROUP BY status");
+        $count = new Complaint();//get new complaint count
+        $data["count"] = $count->query("SELECT COUNT(*) as 'count' FROM complaints WHERE status = 'Idle'")[0]->count;
+        $vcount = new Uservreq(); //get new user count
+        $data["vcount"] = $vcount->query("SELECT COUNT(*) as 'vcount' FROM uservreq WHERE status = 'new' ")[0]->vcount;
+        $venuecount = new Uservreq();//get new venue count
+        $data["venuecount"] = $venuecount->query("SELECT COUNT(*) as 'venuecount' FROM venue WHERE venue_id ")[0]->venuecount;
+        $this->view("CCA/dashboard",$data);
     }
 
-    public function complaints($method = null, $id = null, $id2 = null){
-        if($method == "assists"){
-            if(empty($id)){
+    public function complaints($status = null, $action = null, $id = null)
+    {
+        if ($status == 'idle') {
+            if ($action == 'accept') {
+                // Accept the complaint by the cca
 
-                $req = new Assist_req();
-                $data['assists'] = $req->get_all();
-                $this->view("pages/complaints/assist_requests", $data);
-
-            } else if(is_numeric($id)) {
-
-                $req = new Assist_req();
-
-                if(!$req->where(['comp_id' => $id])) $req->insert(['comp_id' => $id]);
-
-                $complaint = new Complaint();
-                $complaint->update($id, ['comp_id' => $id, 'status' => "Assist"]);
-
-                message("Assistance Request Created");
-                redirect("cca/complaints");
-
-            } else if($id == "delete") {
-
-                $complaint = new Complaint();
-                $complaint->update($id2, ['comp_id' => $id2, 'status' => "Accepted"]);
-
-                $req = new Assist_req();
-                $req->query("DELETE FROM complaint_assist WHERE comp_id = :comp_id", ['comp_id' => $id2]);
-
-                message("Assistace Request Deleted Successfully");
-                redirect("cca/complaints/assists");
-
-            } else if($id == "update") {
-
-                $req = new Assist_req();
-
-                if($_SERVER['REQUEST_METHOD'] == "POST") {
-
-                    $req->query("UPDATE complaint_assist SET comment = :comment WHERE comp_id = :comp_id", ['comp_id' => $id2, 'comment' => $_POST['comment']]);
-
-                    message("Assistace Request Updated Successfully");
-                    redirect("cca/complaints/assists");
+                try {
+                    $comp = new Complaint();
+                    $comp->update($id, ['status' => 'Accepted']);
+                    message('Complaint Accepted', false, 'success');
+                } catch (Exception $e) {
+                    message('Complaint Failed to Accept', false, 'failure');
                 }
 
-                $row = $req->where(['comp_id' => $id2]);
-                $data['assists'] = $row[0];
-                $this->view("pages/complaints/update_assist", $data);
+                redirect('cca/complaints');
 
+
+            } else if ($action == 'handle') {
+                //　Handle the request
+
+                try {
+                    $comp = new Complaint();
+                    $comp->update($id, ['status' => 'Handled']);
+                    message('Complaint Handled', false, 'success');
+                } catch (Exception $e) {
+                    message('Complaint Failed to Handles', false, 'failure');
+                }
+
+                redirect('cca/complaints');
             } else {
-
-                message("Invalid URL");
-                redirect("cca/complaints");
-
+                // Redirect with error
             }
-        } else if($method == "handle") {
+        } elseif ($status == 'accepted') {
+            if ($action == 'assists') {
+                //get assist request
+                try {
+                    $comp = new Complaint();
+                    $comp->update($id, ['status' => 'Assist']);
+                    message('Complaint assist', false, 'success');
+                } catch (Exception $e) {
+                    message('Complaint Failed to assists', false, 'failure');
+                }
+                redirect('cca/complaints');
+            } elseif ($action == 'handle') {
+                //handle complaint
+                try {
+                    $comp = new Complaint();
+                    $comp->update($id, ['status' => 'Handled']);
+                    message('Complaint Handled', false, 'success');
+                } catch (Exception $e) {
+                    message('Complaint Failed to Handled', false, 'failure');
+                }
+                redirect('cca/complaints');
+            }
 
-            $req = new Assist_req();
-            $req->query("DELETE FROM complaint_assist WHERE comp_id = :comp_id", ['comp_id' => $id]);
+        } elseif ($status == 'assists') {
+            if ($action == 'update') {
+                //get assist request
+                try {
+                    $comp = new Complaint();
+                    $comp->update($id, ['status' => 'Update']);
+                    message('Complaint update', false, 'success');
+                } catch (Exception $e) {
+                    message('Complaint Failed to update', false, 'failure');
+                }
+                redirect('cca/complaints');
+            } elseif ($action == 'handle') {
+                //get assist request
 
-            $complaints = new Complaint();
-            $complaints->update($id, ['comp_id' => $id, 'status' => "Handled"]);
-
-            message("Complaint Handled");
-            redirect("cca/complaints");
+                $complaints = new Complaint();
+                $data['acc'] = $complaints->where(['status' => 'Accepted']);
+                $data['idl'] = $complaints->where(['status' => 'Idle']);
+                $data['assi'] = $complaints->where(['status' => 'Assist']);
+                $data['hand'] = $complaints->where(['status' => 'Handled']);
+                $this->view("CCA/view_complaints", $data);
+            }
+        }elseif($status== 'complaintdetails'){
+            $comp = new Complaint();
+            $data['comp']= $comp->first(['comp_id'=>$action]);
+            $this->view('cca/complaintdetails',$data);
 
         } else {
 
+
             $complaints = new Complaint();
-            $data['acc'] =$complaints->where(['status' => 'Accepted']);
-            $data['idl'] =$complaints->where(['status' => 'Idle']);
-            $data['assi'] =$complaints->where(['status' => 'Assist']);
-            $this->view("pages/complaints/view_complaints",$data);
+            $data['acc'] = $complaints->where(['status' => 'Accepted','cca_user_id'=>Auth::getUser_id()]);
+            $data['idl'] = $complaints->where(['status' => 'Idle']);
+            $data['assi'] = $complaints->where(['status' => 'Assist','cca_user_id'=>Auth::getUser_id()]);
+            $data['hand'] = $complaints->where(['status' => 'Handled']);
+            $this->view("CCA/view_complaints", $data);
 
 
         }
-    }
 
-    public function chat(){
-        $this->view("CCA/chats");
     }
+        public function chat(){
+            $this->view("CCA/chats");
+        }
+
+//        public function verify($status = null, $action=null, $id=null)
+//        {
+//            if ($status == 'newuser') {
+//                if ($action == 'null') {
+//                    // Accept the newuser by the cca
+//
+//
+//                    $ur = new Uservreq();
+//                    $data['assists'] = $ur->get_all();
+//                    $this->view("CCA/verify", $data);
+//
+//
+//                    redirect('cca/complaints');
+//                }
+//            }
+//        }
 
     public function verify($uservid=null){
 
         if(empty($uservid)){
-        
-                $ur = new Uservreq();
-                $data['assists'] = $ur->get_all();
-                $this->view("CCA/verify", $data);
-            }else{
-                $ur = new Uservreq();
-                $data['assists'] = $ur->query("
-                SELECT * FROM uservreq
-                JOIN user
-                ON user.user_id = uservreq.user_id
-                WHERE uservreq.userVreq_id = :userVreq_id
-            ", ['userVreq_id' => $uservid])[0];
-                $this->view("CCA/verifydetails", $data);
-            }
+            $ur = new Uservreq();
+            $data['assists'] = $ur->get_all();
+            $this->view("CCA/verify", $data);
+        }else{
+            $ur = new Uservreq();
+            $data['assists'] = $ur->query("
+            SELECT * FROM uservreq
+            JOIN user
+            ON user.user_id = uservreq.user_id
+            WHERE uservreq.userVreq_id = :userVreq_id
+        ", ['userVreq_id' => $uservid])[0];
+
+            $this->view("CCA/verifydetails", $data);
+        }
     }
 
     public function admanage(){
         $this->view("CCA/admanage");
     }
+    public function venue(){
+        $this->view("CCA/venue");
+    }
 }
+

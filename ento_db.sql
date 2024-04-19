@@ -6,7 +6,9 @@
 -- Generation Time: Mar 11, 2024 at 07:22 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
-
+DROP DATABASE IF EXISTS ento_db;
+     CREATE DATABASE ento_db;
+            use ento_db;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";

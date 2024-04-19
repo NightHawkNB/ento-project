@@ -19,8 +19,69 @@ class Admin extends Controller
 
     public function index()
     {
-        $this->view('common/dashboard');
+        $db=new Database();
+
+        $data['pending_ads']=$db->query("SELECT COUNT(*) FROM ads WHERE pending=1" );
+        $data['pending_assreq']=$db->query("SELECT COUNT(*) FROM complaint_assist WHERE status='Idle' ");
+
+        $userTypeData=$db->query("SELECT user_type,Count(*) AS count FROM user GROUP BY user_type");
+        $data['plabels'] = array_column($userTypeData, 'user_type');
+        $data['pdata'] = array_column($userTypeData, 'count');
+
+        $data['plabels'] = json_encode($data['plabels']);
+        $data['pdata'] = json_encode($data['pdata']);
+
+        //user accounts created for each month - line graph
+
+        $oneYearAgoMonth = date('Y-m', strtotime('-1 year'));
+        $result = $db->query("SELECT
+    SUBSTRING(joined_year_month, 1, 4) AS year,
+    SUBSTRING(joined_year_month, 6, 2) AS month,
+    user_type,
+    COUNT(*) AS count,
+    (
+        SELECT COUNT(*)
+        FROM user u2
+        WHERE u2.user_type = u.user_type
+        AND u2.joined_year_month <= u.joined_year_month
+    ) AS cumulative_count
+FROM
+    user u
+WHERE
+    joined_year_month >= DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 YEAR), '%Y-%m')
+    AND user_type IN ('client', 'singer', 'band', 'venue', 'eventm')
+GROUP BY
+    SUBSTRING(joined_year_month, 1, 4),
+    SUBSTRING(joined_year_month, 6, 2),
+    user_type");
+
+        $userTypeData = array();
+
+        foreach ($result as $row) {
+            $userType = $row->user_type;
+            $yearMonth = $row->year . '-' . $row->month;
+            $count = $row->count;
+            $cumulativeCount = $row->cumulative_count;
+
+            if (!isset($userTypeData[$userType])) {
+                $userTypeData[$userType] = array();
+            }
+
+            $userTypeData[$userType][$yearMonth] = array(
+                'count' => $count,
+                'cumulative_count' => $cumulativeCount
+            );
+        }
+
+        ;
+        $data['userTypeData'] = $userTypeData;
+        $data['userTypeData'] = json_encode($data['userTypeData']);
+
+
+        $this->view('admin/dashboard', $data);
+
     }
+
 
     public function ccareq($id = null, $method = null)
     {
@@ -231,29 +292,6 @@ class Admin extends Controller
         } else {
 
         }
-    }
-
-    public function profile($method = null): void
-    {
-        $user = new User();
-
-        $data['user'] = $row = $user->first(['user_id' => Auth::getUser_id()]);
-
-        if ($_SERVER['REQUEST_METHOD'] == "POST" && $row) {
-            $user->update($row->user_id, $_POST);
-            redirect("singer/profile/edit-profile/" . $row->user_id);
-        }
-
-        if (empty($method)) $this->view('common/profile/overview', $data);
-        else if ($method === 'edit-profile') $this->view('common/profile/edit', $data);
-        else if ($method === 'settings') $this->view('common/profile/settings', $data);
-        else if ($method === 'verify') $this->view('common/profile/verify', $data);
-        else if ($method === 'change-password') $this->view('common/profile/change-password', $data);
-        else {
-            message("Page not found");
-            redirect('admin/profile');
-        }
-
     }
 
     public function reservations($method = null, $id = null, $action = null): void

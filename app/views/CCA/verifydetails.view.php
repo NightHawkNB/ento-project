@@ -1,7 +1,7 @@
 <html lang="en">
 <?php $this->view('includes/head') ?>
 <style>
-    .verify-container {
+    .complaint-container {
         width: 100%;
         height: 100%;
         background: #fff;
@@ -18,7 +18,7 @@
         }
     }
 
-    .verify-container header {
+    .complaint-container header {
         font-size: 1.5rem;
         color: #333;
         font-weight: 500;
@@ -58,7 +58,7 @@
         color: #333;
     }
 
-    .verify-container .right {
+    .complaint-container .right {
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -71,7 +71,7 @@
         }
     }
 
-    .verify-container .left {
+    .complaint-container .left {
         display: flex;
         flex-direction: column;
         gap: 20px;
@@ -80,34 +80,48 @@
 <body>
 <div class="main-wrapper">
     <?php $this->view('includes/header') ?>
-
-    <main class="dashboard-main">
+    <main class="dashboard-main ">
         <section class="cols-2 sidebar">
             <?php $this->view('includes/sidebar') ?>
         </section>
         <section class="cols-10 pad-20 dis-flex wid-100 hei-100 ju-co-ce al-it-ce">
             <div class="verify-container">
-                <header>Profile</header>
-                <form action="#" class="form" style="width: 100%">
+                <div class="form" style="width: 100%">
                     <div class="content">
                         <div class="left">
                             <div class="input-box">
+                                <style>
+                                    .input-like {
+                                        height: 50px;
+                                        width: 100%;
+                                        outline: none;
+                                        font-size: 1rem;
+                                        color: #707070;
+                                        border: 1px solid #ddd;
+                                        border-radius: 8px;
+                                        padding: 0 15px;
+                                        display: flex;
+                                        align-items: center;
+                                    }
+                                </style>
                                 <label>Full Name</label>
-                                <input type="text"  placeholder="Enter your address"/>
+                                <div class="input-like"><?= $assists->fname." ".$assists->lname ?> </div>
                             </div>
                             <div class="input-box">
                                 <label>Address</label>
-                                <input type="text" placeholder="Enter your address"/>
+                                <div class="input-like"><?= $assists->address1.", ".$assists->address2.", ".$assists->province.", ".$assists->district ?> </div>
                             </div>
-                            <div class="colum">
                                 <div class="input-box">
-                                    <label>Age</label>
-                                    <input type="text" placeholder="Enter your age"/>
+                                    <label>Nic</label>
+                                    <div class="input-like"><?= $assists->nic_num?> </div>
                                 </div>
                                 <div class="input-box">
-                                    <label>Gender</label>
-                                    <input type="text" placeholder="Enter your gender"/>
+                                    <label>Contact Number</label>
+                                    <div class="input-like"><?= $assists->contact_num?> </div>
                                 </div>
+                                <div class="input-box">
+                                <label>User Type </label>
+                                <div class="input-like"><?= $assists->user_type ?> </div>
                             </div>
                         </div>
                         <div class="right">
@@ -118,11 +132,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="buttons">
-                        <button type="submit" class="btn">Verify</button>
-                        <button type="submit" class="btn">Declined</button>
-                    </div>
                 </form>
+                <div class="buttons">
+                    
+                             <button type="submit" class="btn">Verify</button>
+                             <button type="submit" class="btn">Declined</button>
+                        </div>
             </div>
         </section>
     </main>
