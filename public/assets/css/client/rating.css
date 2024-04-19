@@ -208,7 +208,7 @@ input#rate-5:checked ~ label{
 
 
             .upper {
-                /*background-color: red;*/
+                background-color: whitesmoke;
                 padding: 10px;
                 display: grid;
                 grid-template-columns: 200px 250px 200px auto;

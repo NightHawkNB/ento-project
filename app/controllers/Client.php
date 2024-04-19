@@ -133,10 +133,9 @@ class Client extends Controller {
                 $_POST['review_id'] = $review_data[0]->review_id;
                 $review->update($id,$_POST);
             }
-
             $currentTab="outdated";
+            $method = "accepted";
         }
-
 
         $data['reservations'] = $db->query('SELECT *, resrequest.reservation_id AS "reservation_id"
       FROM resrequest
@@ -147,9 +146,19 @@ class Client extends Controller {
       WHERE resrequest.user_id = :user_id ORDER BY resrequest.createdDate', ['user_id' => Auth::getUser_id()]);
 
         $data['currentTab']=$currentTab;
+//        $this->view('client/reservations/accepted', $data);
+//        die;
 
-        $this->view('client/reservations', $data);
 
+        if($method === "accepted"){
+            $this->view('client/reservations/accepted', $data);
+        }
+        elseif ($method === "pending"){
+            $this->view('client/reservations/pending', $data);
+        }
+        elseif ($method === "denied"){
+            $this->view('client/reservations/denied', $data);
+        }
     }
 
     //reserve a service provider using Ad
@@ -188,7 +197,7 @@ class Client extends Controller {
             $resreq = new Resrequest();
             $resreq->insert($_POST);
 
-            redirect("client/reservations");
+            redirect("client/reservations/pending");
         }
 
       $data['ad_owner_type'] = $sp_data->sp_type;

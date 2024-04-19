@@ -25,7 +25,7 @@
     </div>
 
     <?php if ($type === "Reservation"): ?>
-        <a href="<?=ROOT?>/client/reservations"><button class="blue-btn">Reservations >></button></a>
+        <a href="<?=ROOT?>/client/reservations/accepted"><button class="btn-lay-s" style="width: fit-content; height: fit-content; background-color: #c1abec ">Reservations >></button></a>
     <?php endif; ?>
 
 </div>
