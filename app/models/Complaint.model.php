@@ -10,7 +10,7 @@ class Complaint extends Model {
         'details',
         'files',
         'date_time',
-        'handled_dt',
+        'handled_at',
         'user_id',
         'cca_user_id',
         'status',
