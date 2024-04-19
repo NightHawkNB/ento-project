@@ -15,12 +15,18 @@ class CCA extends Controller{
 }
 
     public function index(){
-        $comp = new Complaint();
-        $data["complaints"] = $comp->query("SELECT * FROM complaints WHERE deleted = :deleted LIMIT 3", ["deleted"=>0]);
+        $comp = new Complaint(); //get the complaint count
+        $data["complaints"] = $comp->query("SELECT status, COUNT(*) AS complaints FROM complaints GROUP BY status");
         $uservreq = new Uservreq();
-        $data["uservreqs"] = $uservreq->query("SELECT * FROM uservreq ORDER BY timestamps DESC LIMIT 3");
-        $count = new Complaint();
+        $data["uservreqs"] = $uservreq->query("SELECT status, COUNT(*) AS uservreqs FROM uservreq GROUP BY status");
+//        $uservreq = new Uservreq();
+//        $data["uservreqs"] = $uservreq->query("SELECT status, COUNT(*) AS uservreqs FROM uservreq GROUP BY status");
+        $count = new Complaint();//get new complaint count
         $data["count"] = $count->query("SELECT COUNT(*) as 'count' FROM complaints WHERE status = 'Idle'")[0]->count;
+        $vcount = new Uservreq(); //get new user count
+        $data["vcount"] = $vcount->query("SELECT COUNT(*) as 'vcount' FROM uservreq WHERE status = 'new' ")[0]->vcount;
+        $venuecount = new Uservreq();//get new venue count
+        $data["venuecount"] = $venuecount->query("SELECT COUNT(*) as 'venuecount' FROM venue WHERE venue_id ")[0]->venuecount;
         $this->view("CCA/dashboard",$data);
     }
 
@@ -162,8 +168,8 @@ class CCA extends Controller{
     public function admanage(){
         $this->view("CCA/admanage");
     }
-    public function test(){
-        $this->view("CCA/test");
+    public function venue(){
+        $this->view("CCA/venue");
     }
 }
 

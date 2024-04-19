@@ -28,18 +28,39 @@
         display: flex;
         justify-content: space-between;
         border-radius: 10px;
-        padding: 20px;
-        font-weight: 500;
+        padding: 50px;
         background-color: white;
         width: 100%;   
     }
-  
+    .cards .card .numbers{
+        font-size: 2.5em;
+    }
 
+    .cards .card .cardname{
+        font-size: 1.4em;
+    }
+    .cards .card .iconbox{
+        display: block;
+        font-size: 2.5em;
+    }
+
+    .cards .card:hover{
+        background-color: #823dff;
+    }
+    .cards .card .numbers,
+    .cards .card .cardname{
+        font-weight: 500;
+    }
+    .cards .card:hover .numbers,
+    .cards .card:hover .cardname,
+    .cards .card:hover .iconbox{
+        color: #ffffff;
+    }
 </style>
         <div class="dis-grid-c3 wid-100 pad-10 gap-10 cards">
             <div class=" card">
                 <div>
-                    <div class="numbers"><?= $count ?></div>
+                    <div class="numbers"><?= $vcount ?></div>
                     <div class="cardname">New Users</div>
                 </div>
                 <div class="iconbox">
@@ -47,18 +68,18 @@
                 </div>
             </div>
             <div class="card">
-                <div>
-                    <div class="numbers">20</div>
-                    <div class="cardname">Complaints</div>
+                <div class="text">
+                    <div class="numbers"><?= $count ?></div>
+                    <div class="cardname">New Complaints</div>
                 </div>
                 <div class="iconbox">
                     <ion-icon name="alert-circle-outline"></ion-icon>
                 </div>
             </div>
             <div class="card">
-                <div>
-                    <div class="numbers">20</div>
-                    <div class="cardname">Venue</div>
+                <div class="text">
+                    <div class="numbers"><?= $venuecount ?></div>
+                    <div class="cardname">New Venue</div>
                 </div>
                 <div class="iconbox">
                     <ion-icon name="alert-circle-outline"></ion-icon>
@@ -68,24 +89,86 @@
         <style>
             .charts > div{
                 display: flex;
+                flex-direction: column;
                 border-radius: 10px;
                 padding: 20px;
                 font-weight: 500;
-                background-color: white;
+                background-color: #ffffff;
                 width: 100%;
+            }
+            .charts .box{
+                background-color: #ffffff;
+                /*box-shadow: 5px 10px 18px #c8aaff;*/
+            }
+            .charts .box:hover{
+                 /*background-color: #5b00ee;*/
+                 box-shadow: 5px 10px 18px #c8aaff;
+             }
+            .box .chartcontainer{
+                width: 400px;
+            }
+            .box{
+                align-items: center;
+                justify-content: center;
             }
         </style>
 
         <!--chart-->
-        <div class="dis-flex wid-100 pad-10 gap-10 charts">
-            
-            <div class="box">
-                <canvas id="myChart"></canvas>
-            </div>
-            <div class="box"></div>
-        </div>
+                <div class="dis-flex wid-100 pad-10 gap-10 charts">
 
-        <style>
+                    <div class="box">
+                        <h1>Complaints Status</h1>
+                        <div class="chartcontainer">
+                            <canvas id="my-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <h1>New Verifies</h1>
+                        <canvas id="line-chart"></canvas>
+                    </div>
+                </div>
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <script>
+                    const chartData = {
+                        labels: ['Accepted','Handle','Idle','Assist'],
+                        datasets: [{
+                            label: 'Counts',
+                            data: [13, 34, 55, 66],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)'
+                            ],
+                            borderColor:'rgb(187,147,255)',
+                            borderWidth: 1
+                        }]
+                    };
+                    const myChart = document.getElementById('my-chart').getContext('2d');
+                    new Chart(myChart, {
+                        type: "doughnut",
+                        data: chartData
+                    });
+                </script>
+                <script>
+                    const chartData = {
+                        labels: ['Accepted', 'Handle', 'Idle', 'Assist'],
+                        datasets: [{
+                            label: 'Counts',
+                            data: [13, 34, 55, 66],
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        }]
+                    };
+                    const ctx = document.getElementById('line-chart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: chartData
+                    });
+                </script>
+
+                <style>
             .details > div{
                 display: flex;
                 border-radius: 10px;
@@ -97,87 +180,213 @@
             .details .cardheader{
                 display: flex;
                 justify-content: space-between;
-                align-item:left;
-                margin-bottom: 20px;
+                align-items: flex-start;
+                padding-left: 10px;
+                margin-bottom: 10px;
             }
             .details .cardheader a.btn{
-                position: relative;
+                /*justify-content: space-between;*/
+                /*align-items: flex-start;*/
+                /*position: relative;*/
+                /*align-items: flex-end;*/
                 padding: 5px 10px;
                 color: black;
+                background: #823dff;
+                border-radius: 10px;
+                border: 0.5px solid black;
             }
+            .details .cardheader a.btn:hover{
+                box-shadow: 3px 5px 9px #c8aaff;
+            }
+            .details .extra{
+                display: flex;
+                flex-direction: column;
+                box-shadow: 5px 10px 18px #c8aaff;
+            }
+            .details .extra table tbody .ass {
+                background: #fdf431;
+                padding: 1px 70px;
+                border-radius: 100px;
+                border: 0.5px solid black;
+            }
+            .details .extra table tbody .hand {
+                background: #00b6fd;
+                padding: 1px 70px;
+                border-radius: 100px;
+                border: 0.5px solid black;
+            }
+            .details .extra table tbody .acc {
+                background: #23e540;
+                padding: 1px 70px;
+                border-radius: 100px;
+                border: 0.5px solid black;
+            }
+            .details .extra table tbody .idl {
+                background: #ff3c42;
+                padding: 1px 70px;
+                border-radius: 100px;
+                border: 0.5px solid black;
+            }
+
+            .details .extra table tbody tr td{
+                text-align: center;
+                /*border-radius: 100px;*/
+            }
+            .details .extra table thead tr td{
+                text-align: center;
+                /*border-radius: 100px;*/
+            }
+            .details .extra table {
+                border-collapse: separate; /* Separate borders */
+                border-spacing: 0 10px; /* Set the vertical (top/bottom) spacing to 10px */
+            }
+
+            /*.details .extra table thead {*/
+            /*    padding-bottom: 5px; !* Additional padding at the bottom of the thead *!*/
+            /*}*/
+
+            .details .extra:hover{
+                background-color: #f6f6f6;
+            }
+
         </style>
          <!--complaint list-->
-         <div class="dis-flex wid-100 pad-10 gap-10 details">
-            <div class="Complaints">
+         <div class="dis-flex wid-100 pad-10 gap-10 details ">
+            <div class="extra">
                 <div class="cardheader">
                     <h2>Complaints</h2>
                     <a href="<?= ROOT ?>/cca/complaints/" class="btn">View All</a>
                 </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <td>Complaint ID</td>
-                            <td>Comment</td>
-                            <td>Time stamp</td>
-                            <td>status</td>
-                        </tr>
-                    </thead>
-                    <tbody>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Complaint Status</td>
+                                <td>Complaint Count</td>
+                            </tr>
+                        </thead>
+                        <tbody>
                         <?php
-                        foreach($complaints as $complain){
-                            echo "
-                                <tr>
-                            <td>$complain->comp_id</td>
-                            <td>$complain->details</td>
-                            <td>$complain->date_time</td>
-                            <td><span class='status Accept'>$complain->status</span></td>
-                        </tr>
-                            ";
-                        }
-                        ?>
-                    </tbody>
-                </table>
-            </div>
-            <!--New Users-->
-        <div class="newUsers">
-            
-                <div class="cardheader">
-                    <h2>New Users</h2>
-                    <a href="<?= ROOT ?>/cca/verify/" class="btn">View All</a>
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <td>User ID</td>
-                            <td>Username</td>
-                            <td>Time stamp</td>
-                            <td>status</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                        if(!empty($uservreqs)){
-                            foreach($uservreqs as $ureq){
+                        foreach($complaints as $complaint){
+                            if($complaint->status=='Accepted'){
                                 echo "
-                                <tr>
-                                <td>$ureq->userVreq_id</td>
-                                <td>$ureq->user_id</td>
-                                <td>$ureq->timestamps</td>
-                                <td>$ureq->resources</td>
-                                </tr>
-                                ";
+                                    <tr>
+                                        <td>$complaint->status</td>
+                                        <td><span class = 'acc'>$complaint->complaints</span></td>
+                                    </tr>
+                                    ";
+                            }if($complaint->status=='Idle'){
+                                    echo "
+                                    <tr>
+                                        <td>$complaint->status</td>
+                                        <td><span class = 'idl'>$complaint->complaints</span></td>
+                                    </tr>
+                                    ";
+                                }if($complaint->status=='Handled'){
+                                echo "
+                                    <tr>
+                                        <td>$complaint->status</td>
+                                        <td><span class = 'hand'>$complaint->complaints</span></td>
+                                    </tr>
+                                    ";
+                            }
+                            if($complaint->status=='Assist'){
+                                echo "
+                                    <tr>
+                                        <td>$complaint->status</td>
+                                        <td><span class = 'ass'>$complaint->complaints</span></td>
+                                    </tr>
+                                    ";
+                            }if($complaint->status=='null'){
+                                echo "No complaints";
                             }
                         }
-                        else{
-                            echo "No user verification Request";
-                        }
                         ?>
-                    </tbody>
-                </table>
-            
-        </div>
-        </div>
-    </div>
+                        </tbody>
+
+                    </table>
+
+            </div>
+
+            <!--New Users-->
+            <div class="extra">
+
+                    <div class="cardheader">
+                        <h2>New Users</h2>
+                        <a href="<?= ROOT ?>/cca/verify/" class="btn">View All</a>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>User</td>
+                                <td>Count</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        foreach($uservreqs as $uvr){
+                            if($uvr->status=='new'){
+                                echo "
+                                    <tr>
+                                        <td>$uvr->status</td>
+                                        <td><span class = 'hand'>$uvr->uservreqs</span></td>
+                                    </tr>
+                                    ";
+                            }if($uvr->status=='verified'){
+                                echo "
+                                    <tr>
+                                        <td>$uvr->status</td>
+                                        <td><span class = 'acc'>$uvr->uservreqs</span></td>
+                                    </tr>
+                                    ";
+                            }if($uvr->status=='declined'){
+                                echo "
+                                    <tr>
+                                        <td>$uvr->status</td>
+                                        <td><span class = 'idl'>$uvr->uservreqs</span></td>
+                                    </tr>
+                                    ";
+                            }if($uvr->status=='null'){
+                                echo "No New Users";
+                            }
+                        }
+                            ?>
+                        </tbody>
+                    </table>
+            </div>
+             <div class="extra">
+
+<!--                 <div class="cardheader">-->
+<!--                     <h2>New Users</h2>-->
+<!--                     <a href="--><?php //= ROOT ?><!--/cca/verify/" class="btn">View All</a>-->
+<!--                 </div>-->
+<!--                 <table>-->
+<!--                     <thead>-->
+<!--                     <tr>-->
+<!--                         <td>Venue</td>-->
+<!--                         <td>Status</td>-->
+<!--                     </tr>-->
+<!--                     </thead>-->
+<!--                     <tbody>-->
+<!--                     --><?php
+//                     if(!empty($uservreqs)){
+//                         foreach($uservreqs as $ureq){
+//                             echo "
+//                                    <tr>
+//                                    <td>$ureq->userVreq_id</td>
+//                                    <td>$ureq->resources</td>
+//                                    </tr>
+//                                    ";
+//                         }
+//                     }
+//                     else{
+//                         echo "No user verification Request";
+//                     }
+//                     ?>
+                     </tbody>
+                 </table>
+             </div>
+         </div>
 
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
