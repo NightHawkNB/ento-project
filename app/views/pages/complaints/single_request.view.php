@@ -12,6 +12,11 @@
                     <p><?= ($comment) ? $comment : "No comments yet" ?></p>
                 </div>
 
+                <div class="dis-flex-col txt-c-black gap-10 flex-1">
+                    <h4>details</h4>
+                    <p><?= ($details) ? $details : "No details" ?></p>
+                </div>
+
                 <div class="dis-flex-col txt-c-black gap-10">
                     <h4>Timestamp</h4>
                     <p><?=$date_time?></p>

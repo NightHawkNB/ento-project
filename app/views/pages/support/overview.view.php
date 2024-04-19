@@ -17,7 +17,7 @@
                     <?php
                         if(!empty($complaints)) {
                             foreach ($complaints as $complaint) {
-                                $this->view('pages/complaints/single', (array)$complaint);
+                                $this->view('pages/complaints/single_request', (array)$complaint);
                             }
                         } else {
                             echo "No complaints to show";
