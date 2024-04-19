@@ -22,7 +22,7 @@
         </section>
 
         <section class="wid-100 pad-10 dis-flex-col al-it-ce">
-<!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+            <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
             <!-- toggle button-->
 
             <nav class="amazing-tabs">
@@ -48,22 +48,27 @@
                     </div>
                 </div>
             </nav>
-<!--////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-<!--             for accepted reservations-->
-            <div class="accepted hide">
+            <!--////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+            <!--             for accepted reservations-->
                 <!--current reservations-->
-                <div id="accepted-current" class="reservation-section">
+                <div id="current" class="reservation-section">
                     <h1 class="mar-10-0 txt-c-black txt-w-bold" style="font-size: 1.5rem"> Accepted Reservations</h1>
 
                     <div class="res-container glass-bg">
-                        <div style="width: 500px">
+                            <div class="reservation txt-w-bold" style="background-color: #c7b2f1; border-radius: 10px 10px 0 0">
+                                <div>Service Provider</div>
+                                <div>Data/Time</div>
+                                <div>Location</div>
+                                <div>Remaining Time</div>
+                                <div>Action</div>
+                            </div>
                             <!--                        --><?php //= show($data)?>
 
-                        </div>
                         <?php
                         $currentDateTime = date('Y-m-d H:i:s');
                         $count = 0;
                         if (!empty($reservations)) {
+
                             foreach ($reservations as $reservation) {
                                 $count += 1;
                                 if ($currentDateTime < $reservation->start_time && $reservation->status === "Accepted") {
@@ -79,7 +84,7 @@
 
                 <!--out dated reservations-->
 
-                <div id="accepted-outdated" class="reservation-section">
+                <div id="outdated" class="reservation-section">
                     <h1 class="mar-10-0 txt-c-black txt-w-bold" style="font-size: 1.5rem"> Accepted Reservations</h1>
 
                     <div class="res-container">
@@ -99,64 +104,6 @@
                     </div>
                 </div>
 
-            </div>
-
-<!--       /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-<!--            for pending reservations-->
-            <div class="pending hide">
-                <!--current reservations-->
-
-                <div id="pending-current" class="reservation-section">
-                    <h1 class="mar-10-0 txt-c-black txt-w-bold" style="font-size: 1.5rem">  Pending
-                        Reservations</h1>
-
-                    <div class="res-container glass-bg">
-                        <div style="width: 500px">
-<!--                                                    --><?php //= show($data)?>
-
-                        </div>
-                        <?php
-                        $currentDateTime = date('Y-m-d H:i:s');
-                        $count = 0;
-                        if (!empty($reservations)) {
-                            foreach ($reservations as $reservation) {
-                                $count += 1;
-                                if ($currentDateTime < $reservation->start_time && $reservation->status === "Pending") {
-                                    $this->view('client/components/reservation_current', (array)$reservation);
-                                }
-                            }
-                        } else {
-                            echo "<h3 class='txt-c-white wid-100 dis-flex ju-co-ce'>No reservations to show</h3>";
-                        }
-                        ?>
-                    </div>
-                </div>
-
-                <!--out dated reservations-->
-
-                <div id="pending-outdated" class="reservation-section">
-                    <h1 class="mar-10-0 txt-c-black txt-w-bold" style="font-size: 1.5rem"> Pending Reservations</h1>
-
-                    <div class="res-container">
-                        <?php
-                        $currentDateTime = date('Y-m-d H:i:s');
-
-                        if (!empty($reservations)) {
-                            foreach ($reservations as $reservation) {
-                                if ($currentDateTime > $reservation->start_time && $reservation->status === "Pending") {
-                                    $this->view('client/components/reservation_outdated', (array)$reservation);
-                                }
-                            }
-                        } else {
-                            echo "<h3 class='txt-c-white wid-100 dis-flex ju-co-ce'>No reservations to show</h3>";
-                        }
-                        ?>
-                    </div>
-                </div>
-
-            </div>
-
-
         </section>
 
 
@@ -165,34 +112,6 @@
 </body>
 </html>
 <script>
-
-    //show accepted reservations
-    document.addEventListener("DOMContentLoaded", function () {
-        // Parse URL parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        const page = urlParams.get('page');
-
-        // Show corresponding div based on the page parameter
-        if (page === 'accepted') {
-            showAcceptedDiv();
-        } else if (page === 'pending') {
-            showPendingDiv();
-        }
-    });
-
-    function showAcceptedDiv() {
-        // Show the div containing accepted reservations
-        const acceptedDiv = document.querySelector('.accepted');
-        acceptedDiv.classList.remove('hide');
-    }
-
-    function showPendingDiv() {
-        // Show the div containing requests
-        const pendingDiv = document.querySelector('.pending');
-        pendingDiv.classList.remove('hide');
-    }
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // rating popup calling function
     function openRatingPopUp(id) {
@@ -222,14 +141,8 @@
         const filterTabs = document.querySelector(".filter-tabs");
         const filterButtons = document.querySelectorAll(".filter-button");
         const adSections = {
-            accepted: {
-                current: document.getElementById('accepted-current'),
-                outdated: document.getElementById('accepted-outdated')
-            },
-            pending: {
-                current: document.getElementById('pending-current'),
-                outdated: document.getElementById('pending-outdated')
-            }
+                current: document.getElementById('current'),
+                outdated: document.getElementById('outdated')
         };
 
         // Initial setup to select the "current" tab
@@ -270,7 +183,14 @@
 
         // Initially hide outdated section
         adSections.outdated.style.display = 'none';
-
+        let currentTab="<?=$currentTab?>"
+        // console.log(filterTabs)
+        if(currentTab=='outdated'){
+            const targetTranslateValue =filterButtons[1].dataset.translateValue;
+            root.style.setProperty("--translate-filters-slider", targetTranslateValue);
+            handleActiveTab(filterButtons[1])
+            // console.log("fvdfd")
+        }
     });
 
 </script>
