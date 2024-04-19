@@ -43,8 +43,14 @@
 
                 <div id="singersSection" class="ad-verification-section flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="max-height: 60vh; overflow:auto; padding-right: 10px">
 
-                    <?php foreach($singerads as $ad){
-                        $this->view('admin/components/ad',(array)$ad);
+                    <?php
+                    if(!empty($singerads)){
+                        foreach ($singerads as $ad) {
+                            $this->view('admin/components/ad', (array)$ad);
+                        }
+                    }else{
+                        echo "<h3 class='wid-100 f-poppins dis-flex ju-co-ce'> No verification requests to display</h3> ";
+
                     }
                     ?>
 
@@ -52,8 +58,14 @@
 
                 <div id="bandsSection" class="ad-verification-section flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="max-height: 60vh; overflow:auto; padding-right: 10px">
 
-                    <?php foreach($bandads as $ad){
-                        $this->view('admin/components/ad',(array)$ad);
+                    <?php
+                    if(!empty($bandads)){
+                        foreach ($bandads as $ad) {
+                            $this->view('admin/components/ad', (array)$ad);
+                        }
+                    }else{
+                        echo "<h3 class='wid-100 f-poppins dis-flex ju-co-ce'> No verification requests to display</h3> ";
+
                     }
                     ?>
 
@@ -61,8 +73,14 @@
 
                 <div id="venuesSection" class="ad-verification-section flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="max-height: 60vh; overflow:auto; padding-right: 10px">
 
-                    <?php foreach($venueads as $ad){
-                        $this->view('admin/components/ad',(array)$ad);
+                    <?php
+                    if(!empty($venueads)){
+                        foreach ($venueads as $ad) {
+                            $this->view('admin/components/ad', (array)$ad);
+                        }
+                    }else{
+                        echo "<h3 class='wid-100 f-poppins dis-flex ju-co-ce'> No verification requests to display</h3> ";
+
                     }
                     ?>
 

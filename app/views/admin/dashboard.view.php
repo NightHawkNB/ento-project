@@ -285,7 +285,6 @@
     .userAcc-container{
         width: 500px;
         height:300px;
-        margin: 30px;
         background-color: var(--white);
         border-radius: 10px;
     }
@@ -299,12 +298,13 @@
             <?php $this->view('includes/sidebar') ?>
         </section>
 
-        <section class=" cols-10 dis-flex-col wid-100">
+        <section class=" cols-10 dis-flex-col wid-100" >
 
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.js"></script>
 
             <div class="cardBox">
-                <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/adverify">
+                <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/ccareq">
                     <div class="card">
                         <div>
                             <div class="numbers"><?= $data['pending_ads'][0]->{'COUNT(*)'} ?></div>
@@ -315,7 +315,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/ccareq">
+                <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/adverify">
                     <div class="card">
                         <div>
                             <div class="numbers"><?= $data['pending_assreq'][0]->{'COUNT(*)'} ?></div>
@@ -326,7 +326,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="">
+                <a href="<?= ROOT ?>/home/events">
                     <div class="card">
                         <div>
                             <div class="numbers">8</div>
@@ -339,18 +339,83 @@
                 </a>
             </div>
 
-            <div class="dis-flex charts mar-20 wid-100 ju-co-st">
-                <div class="userAcc-container dis-flex ju-co-ce" style="">
+            <div class="dis-flex charts wid-100 ju-co-se gap-20" id="dash" style="margin: 0 20px">
+                <div class="userAcc-container dis-flex ju-co-ce" style="background-color: white">
                     <canvas id="userTypeChart" width="600px" height="450px;" >
 
                     </canvas>
                 </div>
-                <div class="" style="width: 450px;height:300px;margin:30px">
+                <div class="pad-10 bor-rad-10 dis-flex-col ju-co-ce al-it-ce" style="width: 350px;height:300px;background-color: white">
                     <canvas id="UserTypes" >
 
                     </canvas>
                 </div>
+                <div class="pad-10 bor-rad-10 dis-flex-col ju-co-ce al-it-ce" style="width: 400px;height:450px;background-color: white; margin-right: auto">
+                    <div class="wid-100 dis-flex-col al-it-ce ju-co-ce" style="height:50px;font-weight: bolder;font-size: large;">
+                        <p style="color: #5809ab;">Ad verifications</p>
+                    </div>
+                    <div class="wid-100 dis-flex-col al-it-ce ju-co-ce" style="height:50px;font-weight: bold;background-color: mediumpurple;font-size: large ">
+                        <p style="color: white;">Pending </p>
+                    </div>
+                    <div class="dis-flex ju-co-ce al-it-ce wid-100">
+                        <div class="dis-flex wid-50 ju-co-ce al-it-ce" style="height:50px;font-weight: bold;">
+                            <p style="color: black;margin: 0;vertical-align: center;">Singer Ads</p>
+                        </div>
+                        <div class="dis-flex wid-50 ju-co-ce al-it-ce" style="height:50px;font-weight: bold;">
+                            <p style="color: black;"><?= $data['pendingsinger'][0]->{'COUNT(ad_id)'};?></p>
+                        </div>
+                    </div>
+                    <hr style="width: 100%;">
+                    <div class="dis-flex ju-co-ce al-it-ce wid-100">
+                        <div class="wid-50 dis-flex ju-co-ce al-it-ce " style="w:50px;font-weight: bold;">
+                            <p style="color: black;">Band Ads</p>
+                        </div>
+                        <div class="dis-flex  wid-50 ju-co-ce al-it-ce" style="height:50px;font-weight: bold;">
+                            <p style="color: black;"><?= $data['pendingband'][0]->{'COUNT(ad_id)'};?></p>
+                        </div>
+                    </div>
+                    <hr style="width: 100%;">
+                    <div class="dis-flex ju-co-ce al-it-ce wid-100">
+                        <div class="dis-flex wid-50 ju-co-ce al-it-ce" style="height:50px;font-weight: bold;">
+                            <p style="color: black;">Venue Ads</p>
+                        </div>
+                        <div class="dis-flex wid-50 ju-co-ce al-it-ce" style="height:50px;font-weight: bold;">
+                            <p style="color: black;"><?= $data['pendingvenue'][0]->{'COUNT(ad_id)'};?></p>
+                        </div>
+                    </div>
+                    <div class="wid-100 dis-flex-col al-it-ce ju-co-ce" style="height:50px;font-weight: bold;background-color: mediumpurple;font-size: large ">
+                        <p style="color: white;">Posted</p>
+                    </div>
+                    <div class="dis-flex ju-co-ce al-it-ce wid-100">
+                        <div class="dis-flex wid-50 ju-co-ce al-it-ce" style="height:50px;font-weight: bold;">
+                            <p style="color: black;margin: 0;">Singer Ads</p>
+                        </div>
+                        <div class="dis-flex wid-50 ju-co-ce al-it-ce" style="height:50px;font-weight: bold;">
+                            <p style="color: black;"><?= $data['postsinger'][0]->{'COUNT(ad_id)'};?></p>
+                        </div>
+                    </div>
+                    <hr style="width: 100%;">
+                    <div class="dis-flex ju-co-ce al-it-ce wid-100">
+                        <div class="wid-50 dis-flex ju-co-ce al-it-ce " style="w:50px;font-weight: bold;">
+                            <p style="color: black;">Band Ads</p>
+                        </div>
+                        <div class="dis-flex  wid-50 ju-co-ce al-it-ce" style="height:50px;font-weight: bold;">
+                            <p style="color: black;"><?= $data['postband'][0]->{'COUNT(ad_id)'};?></p>
+                        </div>
+                    </div>
+                    <hr style="width: 100%;">
+                    <div class="dis-flex ju-co-ce al-it-ce wid-100">
+                        <div class="dis-flex wid-50 ju-co-ce al-it-ce" style="height:50px;font-weight: bold;">
+                            <p style="color: black;">Venue Ads</p>
+                        </div>
+                        <div class="dis-flex wid-50 ju-co-ce al-it-ce" style="height:50px;font-weight: bold;">
+                            <p style="color: black;"><?= $data['postvenue'][0]->{'COUNT(ad_id)'};?></p>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            
 
         </section>
 
@@ -363,15 +428,10 @@
 
             // Define an array of colors for the chart
             const colors = [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-                'rgb(255, 205, 86)',
-                'rgb(75, 192, 192)',
+                'rgb(139,27,192)',
+                'rgb(232,68,232)',
                 'rgb(153, 102, 255)',
-                'rgb(255, 159, 64)',
-                'rgb(255, 0, 255)',
-                'rgb(0, 255, 255)',
-                'rgb(128, 128, 128)',
+                'rgb(193,171,236)',
 
             ];
 
@@ -387,6 +447,8 @@
                     }]
                 }
             });
+
+            const fixedColors = ['rgb(139,27,192)','rgb(232,68,232)', 'rgb(153, 102, 255)', 'rgb(89,89,89)'];
 
             // Extract userTypeData from PHP code
             let userTypeData = <?= $userTypeData ?>;
@@ -409,7 +471,7 @@
             }
 
             // Prepare data for each user type
-            let datasets = userTypes.map(userType => {
+            let datasets = userTypes.map((userType, index) => {
                 let userData = userTypeData[userType];
                 let counts = latestMonths.map(month => {
                     if (userData && userData[month]) {
@@ -421,15 +483,10 @@
                 return {
                     label: userType,
                     data: counts,
-                    borderColor: getRandomColor(),
+                    borderColor: fixedColors[index % fixedColors.length], // Use fixed colors
                     fill: false
                 };
             });
-
-            // Function to generate random color
-            function getRandomColor() {
-                return '#' + Math.floor(Math.random() * 16777215).toString(16);
-            }
 
             // Create the line chart
             const ctx = document.getElementById('userTypeChart').getContext('2d');
@@ -457,11 +514,7 @@
                 }
             });
 
-
-
         </script>
-
-
 
     </main>
 </div>

@@ -7,10 +7,12 @@ class Assist_req extends Model {
 
     protected array $allowed_columns = [
         'comp_id',
-        'date_time',
+        'created_at',
         'status',
         'comment',
         'admin_user_id',
-        'deleted'
+        'deleted',
+        'hold_at',
+        'handled_at'
     ];
 }
