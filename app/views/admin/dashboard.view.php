@@ -304,7 +304,7 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.js"></script>
 
             <div class="cardBox">
-                <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/adverify">
+                <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/ccareq">
                     <div class="card">
                         <div>
                             <div class="numbers"><?= $data['pending_ads'][0]->{'COUNT(*)'} ?></div>
@@ -315,7 +315,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/ccareq">
+                <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/adverify">
                     <div class="card">
                         <div>
                             <div class="numbers"><?= $data['pending_assreq'][0]->{'COUNT(*)'} ?></div>
@@ -326,7 +326,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="">
+                <a href="<?= ROOT ?>/home/events">
                     <div class="card">
                         <div>
                             <div class="numbers">8</div>
@@ -339,7 +339,7 @@
                 </a>
             </div>
 
-            <div class="dis-flex charts wid-100 ju-co-st gap-20" id="dash" style="margin: 0 20px">
+            <div class="dis-flex charts wid-100 ju-co-se gap-20" id="dash" style="margin: 0 20px">
                 <div class="userAcc-container dis-flex ju-co-ce" style="background-color: white">
                     <canvas id="userTypeChart" width="600px" height="450px;" >
 
@@ -350,7 +350,7 @@
 
                     </canvas>
                 </div>
-                <div class="pad-10 bor-rad-10 dis-flex-col ju-co-ce al-it-ce" style="width: 450px;height:450px;background-color: white">
+                <div class="pad-10 bor-rad-10 dis-flex-col ju-co-ce al-it-ce" style="width: 400px;height:450px;background-color: white; margin-right: auto">
                     <div class="wid-100 dis-flex-col al-it-ce ju-co-ce" style="height:50px;font-weight: bolder;font-size: large;">
                         <p style="color: #5809ab;">Ad verifications</p>
                     </div>
@@ -362,7 +362,7 @@
                             <p style="color: black;margin: 0;vertical-align: center;">Singer Ads</p>
                         </div>
                         <div class="dis-flex wid-50 ju-co-ce al-it-ce" style="height:50px;font-weight: bold;">
-                            <p style="color: black;">7</p>
+                            <p style="color: black;"><?= $data['pendingsinger'][0]->{'COUNT(ad_id)'};?></p>
                         </div>
                     </div>
                     <hr style="width: 100%;">
@@ -371,7 +371,7 @@
                             <p style="color: black;">Band Ads</p>
                         </div>
                         <div class="dis-flex  wid-50 ju-co-ce al-it-ce" style="height:50px;font-weight: bold;">
-                            <p style="color: black;">4</p>
+                            <p style="color: black;"><?= $data['pendingband'][0]->{'COUNT(ad_id)'};?></p>
                         </div>
                     </div>
                     <hr style="width: 100%;">
@@ -380,7 +380,7 @@
                             <p style="color: black;">Venue Ads</p>
                         </div>
                         <div class="dis-flex wid-50 ju-co-ce al-it-ce" style="height:50px;font-weight: bold;">
-                            <p style="color: black;">1</p>
+                            <p style="color: black;"><?= $data['pendingvenue'][0]->{'COUNT(ad_id)'};?></p>
                         </div>
                     </div>
                     <div class="wid-100 dis-flex-col al-it-ce ju-co-ce" style="height:50px;font-weight: bold;background-color: mediumpurple;font-size: large ">
@@ -391,7 +391,7 @@
                             <p style="color: black;margin: 0;">Singer Ads</p>
                         </div>
                         <div class="dis-flex wid-50 ju-co-ce al-it-ce" style="height:50px;font-weight: bold;">
-                            <p style="color: black;">31</p>
+                            <p style="color: black;"><?= $data['postsinger'][0]->{'COUNT(ad_id)'};?></p>
                         </div>
                     </div>
                     <hr style="width: 100%;">
@@ -400,7 +400,7 @@
                             <p style="color: black;">Band Ads</p>
                         </div>
                         <div class="dis-flex  wid-50 ju-co-ce al-it-ce" style="height:50px;font-weight: bold;">
-                            <p style="color: black;">15</p>
+                            <p style="color: black;"><?= $data['postband'][0]->{'COUNT(ad_id)'};?></p>
                         </div>
                     </div>
                     <hr style="width: 100%;">
@@ -409,13 +409,10 @@
                             <p style="color: black;">Venue Ads</p>
                         </div>
                         <div class="dis-flex wid-50 ju-co-ce al-it-ce" style="height:50px;font-weight: bold;">
-                            <p style="color: black;">12</p>
+                            <p style="color: black;"><?= $data['postvenue'][0]->{'COUNT(ad_id)'};?></p>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div>
-                <button class="btn-lay-2" id="download">Download</button>
             </div>
 
             
@@ -517,17 +514,7 @@
                 }
             });
 
-
-            document.getElementById("download").addEventListener("click",()=>{
-                const invoice = document.getElementById("dash");
-                console.log(invoice);
-                console.log(window);
-                html2pdf().from(invoice).save()
-            })
-
         </script>
-
-
 
     </main>
 </div>
