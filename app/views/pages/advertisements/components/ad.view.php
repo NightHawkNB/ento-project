@@ -1,4 +1,6 @@
-<?php if(): ?>
+<?php if(($user_type == "singer" AND $visible == 1) || $user_type != 'singer'): ?>
+
+<?php //show($data); ?>
 
     <div class="ad sh" data-category="<?= $category ?>" data-title="<?= $title ?>">
 
@@ -112,7 +114,7 @@
                         <?= ($views) ? $views : 'view count' ?>
                     </div>
 
-                    <div class="" style="background-color: red; position: relative">
+                    <div class="" style="position: relative">
                         <img src="<?= ROOT.$image ?>" alt="Ad image" style="width: 150px; height: 150px; object-fit: cover" class="bor-rad-5">
 
                         <a href="<?= ROOT ?>/<?= $_SESSION['USER_DATA']->user_type ?>/user_profile/<?= $user_id ?>">
@@ -216,8 +218,16 @@
                     </div>
 
 
-                    <div class="">
+                    <div class="" style="position: relative">
                         <img src="<?= ROOT.$image ?>" alt="Ad image" style="width: 150px; height: 150px; object-fit: cover" class="bor-rad-5">
+
+                        <a href="<?= ROOT ?>/<?= $_SESSION['USER_DATA']->user_type ?>/user_profile/<?= $user_id ?>">
+                            <div class="profile-icon">
+                                <svg class="feather feather-user" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="12" cy="7" r="4"/></svg>
+                            </div>
+                        </a>
                     </div>
 
                     <div>
