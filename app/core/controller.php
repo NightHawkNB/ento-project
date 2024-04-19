@@ -605,7 +605,7 @@ class Controller
         $user = new User();
         $db = new Database();
 
-        $data['user'] = $user->first(['user_id' => $id]);
+        $data['user'] = $row = $user->first(['user_id' => $id]);
 
         if($row->user_type == 'singer') {
             $data['past_events'] = $db->query("

@@ -6,36 +6,41 @@
 
     <main class="dashboard-main wid-100">
 
+        <?php if($user->user_id == Auth::getUser_id()) : ?>
         <section class="cols-2 sidebar">
             <?php $this->view('includes/sidebar') ?>
         </section>
+        <?php endif; ?>
 
         <section class="wid-100 dis-flex-col ju-co-sa" style="padding: 10px 10px 10px 10px; gap: 30px;">
 
+        <?php if($user->user_id == Auth::getUser_id()) : ?>
             <div class="option-bar">
+                <div class="profile_visibility">
 
-                <?php if($user->user_id == Auth::getUser_id()) : ?>
-                    <div class="profile_visibility">
+                    <h3 style="font-family: Poppins, serif">Profile <br/> Visibility</h3>
 
-                        <h3 style="font-family: Poppins, serif">Profile <br/> Visibility</h3>
-
-                        <div class="toggle-button-cover">
-                            <div class="button-cover">
-                                <p class="js-left-text">VISIBLE</p>
-                                <div class="button r" id="button-3">
-                                    <input type="checkbox" class="checkbox" />
-                                    <div class="knobs"></div>
-                                    <div class="layer"></div>
-                                </div>
-                                <p class="js-right-text">HIDDEN</p>
+                    <div class="toggle-button-cover">
+                        <div class="button-cover">
+                            <p class="js-left-text">VISIBLE</p>
+                            <div class="button r" id="button-3">
+                                <input type="checkbox" class="checkbox" />
+                                <div class="knobs"></div>
+                                <div class="layer"></div>
                             </div>
+                            <p class="js-right-text">HIDDEN</p>
                         </div>
                     </div>
-                <?php endif; ?>
+                </div>
+            </div>
+        <?php endif; ?>
 
+            <div>
+                <button class="button-s2" onclick="goBack()">Back</button>
             </div>
 
             <div class="profile-page">
+
                 <form method="post" enctype="multipart/form-data" class="wid-100">
                     <div class="pos-rel p-img">
                         <img id="image-ad" class="bor-rad-5" src="<?= (str_contains($user->image, 'general')) ? ROOT.'assets/images/ads/general.png' :  ROOT.$user->image ?>" alt="general image">

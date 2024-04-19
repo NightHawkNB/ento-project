@@ -24,6 +24,11 @@ const create_ad = () => {
 
 /* END OF AD CREATION FORM */
 
+
+function goBack() {
+    window.history.back();
+}
+
 function load_image(file) {
 
     const mylink = window.URL.createObjectURL(file)
