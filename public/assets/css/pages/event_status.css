@@ -214,7 +214,8 @@
         overflow: auto;
     }
 
-    &.venue-popup {
+    &.venue-popup,
+    &.band-popup {
         .es-popup-content {
             display: flex;
             flex-direction: column;

@@ -92,15 +92,16 @@
 
                                     <div class="es-title">
                                         <h3>Name : </h3>
-                                        <span><?= (!$reservations['band'] && $custom->band) ? $band : "Not Selected" ?></span>
+                                        <span><?= (!$reservations['band'] && $custom->band) ? $band : (($reservations['band'] && !$custom->band) ? $band->name : "Not Selected") ?></span>
                                     </div>
 
                                     <div class="es-buttons">
 
                                         <button class="button-s2 es-button main-button"
                                                 data-req_id="<?= ($custom->band) ? 'NULL' : ($reservations['band'] ? $band->req_id : 'NULL') ?>"
+                                                data-state="<?= ($custom->band) ? 'custom' : ($reservations['band'] ? 'selected' : 'choose') ?>"
                                                 data-type="band"
-                                                type="button" <?= ($custom->band) ? 'disabled' : '' ?> >
+                                                type="button" <?= ($event->time_left < 7) ? 'disabled' : '' ?> >
                                             <svg class="feather feather-x" fill="none" stroke="currentColor"
                                                  stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                  viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -163,7 +164,7 @@
 
                                     <div class="es-title">
                                         <h3>Name : </h3>
-                                        <span><?= (!$reservations['venue'] && $custom->venue) ? $venue : "Not Selected" ?></span>
+                                        <span><?= (!$reservations['venue'] && $custom->venue) ? $venue : (($reservations['venue'] && !$custom->venue) ? $venue->name : "Not Selected") ?></span>
                                     </div>
 
                                     <div class="es-buttons">
@@ -171,7 +172,7 @@
                                                 data-state="<?= ($custom->venue) ? 'custom' : ($reservations['venue'] ? 'selected' : 'choose') ?>"
                                                 data-req_id="<?= (!$custom->venue) ? ($reservations['venue'] ? $venue->req_id : 'NULL') : 'NULL' ?>"
                                                 data-type="venue"
-                                                type="button" <?= ($custom->venue) ? 'disabled' : '' ?> >
+                                                type="button" <?= ($event->time_left < 7) ? 'disabled' : '' ?> >
                                             <svg class="feather feather-x" fill="none" stroke="currentColor"
                                                  stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                  viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -210,7 +211,8 @@
 
     <div class="es-overlay"></div>
 
-    <div class="venue-popup popup open-popup">
+<!--  Venue selection popup  -->
+    <div class="venue-popup popup">
         <!--        <input type="text" name="custom_band_name" id="custom_band_name" placeholder="Enter the name of the band ... ">-->
         <div class="dis-flex" style="justify-content: flex-end">
             <button type="button" onclick="togglePopup('venue', false)">&cross;</button>
@@ -265,6 +267,60 @@
     </div>
 
 
+<!--  Band selection popup  -->
+    <div class="band-popup popup open-popup">
+        <!--        <input type="text" name="custom_band_name" id="custom_band_name" placeholder="Enter the name of the band ... ">-->
+        <div class="dis-flex" style="justify-content: flex-end">
+            <button type="button" onclick="togglePopup('band', false)">&cross;</button>
+        </div>
+
+        <nav class="amazing-tabs">
+            <div class="filters-container">
+                <div class="filters-wrapper">
+                    <ul class="filter-tabs-2">
+                        <li>
+                            <button class="filter-button-2 filter-active" data-translate-value="0">
+                                Available
+                            </button>
+                        </li>
+                        <li>
+                            <button class="filter-button-2" data-translate-value="100%">
+                                Custom
+                            </button>
+                        </li>
+                    </ul>
+                    <div class="filter-slider-2" aria-hidden="true">
+                        <div class="filter-slider-rect">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div id="availableSection2" class="es-popup-content">
+
+            <?php
+            if(!empty($band_set)) {
+                foreach ($band_set as $single_band) {
+                    $this->view('common/events/components/band_select', (array)$single_band);
+                };
+            } else {
+                echo "No Bands to Display";
+            }
+            ?>
+
+        </div>
+
+        <div id="customSection2" class="es-popup-content">
+
+            <div class="title">Add custom venue details</div>
+            <input type="text" name="venue_name" id="custom_venue_input" placeholder="Enter the name of the venue ... ">
+            <div class="button-container">
+                <button type="button" onclick="select_custom_venue()" class="button-s2">Add Custom Venue</button>
+            </div>
+        </div>
+    </div>
+
+
     <script>
         const nodes = document.querySelectorAll('.circle')
         const svg = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" style="fill: mediumpurple"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>`
@@ -298,7 +354,13 @@
 
                 let event_id = '<?= $event->event_id ?>'
 
-                let data = {req_id, event_id}
+                let data
+
+                if(element.dataset.state === "custom") {
+                    data = {event_id, type}
+                } else {
+                    data = {req_id, event_id, type}
+                }
 
                 fetch(`/ento-project/public/eventm/cancel_request/${req_id}`, {
                     method: "POST",
@@ -314,6 +376,7 @@
                     // (stopped printing all data in php file by using die command)
                     console.log(data)
                     if (data === 'success') {
+                        location.reload()
                         element.innerHTML = `<span>Choose ${type}</span>`;
                         const image = element.parentElement.parentElement.parentElement.querySelector('img')
                         const status = element.parentElement.parentElement.querySelector('.es-status span')
@@ -379,7 +442,7 @@
         }
 
 
-        // ##################################### Slider Script ###############################################
+        // ##################################### Slider Script for VENUE ###############################################
         document.addEventListener("DOMContentLoaded", function () {
             const filterTabs = document.querySelector(".filter-tabs");
             const filterButtons = document.querySelectorAll(".filter-button");
@@ -414,6 +477,55 @@
                     }
                 }
             };
+
+            // ##################################### Slider Script for BAND ###############################################
+            document.addEventListener("DOMContentLoaded", function () {
+                const filterTabs = document.querySelector(".filter-tabs");
+                const filterButtons = document.querySelectorAll(".filter-button");
+                const adSections = {
+                    available: document.getElementById('availableSection'),
+                    custom: document.getElementById('customSection'),
+                };
+
+                // Initial setup to select the "Available" tab
+                const initialTab = filterButtons[0]; // Select the first button (Available)
+                initialTab.classList.add("filter-active");
+
+                const root = document.documentElement;
+                const targetTranslateValue = initialTab.dataset.translateValue;
+                root.style.setProperty("--translate-filters-slider", targetTranslateValue);
+
+                // Function to handle active tab
+                const handleActiveTab = (targetTab) => {
+                    filterButtons.forEach((tab) => {
+                        tab.classList.remove("filter-active");
+                    });
+
+                    targetTab.classList.add("filter-active");
+
+                    // Show the corresponding ad section and hide others
+                    const selectedCategory = targetTab.innerText.toLowerCase();
+                    for (const category in adSections) {
+                        if (category === selectedCategory) {
+                            adSections[category].style.display = 'flex'; // Show selected section
+                        } else {
+                            adSections[category].style.display = 'none'; // Hide other sections
+                        }
+                    }
+                };
+
+                // Event listener for filter tabs
+                filterTabs.addEventListener("click", (event) => {
+                    if (event.target.classList.contains("filter-button")) {
+                        const targetTranslateValue = event.target.dataset.translateValue;
+                        root.style.setProperty("--translate-filters-slider", targetTranslateValue);
+                        handleActiveTab(event.target)
+                    }
+                })
+
+                // Initially hide band and venue sections
+                adSections.custom.style.display = 'none';
+            })
 
             // Event listener for filter tabs
             filterTabs.addEventListener("click", (event) => {

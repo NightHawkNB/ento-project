@@ -28,8 +28,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0);
-  border: 2px solid var(--status-pending);
-  z-index: 5;
+  /*border: 2px solid var(--status-pending);*/
+  z-index: 7;
   border-radius: 10px;
   background-color: white;
   min-width: 400px;
@@ -50,7 +50,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--status-pending);
+  background-color: var(--purple-secondary);
   color: white;
   position: sticky;
   top: 0;
@@ -59,7 +59,7 @@
 .modal-header .title {
   font-size: 1.1rem;
   font-weight: bold;
-  font-family: Mooli, sans-serif;
+  font-family: Poppins, sans-serif;
 }
 
 .modal-header .modal-close-btn {
@@ -75,6 +75,7 @@
 .modal-body {
   padding: 10px;
   font-size: 0.9rem;
+  font-family: Poppins, sans-serif;
 }
 
 #overlay {
@@ -93,4 +94,21 @@
 #overlay.active {
   opacity: 1;
   pointer-events: all;
+}
+
+.modal-body .profile-icon {
+  background-color: white;
+  border-radius: 50%;
+  padding: 10px;
+  position:absolute;
+  right: 5px;
+  bottom: 5px;
+  transition: 0.2ms ease-in-out;
+  color: var(--font-primary);
+
+  &:hover {
+    cursor: pointer;
+    background-color: var(--purple-secondary);
+    color: var(--font-secondary);
+  }
 }

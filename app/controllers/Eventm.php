@@ -190,11 +190,19 @@ class Eventm extends controller{
         $event = new Event();
 
         if(empty($event_id)) {
-            $data['events'] = $event->where(['creator_id' => Auth::getUser_id()]);
+            $data['events'] = $event->where(['creator_id' => Auth::getUser_id(), 'status' => 'Pending']);
+            $data['events_completed'] = $event->where(['creator_id' => Auth::getUser_id(), 'status' => 'Completed']);
 
             $this->view('common/events/view_events', $data);
         } else {
             $event_data = $event->where(['event_id' => $event_id])[0];
+
+            // Provides the time remaining in days for the event to start
+            $event_data->time_left = (strtotime($event_data->start_time) - time()) / 60 / 60 / 24;
+
+            if($event_data->time_left <= 0) {
+                $event->update($event_id, ['status' => 'Completed']);
+            }
 
             $custom = new stdClass();
             $custom->band = 0;
@@ -210,8 +218,8 @@ class Eventm extends controller{
                     JOIN serviceprovider SP ON B.sp_id = SP.sp_id
                     JOIN ads ADS ON SP.user_id = ADS.user_id
                     JOIN resrequest RR ON SP.sp_id = RR.sp_id
-                    WHERE RR.user_id = :user_id AND RR.deleted = 0
-                ', ['user_id' => Auth::getUser_id()])[0] ?? [];
+                    WHERE RR.user_id = :user_id AND RR.deleted = 0 && E.event_id = :event_id
+                ', ['user_id' => Auth::getUser_id(), 'event_id' => $event_id])[0] ?? [];
 
                 if(empty($band_data)) $reservations['band'] = 0;
                 else $reservations['band'] = 1;
@@ -262,6 +270,17 @@ class Eventm extends controller{
                 WHERE V.location = :location AND AD.deleted = 0 AND V.deleted = 0
             ', ['location' => $event_data->district]);
 
+            $data['band_set'] = $db->query('
+                SELECT 
+                    SP.sp_id, 
+                    ADB.*, 
+                    AD.*
+                FROM ads AD
+                JOIN ad_band ADB ON AD.ad_id = ADB.ad_id
+                JOIN serviceprovider SP ON AD.user_id = SP.user_id
+                WHERE AD.deleted = 0
+            ');
+
             $data['event'] = $event_data;
             $data['band'] = $band_data ?? [];
             $data['venue'] = $venue_data ?? [];
@@ -284,11 +303,29 @@ class Eventm extends controller{
 
 //            show($php_data);
 
-            $rr = new Resrequest();
-            $rr->update($php_data->req_id, ['deleted' => 1]);
+            if(count((array)$php_data) == 3) {
+                $rr = new Resrequest();
+                $rr->update($php_data->req_id, ['deleted' => 1]);
 
-            $event = new Event();
-            $event->update($php_data->event_id, ['venue_id' => NULL]);
+                $event = new Event();
+
+                if($php_data->type == "venue") {
+                    $event->update($php_data->event_id, ['venue_id' => NULL]);
+                } else if($php_data->type == "band") {
+                    $event->update($php_data->event_id, ['band_id' => NULL]);
+                }
+
+            } else if(count((array)$php_data) == 2) {
+                $event = new Event();
+
+                if($php_data->type == "venue") {
+                    $event->update($php_data->event_id, ['custom_venue' => NULL]);
+                } else if($php_data->type == "band") {
+                    $event->update($php_data->event_id, ['custom_band' => NULL]);
+                }
+            }
+
+
 
             echo "success";
         } catch (Exception $error) {
