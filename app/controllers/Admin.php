@@ -121,7 +121,7 @@ GROUP BY
 
                 $assists->update($id, ['comment'=>$_POST['comment']]);
                 $assists->update($id, ['status'=>'Todo']);
-                $assists->update($id, ['admin_user_id'=>$_SESSION['USER_DATA']->user_id]);
+
 
                 message("Send to Todo list", false , 'success');
                 redirect('Admin/ccareq');
@@ -163,32 +163,79 @@ GROUP BY
 
         } else {
             $data['idlerequests'] = $assists->query("
-                SELECT complaint_assist.comp_id, complaint_assist.created_at, complaint_assist.status, complaint_assist.comment, complaints.user_id, complaints.cca_user_id 
-                FROM complaint_assist 
-                INNER JOIN complaints 
-                ON complaint_assist.comp_id = complaints.comp_id 
-                WHERE complaint_assist.deleted = 0 
-                AND complaint_assist.status='Idle'  ORDER BY complaint_assist.created_at DESC ");
+                SELECT 
+                    complaint_assist.comp_id, 
+                    complaint_assist.created_at, 
+                    complaint_assist.status, 
+                    complaints.comment,
+                    complaints.details,
+                    complaints.cca_user_id,
+                    CONCAT(user.fname, ' ', user.lname) AS username
+                FROM 
+                    complaint_assist 
+                INNER JOIN 
+                    complaints ON complaint_assist.comp_id = complaints.comp_id 
+                INNER JOIN 
+                    user ON complaints.user_id = user.user_id -- Assuming user_id is the common column
+                WHERE 
+                    complaint_assist.deleted = 0 
+                    AND complaint_assist.status='Idle'  
+                ORDER BY 
+                    complaint_assist.created_at DESC 
+            ");
 
+            $adminId = $_SESSION['USER_DATA']->user_id;
             $data['assistrequests'] = $assists->query("
-                SELECT complaint_assist.comp_id, complaint_assist.created_at, complaint_assist.status, complaint_assist.comment, complaints.user_id, complaints.cca_user_id 
-                FROM complaint_assist 
-                INNER JOIN complaints 
-                ON complaint_assist.comp_id = complaints.comp_id 
-                WHERE complaint_assist.deleted = 0 
-                AND complaint_assist.status='Todo'  ORDER BY complaint_assist.created_at DESC");
+                SELECT 
+                    complaint_assist.comp_id, 
+                    complaint_assist.created_at, 
+                    complaint_assist.status, 
+                    complaints.comment,
+                    complaints.details,
+                    complaints.cca_user_id,
+                    CONCAT(user.fname, ' ', user.lname) AS username
+                FROM 
+                    complaint_assist 
+                INNER JOIN 
+                    complaints ON complaint_assist.comp_id = complaints.comp_id 
+                INNER JOIN 
+                    user ON complaints.user_id = user.user_id -- Assuming user_id is the common column
+                WHERE 
+                    complaint_assist.deleted = 0 
+                    AND complaint_assist.status='Todo'
+                    AND complaint_assist.admin_user_id = $adminId
+                ORDER BY 
+                    complaint_assist.created_at DESC 
+            ");
+
 
             if(empty($data['assistrequests'])){
                 $data['assistrequests']=[];
             }
 
             $data['handledrequests'] = $assists->query("
-                SELECT complaint_assist.comp_id, complaint_assist.created_at, complaint_assist.status, complaint_assist.comment, complaints.user_id, complaints.cca_user_id 
-                FROM complaint_assist 
-                INNER JOIN complaints 
-                ON complaint_assist.comp_id = complaints.comp_id 
-                WHERE complaint_assist.deleted = 0 
-                AND complaint_assist.status='handled' ORDER BY complaint_assist.created_at DESC");
+                SELECT 
+                    complaint_assist.comp_id, 
+                    complaint_assist.created_at, 
+                    complaint_assist.status, 
+                    complaint_assist.admin_user_id,
+                    complaints.comment,
+                    complaints.details,
+                    complaints.cca_user_id,
+                    CONCAT(user.fname, ' ', user.lname) AS username
+                FROM 
+                    complaint_assist 
+                INNER JOIN 
+                    complaints ON complaint_assist.comp_id = complaints.comp_id 
+                INNER JOIN 
+                    user ON complaints.user_id = user.user_id -- Assuming user_id is the common column
+                WHERE 
+                    complaint_assist.deleted = 0 
+                    AND complaint_assist.status='Handled'  
+                ORDER BY 
+                    complaint_assist.created_at DESC 
+            ");
+
 
             if(empty($data['handledrequests'])){
                 $data['handledrequests']=[];
