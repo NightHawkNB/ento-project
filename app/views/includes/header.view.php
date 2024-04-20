@@ -136,7 +136,7 @@ if (message()) {
                         <svg class="fill-white" xmlns="http://www.w3.org/2000/svg" height="1.25em" viewBox="0 0 448 512">
                             <path d="M224 0c-17.7 0-32 14.3-32 32V51.2C119 66 64 130.6 64 208v18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416H416c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8V208c0-77.4-55-142-128-156.8V32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z"/>
                         </svg>
-                <div class="dropdown hide txt-ali-lef txt-c-white wid-100 mar-10 pad-10 bor-rad-5">
+                <div class="dropdown hide txt-ali-lef txt-c-white wid-100 mar-10 pad-10 bor-rad-5" style="">
                     <!-- Notifications will be dynamically populated here -->
                         <h3>New</h3>
                         <br>
@@ -147,6 +147,9 @@ if (message()) {
                         <h3>Viewed</h3>
                         <br>
                         <div class="viewed"></div>
+                    <a href="<?=ROOT?>/home/all_notifications">
+                        <div style="position: absolute; bottom: 0; right: 0; padding: 5px">more>></div>
+                    </a>
                 </div>
             </div>
 
@@ -254,8 +257,8 @@ if (message()) {
             //         dropdown.classList.remove('hide');
             //     }
             // });
-            ////////////////////////////////////////////////////////////
-
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            // for retrieve notifications data
             let data_array = []
             let new_count = 0
             let viewed_count = 0
@@ -276,18 +279,27 @@ if (message()) {
 
                     const divElement1 = document.createElement('li');
                     const divElement2 = document.createElement('li');
+                    const divElement3 = document.createElement('li');
 
                     divElement1.innerHTML = `<a href="<?=ROOT?>/home/all_notifications">${notification.message} by ${notification.title}. >> </a>`;
                     divElement2.innerHTML = `<a href="<?=ROOT?>${notification.link}">Your reservation has been ${notification.status} by ${notification.title} and ${notification.message}. >></a>`
+                    divElement3.innerHTML = `<a href="<?=ROOT?>/home/all_notifications">${notification.message} by ${notification.title}. >> </a>`;
 
                     if (notification.viewed === 0) {
                         // to take count of new notifications
                         new_count += 1
-                        // for type = Reservation
-                        console.log(notification.type + '////////////')
-                        if (notification.type === 'Reservation') {
+                        // for type = Res_Accepted
+                        // console.log(notification.type + '////////////')
+                        if (notification.type === 'Res_Accepted') {
                             new_notification.appendChild(divElement1);
                             divElement1.onclick = () => {
+                                update_notification(notification.notification_id)
+                            }
+                        }
+                        //for type = Res_denied
+                        else if (notification.type === 'Res_Denied') {
+                            new_notification.appendChild(divElement3);
+                            divElement3.onclick = () => {
                                 update_notification(notification.notification_id)
                             }
                         }
@@ -298,22 +310,30 @@ if (message()) {
                                 update_notification(notification.notification_id)
                             }
                         }
+                        //
                     }else if (notification.viewed === 1) {
                         viewed_count += 1
-                        if (notification.type === 'Reservation') {
+                        if (notification.type === 'Res_Accepted') {
                             viewed_notification.appendChild(divElement1);
+                        } else if(notification.type === 'Res_Denied'){
+                            viewed_notification.appendChild(divElement3);
                         }else if(notification.type === 'Reminder')
                             viewed_notification.appendChild(divElement2);
                     }
                 });
-                if (new_count === 0) {
-                    const divElement3 = document.createElement('div');
-                    divElement3.innerHTML = `<div>No new notifications</div>`
-                    new_notification.appendChild(divElement3)
-                }else if(viewed_count === 0){
-                    const divElement4 = document.createElement('div');
-                    divElement4.innerHTML = `<div>No viewed notifications</div>`
-                    viewed_notification.appendChild(divElement4)
+                // if (new_count === 0) {
+                //     const divElement4 = document.createElement('div');
+                //     divElement4.innerHTML = `<div>No new notifications</div>`
+                //     new_notification.appendChild(divElement4)
+                // }else if(viewed_count === 0){
+                //     const divElement5 = document.createElement('div');
+                //     divElement5.innerHTML = `<div>No viewed notifications</div>`
+                //     viewed_notification.appendChild(divElement5)
+                // }
+                if(new_count + viewed_count === 0){
+                    const divElement6 = document.createElement('div');
+                    divElement6.innerHTML = `<div>No new notifications</div>`
+                    new_notification.appendChild(divElement6)
                 }
                 // create span to display count of notifications
                 if (new_count > 0) {
