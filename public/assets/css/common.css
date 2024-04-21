@@ -123,6 +123,8 @@ body::-webkit-scrollbar-thumb {
 .txt-c-cornflowerblue {color: cornflowerblue}
 .txt-c-indigo-2 {color: var(--status-pending)}
 .txt-c-green {color: green}
+.txt-c-dark-purple{color : #a22bda
+}
 .txt-c-purple {color: #a766f1
 }
 .txt-c-lightgreen {color:lightgreen}
