@@ -14,7 +14,7 @@
 
         <section class="wid-100 dis-flex-col ju-co-sa" style="padding: 10px 10px 10px 10px; gap: 30px;">
 
-        <?php if($user->user_id == Auth::getUser_id()) : ?>
+        <?php if(($user->user_id == Auth::getUser_id()) AND ($user->user_type != 'client' OR $user->user_type != 'venuem' OR $user->user_type != 'venueo')) : ?>
             <div class="option-bar">
                 <div class="profile_visibility">
 
@@ -43,7 +43,7 @@
 
                 <form method="post" enctype="multipart/form-data" class="wid-100">
                     <div class="pos-rel p-img">
-                        <img id="image-ad" class="bor-rad-5" src="<?= (str_contains($user->image, 'general')) ? ROOT.'assets/images/ads/general.png' :  ROOT.$user->image ?>" alt="general image">
+                        <img id="image-ad" class="bor-rad-5" src="<?= (str_contains($user->image, 'general')) ? ROOT.'/assets/images/users/general.jpg' :  ROOT.$user->image ?>" alt="general image">
                         <?php if($user->user_id == Auth::getUser_id()) : ?>
                             <label for="image">
                                 <svg class="feather txt-c-white feather-upload" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
@@ -182,7 +182,7 @@
                         </div>
                     </div>
 
-                    <?php if($user->user_id == Auth::getUser_id()) : ?>
+                    <?php if(($user->user_id == Auth::getUser_id()) AND ($user->user_type != 'client' OR $user->user_type != 'venuem' OR $user->user_type != 'venueo')) : ?>
                         <div class="dis-flex ju-co-ce">
                             <button type="submit" class="button-s2">Save Changes</button>
                         </div>
@@ -192,43 +192,45 @@
 
             </div>
 
-            <div class="past_event_section">
-                <div class="pes-header">
-                    <h2>Past Events</h2>
+            <?php if($user->user_type != 'client' OR $user->user_type != 'venuem' OR $user->user_type != 'venueo'): ?>
+                <div class="past_event_section">
+                    <div class="pes-header">
+                        <h2>Past Events</h2>
+                    </div>
+
+                    <div class="pes-content">
+                        <?php if(empty($past_events)) {
+                            echo "<h3>No past events to show</h3>";
+                        } else {
+
+                            foreach ($past_events as $event) {
+                                $this->view("common/profile/components/event", (array)$event);
+                            }
+
+    //                        show($past_events);
+                        } ?>
+                    </div>
                 </div>
 
-                <div class="pes-content">
-                    <?php if(empty($past_events)) {
-                        echo "<h3>No past events to show</h3>";
-                    } else {
+                <div class="past_review_section">
+                    <div class="pes-header">
+                        <h2>User Reviews</h2>
+                    </div>
 
-                        foreach ($past_events as $event) {
-                            $this->view("common/profile/components/event", (array)$event);
-                        }
+                    <div class="pes-content">
+                        <?php if(empty($reviews)) {
+                            echo "<h3>No reviews to show</h3>";
+                        } else {
 
-//                        show($past_events);
-                    } ?>
+                            foreach ($reviews as $review) {
+                                $this->view("common/profile/components/review", (array)$review);
+                            }
+
+    //                        show($reviews);
+                        } ?>
+                    </div>
                 </div>
-            </div>
-
-            <div class="past_review_section">
-                <div class="pes-header">
-                    <h2>User Reviews</h2>
-                </div>
-
-                <div class="pes-content">
-                    <?php if(empty($reviews)) {
-                        echo "<h3>No reviews to show</h3>";
-                    } else {
-
-                        foreach ($reviews as $review) {
-                            $this->view("common/profile/components/review", (array)$review);
-                        }
-
-//                        show($reviews);
-                    } ?>
-                </div>
-            </div>
+            <?php endif; ?>
 
         </section>
     </main>

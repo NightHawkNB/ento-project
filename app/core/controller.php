@@ -650,13 +650,13 @@ function get_all_ads($pending = 0, $deleted = 0): array
     $db = new Database();
 
     // Getting Singer Ads
-    $temp_arr_1 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'singer'];
+    $temp_arr_1 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'singer', 'visible' => 1];
     $data['ad_singer'] = $db->query("
         SELECT *
         FROM ads
             JOIN ad_singer ON ads.ad_id = ad_singer.ad_id
             JOIN user ON user.user_id = ads.user_id
-        WHERE ads.deleted = :deleted and ads.pending = :pending and ads.category = :category
+        WHERE ads.deleted = :deleted and ads.pending = :pending and ads.category = :category and ads.visible = :visible
     ", $temp_arr_1);
     if(!$data['ad_singer']) $data['ad_singer'] = [];
     //show($data['ad_singer']);
@@ -664,25 +664,25 @@ function get_all_ads($pending = 0, $deleted = 0): array
 
 
     // Getting Band Ads
-    $temp_arr_2 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'band'];
+    $temp_arr_2 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'band', 'visible' => 1];
     $data['ad_band'] = $db->query("
         SELECT *
         FROM ads
             JOIN ad_band ON ads.ad_id = ad_band.ad_id
             JOIN user ON user.user_id = ads.user_id
-        WHERE ads.deleted = :deleted and ads.pending = :pending and ads.category = :category
+        WHERE ads.deleted = :deleted and ads.pending = :pending and ads.category = :category and ads.visible = :visible
     ", $temp_arr_2);
     if(!$data['ad_band']) $data['ad_band'] = [];
 
     // Getting Venue Ads
-    $temp_arr_3 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'venue'];
+    $temp_arr_3 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'venue', 'visible' => 1];
     // LEFT join is set since we haven't added any data to the ad_band table
     $data['ad_venue'] = $db->query("
         SELECT *
         FROM ads
             JOIN ad_venue ON ads.ad_id = ad_venue.ad_id
             JOIN user ON user.user_id = ads.user_id
-        WHERE ads.deleted = :deleted and ads.pending = :pending and ads.category = :category
+        WHERE ads.deleted = :deleted and ads.pending = :pending and ads.category = :category and ads.visible = :visible
     ", $temp_arr_3);
     if(!$data['ad_venue']) $data['ad_venue'] = [];
 
@@ -727,6 +727,15 @@ function get_ads_where($user_id, $pending = 0, $deleted = 0): array
             JOIN ad_venue ON ads.ad_id = ad_venue.ad_id 
         WHERE deleted = :deleted and PENDING = :pending and category = :category and user_id = :user_id
     ", $temp_arr_3);
+
+    // Getting Event Manager Ads
+    $temp_arr_4 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'eventm', 'user_id' => $user_id];
+    // LEFT join is set since we haven't added any data to the ad_band table
+    $data['ad_eventm'] = $db->query("
+        SELECT * 
+        FROM ads 
+        WHERE deleted = :deleted and PENDING = :pending and category = :category and user_id = :user_id
+    ", $temp_arr_4);
 
     return $data;
 }

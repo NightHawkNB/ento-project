@@ -45,13 +45,14 @@
             <!--            <p>--><?php //= $contact_email ?><!--</p>-->
             <!--        </div>-->
 
-            <div class="horizontal" style="height: 60px; text-overflow: ellipsis">
+            <div class="horizontal" style="height: 60px;">
                 <svg style="stroke: var(--purple-primary); fill: none;" class="feather feather-info" fill="none" height="24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="12" cy="12" r="10"/>
                     <line x1="12" x2="12" y1="16" y2="12"/>
-                    <line x1="12" x2="12.01" y1="8" y2="8"/></svg>
+                    <line x1="12" x2="12.01" y1="8" y2="8"/>
+                </svg>
 
-                <p><?= $details ?></p>
+                <p style="overflow: hidden; text-overflow: ellipsis; max-height: 80%"><?= $details ?></p>
             </div>
 
             <div class="horizontal">
@@ -117,13 +118,15 @@
                     <div class="" style="position: relative">
                         <img src="<?= ROOT.$image ?>" alt="Ad image" style="width: 150px; height: 150px; object-fit: cover" class="bor-rad-5">
 
-                        <a href="<?= ROOT ?>/<?= $_SESSION['USER_DATA']->user_type ?>/user_profile/<?= $user_id ?>">
-                            <div class="profile-icon">
-                                <svg class="feather feather-user" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                                    <circle cx="12" cy="7" r="4"/></svg>
-                            </div>
-                        </a>
+                        <?php if($profile_visible == 1): ?>
+                            <a href="<?= ROOT ?>/<?= $_SESSION['USER_DATA']->user_type ?>/user_profile/<?= $user_id ?>">
+                                <div class="profile-icon">
+                                    <svg class="feather feather-user" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                        <circle cx="12" cy="7" r="4"/></svg>
+                                </div>
+                            </a>
+                        <?php endif; ?>
                     </div>
 
                     <div>
@@ -139,7 +142,7 @@
                     </div>
 
                     <div class="pad-20 wid-100 dis-flex gap-10 ju-co-sb">
-                        <p><span class="txt-w-bold f-mooli">Average rate : </span> <?= number_format($rates) ?></p>
+                        <p><span class="txt-w-bold f-mooli">Average rate : </span> <?= empty($rates) ? 'Not Set' : number_format($rates) ?></p>
                         <p><span class="txt-w-bold f-mooli">Posted Date Time : </span> <?= $datetime ?></p>
                     </div>
 
@@ -193,7 +196,7 @@
                     </div>
 
                     <div class="pad-20 wid-100 dis-flex gap-10 ju-co-sb">
-                        <p><span class="txt-w-bold f-mooli">Average rate : </span> <?= number_format($rates) ?></p>
+                        <p><span class="txt-w-bold f-mooli">Average rate : </span> <?= empty($rates) ? 'Not Set' : number_format($rates) ?></p>
                         <p><span class="txt-w-bold f-mooli">Posted Date Time : </span> <?= $datetime ?></p>
                     </div>
 
@@ -221,13 +224,15 @@
                     <div class="" style="position: relative">
                         <img src="<?= ROOT.$image ?>" alt="Ad image" style="width: 150px; height: 150px; object-fit: cover" class="bor-rad-5">
 
-                        <a href="<?= ROOT ?>/<?= $_SESSION['USER_DATA']->user_type ?>/user_profile/<?= $user_id ?>">
-                            <div class="profile-icon">
-                                <svg class="feather feather-user" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                                    <circle cx="12" cy="7" r="4"/></svg>
-                            </div>
-                        </a>
+                        <?php if($profile_visible == 1): ?>
+                            <a href="<?= ROOT ?>/<?= $_SESSION['USER_DATA']->user_type ?>/user_profile/<?= $user_id ?>">
+                                <div class="profile-icon">
+                                    <svg class="feather feather-user" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                        <circle cx="12" cy="7" r="4"/></svg>
+                                </div>
+                            </a>
+                        <?php endif; ?>
                     </div>
 
                     <div>
@@ -248,7 +253,7 @@
                     </div>
 
                     <div class="pad-20 wid-100 dis-flex gap-10 ju-co-sb">
-                        <p><span class="txt-w-bold f-mooli">Average rate : </span> <?= number_format($rates) ?></p>
+                        <p><span class="txt-w-bold f-mooli">Average rate : </span> <?= empty($rates) ? 'Not Set' : number_format($rates) ?></p>
                         <p><span class="txt-w-bold f-mooli">Posted Date Time : </span> <?= $datetime ?></p>
                     </div>
 
