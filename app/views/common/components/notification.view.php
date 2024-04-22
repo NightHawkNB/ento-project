@@ -26,9 +26,9 @@
     </div>
 
     <?php if ($type === "Res_Accepted"): ?>
-        <a href="<?=ROOT?>/client/reservations/accepted"><button class="btn-lay-s" style="width: fit-content; height: fit-content; background-color: #c1abec ">Reservations >></button></a>
+        <a href="<?=ROOT?>/<?=$_SESSION['USER_DATA']->user_type?>/reservations/accepted"><button class="btn-lay-s" style="width: fit-content; height: fit-content; background-color: #c1abec ">Reservations >></button></a>
     <?php elseif ($type === "Res_Denied"): ?>
-        <a href="<?=ROOT?>/client/reservations/denied"><button class="btn-lay-s" style="width: fit-content; height: fit-content; background-color: #c1abec ">Reservations >></button></a>
+        <a href="<?=ROOT?>/<?=$_SESSION['USER_DATA']->user_type?>/reservations/denied"><button class="btn-lay-s" style="width: fit-content; height: fit-content; background-color: #c1abec ">Reservations >></button></a>
     <?php endif; ?>
 
 </div>
