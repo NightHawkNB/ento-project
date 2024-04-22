@@ -85,7 +85,7 @@
                 <h1 class="mar-10-0 txt-c-black txt-w-bold" style="font-size: 1.5rem"> Outdated Bought Tickets</h1>
 
                 <div class="bor-rad-10 ju-co-ce wid-80 dis-flex gap-20 pad-20 hei-100 wid-100 flex-wrap">
-
+<?= show($data)?>
                     <?php
                     $currentDateTime = date('HY-m-d H:i:s');
                     if (!empty($bought_tickets)) {
