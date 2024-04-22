@@ -341,7 +341,7 @@ GROUP BY
                 ORDER BY 
                     ads.datetime DESC 
             ");
-            
+
             $data['bandads'] = $ad->query("
                 SELECT 
                     CONCAT(user.fname, ' ', user.lname) AS username,
