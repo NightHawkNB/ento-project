@@ -1,8 +1,72 @@
-<?php if(($user_type == "singer" AND $visible == 1) || $user_type != 'singer'): ?>
+<?php if(($_SESSION['USER_DATA']->user_type == "singer" AND $visible == 1) || $_SESSION['USER_DATA']->user_type != 'singer'): ?>
 
-<?php //show($data); ?>
+<?php show($data); ?>
 
     <div class="ad sh" data-category="<?= $category ?>" data-title="<?= $title ?>">
+
+        <div class="toggle-button-cover">
+            <div class="button-cover">
+                <p class="js-left-text">VISIBLE</p>
+                <div class="button r" id="button-3">
+                    <input type="checkbox" class="checkbox" onclick="toggle_visibility(this)"    <?= ($visible == 0) ? 'checked' : '' ?> />
+                    <div class="knobs"></div>
+                    <div class="layer"></div>
+                </div>
+                <p class="js-right-text">HIDDEN</p>
+            </div>
+        </div>
+
+        <script>
+            function toggle_visibility(element) {
+
+                let current_visibility = <?= ($visible == 1) ? 1 : 0 ?>
+
+                console.log(element)
+
+                const checkbox = element
+                const visible_text = element.parentElement.parentElement.querySelector('.js-left-text')
+                const hidden_text = element.parentElement.parentElement.querySelector('.js-right-text')
+
+                if (!checkbox.checked) {
+                    visible_text.style.color = 'mediumpurple'
+                    hidden_text.style.color = 'grey'
+                } else {
+                    visible_text.style.color = 'grey'
+                    hidden_text.style.color = '#f44336'
+                }
+
+                let visibility = checkbox.checked ? 0 : 1
+                update_visibility(visibility)
+
+            }
+
+            function update_visibility(visibility) {
+                let data = {visibility}
+                console.log("RAN")
+                fetch(`/ento-project/public/<?= $_SESSION['USER_DATA']->user_type ?>/ads/update-visibility`, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json; charset=utf-8"
+                    },
+                    body: JSON.stringify(data)
+                }).then(res => {
+                    // console.log(res)
+                    return res.text()
+                }).then(data => {
+
+                    if(data !== "success") {
+                        current_visibility = visibility
+                        // alert("Visibility Update Failed")
+                        // window.location.reload()
+                    }
+                    // else current_visibility = !visibility
+
+                    // Shows the data printed by the targeted php file.
+                    // (stopped printing all data in php file by using die command)
+                    console.log(data)
+                })
+            }
+        </script>
 
         <div class="top">
             <div class="vertical">
@@ -77,9 +141,7 @@
                 </a>
             <?php endif; ?>
 
-            <?php if(Auth::logged_in()): ?>
-                <button class="button-s2" data-modal-target="#<?= $ad_id ?>" onclick="update_viewCount('<?= $ad_id ?>')">More Info</button>
-            <?php endif; ?>
+            <button class="button-s2" data-modal-target="#<?= $ad_id ?>" onclick="update_viewCount('<?= $ad_id ?>')">More Info</button>
 
             <?php if($pending != 1 && Auth::logged_in() && (!Auth::is_client()) && !str_contains($_SERVER['QUERY_STRING'], "home/ads") && !str_contains($_SERVER['QUERY_STRING'], "/ads/all-ads") ): ?>
                 <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/ads/promote-ad/<?= $ad_id ?>">
@@ -118,8 +180,8 @@
                     <div class="" style="position: relative">
                         <img src="<?= ROOT.$image ?>" alt="Ad image" style="width: 150px; height: 150px; object-fit: cover" class="bor-rad-5">
 
-                        <?php if($profile_visible == 1): ?>
-                            <a href="<?= ROOT ?>/<?= $_SESSION['USER_DATA']->user_type ?>/user_profile/<?= $user_id ?>">
+                        <?php if($profile_visible == 1 && Auth::logged_in()): ?>
+                            <a href="<?= ROOT ?>/<?= Auth::logged_in() ? $_SESSION['USER_DATA']->user_type : 'client' ?>/user_profile/<?= $user_id ?>">
                                 <div class="profile-icon">
                                     <svg class="feather feather-user" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
@@ -225,7 +287,7 @@
                         <img src="<?= ROOT.$image ?>" alt="Ad image" style="width: 150px; height: 150px; object-fit: cover" class="bor-rad-5">
 
                         <?php if($profile_visible == 1): ?>
-                            <a href="<?= ROOT ?>/<?= $_SESSION['USER_DATA']->user_type ?>/user_profile/<?= $user_id ?>">
+                            <a href="<?= ROOT ?>/<?= Auth::logged_in() ? $_SESSION['USER_DATA']->user_type : 'client' ?>/user_profile/<?= $user_id ?>">
                                 <div class="profile-icon">
                                     <svg class="feather feather-user" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>

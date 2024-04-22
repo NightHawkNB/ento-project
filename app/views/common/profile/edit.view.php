@@ -59,7 +59,7 @@
                             const visible_text = document.querySelector('.js-left-text')
                             const hidden_text = document.querySelector('.js-right-text')
 
-                            let current_visibility = <?= $user->visible ?> // Getting the current visibility of the user
+                            let current_visibility = <?= $user->profile_visible ?> // Getting the current visibility of the user
 
                             // Running the toggle_visibility function when the page loads to update the button
                             if (current_visibility === 0) {
@@ -92,7 +92,7 @@
 
                             function update_visibility(visibility) {
                                 let data = {visibility}
-                                console.log("RAN")
+                                // console.log("RAN")
                                 fetch(`/ento-project/public/<?= $_SESSION['USER_DATA']->user_type ?>/profile/edit-profile/visibility`, {
                                     method: "PATCH",
                                     headers: {
@@ -109,7 +109,7 @@
 
                                     // Shows the data printed by the targeted php file.
                                     // (stopped printing all data in php file by using die command)
-                                    console.log(data)
+                                    // console.log(data)
                                 })
                             }
 

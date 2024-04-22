@@ -60,7 +60,7 @@
 
                 <div class="group">
                     <div class="group-content">
-                        <label for="rates">Rates</label>
+                        <label for="rates">Rate per Event</label>
                         <input type="text" id="rates" name="rates" placeholder="Current average rates">
                         <div class="error"></div>
                     </div>

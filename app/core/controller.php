@@ -138,8 +138,8 @@ class Controller
                     // If the second argument is set to true, the function returns an array. Otherwise, it returns an object
                     $php_data = json_decode($json_data);
 
-                    $user->update(Auth::getUser_id(), ['visible' => $php_data->visibility]);
-                    $_SESSION['USER_DATA']->visible = $php_data->visibility;
+                    $user->update(Auth::getUser_id(), ['profile_visible' => $php_data->visibility]);
+                    $_SESSION['USER_DATA']->profile_visible = $php_data->visibility;
 
                     echo "success";
                 } catch (Exception $e) {
@@ -596,6 +596,29 @@ class Controller
                 message("Deleted successfully", false, 'success');
                 redirect(strtolower($user_data->user_type) . "/ads");
             }
+        } else if($method == 'update-visibility') {
+
+            $json_data = file_get_contents("php://input");
+
+            // If the second argument is set to true, the function returns an array. Otherwise, it returns an object
+            $php_data = json_decode($json_data);
+
+            try {
+                // Update the visible status of an advertisement
+                $ads = new Ad();
+
+                show($id);
+                
+
+                $ads->update($id, ['visible' => $php_data->visibility]);
+
+                echo "success";
+            } catch (Exception $e) {
+                echo "failed";
+            }
+
+            die;
+
         } else {
             message("Page not found");
             redirect(strtolower($user_data->user_type) . '/ads');
