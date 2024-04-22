@@ -1,22 +1,24 @@
 <a href="<?=ROOT?>/<?=strtolower($_SESSION['USER_DATA']->user_type)?>/ccareq/<?=$comp_id?>">
     <div class="dis-flex wid-100">
-        <div class="bg-white txt-c-black pad-10-20 bor-rad-5 wid-100 dis-flex al-it-ce ju-co-sb ads sh f-poppins mar-5" style="gap: 100px;margin: 5px;">
+        <div class="bg-white txt-c-black pad-10-20 bor-rad-5 wid-100 dis-flex al-it-ce ju-co-sb ads sh
+         f-poppins mar-5" style="gap: 10px;margin: 5px;">
             <div class="txt-c-black dis-flex-col gap-10" style="width: 150px;">
                 <p class="txt-w-bold txt-c-dark-purple">User</p>
                 <p><?= $username ?></p>
             </div>
 
-            <div class="dis-flex-col txt-c-black gap-10" style="width: 350px;">
+            <div class="dis-flex-col txt-c-black gap-10" style="width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                 <p class="txt-w-bold txt-c-dark-purple">Details</p>
                 <p><?= $details ?></p>
             </div>
+
 
             <div class="dis-flex-col txt-c-black gap-10" style="width: 150px;">
                 <p class="txt-w-bold txt-c-dark-purple" style="">Comment</p>
                 <p><?= $comment ?></p>
             </div>
 
-            <div class="dis-flex-col txt-c-black gap-" style="width: 150px;">
+            <div class="dis-flex-col txt-c-black gap-10" style="width: 150px;">
                 <p class="txt-w-bold txt-c-dark-purple">Date and Time</p>
                 <p><?= $created_at ?></p>
             </div>

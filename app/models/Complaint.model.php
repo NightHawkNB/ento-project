@@ -14,6 +14,7 @@ class Complaint extends Model {
         'user_id',
         'cca_user_id',
         'status',
-        'deleted'
+        'deleted',
+        'comment'
     ];
 }

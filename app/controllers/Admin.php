@@ -141,17 +141,24 @@ GROUP BY
                     complaint_assist.comp_id AS assist_comp_id, 
                     complaint_assist.created_at AS assist_date_time, 
                     complaint_assist.status, 
-                    complaint_assist.comment, 
+                    complaint_assist.comment AS assist_comment, 
                     complaints.details, 
                     complaints.user_id,
                     complaints.date_time AS complaint_date_time, 
-                    complaints.cca_user_id 
+                    complaints.cca_user_id,
+                    CONCAT(user.fname, ' ', user.lname) AS username,
+                    complaints.files,
+                    complaints.comment AS cca_comment
                 FROM 
                     complaint_assist 
                 INNER JOIN 
                     complaints 
                 ON 
                     complaint_assist.comp_id = complaints.comp_id 
+                INNER JOIN 
+                    user 
+                ON 
+                    complaints.user_id = user.user_id
                 WHERE 
                     complaint_assist.deleted = 0 
                     AND 
@@ -317,9 +324,63 @@ GROUP BY
 
         if (empty($id) && empty($method)) {
 
-            $data['singerads'] = $ad->query("SELECT ad_id, title, user_id, category, datetime FROM ads WHERE pending=1 and category='singer'");
-            $data['bandads'] = $ad->query("SELECT ad_id, title, user_id, category, datetime FROM ads WHERE pending=1 and category='band'");
-            $data['venueads'] = $ad->query("SELECT ad_id, title, user_id, category, datetime FROM ads WHERE pending=1 and category='venue'");
+            $data['singerads'] = $ad->query("
+                SELECT 
+                    CONCAT(user.fname, ' ', user.lname) AS username,
+                    ads.title, 
+                    ads.category, 
+                    ads.datetime
+                FROM 
+                    ads
+                INNER JOIN 
+                    user ON user.user_id = ads.user_id 
+                WHERE 
+                    pending=1 
+                AND 
+                    category='singer'
+                ORDER BY 
+                    ads.datetime DESC 
+            ");
+            
+            $data['bandads'] = $ad->query("
+                SELECT 
+                    CONCAT(user.fname, ' ', user.lname) AS username,
+                    ads.title, 
+                    ads.category, 
+                    ads.datetime,
+                    ad_band.packages
+                FROM 
+                    ads
+                INNER JOIN 
+                    user ON user.user_id = ads.user_id 
+                INNER JOIN 
+                    ad_band ON ad_band.ad_id = ads.ad_id 
+                WHERE 
+                    pending=1 
+                AND 
+                    category='band'
+                ORDER BY 
+                    ads.datetime DESC 
+                    ");
+
+
+            $data['venueads'] = $ad->query("
+                   SELECT 
+                        CONCAT(user.fname, ' ', user.lname) AS username,
+                        ads.title, 
+                        ads.category, 
+                        ads.datetime
+                    FROM 
+                        ads
+                    INNER JOIN 
+                        user ON user.user_id = ads.user_id 
+                    WHERE 
+                        pending=1 
+                    AND 
+                        category='venue'
+                    ORDER BY 
+                        ads.datetime DESC 
+                    ");
 
             $this->view('admin/adverification', $data);
 
