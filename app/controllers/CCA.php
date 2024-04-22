@@ -106,18 +106,19 @@ class CCA extends Controller{
                 $data['hand'] = $complaints->where(['status' => 'Handled']);
                 $this->view("CCA/view_complaints", $data);
             }
-        }elseif($status== 'complaintdetails'){
+        }
+        elseif($status== 'complaintdetails'){
             $comp = new Complaint();
             $data['comp']= $comp->first(['comp_id'=>$action]);
             $this->view('cca/complaintdetails',$data);
-
-        } else {
+        }
+        else {
 
 
             $complaints = new Complaint();
-            $data['acc'] = $complaints->where(['status' => 'Accepted','cca_user_id'=>Auth::getUser_id()]);
+            $data['acc'] = $complaints->where(['status' => 'Accepted']);
             $data['idl'] = $complaints->where(['status' => 'Idle']);
-            $data['assi'] = $complaints->where(['status' => 'Assist','cca_user_id'=>Auth::getUser_id()]);
+            $data['assi'] = $complaints->where(['status' => 'Assist']);
             $data['hand'] = $complaints->where(['status' => 'Handled']);
             $this->view("CCA/view_complaints", $data);
 
@@ -129,20 +130,18 @@ class CCA extends Controller{
             $this->view("CCA/chats");
         }
 
-//        public function verify($status = null, $action=null, $id=null)
+//        public function verify($status = null, $id=null)
 //        {
-//            if ($status == 'newuser') {
-//                if ($action == 'null') {
+//            if ($status == 'new') {
+//
 //                    // Accept the newuser by the cca
-//
-//
 //                    $ur = new Uservreq();
 //                    $data['assists'] = $ur->get_all();
 //                    $this->view("CCA/verify", $data);
 //
 //
-//                    redirect('cca/complaints');
-//                }
+//                    redirect('cca/verify');
+//
 //            }
 //        }
 
@@ -152,6 +151,7 @@ class CCA extends Controller{
             $ur = new Uservreq();
             $data['assists'] = $ur->get_all();
             $this->view("CCA/verify", $data);
+
         }else{
             $ur = new Uservreq();
             $data['assists'] = $ur->query("
@@ -159,11 +159,32 @@ class CCA extends Controller{
             JOIN user
             ON user.user_id = uservreq.user_id
             WHERE uservreq.userVreq_id = :userVreq_id
+            AND uservreq.status = 'new'
         ", ['userVreq_id' => $uservid])[0];
 
             $this->view("CCA/verifydetails", $data);
         }
     }
+
+
+//    public function verify($uservid=null){
+//
+//        if(empty($uservid)){
+//            $ur = new Uservreq();
+//            $data['assists'] = $ur->get_all();
+//            $this->view("CCA/verify", $data);
+//        }else{
+//            $ur = new Uservreq();
+//            $data['assists'] = $ur->query("
+//            SELECT * FROM uservreq
+//            JOIN user
+//            ON user.user_id = uservreq.user_id
+//            WHERE uservreq.userVreq_id = :userVreq_id
+//        ", ['userVreq_id' => $uservid])[0];
+//
+//            $this->view("CCA/verifydetails", $data);
+//        }
+//    }
 
     public function admanage(){
         $this->view("CCA/admanage");

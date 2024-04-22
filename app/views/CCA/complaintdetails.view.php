@@ -4,7 +4,7 @@
     .complaint-container {
         width: 100%;
         height: 100%;
-        background: #fff;
+        background: #faf7f7;
         padding: 25px;
         border-radius: 8px;
         display: flex;
@@ -13,17 +13,25 @@
 
         .content {
             display: flex;
+            flex-direction: column;
             justify-content: space-between;
+
+            background: #faf7f7;
             width: 100%;
+
+            .inputflex{
+                display: flex;
+                gap: 10px;
+            }
         }
     }
 
-    .complaint-container header {
-        font-size: 1.5rem;
-        color: #333;
-        font-weight: 500;
-        text-align: center;
-    }
+    /*.complaint-container header {*/
+    /*    font-size: 1.5rem;*/
+    /*    color: #333;*/
+    /*    font-weight: 500;*/
+    /*    text-align: center;*/
+    /*}*/
 
 
 
@@ -78,6 +86,12 @@
                 <div class="form" style="width: 100%">
                     <div class="content">
                         <style>
+                            .head{
+                                background-color: #d9cbf3;
+                                border-radius: 8px;
+                                font-size: 1.5rem;
+                            }
+
                             .input-like {
                                 height: 50px;
                                 width: 100%;
@@ -94,14 +108,24 @@
                                     display: flex;
                                     flex-direction: column;
                                     width: 100%;
-                                    gap: 10px;
+                                    gap: 5px;
+                                    padding-top: 5px;
+                                }
+                                .inputflex .input-box label{
+                                    padding-top: 20px;
                                 }
 
                         </style>
-                                <h1 class = "dis-flex ju-co-ce pad-20">Complaint Details</h1>
-                                <div class="input-box">
-                                <label>Complaint Id</label>
-                                <div class="input-like"><?= $comp->comp_id?> </div>
+                                <h1 class = "dis-flex ju-co-ce pad-20 head">Complaint Details</h1>
+                                <div class="inputflex">
+                                    <div class="input-box">
+                                        <label>Complaint Id</label>
+                                        <div class="input-like"><?= $comp->comp_id?> </div>
+                                    </div>
+                                    <div class="input-box">
+                                        <label>User Id </label>
+                                        <div class="input-like"><?= $comp->user_id ?> </div>
+                                    </div>
                                 </div>
                                 <div class="input-box">
                                     <label>Details</label>
@@ -111,24 +135,23 @@
                                     <label>Timestamp</label>
                                     <div class="input-like"><?= $comp->date_time?> </div>
                                 </div>
-                                <div class="input-box">
-                                    <label>Comment</label>
-                                    <div class="input-like"><?= $comp->comment?> </div>
-                                </div>
-                                <div class="input-box">
-                                    <label>User Id </label>
-                                    <div class="input-like"><?= $comp->user_id ?> </div>
-                                </div>
                             </div>
-                    <div class="dis-flex gap-10 ju-co-ce al-it-ba pad-20 bor-rad-5 txt-c-black">
+                    <div class="dis-flex gap-10 ju-co-ce al-it-ce pad-20 bor-rad-5 txt-c-black">
                         <a href="<?= ROOT ?>/cca/complaints/accepted/assists/<?= $comp_id ?>">
                             <button class="btn-lay-2 hover-pointer btn-anima-hover">Assists</button>
                         </a>
                         <button class="btn-lay-2 hover-pointer btn-anima-hover" onclick="openPopup()">Handle</button>
                     </div>
+<!--                    <div class="popup" id="popup">-->
+<!--                        <h2>Handle details</h2>-->
+<!--                            <input type = "text" >-->
+<!--                        <a href="--><?php //= ROOT ?><!--/cca/complaints/accepted/handle/--><?php //= $comp_id ?><!--">-->
+<!--                            <button type="button" onclick="closePopup()">Ok</button>-->
+<!--                        </a>-->
+<!--                    </div>-->
                     <div class="popup" id="popup">
-                        <h2>Thank you!</h2>
-                        <p>Successfully submited.</p>
+                        <h2>Handle details</h2>
+                        <input type="text">
                         <a href="<?= ROOT ?>/cca/complaints/accepted/handle/<?= $comp_id ?>">
                             <button type="button" onclick="closePopup()">Ok</button>
                         </a>
@@ -138,6 +161,15 @@
     </main>
 </div>
 <script>
+    // let popup = document.getElementById('popup');
+    // function openPopup() {
+    //     popup.classList.add("open-popup");
+    // }
+    // function closePopup() {
+    //     popup.classList.remove("open-popup");
+    // }
+    //
+    // openPopup();
     let popup = document.getElementById('popup');
     function openPopup() {
         popup.classList.add("open-popup");
@@ -145,6 +177,8 @@
     function closePopup() {
         popup.classList.remove("open-popup");
     }
+    // Call openPopup somewhere, for example:
+    openPopup();
 </script>
 </body>
 </html>

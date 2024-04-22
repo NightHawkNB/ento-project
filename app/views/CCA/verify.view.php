@@ -41,13 +41,28 @@
                     </nav>
                     <div id="newusersection" class="complaint-section flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="max-height: 60vh; overflow:auto; padding-right: 10px">
 
+<!--                        --><?php
+//                        if(query(SELECT * FROM uservreq where status=='new')){
+////                            print_r("$assists");
+//                            foreach($assists as $assist ){
+//
+//                                $this->view("CCA/components/verification", (array)$assist);
+//                            }
+//                        }
+//                        ?>
                         <?php
-                        if(!empty($userid)){
-                            foreach($assists as $assist ){
+                        // Assuming $ur is an instance of your database class
+//                        print_r("$data");
+                        $result = $data->query("SELECT * FROM uservreq WHERE status = 'new'");
+
+                        print_r("$data");
+                        if ($result !== false) {
+                            foreach($result as $assist) {
                                 $this->view("CCA/components/verification", (array)$assist);
                             }
                         }
                         ?>
+
 
                     </div>
 
