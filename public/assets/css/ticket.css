@@ -34,20 +34,20 @@
     border-radius: 5px;
 }
 
-.ads:hover {
-    cursor: pointer;
-    transform: scale(1.005);
-    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
-}
+/*.ads:hover {*/
+/*    cursor: pointer;*/
+/*    transform: scale(1.005);*/
+/*    box-shadow: 0 3px 8px rgba(0,0,0,0.3);*/
+/*}*/
 
-.ads:hover .promotions > p {
-    display: block;
-}
+/*.ads:hover .promotions > p {*/
+/*    display: block;*/
+/*}*/
 
-.ads:hover .promotions {
-    background-color: mediumpurple;
-    width: 100%;
-}
+/*.ads:hover .promotions {*/
+/*    background-color: mediumpurple;*/
+/*    width: 100%;*/
+/*}*/
 
 .promotion-parent {
     height: 100%;

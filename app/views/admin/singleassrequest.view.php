@@ -2,11 +2,7 @@
 <?php $this->view('includes/head') ?>
 
 <style>
-    .bordered-div {
-        border: 2px solid black;
-        border-radius: 5px;
-        margin: 10px 0px 10px 0px;
-    }
+
 
     .popup {
         display: none;
@@ -47,8 +43,20 @@
         border: none;
         outline: none;
         transition: 0.3s;
-        width: 140px;
+        width: fit-content;
+        cursor: pointer;
     }
+
+    .close-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        color: red;
+        font-weight: bolder;
+    }
+
 
 </style>
 
@@ -62,35 +70,52 @@
         </section>
 
         <section class="cols-10 dis-flex">
-            <div class="mar-10 wid-100 dis-flex-col pad-20 gap-10 bor-rad-5" style="justify-content: stretch; align-items: stretch;">
-                <div class="bg-white hei-90 dis-flex-col bor-rad-10 wid-80 mar-20 pad-20" style="margin-left: 150px">
-                    <div class="bg-grey go-6 dis-flex-col" style="height:50%">
-                        <div class="" style="background-color: #ffffff ;height: 25%">
-                            <div class="dis-flex">
-                                <div class="" style="width:50%; background-color: #ffffff">
-                                    <a href="<?= ROOT ?>/admin/ccareq" >
-                                        <button class="back-btn " style="width: 50px; text-align: center">
-                                            < Back
-                                        </button>
-                                    </a>
-                                </div>
-                                <div class="" style="width:50%; background-color: #ffffff">
-                                    <p class="txt-ali-rig txt-d-none pad-10" style="font-weight: bold; font-size: 1.2rem; color: #de2a2a;">Assistance Pending</p>
-                                </div>
+            <div class="wid-100 dis-flex-col pad-20 gap-10 bor-rad-5" style="justify-content: center; align-items: center;">
+                <div class="bg-white hei-100 dis-flex-col bor-rad-10 pad-20" style="overflow: auto; max-width: 800px; min-width: 800px">
+                    <div class="dis-flex-col" style="">
+                        <div class="dis-flex" style="">
+                            <div class="" style="width:50%;  background-color: #ffffff">
+                                <button class="back-btn " onclick="goBack() " style="width: 50px; text-align: center">
+                                    < Back
+                                </button>
+                            </div>
+                            <div class="" style="width:50%; background-color: #ffffff">
+                                <?php
+                                $status = $requests[0]->status ;
+                                $text = '';
+                                $color = '';
+                                switch ($status) {
+                                    case 'Idle':
+                                        $text = 'Assistance Pending';
+                                        $color = 'txt-c-red';
+                                        break;
+                                    case 'Todo':
+                                        $text = 'Assistance Todo';
+                                        $color = 'txt-c-green';
+                                        break;
+                                    case 'Handled':
+                                        $text = 'Assistance Handled';
+                                        $color = 'txt-c-indigo-2';
+                                        break;
+                                }
+                                ?>
+                                <p class="txt-ali-rig txt-d-none pad-10 <?= $color ?>" style="font-weight: bold; font-size: 1.2rem;">
+                                    <?= $text ?>
+                                </p>
                             </div>
                         </div>
-                        <div class="" style="background-color: #ffffff; height: 15%">
-                            <p class="txt-ali-lef txt-d-none " style=" "><?= $requests[0]->assist_date_time ?> |  CCA ID : 453687</p>
+                        <div class="" style="background-color: #ffffff;">
+                            <p class="txt-ali-lef txt-d-none " style=" "><?= $requests[0]->assist_date_time ?> | CCA ID : <?= $requests[0]->cca_user_id ?> </p>
                         </div>
-                        <div class="dis-flex-col" style="background-color: #ffffff; height: 35%">
-                            <div class="" style="height:10%">
-                                <p class="txt-ali-lef txt-d-none " style=" ">Comment : </p>
-                            </div>
-                            <div class="bordered-div pad-10" style="height: 90%; margin: 10px 0px 10px 0px;">
-                                <p class="txt-ali-lef txt-d-none " style=" "> <?= $requests[0]->comment ?></p>
-                            </div>
+                        <div class="pad-10 bor-rad-10" style=" margin: 10px 0px 10px 0px; background-color: #E8E9FF ">
+                            <p class="txt-ali-lef txt-d-none " style=" ">Comment: <?= $requests[0]->cca_comment ?></p>
                         </div>
-                        <div class="dis-flex ju-co-se"  style="background-color: #ffffff; height: 25%;align-items: center">
+                        <?php if ($requests[0]->status === 'Todo'): ?>
+                            <div class="pad-10 bor-rad-10" style=" margin: 10px 0px 10px 0px; background-color: #d8caf5 ">
+                                <p class="txt-ali-lef txt-d-none " style=" ">Notes: <?= $requests[0]->assist_comment ?></p>
+                            </div>
+                        <?php endif; ?>
+                        <div class="dis-flex ju-co-se"  style="background-color: #ffffff;align-items: center">
                             <?php if($requests[0]->status ==='Idle'):?>
                                 <button class="button-s2" type="button" onclick="openPopup(1)" style="width: 150px; text-align: center">
                                     Todo
@@ -107,48 +132,55 @@
                             <?php endif; ?>
                         </div>
                     </div>
-                    <div class="bordered-div dis-flex-col" style="height: 50% ; ">
-                        <div class="" style="background-color: #ffffff ;height: 15%">
-                            <p class="txt-ali-lef txt-d-none pad-10" style=" ">Complaint ID : <?= $requests[0]->assist_comp_id ?></p>
+
+                    <hr class="" style="border-width: 2px; border-style: solid; color: gray; margin: 30px 0 30px 0">
+
+                    <div class="dis-flex-col gap-10" style="background-color: #E8E9FF; padding: 10px; border-radius: 5px;">
+                        <div class="txt-w-bolder txt-ali-cen pad-10" style="font-size: larger;">
+                            Complaint Details
                         </div>
-                        <div class="dis-flex " style="height: 15%">
-                            <div class="dis-flex pad-10" style="background-color: #ffffff ; width: 50%">
+
+                        <div class="dis-flex" style="">
+                            <div class="dis-flex pad-10" style="background-color: #ffffff ; width: 50%; border-radius: 5px 0 0 5px">
                                 <p class="txt-ali-lef txt-d-none" style=" "><?= $requests[0]->complaint_date_time ?></p>
-                             </div>
-                            <div class="dis-flex pad-10" style="background-color: #ffffff ;width: 50%">
-                                <p class="txt-ali-lef txt-d-none" style=" ">User ID : <?= $requests[0]->user_id ?></p>
+                            </div>
+                            <div class="dis-flex pad-10" style="background-color: #ffffff ;width: 50%; border-radius: 0 5px 5px 0">
+                                <p class="txt-ali-lef txt-d-none" style=" ">By User : <?= $requests[0]->username ?></p>
                             </div>
                         </div>
-                        <div class="bordered-div pad-10" style="background-color: #ffffff ;height: 45%; margin: 10px 10px 10px 10px;">
-                            <p class="txt-ali-lef txt-d-none" style=" "><?= $requests[0]->details ?></p>
+                        <div class="bordered-div pad-10 bor-rad-10" style="background-color:#ffffff ">
+                            <p class="txt-ali-lef txt-d-none" style=" ">Details: <?= $requests[0]->details ?></p>
                         </div>
-                        <div class="dis-flex pad-10" style="background-color: #ffffff ;height: 25%">
-                            <div class="" style="width:5%">
+                        <?php if(!empty($requests[0]->files)): ?>
+                            <div class="pad-10" style="">
                                 <p class="txt-ali-lef txt-d-none " style=" ">Files : </p>
                             </div>
-                            <div class="bordered-div pad-10 " style="width: 95%; margin: 0px 10px 10px 10px;height: 90%;">
-                                <p class="txt-ali-lef txt-d-none " style=" ">hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh </p>
+                            <div class="pad-10" style="display: flex; justify-content: space-between; gap: 10px">
+                                <img style="width: 50%" src="<?=ROOT.$requests[0]->files?>" alt="image">
+                                <img style="width: 50%" src="<?=ROOT.$requests[0]->files?>" alt="image">
                             </div>
-                        </div>
+                        <?php endif; ?>
+
                     </div>
                 </div>
-
                 <form id="commentForm1" method="POST" action="<?=ROOT.'/admin/ccareq/'.$requests[0]->assist_comp_id.'/todo'?>">
-                <div id="popup1" class="popup dis-flex-col">
-                    <p style="color: black; font-weight: bold">Comment</p>
-                    <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
-                    <button class="button-close" style="align-self: flex-end" onclick="closePopup()">Save</button>
-                </div>
+                    <div id="popup1" class="popup dis-flex-col">
+                        <span class="close-button" onclick="closePopup(1)"> X </span>
+                        <p style="color: black; font-weight: bold">Comment</p>
+                        <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
+                        <button class="button-close" style="align-self: flex-end" onclick="closePopup(1)">Save</button>
+                    </div>
                 </form>
 
                 <form id="commentForm2" method="POST" action="<?=ROOT.'/admin/ccareq/'.$requests[0]->assist_comp_id.'/handled'?>">
                     <div id="popup2" class="popup dis-flex-col">
+                        <span class="close-button" onclick="closePopup(2)"> X </span>
                         <p style="color: black; font-weight: bold">Comment</p>
                         <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
-                        <button class="button-close" style="align-self: flex-end" onclick="closePopup()">Save</button>
+                        <button class="button-close" style="align-self: flex-end" onclick="closePopup(2)">Save</button>
                     </div>
                 </form>
-                
+
 
                 <!-- Overlay -->
                 <div id="overlay" class="overlay"></div>
@@ -158,15 +190,15 @@
 
                     // Function to open the popup
                     function openPopup(value) {
-                        const pop = value === 1  ? document.querySelector('#popup1'):document.querySelector('#popup2')
+                        const pop = (value === 1)  ? document.querySelector('#popup1'):document.querySelector('#popup2')
                         const overlay = document.querySelector('.overlay')
                         pop.classList.toggle('active')
                         overlay.style.display = 'flex'
                     }
 
                     // Function to close the popup
-                    function closePopup() {
-                        const pop = document.querySelector('.popup')
+                    function closePopup(id) {
+                        const pop = (id === 1) ? document.querySelector('#popup1') : document.querySelector('#popup2')
                         const overlay = document.querySelector('.overlay')
                         pop.classList.toggle('active')
                         overlay.style.display = 'none'
@@ -178,8 +210,3 @@
 </div>
 </body>
 </html>
-
-
-
-
-
