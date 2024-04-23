@@ -125,9 +125,9 @@
                         foreach ($assist as $row) {
                             echo "<tr>";
                             echo "<td>" . $row->comp_id . "</td>";
-                            echo "<td>" . $row->date_time . "</td>";
+                            echo "<td>" . $row->created_at . "</td>";
                             echo "<td>" . $row->status . "</td>";
-                            echo "<td>" . $row->admin_id . "</td>";
+                            echo "<td>" . $row->admin_user_id . "</td>";
                             echo "<td>" . $row->comment . "</td>";
                             echo "</tr>";
                         }

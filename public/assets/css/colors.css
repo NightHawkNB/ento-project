@@ -4,8 +4,10 @@
     --purple-primary: #5809ab;
     --purple-secondary: mediumpurple;
     --purple-tirtiary: mediumslateblue;
+    --purple-4: #E8E9FF
     --white-link: #d9daf3;
     --white: white;
+
 
     /* Status Colors */
     --status-error: rgba(255, 0, 0, 1);
