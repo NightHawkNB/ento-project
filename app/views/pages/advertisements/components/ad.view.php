@@ -1,27 +1,26 @@
 <?php if(($_SESSION['USER_DATA']->user_type == "singer" AND $visible == 1) || $_SESSION['USER_DATA']->user_type != 'singer'): ?>
 
-<?php show($data); ?>
-
     <div class="ad sh" data-category="<?= $category ?>" data-title="<?= $title ?>">
 
-        <div class="toggle-button-cover">
-            <div class="button-cover">
-                <p class="js-left-text">VISIBLE</p>
-                <div class="button r" id="button-3">
-                    <input type="checkbox" class="checkbox" onclick="toggle_visibility(this)"    <?= ($visible == 0) ? 'checked' : '' ?> />
-                    <div class="knobs"></div>
-                    <div class="layer"></div>
+        <?php if(preg_match('/\/ads$/', $_SERVER['REQUEST_URI']) AND $user_id == Auth::getUser_id()): ?>
+            <div class="toggle-button-cover">
+                <div class="button-cover">
+                    <p class="js-left-text">VISIBLE</p>
+                    <div class="button r" id="button-3">
+                        <input type="checkbox" class="checkbox" onclick="toggle_visibility(this)"    <?= ($visible == 0) ? 'checked' : '' ?> />
+                        <div class="knobs"></div>
+                        <div class="layer"></div>
+                    </div>
+                    <p class="js-right-text">HIDDEN</p>
                 </div>
-                <p class="js-right-text">HIDDEN</p>
             </div>
-        </div>
+        <?php endif; ?>
+
 
         <script>
             function toggle_visibility(element) {
 
-                let current_visibility = <?= ($visible == 1) ? 1 : 0 ?>
-
-                console.log(element)
+                // console.log(element)
 
                 const checkbox = element
                 const visible_text = element.parentElement.parentElement.querySelector('.js-left-text')
@@ -43,7 +42,7 @@
             function update_visibility(visibility) {
                 let data = {visibility}
                 console.log("RAN")
-                fetch(`/ento-project/public/<?= $_SESSION['USER_DATA']->user_type ?>/ads/update-visibility`, {
+                fetch(`/ento-project/public/<?= $_SESSION['USER_DATA']->user_type ?>/ads/update-visibility/<?= $ad_id ?>`, {
                     method: "PATCH",
                     headers: {
                         "Content-Type": "application/json; charset=utf-8"
@@ -55,15 +54,12 @@
                 }).then(data => {
 
                     if(data !== "success") {
-                        current_visibility = visibility
-                        // alert("Visibility Update Failed")
-                        // window.location.reload()
+                        console.log("Visibility Update Failed")
+                    } else {
+                        console.log("Visibility Update Successful")
                     }
-                    // else current_visibility = !visibility
 
-                    // Shows the data printed by the targeted php file.
-                    // (stopped printing all data in php file by using die command)
-                    console.log(data)
+                    // console.log(data)
                 })
             }
         </script>

@@ -607,10 +607,11 @@ class Controller
                 // Update the visible status of an advertisement
                 $ads = new Ad();
 
-                show($id);
-                
-
-                $ads->update($id, ['visible' => $php_data->visibility]);
+                $ads->query("
+                    UPDATE ads
+                    SET visible = :visible
+                    WHERE ad_id = :ad_id
+                ", ['visible' => $php_data->visibility, 'ad_id' => $id]);
 
                 echo "success";
             } catch (Exception $e) {
