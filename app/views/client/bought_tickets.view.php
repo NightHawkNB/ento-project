@@ -62,13 +62,16 @@
 
                 <h1 class="mar-10-0 txt-c-black txt-w-bold" style="font-size: 1.5rem"> Current Bought Tickets</h1>
 
-                <div class="wid-80 dis-flex gap-20 pad-20 hei-100 wid-100">
+                <div class="bor-rad-10 ju-co-ce wid-80 dis-flex gap-20 pad-20 wid-100 flex-wrap">
 
                     <?php
-                    $currentDateTime = date('HY-m-d H:i:s');
+                    $currentDateTime = date('Y-m-d H:i:s');
+
                     if (!empty($bought_tickets)) {
                         foreach ($bought_tickets as $bought_ticket) {
-                            if ($currentDateTime > $bought_ticket->start_time) {
+//                            show($bought_ticket->start_time);
+                            if ($currentDateTime < $bought_ticket->start_time) {
+//                    show($bought_ticket);
                                 $this->view('client/components/bought_ticket_current', (array)$bought_ticket);
                             }
                         }
@@ -85,12 +88,15 @@
                 <h1 class="mar-10-0 txt-c-black txt-w-bold" style="font-size: 1.5rem"> Outdated Bought Tickets</h1>
 
                 <div class="bor-rad-10 ju-co-ce wid-80 dis-flex gap-20 pad-20 hei-100 wid-100 flex-wrap">
-<?= show($data)?>
+<?php //= show($data)?>
                     <?php
-                    $currentDateTime = date('HY-m-d H:i:s');
+                    $currentDateTime = date('Y-m-d H:i:s');
                     if (!empty($bought_tickets)) {
                         foreach ($bought_tickets as $bought_ticket) {
-                            if ($currentDateTime < $bought_ticket->start_time) {
+//                            show($currentDateTime);
+//                            show($bought_ticket->start_time);
+                            if ($currentDateTime > $bought_ticket->start_time) {
+                                show($bought_ticket);
                                 $this->view('client/components/bought_ticket_outdated', (array)$bought_ticket);
                             }
                         }
@@ -218,5 +224,8 @@
         adSections.outdated.style.display = 'none';
 
     });
+
+
+
 
 </script>

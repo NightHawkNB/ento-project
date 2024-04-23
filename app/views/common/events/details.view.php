@@ -46,14 +46,7 @@ $dateTime = new DateTime($event->start_time);
                     </p>
                 </div>
                 <div class="bg-black-1 txt-c-white pad-10 dis-flex ju-co-ce gap-20">
-<!--                    <a href="#user_01">-->
-<!--                        <div class="card-profile bg-black-2 pad-10 bor-rad-5 dis-flex-col al-it-ce">-->
-<!--                            <img src="--><?php //= ROOT ?><!--/assets/images/users/user_01.jpg" alt="user-01" class="profile-image-2">-->
-<!--                            <h3 class="mar-10">Charlotte Brown</h3>-->
-<!--                            <h4 class="mar-10">Singer</h4>-->
-<!--                        </div>-->
-<!--                    </a>-->
-
+<!--
 <!--                    for singers-->
 
                     <?php if (!empty($singers)): ?>

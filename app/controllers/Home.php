@@ -46,7 +46,8 @@ class Home extends Controller
            JOIN serviceprovider SP ON B.sp_id = SP.sp_id
            JOIN user U ON SP.user_id = U.user_id
            WHERE event_id = :event_id
-       ", ['event_id' => $id])[0];
+       ", ['event_id' => $id]);
+            $data['band'] = (!empty($data['band']))? $data['band'][0]:NULL;
 
             $data['singers'] = $event->query("
            SELECT 

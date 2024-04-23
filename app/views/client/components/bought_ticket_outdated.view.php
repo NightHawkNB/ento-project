@@ -48,6 +48,10 @@ $etime = $edateTime->format('H:i:s');
         <div id="<?= $ticket_id ?>"  style="border: 1px solid black; padding: 10px "></div>
         <button class="btn-lay-2" onclick="close_popup()">Close</button>
     </div>
+    <div style="position: absolute; top: 0; right: 0; padding: 5px"  onclick="downloadQR()">
+        <svg class="feather feather-download" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+
+    </div>
 </div>
 <script>
     function close_popup() {
@@ -70,5 +74,24 @@ $etime = $edateTime->format('H:i:s');
             {text: "<?=$hash?>",
                 width:150,
                 height:150});
+    }
+    function downloadQR() {
+        // Get the QR code image element
+        const qrImage = document.getElementById('<?= $ticket_id ?>');
+
+        // Get the base64 encoded image data
+        const imageData = qrImage.querySelector('img').src;
+
+        // Create a temporary anchor element
+        const downloadLink = document.createElement('a');
+
+        // Set the href attribute to the base64 image data
+        downloadLink.href = imageData;
+
+        // Set the download attribute to specify the filename
+        downloadLink.download = 'qr_code.png';
+
+        // Trigger a click event on the anchor element to initiate download
+        downloadLink.click();
     }
 </script>

@@ -1,4 +1,4 @@
-<div class="dis-flex-col bg-white bor-rad-5 f-poppins over-hide event-card sh">
+<div class="dis-flex-col bg-white bor-rad-5 f-poppins over-hide event-card sh" style="max-width: 250px; max-height: 350px">
     <a href=<?= ROOT."/home/events/".$event_id ?>>
         <img src="<?= ROOT.$image ?>" alt="<?= $name ?>" class="event-image">
     </a>
@@ -12,7 +12,7 @@
             <p>17:00</p>
         </div>
     </div>
-    <div class="pad-10 dis-flex-col flex-1">
+    <div class="pad-10 dis-flex-col flex-1" style="overflow: hidden; text-overflow: ellipsis">
         <h3 class="mar-0 f-mooli f-space-1 txt-w-bold"><?= ucfirst($name) ?></h3>
         <h5 class="f-inter flex-grow"><?= $details ?></h5>
     </div>
