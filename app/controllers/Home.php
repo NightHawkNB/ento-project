@@ -9,7 +9,6 @@ class Home extends Controller
 
     public function events($id = null, $method = null): void
     {
-
         $event = new Event();
         $data['record'] = $event->query("
             SELECT *
@@ -17,123 +16,168 @@ class Home extends Controller
             WHERE status != 'Pending'
         ");
 
+
         if (empty($id)) $this->view('events', $data);
-        else {
-            if (empty($method)) {
-                $this->view('common/events/details');
-            } else if ($method == "pay") {
 
-                if ($_SERVER['REQUEST_METHOD'] == "POST") {
+        else if (empty($method)) {
+            $data['event'] = $event->query("
+            SELECT *
+            FROM event 
+            WHERE event_id = :event_id
+        ", ['event_id' => $id])[0];
 
-                    // Constants
-                    $merchant_id = "1224517";
-                    $merchant_secret = "MTAyMTQ4NTEyNzM0ODAwNzU2NDgxODk4ODgyNzQyMjg1ODU1NjA4OQ==";
-                    $currency = "LKR";
+            $data['venue'] = $event->query("
+           SELECT
+           V.name AS venue_name,
+           V.image AS venue_image,
+           E.custom_venue
+           FROM event E
+           JOIN venue V ON E.venue_id = V.venue_id
+           WHERE event_id = :event_id
+       ", ['event_id' => $id])[0];
 
-                    $_POST['user_id'] = Auth::getUser_id();
-                    $_POST['event_id'] = $id;
-                    $_POST['amount'] = $_POST['tickets'] * $_POST['count'];
+            $data['band'] = $event->query("
+           SELECT 
+           CONCAT(U.fname,' ',U.lname) AS band_name,
+           U.image AS band_image,   
+           E.custom_band
+           FROM event E
+           JOIN band B ON E.band_id = B.band_id
+           JOIN serviceprovider SP ON B.sp_id = SP.sp_id
+           JOIN user U ON SP.user_id = U.user_id
+           WHERE event_id = :event_id
+       ", ['event_id' => $id])[0];
 
-                    $payment = new Payment();
-                    $payment->insert($_POST);
-                    $order = $payment->first(['event_id' => $_POST['event_id'], 'user_id' => $_POST['user_id']]);
+            $data['singers'] = $event->query("
+           SELECT 
+           CONCAT(U.fname, ' ', U.lname) AS singer_name,
+           U.image AS singer_image
+           FROM event E
+           JOIN event_singer ES ON E.event_id = ES.event_id
+           JOIN singer S ON ES.singer_id = S.singer_id
+           JOIN serviceprovider SP ON S.sp_id = SP.sp_id
+           JOIN user U ON SP.user_id = U.user_id
+           WHERE E.event_id = :event_id
+       ", ['event_id' => $id]);
 
-                    $ticket = new Tickets();
 
-                    $ticket_secret = "AkilaHansiThisaraNipun";
+            $this->view('common/events/details', $data);
 
-                    $params = [
-                        'event_id' => $id,
-                        'user_id' => Auth::getUser_id(),
-                        'hash' => 'hash',
-                        'type' => 'default',
-                        'price' => $_POST['tickets']
-                    ];
-                    $ticket->insert($params);
-                    $ticket_id = $ticket->query("SELECT * FROM tickets WHERE user_id = :user_id AND event_id = :event_id ORDER BY ticket_id DESC", ['user_id' => Auth::getUser_id(), 'event_id' => $id])[0]->ticket_id ?: NULL;
 
-                    $generated_hash = strtoupper(
-                        md5(
-                            $ticket_id .
-                            $id .
-                            Auth::getUser_id() .
-                            'default' .
-                            $_POST['tickets'] .
-                            strtoupper(md5($ticket_secret))
-                        )
-                    );
+        } else if ($method == "pay") {
 
-                    $ticket->update($ticket_id, ['hash' => $generated_hash, 'ticket_id' => $ticket_id]);
+            if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-                    if (empty($order)) {
-                        message("Order Creation Failed - Payment was not performed");
-                        redirect('home/events');
-                    }
+                // Constants
+                $merchant_id = "1224517";
+                $merchant_secret = "MTAyMTQ4NTEyNzM0ODAwNzU2NDgxODk4ODgyNzQyMjg1ODU1NjA4OQ==";
+                $currency = "LKR";
 
-                    $amount = $_POST['amount'];
-                    $order_id = rand(10, 1000) . $_POST['amount'];
+                $_POST['user_id'] = Auth::getUser_id();
+                $_POST['event_id'] = $id;
+                $_POST['amount'] = $_POST['tickets'] * $_POST['count'];
 
-                    $data['event_id'] = $id;
-                    $data['order_id'] = $order_id;
-                    $data['merchant_id'] = $merchant_id;
-                    $data['amount'] = $amount;
-                    $data['hash'] = strtoupper(
-                        md5(
-                            $merchant_id .
-                            $order_id .
-                            number_format($amount, 2, '.', '') .
-                            $currency .
-                            strtoupper(md5($merchant_secret))
-                        )
-                    );
+                $payment = new Payment();
+                $payment->insert($_POST);
+                $order = $payment->first(['event_id' => $_POST['event_id'], 'user_id' => $_POST['user_id']]);
 
-                    $this->view("common/events/buy-tickets-confirm", $data);
-                } else {
-                    $this->view("common/events/buy-tickets", $data);
+                $ticket = new Tickets();
+
+                $ticket_secret = "AkilaHansiThisaraNipun";
+
+                $params = [
+                    'event_id' => $id,
+                    'user_id' => Auth::getUser_id(),
+                    'hash' => 'hash',
+                    'type' => 'default',
+                    'price' => $_POST['tickets']
+                ];
+                $ticket->insert($params);
+                $ticket_id = $ticket->query("SELECT * FROM tickets WHERE user_id = :user_id AND event_id = :event_id ORDER BY ticket_id DESC", ['user_id' => Auth::getUser_id(), 'event_id' => $id])[0]->ticket_id ?: NULL;
+
+                $generated_hash = strtoupper(
+                    md5(
+                        $ticket_id .
+                        $id .
+                        Auth::getUser_id() .
+                        'default' .
+                        $_POST['tickets'] .
+                        strtoupper(md5($ticket_secret))
+                    )
+                );
+
+                $ticket->update($ticket_id, ['hash' => $generated_hash, 'ticket_id' => $ticket_id]);
+
+                if (empty($order)) {
+                    message("Order Creation Failed - Payment was not performed");
+                    redirect('home/events');
                 }
-            } else if ($method = "return") {
-                message("Failed");
-                $this->view('common/events/buy-tickets');
-            } else if ($method = "notify") {
-                $merchant_id = $_POST['merchant_id'];
-                $order_id = $_POST['order_id'];
-                $payhere_amount = $_POST['payhere_amount'];
-                $payhere_currency = $_POST['payhere_currency'];
-                $status_code = $_POST['status_code'];
-                $md5sig = $_POST['md5sig'];
 
-                $merchant_secret = 'MTAyMTQ4NTEyNzM0ODAwNzU2NDgxODk4ODgyNzQyMjg1ODU1NjA4OQ=='; // Replace with your Merchant Secret
+                $amount = $_POST['amount'];
+                $order_id = rand(10, 1000) . $_POST['amount'];
 
-                $local_md5sig = strtoupper(
+                $data['event_id'] = $id;
+                $data['order_id'] = $order_id;
+                $data['merchant_id'] = $merchant_id;
+                $data['amount'] = $amount;
+                $data['hash'] = strtoupper(
                     md5(
                         $merchant_id .
                         $order_id .
-                        $payhere_amount .
-                        $payhere_currency .
-                        $status_code .
+                        number_format($amount, 2, '.', '') .
+                        $currency .
                         strtoupper(md5($merchant_secret))
                     )
                 );
 
-                if (($local_md5sig === $md5sig) and ($status_code == 2)) {
-                    message("Payment Successful");
-                    $payment = new Payment();
-
-                    $_POST['user_id'] = Auth::getUser_id();
-                    $_POST['event_id'] = $id;
-                    $_POST['amount'] = $_POST['tickets'] * $_POST['count'];
-
-                    $payment->insert($_POST);
-                } else {
-                    message("Payment Failed");
-                }
-
-                $this->view('common/events/buy-tickets');
+                $this->view("common/events/buy-tickets-confirm", $data);
+            } else {
+                $this->view("common/events/buy-tickets", $data);
             }
+        } else if ($method = "return") {
+            message("Failed");
+            $this->view('common/events/buy-tickets');
+        } else if ($method = "notify") {
+            $merchant_id = $_POST['merchant_id'];
+            $order_id = $_POST['order_id'];
+            $payhere_amount = $_POST['payhere_amount'];
+            $payhere_currency = $_POST['payhere_currency'];
+            $status_code = $_POST['status_code'];
+            $md5sig = $_POST['md5sig'];
+
+            $merchant_secret = 'MTAyMTQ4NTEyNzM0ODAwNzU2NDgxODk4ODgyNzQyMjg1ODU1NjA4OQ=='; // Replace with your Merchant Secret
+
+            $local_md5sig = strtoupper(
+                md5(
+                    $merchant_id .
+                    $order_id .
+                    $payhere_amount .
+                    $payhere_currency .
+                    $status_code .
+                    strtoupper(md5($merchant_secret))
+                )
+            );
+
+            if (($local_md5sig === $md5sig) and ($status_code == 2)) {
+                message("Payment Successful");
+                $payment = new Payment();
+
+                $_POST['user_id'] = Auth::getUser_id();
+                $_POST['event_id'] = $id;
+                $_POST['amount'] = $_POST['tickets'] * $_POST['count'];
+
+                $payment->insert($_POST);
+            } else {
+                message("Payment Failed");
+            }
+
+            $this->view('common/events/buy-tickets');
         }
+
     }
 
-    public function ads($method = null, $id = null): void
+    public
+    function ads($method = null, $id = null): void
     {
 
         if ($_SERVER['REQUEST_METHOD'] == "PATCH") {
@@ -176,7 +220,8 @@ class Home extends Controller
         $this->view('pages/advertisements/ads', $data);
     }
 
-    public function complaint($method = NULL, $id = null): void
+    public
+    function complaint($method = NULL, $id = null): void
     {
 
         if (empty($method)) {
@@ -227,7 +272,8 @@ class Home extends Controller
     }
 
 //    notification
-    public function notification($method = NULL): void
+    public
+    function notification($method = NULL): void
     {
         if (empty($method)) {
             $this->view('common/notifications');
@@ -301,8 +347,9 @@ class Home extends Controller
         }
     }
 
-    //notifications details for page
-    public function all_notifications($method = null, $id = null, $action = null): void
+//notifications details for page
+    public
+    function all_notifications($method = null, $id = null, $action = null): void
     {
         $db = new Database();
 
