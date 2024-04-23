@@ -40,7 +40,7 @@
 //    ?>
 
     <?php if ($status == "Accepted"): ?>
-        <a href="<?= ROOT ?>/chat/reserve/<?= $sp_id ?>/<?= Auth::getUser_id() ?>/<?= $reservation_id ?>">
+        <a href="<?= ROOT ?>/chat/reserve/<?= $user_id ?>/<?= Auth::getUser_id() ?>/<?= $reservation_id ?>">
             <button>Chat</button>
         </a>
     <?php endif; ?>

@@ -8,7 +8,7 @@ class Res_chat extends Model {
         'chat_id',
         'sender_id',
         'receiver_id',
-        'reservation_id',
+        'id',
         'source'
     ];
 }

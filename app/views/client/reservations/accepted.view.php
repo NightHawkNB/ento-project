@@ -65,6 +65,9 @@
                             <!--                        --><?php //= show($data)?>
 
                         <?php
+
+                        show($data);
+
                         $currentDateTime = date('Y-m-d H:i:s');
                         $count = 0;
                         if (!empty($reservations)) {
