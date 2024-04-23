@@ -20,12 +20,15 @@
 
     </div>
 
-    <div class="bg-lightblue bor-rad-5">
+    <div class="bg-lightblue bor-rad-5" style="width: 350px; height: 20px">
+        <div style="position: relative; top: 0; left: 0">Details:</div>
         <div><?= $message ?></div>
     </div>
 
-    <?php if ($type === "Reservation"): ?>
-        <a href="<?=ROOT?>/client/reservations/accepted"><button class="btn-lay-s" style="width: fit-content; height: fit-content; background-color: #c1abec ">Reservations >></button></a>
+    <?php if ($type === "Res_Accepted"): ?>
+        <a href="<?=ROOT?>/<?=$_SESSION['USER_DATA']->user_type?>/reservations/accepted"><button class="btn-lay-s" style="width: fit-content; height: fit-content; background-color: #c1abec ">Reservations >></button></a>
+    <?php elseif ($type === "Res_Denied"): ?>
+        <a href="<?=ROOT?>/<?=$_SESSION['USER_DATA']->user_type?>/reservations/denied"><button class="btn-lay-s" style="width: fit-content; height: fit-content; background-color: #c1abec ">Reservations >></button></a>
     <?php endif; ?>
 
 </div>

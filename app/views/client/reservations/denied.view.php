@@ -63,8 +63,6 @@
                         <div>Remaining Time</div>
                         <div>Action</div>
                     </div>
-
-                    </div>
                     <?php
                     $currentDateTime = date('Y-m-d H:i:s');
                     $count = 0;
