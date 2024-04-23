@@ -14,7 +14,7 @@
 
         <section class="wid-100 dis-flex-col ju-co-sa" style="padding: 10px 10px 10px 10px; gap: 30px;">
 
-        <?php if(($user->user_id == Auth::getUser_id()) AND ($user->user_type != 'client' OR $user->user_type != 'venuem' OR $user->user_type != 'venueo')) : ?>
+        <?php if(($user->user_id == Auth::getUser_id()) AND ($user->user_type != 'client' AND $user->user_type != 'venuem' AND $user->user_type != 'venueo')) : ?>
             <div class="option-bar">
                 <div class="profile_visibility">
 
@@ -53,7 +53,7 @@
                         <div class="error"></div>
 
 
-                        <?php if($user->user_id == Auth::getUser_id()): ?>
+                        <?php if(($user->user_id == Auth::getUser_id()) AND ($user->user_type != 'client' AND $user->user_type != 'venuem' AND $user->user_type != 'venueo')): ?>
                             <script>
                                 // Script for changing the public_profile's visibility
 

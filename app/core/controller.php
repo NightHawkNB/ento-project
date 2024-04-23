@@ -377,7 +377,11 @@ class Controller
             $data = get_all_ads();
             $this->view('common/ads/all-ads', $data);
         } else if ($method == "pending") {
-            $data = get_ads_where($user_data->user_id, 1);
+            $data = get_ads_where($user_data->user_id, 1, 0, 0);
+
+            show($data);
+            die;
+
             $this->view("common/ads/pending", $data);
         } else if ($method == 'create-ad') {
 
@@ -718,7 +722,7 @@ function get_all_ads($pending = 0, $deleted = 0): array
     return $data;
 }
 
-function get_ads_where($user_id, $pending = 0, $deleted = 0): array
+function get_ads_where($user_id, $pending = 0, $deleted = 0, $verified = 1): array
 {
     $ads = new Ad();
     $db = new Database();
