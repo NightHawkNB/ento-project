@@ -321,6 +321,7 @@ GROUP BY
     public function adverify($id = null, $method = null)
     {
         $ad = new Ad();
+        $adv = new Ad_verification_request();
 
         if (empty($id) && empty($method)) {
 
@@ -329,7 +330,9 @@ GROUP BY
                     CONCAT(user.fname, ' ', user.lname) AS username,
                     ads.title, 
                     ads.category, 
-                    ads.datetime
+                    ads.datetime,
+                    ads.image,
+                    ads.ad_id
                 FROM 
                     ads
                 INNER JOIN 
@@ -348,7 +351,9 @@ GROUP BY
                     ads.title, 
                     ads.category, 
                     ads.datetime,
-                    ad_band.packages
+                    ad_band.packages,
+                    ads.image,
+                    ads.ad_id
                 FROM 
                     ads
                 INNER JOIN 
@@ -369,7 +374,9 @@ GROUP BY
                         CONCAT(user.fname, ' ', user.lname) AS username,
                         ads.title, 
                         ads.category, 
-                        ads.datetime
+                        ads.datetime,
+                        ads.image,
+                        ads.ad_id
                     FROM 
                         ads
                     INNER JOIN 
@@ -405,6 +412,11 @@ GROUP BY
 
 
         } elseif (!empty($id) && $method === 'decline') {
+
+            $adv->update($id, ['comment'=>$_POST['declineComment']]);
+
+            message("Advertiesment Declined");
+            redirect("Admin/adverify");
 
 
         } elseif (empty($id) && $method === 'back') {
