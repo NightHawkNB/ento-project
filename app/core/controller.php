@@ -550,7 +550,7 @@ class Controller
                     }
 
                     message("Update successfully - Ad is now in Pending State", false, 'success');
-                    redirect(strtolower($user_data->user_type) . "/ads");
+                    redirect(strtolower($user_data->user_type) . "/ads/pending");
                 }
             } else if (empty($id)) {
                 message("No ad selected");
