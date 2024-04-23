@@ -628,7 +628,8 @@ class Controller
 
 
     // Showing the user profiles to the public
-    public function user_profile($id = null) {
+    public function user_profile($id = null): void
+    {
         $user = new User();
         $db = new Database();
 
@@ -636,32 +637,31 @@ class Controller
 
         if($row->user_type == 'singer') {
             $data['past_events'] = $db->query("
-                    SELECT E.image, E.name, E.details
-                    FROM event E
-                    JOIN event_singer ES ON E.event_id = ES.event_id
-                    JOIN singer S ON ES.singer_id = S.singer_id
-                    JOIN serviceprovider SP ON S.sp_id = SP.sp_id
-                    JOIN user U ON SP.user_id = U.user_id
-                    WHERE E.status = 'Completed' AND U.user_id = :user_id AND E.end_time < CURRENT_TIMESTAMP
-                ", ['user_id' => Auth::getUser_id()]);
+                SELECT E.image, E.name, E.details
+                FROM event E
+                JOIN event_singer ES ON E.event_id = ES.event_id
+                JOIN singer S ON ES.singer_id = S.singer_id
+                JOIN serviceprovider SP ON S.sp_id = SP.sp_id
+                JOIN user U ON SP.user_id = U.user_id
+                WHERE E.status = 'Completed' AND U.user_id = :user_id AND E.end_time < CURRENT_TIMESTAMP
+            ", ['user_id' => $id]);
         } else if($row->user_type == 'band') {
             $data['past_events'] = $db->query("
-                    SELECT E.image, E.name, E.details
-                    FROM event E
-                    JOIN band B ON E.band_id = B.band_id
-                    JOIN serviceprovider SP ON B.sp_id = SP.sp_id
-                    JOIN user U ON SP.user_id = U.user_id
-                    WHERE E.status = 'Completed' AND U.user_id = :user_id AND E.end_time < CURRENT_TIMESTAMP
-                ", ['user_id' => Auth::getUser_id()]);
+                SELECT E.image, E.name, E.details
+                FROM event E
+                JOIN band B ON E.band_id = B.band_id
+                JOIN serviceprovider SP ON B.sp_id = SP.sp_id
+                JOIN user U ON SP.user_id = U.user_id
+                WHERE E.status = 'Completed' AND U.user_id = :user_id AND E.end_time < CURRENT_TIMESTAMP
+            ", ['user_id' => $id]);
         }
 
         $data['reviews'] = $db->query("
-                SELECT *
-                FROM review R
-                JOIN user U1 ON R.creator_id = U1.user_id
-                JOIN user U2 ON R.creator_id = U2.user_id
-                WHERE R.target_id = :user_id
-            ", ['user_id' => Auth::getUser_id()]);
+            SELECT *
+            FROM review R
+            JOIN user U1 ON R.creator_id = U1.user_id
+            WHERE R.target_id = :user_id
+        ", ['user_id' => $id]);
 
         $this->view('common/profile/edit', $data);
     }
@@ -706,7 +706,12 @@ function get_all_ads($pending = 0, $deleted = 0): array
         FROM ads
             JOIN ad_venue ON ads.ad_id = ad_venue.ad_id
             JOIN user ON user.user_id = ads.user_id
-        WHERE ads.deleted = :deleted and ads.pending = :pending and ads.category = :category and ads.visible = :visible
+            JOIN venue ON venue.venue_id = ad_venue.venue_id
+        WHERE ads.deleted = :deleted 
+          AND ads.pending = :pending 
+          AND ads.category = :category 
+          AND ads.visible = :visible 
+          AND venue.verified = 1
     ", $temp_arr_3);
     if(!$data['ad_venue']) $data['ad_venue'] = [];
 
@@ -748,8 +753,13 @@ function get_ads_where($user_id, $pending = 0, $deleted = 0): array
     $data['ad_venue'] = $db->query("
         SELECT * 
         FROM ads 
-            JOIN ad_venue ON ads.ad_id = ad_venue.ad_id 
-        WHERE deleted = :deleted and PENDING = :pending and category = :category and user_id = :user_id
+            JOIN ad_venue ON ads.ad_id = ad_venue.ad_id
+            JOIN venue ON venue.venue_id = ad_venue.venue_id
+        WHERE ads.deleted = :deleted 
+          and ads.pending = :pending 
+          and ads.category = :category 
+          and ads.user_id = :user_id 
+          and venue.verified = 1
     ", $temp_arr_3);
 
     // Getting Event Manager Ads
@@ -758,7 +768,8 @@ function get_ads_where($user_id, $pending = 0, $deleted = 0): array
     $data['ad_eventm'] = $db->query("
         SELECT * 
         FROM ads 
-        WHERE deleted = :deleted and PENDING = :pending and category = :category and user_id = :user_id
+        JOIN user ON user.user_id = ads.user_id
+        WHERE ads.deleted = :deleted and ads.pending = :pending and ads.category = :category and ads.user_id = :user_id
     ", $temp_arr_4);
 
     return $data;

@@ -52,68 +52,73 @@
                         <?php endif; ?>
                         <div class="error"></div>
 
-                        <script>
-                            // Script for changing the public_profile's visibility
 
-                            const checkbox = document.querySelector('.checkbox')
-                            const visible_text = document.querySelector('.js-left-text')
-                            const hidden_text = document.querySelector('.js-right-text')
+                        <?php if($user->user_id == Auth::getUser_id()): ?>
+                            <script>
+                                // Script for changing the public_profile's visibility
 
-                            let current_visibility = <?= $user->profile_visible ?> // Getting the current visibility of the user
+                                const checkbox = document.querySelector('.checkbox')
+                                const visible_text = document.querySelector('.js-left-text')
+                                const hidden_text = document.querySelector('.js-right-text')
 
-                            // Running the toggle_visibility function when the page loads to update the button
-                            if (current_visibility === 0) {
-                                visible_text.style.color = 'grey'
-                                hidden_text.style.color = '#f44336'
-                                checkbox.checked = true
-                            } else {
-                                visible_text.style.color = 'mediumpurple'
-                                hidden_text.style.color = 'grey'
-                                checkbox.checked = false
-                            }
+                                let current_visibility = <?= $user->profile_visible ?> // Getting the current visibility of the user
 
-                            function toggle_visibility() {
+                                // Running the toggle_visibility function when the page loads to update the button
 
-                                if (!checkbox.checked) {
-                                    visible_text.style.color = 'mediumpurple'
-                                    hidden_text.style.color = 'grey'
-                                } else {
-                                    visible_text.style.color = 'grey'
-                                    hidden_text.style.color = '#f44336'
+                                    if (current_visibility === 0) {
+                                        visible_text.style.color = 'grey'
+                                        hidden_text.style.color = '#f44336'
+                                        checkbox.checked = true
+                                    } else {
+                                        visible_text.style.color = 'mediumpurple'
+                                        hidden_text.style.color = 'grey'
+                                        checkbox.checked = false
+                                    }
+
+
+                                function toggle_visibility() {
+
+                                    if (!checkbox.checked) {
+                                        visible_text.style.color = 'mediumpurple'
+                                        hidden_text.style.color = 'grey'
+                                    } else {
+                                        visible_text.style.color = 'grey'
+                                        hidden_text.style.color = '#f44336'
+                                    }
+
+                                    let visibility = checkbox.checked ? 0 : 1
+                                    if(current_visibility !== visibility) update_visibility(visibility)
+
                                 }
 
-                                let visibility = checkbox.checked ? 0 : 1
-                                if(current_visibility !== visibility) update_visibility(visibility)
+                                // Adding an event listener to the checkbox to update the visibility when the checkbox is clicked
+                                checkbox.addEventListener('change', toggle_visibility)
 
-                            }
+                                function update_visibility(visibility) {
+                                    let data = {visibility}
+                                    // console.log("RAN")
+                                    fetch(`/ento-project/public/<?= $_SESSION['USER_DATA']->user_type ?>/profile/edit-profile/visibility`, {
+                                        method: "PATCH",
+                                        headers: {
+                                            "Content-Type": "application/json; charset=utf-8"
+                                        },
+                                        body: JSON.stringify(data)
+                                    }).then(res => {
+                                        // console.log(res)
+                                        return res.text()
+                                    }).then(data => {
 
-                            // Adding an event listener to the checkbox to update the visibility when the checkbox is clicked
-                            checkbox.addEventListener('change', toggle_visibility)
+                                        if(data === "success") current_visibility = visibility
+                                        // else current_visibility = !visibility
 
-                            function update_visibility(visibility) {
-                                let data = {visibility}
-                                // console.log("RAN")
-                                fetch(`/ento-project/public/<?= $_SESSION['USER_DATA']->user_type ?>/profile/edit-profile/visibility`, {
-                                    method: "PATCH",
-                                    headers: {
-                                        "Content-Type": "application/json; charset=utf-8"
-                                    },
-                                    body: JSON.stringify(data)
-                                }).then(res => {
-                                    // console.log(res)
-                                    return res.text()
-                                }).then(data => {
+                                        // Shows the data printed by the targeted php file.
+                                        // (stopped printing all data in php file by using die command)
+                                        // console.log(data)
+                                    })
+                                }
+                            </script>
+                        <?php endif; ?>
 
-                                    if(data === "success") current_visibility = visibility
-                                    // else current_visibility = !visibility
-
-                                    // Shows the data printed by the targeted php file.
-                                    // (stopped printing all data in php file by using die command)
-                                    // console.log(data)
-                                })
-                            }
-
-                        </script>
                     </div>
 
                     <div class="p-i-container" style="padding-top: 20px">
@@ -128,6 +133,7 @@
                         </div>
                     </div>
 
+                    <?php if($user->user_id == Auth::getUser_id()): ?>
                     <div class="p-i-container">
                         <div class="">
                             <label for="email">Email</label>
@@ -181,6 +187,8 @@
                             <input type="text" name="address2" value="<?= $user->address2 ?>" <?= $user->user_id == Auth::getUser_id() ? '' : 'disabled' ?>>
                         </div>
                     </div>
+
+                    <?php endif; ?>
 
                     <?php if(($user->user_id == Auth::getUser_id()) AND ($user->user_type != 'client' OR $user->user_type != 'venuem' OR $user->user_type != 'venueo')) : ?>
                         <div class="dis-flex ju-co-ce">
@@ -283,7 +291,9 @@
         }
     }
 
+    <?php if($user->user_id == Auth::getUser_id()): ?>
     updateDistrict()
+    <?php endif; ?>
 </script>
 
 </body>
