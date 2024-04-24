@@ -18,7 +18,9 @@ class Client extends Controller
 
     public function index(): void
     {
-        $this->view('client/dashboard');
+        $event = new event();
+        $data['events'] = $event->query('SELECT * FROM event');
+        $this->view('client/dashboard',$data);
     }
 
     public function event($page = null): void

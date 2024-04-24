@@ -1,0 +1,1 @@
+<div class="event-details"><?= $details ?: 'No Description' ?></div>
