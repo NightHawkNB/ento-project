@@ -18,7 +18,7 @@ class Client extends Controller
 
     public function index(): void
     {
-        $this->view('common/dashboard');
+        $this->view('client/dashboard');
     }
 
     public function event($page = null): void
@@ -217,7 +217,7 @@ class Client extends Controller
         $db = new Database();
 
         $data['bought_tickets'] = $db->query('SELECT 
-        E.name AS ename, T.ticket_id, E.details,E.start_time,E.end_time,E.image,T.hash, V.name AS vname, E.event_id 
+        E.name AS ename, T.ticket_id, E.details,E.start_time,E.end_time,E.image,T.hash, V.name AS vname, E.event_id     
         FROM event E
         JOIN  tickets T ON E.event_id = T.event_id
         JOIN venue V ON V.venue_id = E.venue_id
