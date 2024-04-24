@@ -19,7 +19,7 @@ class User extends Model{
         'contact_num',
         'image',
         'verified',
-        'visible',
+        'profile_visible',
         'joined_year_month'
     ];
 

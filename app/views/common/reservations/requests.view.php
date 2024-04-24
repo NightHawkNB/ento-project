@@ -12,7 +12,7 @@
 
             <h1 class="mar-10-0 txt-c-white f-mooli txt-w-bold" style="font-size: 1.5rem">Reservation Requests</h1>
 
-            <div class="pad-20 wid-100 bor-rad-10 hei-100 over-scroll dis-flex-col gap-10">
+            <div class="pad-20 wid-100 bor-rad-10 hei-100 dis-flex-col gap-10" style="overflow: auto">
 
                 <?php
                     if(!empty($requests)) {

@@ -1,5 +1,13 @@
 <html lang="en">
 <?php $this->view('includes/head', ['style' => ['components/ads.css']]) ?>
+
+<style>
+    .ad {
+        max-height: 550px;
+    }
+</style>
+
+
 <body>
     <div class="main-wrapper">
         <?php $this->view('includes/header') ?>

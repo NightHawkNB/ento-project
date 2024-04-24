@@ -7,8 +7,6 @@ class Ad_band extends model {
 
     protected array $allowed_columns = [
         'ad_id',
-        'packages',
-        'sample_video',
-        'sample_audio'
+        'packages'
     ];
 }
