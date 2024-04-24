@@ -137,25 +137,25 @@
                                 </div>
                             </div>
                     <div class="dis-flex gap-10 ju-co-ce al-it-ce pad-20 bor-rad-5 txt-c-black">
-                        <a href="<?= ROOT ?>/cca/complaints/accepted/assists/<?= $comp_id ?>">
+                        <a href="<?= ROOT ?>/cca/complaints/accepted/assists/<?= $comp->comp_id ?>">
                             <button class="btn-lay-2 hover-pointer btn-anima-hover">Assists</button>
                         </a>
                         <button class="btn-lay-2 hover-pointer btn-anima-hover" onclick="openPopup()">Handle</button>
                     </div>
-<!--                    <div class="popup" id="popup">-->
-<!--                        <h2>Handle details</h2>-->
-<!--                            <input type = "text" >-->
-<!--                        <a href="--><?php //= ROOT ?><!--/cca/complaints/accepted/handle/--><?php //= $comp_id ?><!--">-->
-<!--                            <button type="button" onclick="closePopup()">Ok</button>-->
-<!--                        </a>-->
-<!--                    </div>-->
                     <div class="popup" id="popup">
                         <h2>Handle details</h2>
-                        <input type="text">
-                        <a href="<?= ROOT ?>/cca/complaints/accepted/handle/<?= $comp_id ?>">
+                            <input type = "text" >
+                        <a href="<?= ROOT ?>/cca/complaints/accepted/handle/<?= $comp->comp_id ?>">
                             <button type="button" onclick="closePopup()">Ok</button>
                         </a>
                     </div>
+<!--                    <div class="popup" id="popup">-->
+<!--                        <h2>Handle details</h2>-->
+<!--                        <input type="text">-->
+<!--                        <a href="--><?php //= ROOT ?><!--/cca/complaints/accepted/handle/--><?php //= $comp->comp_id?><!--">-->
+<!--                            <button type="button" onclick="closePopup()">Ok</button>-->
+<!--                        </a>-->
+<!--                    </div>-->
                 </div>
         </section>
     </main>

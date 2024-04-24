@@ -19,7 +19,7 @@
                                 <ul class="filter-tabs">
                                     <li>
                                         <button class="filter-button filter-active" data-translate-value="0">
-                                            New Users
+                                            New
                                         </button>
                                     </li>
                                     <li>
@@ -41,27 +41,16 @@
                     </nav>
                     <div id="newusersection" class="complaint-section flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="max-height: 60vh; overflow:auto; padding-right: 10px">
 
-<!--                        --><?php
-//                        if(query(SELECT * FROM uservreq where status=='new')){
-////                            print_r("$assists");
-//                            foreach($assists as $assist ){
-//
-//                                $this->view("CCA/components/verification", (array)$assist);
-//                            }
-//                        }
-//                        ?>
                         <?php
-                        // Assuming $ur is an instance of your database class
-//                        print_r("$data");
-                        $result = $data->query("SELECT * FROM uservreq WHERE status = 'new'");
+                        if(!empty($new_requests)){
+//                            print_r("$assists");
+                            foreach($new_requests as $assist ){
 
-                        print_r("$data");
-                        if ($result !== false) {
-                            foreach($result as $assist) {
                                 $this->view("CCA/components/verification", (array)$assist);
                             }
                         }
                         ?>
+
 
 
                     </div>
@@ -70,8 +59,8 @@
 
                         <?php
                         if(!empty($verified)) {
-                            foreach($new as $verified){
-                                $this->view('CCA/components/verify_filter/verified', (array)$verified);
+                            foreach($verified as $verify){
+                                $this->view('CCA/components/verify_filter/verified', (array)$verify);
                             }
                         } else {
                             echo "No Verified Users";
@@ -85,9 +74,9 @@
                     <div id="declinedsection" class="complaint-section flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="max-height: 60vh; overflow:auto; padding-right: 10px">
 
                         <?php
-                        if(!empty($new)) {
-                            foreach($new as $declined){
-                                $this->view('CCA/components/verify_filter/declined', (array)$declined);
+                        if(!empty($declined)) {
+                            foreach($declined as $decline){
+                                $this->view('CCA/components/verify_filter/declined', (array)$decline);
                             }
                         } else {
                             echo "No Declined Users";
@@ -106,7 +95,7 @@
                 const filterTabs = document.querySelector(".filter-tabs");
                 const filterButtons = document.querySelectorAll(".filter-button");
                 const verifySections = {
-                    newuser: document.getElementById('newusersection'),
+                    new: document.getElementById('newusersection'),
                     verified: document.getElementById('verifiedsection'),
                     declined: document.getElementById('declinedsection')
                 };

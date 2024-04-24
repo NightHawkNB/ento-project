@@ -34,6 +34,8 @@
 
     }
 
+
+
     .cards .card .numbers{
         font-size: 2.5em;
     }
@@ -251,13 +253,12 @@
                 /*border-radius: 100px;*/
             }
 
-
             /*.details .extra table thead {*/
             /*    padding-bottom: 5px; !* Additional padding at the bottom of the thead *!*/
             /*}*/
 
             .details .extra:hover{
-                background-image: linear-gradient(to right, #fffccc,#f6f6f6);
+                background-image: linear-gradient(to right, #b394ff,#f6f6f6);
             }
 
         </style>

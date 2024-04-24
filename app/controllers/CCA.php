@@ -149,7 +149,11 @@ class CCA extends Controller{
 
         if(empty($uservid)){
             $ur = new Uservreq();
-            $data['assists'] = $ur->get_all();
+//            $data['assists'] = $ur->get_all();
+
+            $data['new_requests'] = $ur->query("SELECT * FROM uservreq WHERE status = 'New'");
+            $data['verified'] = $ur->query("SELECT * FROM uservreq WHERE status = 'Verified'");
+            $data['declined'] = $ur->query("SELECT * FROM uservreq WHERE status = 'Declined'");
             $this->view("CCA/verify", $data);
 
         }else{
