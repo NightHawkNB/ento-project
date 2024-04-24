@@ -11,16 +11,12 @@
 
         <section class="wid-100 al-it-ce pad-10 dis-flex-col">
 
-            <h1 class="mar-10-0 txt-c-white txt-w-bold" style="font-size: 1.5rem">Venue Management</h1>
+            <h1 class="mar-10-0 txt-c-black txt-w-bold" style="font-size: 1.5rem">Venue Management</h1>
 
             <div class="hei-100 wid-100 dis-flex-col pad-20 gap-10 bor-rad-5 over-scroll">
                 <div class="dis-flex wid-100 ju-co-sb">
                     <a href="<?= ROOT ?>/venuem/venues/insert">
                         <button class="blue-btn">+ Add New</button>
-                    </a>
-
-                    <a href="profile/verify" class="push-right">
-                        <button class="blue-btn">Filter by</button>
                     </a>
                 </div>
 

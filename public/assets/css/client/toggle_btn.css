@@ -23,7 +23,7 @@
     position: absolute;
     width: 110px;
     height: 100%;
-    background: #00baff;
+    background: white;
     border-radius: 30px;
     transition:0.5s;
 }

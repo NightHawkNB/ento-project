@@ -4,7 +4,6 @@
 <div class="main-wrapper">
     <?php $this->view('includes/header') ?>
 
-
     <main class="dashboard-main">
         <section class="cols-2 sidebar">
             <?php $this->view('includes/sidebar') ?>
@@ -40,29 +39,63 @@
                     </div>
                 </nav>
 
+                <style>
+                    .admin-titlebar {
+                        display: flex;
+                        flex-wrap: nowrap;
+                        padding: 10px 20px;
+                    }
+                </style>
 
-                <div id="singersSection" class="ad-verification-section flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="max-height: 60vh; overflow:auto; padding-right: 10px">
+                <div class="reservation admin-titlebar txt-w-bold" style="background-color: #c7b2f1; border-radius: 10px 10px 0 0; width: 100%">
+                    <div>View</div>
+                    <div>Title</div>
+                    <div>Data & Time</div>
+                    <div> User Name</div>
+                    <div>Category</div>
+                </div>
 
-                    <?php foreach($singerads as $ad){
-                        $this->view('admin/components/ad',(array)$ad);
+
+                <div id="singersSection" class="ad-verification-section flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="max-height: 60vh; overflow:auto;">
+
+                    <?php
+                    if(!empty($singerads)){
+                        foreach ($singerads as $ad) {
+                            $this->view('admin/components/ad', (array)$ad);
+                        }
+                    }else{
+                        echo "<h3 class='wid-100 f-poppins dis-flex ju-co-ce'> No verification requests to display</h3> ";
+
                     }
                     ?>
 
                 </div>
 
-                <div id="bandsSection" class="ad-verification-section flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="max-height: 60vh; overflow:auto; padding-right: 10px">
+                <div id="bandsSection" class="ad-verification-section flex-1 dis-flex-col gap-10 mar-bot-10 " style="max-height: 60vh; overflow:auto;">
 
-                    <?php foreach($bandads as $ad){
-                        $this->view('admin/components/ad',(array)$ad);
+                    <?php
+                    if(!empty($bandads)){
+                        foreach ($bandads as $ad) {
+                            $this->view('admin/components/ad', (array)$ad);
+                        }
+                    }else{
+                        echo "<h3 class='wid-100 f-poppins dis-flex ju-co-ce'> No verification requests to display</h3> ";
+
                     }
                     ?>
 
                 </div>
 
-                <div id="venuesSection" class="ad-verification-section flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="max-height: 60vh; overflow:auto; padding-right: 10px">
+                <div id="venuesSection" class="ad-verification-section flex-1 dis-flex-col gap-10 mar-bot-10 " style="max-height: 60vh; overflow:auto;">
 
-                    <?php foreach($venueads as $ad){
-                        $this->view('admin/components/ad',(array)$ad);
+                    <?php
+                    if(!empty($venueads)){
+                        foreach ($venueads as $ad) {
+                            $this->view('admin/components/ad', (array)$ad);
+                        }
+                    }else{
+                        echo "<h3 class='wid-100 f-poppins dis-flex ju-co-ce'> No verification requests to display</h3> ";
+
                     }
                     ?>
 

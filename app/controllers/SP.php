@@ -125,4 +125,38 @@ class SP extends Controller {
             redirect('singer/events');
         }
     }
+
+//    To check reservation that sp already have when booking
+//    public function reserve($method = NULL): void
+//    {
+//        if (empty($method)) {
+//            $this->view('home/ads');
+//        } else if ($_SERVER['REQUEST_METHOD'] == 'PATCH' && $method == 'fetch') {
+//            $result = [];
+//            $reservations = [];
+//            $db = new database();
+//
+//            $reservations = $db->query("SELECT *,
+//                rr.type AS reservation_type
+//                FROM
+//                reservations r
+//                JOIN resrequest rr
+//                ON r.reservation_id= rr.reservation_id
+//                WHERE (r.sp_id = :sp_id) ORDER BY rr.start_time DESC", ['sp_id' => $_SESSION['USER_DATA']->sp_id]);
+//            if ($reservations !== false) {
+//                foreach ($reservations as $reservation) {
+//                    $result[] = $reservation;
+//                }
+//            }
+//            else{
+//                echo "no data";
+//            }
+//
+//            if (!empty($result)) {
+//                echo json_encode($result); // Encode retrieved data as JSON
+//            } else {
+//                echo "no-new-notifications";
+//            }
+//        }
+//    }
 }

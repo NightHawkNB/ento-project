@@ -10,6 +10,7 @@ class Review extends Model {
         'rating',
         'creator_id',
         'target_id',
-        'reservation_id'
+        'reservation_id',
+        'created_at'
     ];
 }

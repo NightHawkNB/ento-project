@@ -183,6 +183,7 @@
                     if(!empty($ad_singer)) $ads = array_merge_recursive($ads, $ad_singer);
                     if(!empty($ad_band)) $ads = array_merge_recursive($ads, $ad_band);
                     if(!empty($ad_venue)) $ads = array_merge_recursive($ads, $ad_venue);
+                    if(!empty($ad_eventm)) $ads = array_merge_recursive($ads, $ad_eventm);
 
                     foreach ($ads as $ad) {
                         $this->view('pages/advertisements/components/ad', (array)$ad);

@@ -24,12 +24,14 @@ class Admin extends Controller
         $data['pending_ads']=$db->query("SELECT COUNT(*) FROM ads WHERE pending=1" );
         $data['pending_assreq']=$db->query("SELECT COUNT(*) FROM complaint_assist WHERE status='Idle' ");
 
-        $userTypeData=$db->query("SELECT user_type,Count(*) AS count FROM user GROUP BY user_type");
+        $userTypeData = $db->query("SELECT user_type, COUNT(*) AS count FROM user WHERE user_type IN ('singer', 'venuem', 'band', 'eventm') GROUP BY user_type");
+
         $data['plabels'] = array_column($userTypeData, 'user_type');
         $data['pdata'] = array_column($userTypeData, 'count');
 
         $data['plabels'] = json_encode($data['plabels']);
         $data['pdata'] = json_encode($data['pdata']);
+
 
         //user accounts created for each month - line graph
 
@@ -78,6 +80,14 @@ GROUP BY
         $data['userTypeData'] = json_encode($data['userTypeData']);
 
 
+        $data['pendingband'] = $db->query("SELECT COUNT(ad_id) FROM ads WHERE pending = 1 AND category='band'");
+        $data['pendingsinger'] = $db->query("SELECT COUNT(ad_id) FROM ads WHERE pending = 1 AND category='singer'");
+        $data['pendingvenue'] = $db->query("SELECT COUNT(ad_id) FROM ads WHERE pending = 1 AND category='venue'");
+        $data['postband'] = $db->query("SELECT COUNT(ad_id) FROM ads WHERE pending = 0 AND category='band'");
+        $data['postsinger'] = $db->query("SELECT COUNT(ad_id) FROM ads WHERE pending = 0 AND category='singer'");
+        $data['postvenue'] = $db->query("SELECT COUNT(ad_id) FROM ads WHERE pending = 0 AND category='venue'");
+
+
         $this->view('admin/dashboard', $data);
 
     }
@@ -111,7 +121,7 @@ GROUP BY
 
                 $assists->update($id, ['comment'=>$_POST['comment']]);
                 $assists->update($id, ['status'=>'Todo']);
-                $assists->update($id, ['admin_user_id'=>$_SESSION['USER_DATA']->user_id]);
+
 
                 message("Send to Todo list", false , 'success');
                 redirect('Admin/ccareq');
@@ -127,55 +137,112 @@ GROUP BY
             }
         } elseif (!empty($id)) {
             $data['requests'] = $assists->query("
-    SELECT 
-        complaint_assist.comp_id AS assist_comp_id, 
-        complaint_assist.date_time AS assist_date_time, 
-        complaint_assist.status, 
-        complaint_assist.comment, 
-        complaints.details, 
-        complaints.user_id,
-        complaints.date_time AS complaint_date_time, 
-        complaints.cca_user_id 
-    FROM 
-        complaint_assist 
-    INNER JOIN 
-        complaints 
-    ON 
-        complaint_assist.comp_id = complaints.comp_id 
-    WHERE 
-        complaint_assist.deleted = 0 
-        AND 
-        complaints.comp_id = :comp_id",
+                SELECT 
+                    complaint_assist.comp_id AS assist_comp_id, 
+                    complaint_assist.created_at AS assist_date_time, 
+                    complaint_assist.status, 
+                    complaint_assist.comment AS assist_comment, 
+                    complaints.details, 
+                    complaints.user_id,
+                    complaints.date_time AS complaint_date_time, 
+                    complaints.cca_user_id,
+                    CONCAT(user.fname, ' ', user.lname) AS username,
+                    complaints.files,
+                    complaints.comment AS cca_comment
+                FROM 
+                    complaint_assist 
+                INNER JOIN 
+                    complaints 
+                ON 
+                    complaint_assist.comp_id = complaints.comp_id 
+                INNER JOIN 
+                    user 
+                ON 
+                    complaints.user_id = user.user_id
+                WHERE 
+                    complaint_assist.deleted = 0 
+                    AND 
+                    complaints.comp_id = :comp_id",
                 ['comp_id' => $id]
             );
 
             $this->view('admin/singleassrequest', $data);
 
         } else {
-            $data['idlerequests'] = $assists->query("SELECT complaint_assist.comp_id, complaint_assist.date_time, complaint_assist.status, complaint_assist.comment, complaints.user_id, complaints.cca_user_id 
-        FROM complaint_assist 
-        INNER JOIN complaints 
-        ON complaint_assist.comp_id = complaints.comp_id 
-        WHERE complaint_assist.deleted = 0 
-        AND complaint_assist.status='Idle'  ORDER BY complaint_assist.date_time DESC ");
+            $data['idlerequests'] = $assists->query("
+                SELECT 
+                    complaint_assist.comp_id, 
+                    complaint_assist.created_at, 
+                    complaint_assist.status, 
+                    complaints.comment,
+                    complaints.details,
+                    complaints.cca_user_id,
+                    CONCAT(user.fname, ' ', user.lname) AS username
+                FROM 
+                    complaint_assist 
+                INNER JOIN 
+                    complaints ON complaint_assist.comp_id = complaints.comp_id 
+                INNER JOIN 
+                    user ON complaints.user_id = user.user_id -- Assuming user_id is the common column
+                WHERE 
+                    complaint_assist.deleted = 0 
+                    AND complaint_assist.status='Idle'  
+                ORDER BY 
+                    complaint_assist.created_at DESC 
+            ");
 
-            $data['assistrequests'] = $assists->query("SELECT complaint_assist.comp_id, complaint_assist.date_time, complaint_assist.status, complaint_assist.comment, complaints.user_id, complaints.cca_user_id 
-        FROM complaint_assist 
-        INNER JOIN complaints 
-        ON complaint_assist.comp_id = complaints.comp_id 
-        WHERE complaint_assist.deleted = 0 
-        AND complaint_assist.status='Todo'  ORDER BY complaint_assist.date_time DESC");
+            $adminId = $_SESSION['USER_DATA']->user_id;
+            $data['assistrequests'] = $assists->query("
+                SELECT 
+                    complaint_assist.comp_id, 
+                    complaint_assist.created_at, 
+                    complaint_assist.status, 
+                    complaints.comment,
+                    complaints.details,
+                    complaints.cca_user_id,
+                    CONCAT(user.fname, ' ', user.lname) AS username
+                FROM 
+                    complaint_assist 
+                INNER JOIN 
+                    complaints ON complaint_assist.comp_id = complaints.comp_id 
+                INNER JOIN 
+                    user ON complaints.user_id = user.user_id -- Assuming user_id is the common column
+                WHERE 
+                    complaint_assist.deleted = 0 
+                    AND complaint_assist.status='Todo'
+                    AND complaint_assist.admin_user_id = $adminId
+                ORDER BY 
+                    complaint_assist.created_at DESC 
+            ");
+
 
             if(empty($data['assistrequests'])){
                 $data['assistrequests']=[];
             }
 
-            $data['handledrequests'] = $assists->query("SELECT complaint_assist.comp_id, complaint_assist.date_time, complaint_assist.status, complaint_assist.comment, complaints.user_id, complaints.cca_user_id 
-        FROM complaint_assist 
-        INNER JOIN complaints 
-        ON complaint_assist.comp_id = complaints.comp_id 
-        WHERE complaint_assist.deleted = 0 
-        AND complaint_assist.status='handled' ORDER BY complaint_assist.date_time DESC");
+            $data['handledrequests'] = $assists->query("
+                SELECT 
+                    complaint_assist.comp_id, 
+                    complaint_assist.created_at, 
+                    complaint_assist.status, 
+                    complaint_assist.admin_user_id,
+                    complaints.comment,
+                    complaints.details,
+                    complaints.cca_user_id,
+                    CONCAT(user.fname, ' ', user.lname) AS username
+                FROM 
+                    complaint_assist 
+                INNER JOIN 
+                    complaints ON complaint_assist.comp_id = complaints.comp_id 
+                INNER JOIN 
+                    user ON complaints.user_id = user.user_id -- Assuming user_id is the common column
+                WHERE 
+                    complaint_assist.deleted = 0 
+                    AND complaint_assist.status='Handled'  
+                ORDER BY 
+                    complaint_assist.created_at DESC 
+            ");
+
 
             if(empty($data['handledrequests'])){
                 $data['handledrequests']=[];
@@ -254,12 +321,73 @@ GROUP BY
     public function adverify($id = null, $method = null)
     {
         $ad = new Ad();
+        $adv = new Ad_verification_request();
 
         if (empty($id) && empty($method)) {
 
-            $data['singerads'] = $ad->query("SELECT ad_id, title, user_id, category, datetime FROM ads WHERE pending=1 and category='singer'");
-            $data['bandads'] = $ad->query("SELECT ad_id, title, user_id, category, datetime FROM ads WHERE pending=1 and category='band'");
-            $data['venueads'] = $ad->query("SELECT ad_id, title, user_id, category, datetime FROM ads WHERE pending=1 and category='venue'");
+            $data['singerads'] = $ad->query("
+                SELECT 
+                    CONCAT(user.fname, ' ', user.lname) AS username,
+                    ads.title, 
+                    ads.category, 
+                    ads.datetime,
+                    ads.image,
+                    ads.ad_id
+                FROM 
+                    ads
+                INNER JOIN 
+                    user ON user.user_id = ads.user_id 
+                WHERE 
+                    pending=1 
+                AND 
+                    category='singer'
+                ORDER BY 
+                    ads.datetime DESC 
+            ");
+
+            $data['bandads'] = $ad->query("
+                SELECT 
+                    CONCAT(user.fname, ' ', user.lname) AS username,
+                    ads.title, 
+                    ads.category, 
+                    ads.datetime,
+                    ad_band.packages,
+                    ads.image,
+                    ads.ad_id
+                FROM 
+                    ads
+                INNER JOIN 
+                    user ON user.user_id = ads.user_id 
+                INNER JOIN 
+                    ad_band ON ad_band.ad_id = ads.ad_id 
+                WHERE 
+                    pending=1 
+                AND 
+                    category='band'
+                ORDER BY 
+                    ads.datetime DESC 
+                    ");
+
+
+            $data['venueads'] = $ad->query("
+                   SELECT 
+                        CONCAT(user.fname, ' ', user.lname) AS username,
+                        ads.title, 
+                        ads.category, 
+                        ads.datetime,
+                        ads.image,
+                        ads.ad_id
+                    FROM 
+                        ads
+                    INNER JOIN 
+                        user ON user.user_id = ads.user_id 
+                    WHERE 
+                        pending=1 
+                    AND 
+                        category='venue'
+                    ORDER BY 
+                        ads.datetime DESC 
+                    ");
 
             $this->view('admin/adverification', $data);
 
@@ -285,6 +413,11 @@ GROUP BY
 
         } elseif (!empty($id) && $method === 'decline') {
 
+            $adv->update($id, ['comment'=>$_POST['declineComment']]);
+
+            message("Advertiesment Declined");
+            redirect("Admin/adverify");
+
 
         } elseif (empty($id) && $method === 'back') {
 
@@ -304,6 +437,14 @@ GROUP BY
             $data['records'] = $db->query("SELECT * FROM reservations");
             $this->view('common/reservations/your-reservations', $data);
         }
+    }
+
+    public function reports($method=null){
+
+        $db=new Database();
+
+        $data['assist']=$db->query("SELECT * FROM complaint_assist");
+        $this->view('admin/reports',$data);
     }
 
     public function advertisements($method = null)

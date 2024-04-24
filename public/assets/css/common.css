@@ -65,12 +65,6 @@
     transition: 0.7s;
 }
 
-.input:focus {
-    outline: none;
-    border-color: cornflowerblue;
-    box-shadow: 0 0 10px cornflowerblue;
-}
-
 fieldset {
     border-color: white;
     border-style: ridge;
@@ -101,6 +95,7 @@ body::-webkit-scrollbar-thumb {
 /* Background Colors */
 .bg-white-90 {background-color: rgba(255, 255, 255, 0.9)}
 .bg-white {background-color: white}
+.bg-purple {background-color: #735DA5}
 .bg-indigo-2{background-color: var(--status-pending)}
 .bg-indigo-6{background-color: var(--indigo-6)}
 .bg-black-2{background-color: var(--dark-bg)}
@@ -122,6 +117,8 @@ body::-webkit-scrollbar-thumb {
 .txt-c-cornflowerblue {color: cornflowerblue}
 .txt-c-indigo-2 {color: var(--status-pending)}
 .txt-c-green {color: green}
+.txt-c-dark-purple{color : #a22bda
+}
 .txt-c-purple {color: #a766f1
 }
 .txt-c-lightgreen {color:lightgreen}
@@ -189,6 +186,7 @@ body::-webkit-scrollbar-thumb {
 
 /* Margin and Padding Styles */
 .pad-0 {padding: 0}
+.pad-5 {padding: 5px}
 .pad-10 {padding: 10px}
 .pad-20 {padding: 20px}
 .pad-10-20 {padding: 10px 20px}

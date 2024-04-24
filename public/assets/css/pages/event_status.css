@@ -214,7 +214,8 @@
         overflow: auto;
     }
 
-    &.venue-popup {
+    &.venue-popup,
+    &.band-popup {
         .es-popup-content {
             display: flex;
             flex-direction: column;
@@ -281,7 +282,8 @@
 
     /* ################################  Slider Styles  ############################## */
 
-    button.filter-button {
+    button.filter-button,
+    button.filter-button-2 {
         border: none;
         cursor: pointer;
         background-color: transparent;
@@ -295,7 +297,8 @@
         padding: 1rem 0;
     }
 
-    ul.filter-tabs {
+    ul.filter-tabs,
+    ul.filter-tabs-2 {
         list-style-type: none;
         display: flex;
     }
@@ -320,21 +323,24 @@
         opacity: var(--filters-wrapper-opacity);
     }
 
-    .filter-tabs {
+    .filter-tabs,
+    .filter-tabs-2 {
         border-radius: 1rem;
         padding: 0.3rem;
         overflow: hidden;
         background-color: #c7b2f1;
     }
 
-    .filter-tabs li {
+    .filter-tabs li,
+    .filter-tabs-2 li {
         position: relative;
         z-index: 1;
         display: flex;
         flex: 1 0 33.33%;
     }
 
-    .filter-button {
+    .filter-button,
+    .filter-button-2 {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -348,12 +354,14 @@
         font-size: 1.4rem;
     }
 
-    .filter-button.filter-active {
+    .filter-button.filter-active,
+    .filter-button-2.filter-active {
         transition: color 0.4s ease-in-out;
         color: #320249;
     }
 
-    .filter-slider {
+    .filter-slider,
+    .filter-slider-2 {
         pointer-events: none;
         position: absolute;
         padding: 0.3rem;

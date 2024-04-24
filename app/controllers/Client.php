@@ -1,5 +1,7 @@
 <?php
-class Client extends Controller {
+
+class Client extends Controller
+{
 
     public function __construct()
     {
@@ -25,23 +27,23 @@ class Client extends Controller {
         $ads = new Ad();
         $data['ads'] = $ads->where(['pending' => 0]);
 
-        if($page == "create-event") $this->view('common/events/create_event');
-        else if($page == 2) $this->view('common/events/create_event_2');
-        else if($page == 3) {
+        if ($page == "create-event") $this->view('common/events/create_event');
+        else if ($page == 2) $this->view('common/events/create_event_2');
+        else if ($page == 3) {
             $data['ads'] = $ads->where(['pending' => 0, 'category' => 'venue']);
             $this->view('common/events/create_event_3', $data);
-        } else if($page == 4) {
+        } else if ($page == 4) {
             $data['ads'] = $ads->where(['pending' => 0, 'category' => 'band']);
             $this->view('common/events/create_event_4', $data);
-        } else if($page == 5) {
+        } else if ($page == 5) {
             $data['ads'] = $ads->where(['pending' => 0, 'category' => 'singer']);
             $this->view('common/events/create_event_5', $data);
-        } else if($page == 'confirm') {
+        } else if ($page == 'confirm') {
             $this->view('common/events/create_event_confirm');
-        } else if($page == 'confirm-check') {
+        } else if ($page == 'confirm-check') {
             message("Event Created");
             redirect('client/event');
-        } else if($page == null) {
+        } else if ($page == null) {
             redirect('client/manage');
         } else {
             message('No such page exists');
@@ -53,13 +55,13 @@ class Client extends Controller {
     {
         $event = new Event();
 
-        if(empty($page)) {
+        if (empty($page)) {
             $data['events'] = $event->query("SELECT * FROM event");
             $this->view('common/events/manage/list', $data);
-        } else if(is_numeric($page)) {
+        } else if (is_numeric($page)) {
             $data['events'] = $event->query("SELECT * FROM event WHERE event_id = $page");
             $tickets = explode('/', $data['events'][0]->ticketing_plan);
-            foreach($tickets as $ticket) $ticket = explode('*', $ticket);
+            foreach ($tickets as $ticket) $ticket = explode('*', $ticket);
             $data['events'][0]->ticketing_plan = $tickets;
             $this->view('common/events/manage/details', $data);
         }
@@ -70,7 +72,7 @@ class Client extends Controller {
         $this->view('client/res-other');
     }
 
-    public function  complaints(): void
+    public function complaints(): void
     {
         $complaint = new Complaint();
         $data['complaints'] = $complaint->where(['user_id' => Auth::getUser_id()]);
@@ -92,11 +94,10 @@ class Client extends Controller {
         $db = new Database();
         $tickets = new Tickets();
 
-        if (empty($method)){
+        if (empty($method)) {
             $data['tickets'] = $db->query("SELECT * FROM tickets JOIN event ON tickets.event_id = event.event_id JOIN venue ON event.venue_id = venue.venue_id");
             $this->view('common/events/tickets/view_tickets', $data);
-        }
-        else if ($method == "delete"){
+        } else if ($method == "delete") {
             $ticket = new Tickets();
             $ticket->update($id, ['ticket_id' => $id, 'deleted' => 1]);
             message("Deleted successful.");
@@ -105,15 +106,15 @@ class Client extends Controller {
     }
 
     //reservations
-    public function reservations($method = null, $id = null, $action = null) : void
+    public function reservations($method = null, $id = null, $action = null): void
     {
 
         $db = new Database();
 
-        $currentTab="current";
+        $currentTab = "current";
 
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            $target_id = $db->query('SELECT * FROM serviceprovider WHERE sp_id=:sp_id',['sp_id'=>$method])[0]->user_id;
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $target_id = $db->query('SELECT * FROM serviceprovider WHERE sp_id=:sp_id', ['sp_id' => $method])[0]->user_id;
 //          show($target_id);
 //          show($target_id[0]);
 //          show($target_id[0]->user_id);
@@ -124,19 +125,17 @@ class Client extends Controller {
 
             $review = new Review();
 
-            $review_data = $review->where(['reservation_id'=>$id]);
+            $review_data = $review->where(['reservation_id' => $id]);
 
-            if(empty($review_data))
-            {
+            if (empty($review_data)) {
                 $review->insert($_POST);
             } else {
                 $_POST['review_id'] = $review_data[0]->review_id;
-                $review->update($id,$_POST);
+                $review->update($id, $_POST);
             }
-
-            $currentTab="outdated";
+            $currentTab = "outdated";
+            $method = "accepted";
         }
-
 
         $data['reservations'] = $db->query('SELECT *, resrequest.reservation_id AS "reservation_id"
       FROM resrequest
@@ -146,72 +145,90 @@ class Client extends Controller {
       ON resrequest.reservation_id = review.reservation_id
       WHERE resrequest.user_id = :user_id ORDER BY resrequest.createdDate', ['user_id' => Auth::getUser_id()]);
 
-        $data['currentTab']=$currentTab;
+        $data['currentTab'] = $currentTab;
+//        $this->view('client/reservations/accepted', $data);
+//        die;
 
-        $this->view('client/reservations', $data);
 
+        if ($method === "accepted") {
+            $this->view('client/reservations/accepted', $data);
+        } elseif ($method === "pending") {
+            $this->view('client/reservations/pending', $data);
+        } elseif ($method === "denied") {
+            $this->view('client/reservations/denied', $data);
+        }
     }
 
     //reserve a service provider using Ad
-    public function reservation_form($id= null) : void
+    public function reservation_form($id = null): void
     {
         $db = new Database();
-      
-      $sp_data = $db->query("SELECT * FROM ads
+
+        $sp_data = $db->query("SELECT * FROM ads
         INNER JOIN serviceprovider
         ON ads.user_id = serviceprovider.user_id WHERE ads.ad_id = :ad_id", ['ad_id' => $id])[0];
-      $sp_id = $sp_data->sp_id;
+        $sp_id = $sp_data->sp_id;
 
-      $new_id = "RESREQ_" . rand(10, 100000) . "_" . time();
+        $new_id = "RESREQ_" . rand(10, 100000) . "_" . time();
 
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST['req_id'] = $new_id;
             $_POST['user_id'] = Auth::getUser_id();
             $_POST['sp_id'] = $sp_id;
             $_POST['reservation_id'] = $new_id;
             $_POST['ad_id'] = $id;
 
-          if($sp_data->sp_type == "venuem") {
+            if ($sp_data->sp_type == "venuem") {
 
-              $venuedata = $db->query("
+                $venuedata = $db->query("
                 SELECT * FROM ads
                 JOIN ad_venue ON ad_venue.ad_id = ads.ad_id
                 JOIN venue ON ad_venue.venue_id = venue.venue_id
                 WHERE ads.ad_id = :ad_id
               ", ['ad_id' => $id])[0];
 
-              $_POST['location_id'] = $venuedata->venue_id;
-              $_POST['location'] = $venuedata->location;
-          }
-
-
+                $_POST['location_id'] = $venuedata->venue_id;
+                $_POST['location'] = $venuedata->location;
+            }
             $resreq = new Resrequest();
             $resreq->insert($_POST);
 
-            redirect("client/reservations");
+            redirect("client/reservations/pending");
         }
 
-      $data['ad_owner_type'] = $sp_data->sp_type;
+        $data['ad_owner_type'] = $sp_data->sp_type;
+        $data['title'] = $sp_data->title;
+        $data['image'] = $sp_data->image;
+        $_SESSION['USER_DATA']->sp_id = $sp_id;
 
-      $this->view('client/reservation_form', $data);
-  }
+        $data['reservations'] = $db->query("SELECT *,
+                rr.type AS reservation_type
+                FROM
+                reservations r
+                JOIN resrequest rr
+                ON r.reservation_id= rr.reservation_id
+                WHERE (r.sp_id = :sp_id) ORDER BY rr.start_time DESC", ['sp_id' => $_SESSION['USER_DATA']->sp_id]);
 
-    public function bought_tickets($method = null, $id = null, $action = null) : void
+        $this->view('client/reservation_form', $data);
+    }
+
+    public function bought_tickets($method = null, $id = null, $action = null): void
     {
         $db = new Database();
 
-        $data['bought_tickets']=$db->query('SELECT 
+        $data['bought_tickets'] = $db->query('SELECT 
         event.name AS ename, tickets.ticket_id, event.details,event.start_time,event.end_time,event.image,tickets.hash, venue.name AS vname
         FROM event
         INNER JOIN  tickets
         ON event.event_id = tickets.event_id
         INNER JOIN venue
         ON venue.venue_id = event.venue_id
-        WHERE tickets.user_id = :user_id ', ['user_id'=> Auth::getUser_id()]);
+        WHERE tickets.user_id = :user_id ', ['user_id' => Auth::getUser_id()]);
 
         $data['currentTab'] = 'current';
 
         $this->view('client/bought_tickets', $data);
     }
+
 
 }
