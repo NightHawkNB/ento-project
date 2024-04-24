@@ -1,5 +1,5 @@
 <html lang="en">
-<?php $this->view('includes/head', ['style' => ['pages/venuem/venue_update.css']]) ?>
+<?php $this->view('includes/head') ?>
 <body>
 <div class="main-wrapper">
     <?php $this->view('includes/header') ?>
@@ -10,7 +10,7 @@
         </section>
 
         <section class="cols-10 dis-flex ju-co-ce">
-            <div class="dis-flex-col al-it-ce pad-20 gap-10 bor-rad-5 wid-100">
+            <div class="glass-bg dis-flex-col al-it-ce pad-20 gap-10 bor-rad-5">
 
                 <form method="post" enctype="multipart/form-data" class="profile-edit-form dis-flex-col al-it-ce ju-co-ce">
                     <div class="pos-rel wid-auto dis-flex ju-co-ce p-img">

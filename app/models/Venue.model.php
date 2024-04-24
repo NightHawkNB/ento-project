@@ -14,8 +14,7 @@ class Venue extends model {
         'packages',
         'other',
         'venueM_id',
-        'deleted',
-        'verified'
+        'deleted'
     ];
 
     public function validate($data): bool

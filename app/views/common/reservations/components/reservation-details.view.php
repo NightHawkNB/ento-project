@@ -77,7 +77,7 @@
             <div class="bg-white-90 bor-rad-5 wid-80 pad-30-10 dis-flex-col gap-20 sh">
                 <h3>Request Details</h3>
                 <div class="dis-flex gap-10 wid-100">
-                    <div class="wid-100" style="overflow: auto">
+                    <div class="wid-100">
                         <h4>Details</h4>
                         <p><?= $details ?></p>
                     </div>

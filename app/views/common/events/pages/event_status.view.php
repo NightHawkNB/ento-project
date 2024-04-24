@@ -198,7 +198,7 @@
                 </div>
 
                 <div>
-<!--                    --><?php //= show($data) ?>
+                    <?= show($data) ?>
                 </div>
 
             </div>

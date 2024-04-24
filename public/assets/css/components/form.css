@@ -1,83 +1,94 @@
 .form-style {
-    background-color: var(--white);
-    padding: 20px;
-    border-radius: 10px;
+    background-color: #cebeef;
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 800px;
+    padding: 20px 30px;
+    font-size: 0.9rem;
+    max-width: 80%;
+    border-radius: 10px;
+}
+
+.form-style input,
+.form-style select,
+.form-style textarea {
+    padding: 5px 5px 5px 10px;
+    font-size: 0.9rem;
+    height: 40px;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    border-bottom: 4px solid rebeccapurple;
+    transition: 1s ease all;
+}
+
+.form-style input:focus,
+.form-style select:focus,
+.form-style textarea:focus {
+    border-bottom: 4px solid purple;
+}
+
+.form-style textarea {
+    height: auto;
+}
+
+.form-style select:focus {
+    box-shadow: none;
+}
 
 
-    input,
-    textarea,
-    select,
-    option {
-        padding: 10px 10px 10px 20px;
-        border-radius: 5px;
-        border: thin solid gray;
-        outline: none;
-        margin-bottom: 10px;
-        resize: none;
-    }
+.form-style select {
+    font-size: 1rem;
+    font-weight: normal;
+    text-align: center;
+}
 
-    textarea {
-        height: 80px;
-    }
+.form-style .group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+}
 
-    label {
-        font-family: Poppins, sans-serif;
-        color: var(--font-primary);
-        display: flex;
-        gap: 10px;
-        align-items: center;
+.form-style .group-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
 
-        svg {
-            width: 30px;
-            aspect-ratio: 1/1;
-        }
-    }
+.form-style .group-content > div {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    color: var(--font-primary);
+}
 
-    .contains-svg label {
-        margin-bottom: 5px;
-    }
+.form-style textarea:focus {
+    box-shadow: none;
+    outline: none;
+}
 
-    .image-upload {
-        position: relative;
-        width: fit-content;
+.form-style .image-upload {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: fit-content;
+    margin-bottom: 30px;
+}
 
-        img {
-            border-radius: 5px;
-        }
+.form-style .image-upload > div {
+    background-color: dimgrey;
+    width: fit-content;
+    position: absolute;
+    left: 100%;
+    top: 100%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    border-radius: 5px;
+}
 
-        & div {
-            position: absolute;
-            background-color: var(--dark-bg);
-            bottom: -5px;
-            right: -5px;
-            width: fit-content;
-            aspect-ratio: 1/1;
-            padding: 10px;
-            border-radius: 5px;
-        }
-    }
-
-
-    .horizontal-group {
-        display: flex;
-        width: 100%;
-        gap:20px;
-        align-items: center;
-        /*justify-content: start;*/
-    }
-
-    @media screen and (max-width: 900px) {
-        .horizontal-group {
-            flex-direction: column;
-        }
-    }
-
-    .group-content {
-        display: flex;
+@media screen and (max-width: 910px) {
+    .form-style .group {
         flex-direction: column;
     }
 }

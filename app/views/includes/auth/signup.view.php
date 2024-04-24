@@ -187,7 +187,7 @@
 
                         <?php if($_SESSION['temp_data']['user_type'] == "singer"): ?>
                             <div class="input-box">
-                                <label for="rate">Rate per Reservation</label>
+                                <label for="rate">Rate</label>
                                 <input placeholder="Current Average Charging Rates" type="text" name="rate">
                                 <i></i>
                             </div>

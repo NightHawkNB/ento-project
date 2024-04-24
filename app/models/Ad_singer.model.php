@@ -7,6 +7,6 @@ class Ad_singer extends model {
 
     protected array $allowed_columns = [
         'ad_id',
-        'spotify_link'
+        'sample_audio'
     ];
 }

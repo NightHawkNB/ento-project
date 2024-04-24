@@ -65,6 +65,12 @@
     transition: 0.7s;
 }
 
+.input:focus {
+    outline: none;
+    border-color: cornflowerblue;
+    box-shadow: 0 0 10px cornflowerblue;
+}
+
 fieldset {
     border-color: white;
     border-style: ridge;

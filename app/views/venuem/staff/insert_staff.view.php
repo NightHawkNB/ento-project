@@ -10,18 +10,10 @@
                 <?php $this->view('includes/sidebar') ?>
             </section>
 
-            <style>
-                .user-update-form {
-                    color: var(--font-primary);
-                    padding: 10px;
-                    border-radius:10px;
-                }
-            </style>
-
             <section class="cols-2 pad-10">
-                <div class="wid-100 dis-flex-col pad-20 bor-rad-5 al-it-ce">
+                <div class="glass-bg wid-100 dis-flex-col pad-20 bor-rad-5 al-it-ce">
 
-                    <form method="POST" class="bg-white dis-flex-col al-it-ce ju-co-ce gap-20 user-update-form">
+                    <form method="POST" class="dis-flex-col al-it-ce ju-co-ce gap-20 user-update-form">
                         <h2>Register</h2>
                         <h3>Venue Operator</h3>
                         <fieldset class="pad-20 bor-rad-5 dis-flex-col gap-10">

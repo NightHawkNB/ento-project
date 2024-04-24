@@ -27,13 +27,15 @@
 
             <div class="wid-100 hei-100 bor-rad-5 dis-flex-col al-it-ce ju-co-ce pad-20 gap-20">
                 <div class="chat-wrapper">
-                    <div id="chat" class="chat-container wid-100 hei-100 pad-10 bor-rad-5 gap-10" style="height: 65vh; overflow-y: auto">
-<!--                        <h3 class="txt-c-white">Message Box</h3>-->
+                    <div id="chat" class="chat-container wid-100 bg-black-2 hei-100 pad-10 bor-rad-5 gap-10" style="height: 65vh; overflow-y: auto">
+                        <h3 class="txt-c-white">Message Box</h3>
                         <?php
                         if(!empty($msg)) {
                             foreach($msg as $message) {
                                 $this->view("common/chat/components/message", (array)$message);
                             }
+                        } else {
+                            echo "New Chat";
                         }
                         ?>
 
@@ -65,7 +67,7 @@
 
         const sender_id = "<?= (Auth::is_client()) ? $sen : Auth::getUser_id() ?>"
         const receiver_id = "<?= (Auth::is_client()) ? Auth::getUser_id() : $rec ?>"
-        const reservation_id = "<?= $unique_id ?>"
+        const reservation_id = "<?= $reservation_id ?>"
 
         document.getElementById('send-btn').addEventListener("click", function() {
 
