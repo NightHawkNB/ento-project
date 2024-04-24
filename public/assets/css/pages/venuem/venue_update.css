@@ -1,0 +1,16 @@
+.profile-edit-form {
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    color: var(--font-primary);
+    width: fit-content;
+    min-width: 500px;
+
+    input,
+    select,
+    option,
+    textarea {
+        border: thin solid grey;
+        outline: none;
+    }
+}

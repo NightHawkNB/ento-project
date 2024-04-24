@@ -1,8 +1,68 @@
-<?php if(($user_type == "singer" AND $visible == 1) || $user_type != 'singer'): ?>
-
-<?php //show($data); ?>
+<?php if(($_SESSION['USER_DATA']->user_type == "singer" AND $visible == 1) || $_SESSION['USER_DATA']->user_type != 'singer'): ?>
 
     <div class="ad sh" data-category="<?= $category ?>" data-title="<?= $title ?>">
+
+        <?php if(preg_match('/\/ads$/', $_SERVER['REQUEST_URI']) AND $user_id == Auth::getUser_id()): ?>
+            <div class="toggle-button-cover">
+                <div class="button-cover">
+                    <p class="js-left-text">VISIBLE</p>
+                    <div class="button r" id="button-3">
+                        <input type="checkbox" class="checkbox" onclick="toggle_visibility(this)"    <?= ($visible == 0) ? 'checked' : '' ?> />
+                        <div class="knobs"></div>
+                        <div class="layer"></div>
+                    </div>
+                    <p class="js-right-text">HIDDEN</p>
+                </div>
+            </div>
+        <?php endif; ?>
+
+
+        <script>
+            function toggle_visibility(element) {
+
+                // console.log(element)
+
+                const checkbox = element
+                const visible_text = element.parentElement.parentElement.querySelector('.js-left-text')
+                const hidden_text = element.parentElement.parentElement.querySelector('.js-right-text')
+
+                if (!checkbox.checked) {
+                    visible_text.style.color = 'mediumpurple'
+                    hidden_text.style.color = 'grey'
+                } else {
+                    visible_text.style.color = 'grey'
+                    hidden_text.style.color = '#f44336'
+                }
+
+                let visibility = checkbox.checked ? 0 : 1
+                update_visibility(visibility)
+
+            }
+
+            function update_visibility(visibility) {
+                let data = {visibility}
+                console.log("RAN")
+                fetch(`/ento-project/public/<?= $_SESSION['USER_DATA']->user_type ?>/ads/update-visibility/<?= $ad_id ?>`, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json; charset=utf-8"
+                    },
+                    body: JSON.stringify(data)
+                }).then(res => {
+                    // console.log(res)
+                    return res.text()
+                }).then(data => {
+
+                    if(data !== "success") {
+                        console.log("Visibility Update Failed")
+                    } else {
+                        console.log("Visibility Update Successful")
+                    }
+
+                    // console.log(data)
+                })
+            }
+        </script>
 
         <div class="top">
             <div class="vertical">
@@ -45,13 +105,14 @@
             <!--            <p>--><?php //= $contact_email ?><!--</p>-->
             <!--        </div>-->
 
-            <div class="horizontal" style="height: 60px; text-overflow: ellipsis">
+            <div class="horizontal" style="height: 60px;">
                 <svg style="stroke: var(--purple-primary); fill: none;" class="feather feather-info" fill="none" height="24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="12" cy="12" r="10"/>
                     <line x1="12" x2="12" y1="16" y2="12"/>
-                    <line x1="12" x2="12.01" y1="8" y2="8"/></svg>
+                    <line x1="12" x2="12.01" y1="8" y2="8"/>
+                </svg>
 
-                <p><?= $details ?></p>
+                <p style="overflow: hidden; text-overflow: ellipsis; max-height: 80%"><?= $details ?></p>
             </div>
 
             <div class="horizontal">
@@ -76,9 +137,7 @@
                 </a>
             <?php endif; ?>
 
-            <?php if(Auth::logged_in()): ?>
-                <button class="button-s2" data-modal-target="#<?= $ad_id ?>" onclick="update_viewCount('<?= $ad_id ?>')">More Info</button>
-            <?php endif; ?>
+            <button class="button-s2" data-modal-target="#<?= $ad_id ?>" onclick="update_viewCount('<?= $ad_id ?>')">More Info</button>
 
             <?php if($pending != 1 && Auth::logged_in() && (!Auth::is_client()) && !str_contains($_SERVER['QUERY_STRING'], "home/ads") && !str_contains($_SERVER['QUERY_STRING'], "/ads/all-ads") ): ?>
                 <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/ads/promote-ad/<?= $ad_id ?>">
@@ -117,13 +176,15 @@
                     <div class="" style="position: relative">
                         <img src="<?= ROOT.$image ?>" alt="Ad image" style="width: 150px; height: 150px; object-fit: cover" class="bor-rad-5">
 
-                        <a href="<?= ROOT ?>/<?= $_SESSION['USER_DATA']->user_type ?>/user_profile/<?= $user_id ?>">
-                            <div class="profile-icon">
-                                <svg class="feather feather-user" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                                    <circle cx="12" cy="7" r="4"/></svg>
-                            </div>
-                        </a>
+                        <?php if($profile_visible == 1 && Auth::logged_in()): ?>
+                            <a href="<?= ROOT ?>/<?= Auth::logged_in() ? $_SESSION['USER_DATA']->user_type : 'client' ?>/user_profile/<?= $user_id ?>">
+                                <div class="profile-icon">
+                                    <svg class="feather feather-user" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                        <circle cx="12" cy="7" r="4"/></svg>
+                                </div>
+                            </a>
+                        <?php endif; ?>
                     </div>
 
                     <div>
@@ -139,7 +200,7 @@
                     </div>
 
                     <div class="pad-20 wid-100 dis-flex gap-10 ju-co-sb">
-                        <p><span class="txt-w-bold f-mooli">Average rate : </span> <?= number_format($rates) ?></p>
+                        <p><span class="txt-w-bold f-mooli">Average rate : </span> <?= empty($rates) ? 'Not Set' : number_format($rates) ?></p>
                         <p><span class="txt-w-bold f-mooli">Posted Date Time : </span> <?= $datetime ?></p>
                     </div>
 
@@ -193,7 +254,7 @@
                     </div>
 
                     <div class="pad-20 wid-100 dis-flex gap-10 ju-co-sb">
-                        <p><span class="txt-w-bold f-mooli">Average rate : </span> <?= number_format($rates) ?></p>
+                        <p><span class="txt-w-bold f-mooli">Average rate : </span> <?= empty($rates) ? 'Not Set' : number_format($rates) ?></p>
                         <p><span class="txt-w-bold f-mooli">Posted Date Time : </span> <?= $datetime ?></p>
                     </div>
 
@@ -221,13 +282,15 @@
                     <div class="" style="position: relative">
                         <img src="<?= ROOT.$image ?>" alt="Ad image" style="width: 150px; height: 150px; object-fit: cover" class="bor-rad-5">
 
-                        <a href="<?= ROOT ?>/<?= $_SESSION['USER_DATA']->user_type ?>/user_profile/<?= $user_id ?>">
-                            <div class="profile-icon">
-                                <svg class="feather feather-user" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                                    <circle cx="12" cy="7" r="4"/></svg>
-                            </div>
-                        </a>
+                        <?php if($profile_visible == 1): ?>
+                            <a href="<?= ROOT ?>/<?= Auth::logged_in() ? $_SESSION['USER_DATA']->user_type : 'client' ?>/user_profile/<?= $user_id ?>">
+                                <div class="profile-icon">
+                                    <svg class="feather feather-user" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                        <circle cx="12" cy="7" r="4"/></svg>
+                                </div>
+                            </a>
+                        <?php endif; ?>
                     </div>
 
                     <div>
@@ -248,7 +311,7 @@
                     </div>
 
                     <div class="pad-20 wid-100 dis-flex gap-10 ju-co-sb">
-                        <p><span class="txt-w-bold f-mooli">Average rate : </span> <?= number_format($rates) ?></p>
+                        <p><span class="txt-w-bold f-mooli">Average rate : </span> <?= empty($rates) ? 'Not Set' : number_format($rates) ?></p>
                         <p><span class="txt-w-bold f-mooli">Posted Date Time : </span> <?= $datetime ?></p>
                     </div>
 

@@ -12,11 +12,15 @@
 
             <?php
 
+                show($data);
+                show($_SESSION['USER_DATA']->user_id);
+
                 // Merging the category separated ads(arrays) to a single array
                 $ads = [];
                 if(!empty($ad_singer)) $ads = array_merge_recursive($ads, $ad_singer);
                 if(!empty($ad_band)) $ads = array_merge_recursive($ads, $ad_band);
                 if(!empty($ad_venue)) $ads = array_merge_recursive($ads, $ad_venue);
+                if(!empty($ad_eventm)) $ads = array_merge_recursive($ads, $ad_eventm);
 
                 if(empty($ads)) echo "No ads to show";
                 else {
