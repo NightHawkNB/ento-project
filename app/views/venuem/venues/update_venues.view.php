@@ -1,5 +1,5 @@
 <html lang="en">
-<?php $this->view('includes/head') ?>
+<?php $this->view('includes/head', ['style' => ['pages/venuem/venue_update.css']]) ?>
 <body>
 <div class="main-wrapper">
     <?php $this->view('includes/header') ?>
@@ -47,7 +47,7 @@
                     </div>
 
                     <div class="wid-100 dis-flex ju-co-ce button">
-                        <button type="submit" class="glass-btn">Save Changes</button>
+                        <button type="submit" class="button-s2">Save Changes</button>
                     </div>
                 </form>
 

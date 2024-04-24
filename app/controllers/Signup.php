@@ -55,6 +55,9 @@ class Signup extends Controller{
 
                         $_POST['user_type'] = $method;
 
+                        $_POST['fname'] = ucfirst($_POST['fname']);
+                        $_POST['lname'] = ucfirst($_POST['lname']);
+
                         // Inserting data to the user table
                         $user->insert($_POST);
 
@@ -95,6 +98,57 @@ class Signup extends Controller{
 
                             case 'singer':
                                 $db->query("INSERT INTO singer (sp_id, rate) VALUES (:sp_id, :rate)", ['sp_id' => $sp_id, 'rate' => $_POST['rate']]);
+
+                                // Generating a unique ad_id
+                                $ad_id = "AD_" . rand(10, 100000) . "_" . time();
+
+                                $user_id = $_POST['user_id'];
+                                $name = ucfirst($_POST['fname']).' '.ucfirst($_POST['lname']);
+                                $details = "Introducing the mesmerizing singer with a voice that resonates with passion and soul. Captivating audiences with every note, $name brings an unforgettable blend of talent and emotion to every performance. Experience the magic of music with $name.";
+                                $category = "singer";
+
+                                // Inserting the default ad for this user upon account creation with visibility set to 1 by default
+                                $db->query("
+                                    INSERT INTO ads VALUES
+                                        (:ad_id, :user_id, :name, :category, :details, NULL, 0, 0, NULL, CURRENT_TIMESTAMP, 0, NULL, NULL, 1)
+                                ", [
+                                    'ad_id' => $ad_id,
+                                    'user_id' => $user_id,
+                                    'name' => $name,
+                                    'category' => $category,
+                                    'details' => $details
+                                ]);
+
+                                $db->query("
+                                    INSERT INTO ad_singer VALUES (:ad_id, NULL)
+                                ", ['ad_id' => $ad_id]);
+                                break;
+
+                            case 'eventm':
+
+                                // Generating a unique ad_id
+                                $ad_id = "AD_" . rand(10, 100000) . "_" . time();
+
+                                $user_id = $_POST['user_id'];
+                                $name = ucfirst($_POST['fname']).' '.ucfirst($_POST['lname']);
+                                $details = "Introducing the mesmerizing singer with a voice that resonates with passion and soul. Captivating audiences with every note, $name brings an unforgettable blend of talent and emotion to every performance. Experience the magic of music with $name.";
+                                $category = "eventm";
+
+                                // Inserting the default ad for this user upon account creation with visibility set to 1 by default
+                                $db->query("
+                                    INSERT INTO ads VALUES
+                                        (:ad_id, :user_id, :name, :category, :details, NULL, 0, 0, NULL, CURRENT_TIMESTAMP, 0, NULL, NULL, 1)
+                                ", [
+                                    'ad_id' => $ad_id,
+                                    'user_id' => $user_id,
+                                    'name' => $name,
+                                    'category' => $category,
+                                    'details' => $details
+                                ]);
+
+                                $db->query("
+                                    INSERT INTO ad_singer VALUES (:ad_id, NULL)
+                                ", ['ad_id' => $ad_id]);
                                 break;
 
                             default:

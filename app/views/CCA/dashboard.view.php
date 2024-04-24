@@ -30,8 +30,12 @@
         border-radius: 10px;
         padding: 50px;
         background-color: white;
-        width: 100%;   
+        width: 100%;
+
     }
+
+
+
     .cards .card .numbers{
         font-size: 2.5em;
     }
@@ -45,7 +49,7 @@
     }
 
     .cards .card:hover{
-        background-color: #823dff;
+        background-image: linear-gradient(to right, #7d38ff, #be9bf8);;
     }
     .cards .card .numbers,
     .cards .card .cardname{
@@ -203,6 +207,9 @@
                 flex-direction: column;
                 box-shadow: 5px 10px 18px #c8aaff;
             }
+            /*.details .extra table thead{*/
+            /*    font-weight: bold;*/
+            /*}*/
             .details .extra table tbody .ass {
                 background: #fdf431;
                 padding: 1px 70px;
@@ -240,13 +247,18 @@
                 border-collapse: separate; /* Separate borders */
                 border-spacing: 0 10px; /* Set the vertical (top/bottom) spacing to 10px */
             }
+            .details .extra table tbody .status td{
+                /*justify-content: flex-start;*/
+                /*text-align: left;*/
+                /*border-radius: 100px;*/
+            }
 
             /*.details .extra table thead {*/
             /*    padding-bottom: 5px; !* Additional padding at the bottom of the thead *!*/
             /*}*/
 
             .details .extra:hover{
-                background-color: #f6f6f6;
+                background-image: linear-gradient(to right, #b394ff,#f6f6f6);
             }
 
         </style>
@@ -271,21 +283,21 @@
                             if($complaint->status=='Accepted'){
                                 echo "
                                     <tr>
-                                        <td>$complaint->status</td>
+                                        <td><span class='status'>$complaint->status</span></td>
                                         <td><span class = 'acc'>$complaint->complaints</span></td>
                                     </tr>
                                     ";
                             }if($complaint->status=='Idle'){
                                     echo "
                                     <tr>
-                                        <td>$complaint->status</td>
+                                        <td><span class='status'>$complaint->status</span></td>
                                         <td><span class = 'idl'>$complaint->complaints</span></td>
                                     </tr>
                                     ";
                                 }if($complaint->status=='Handled'){
                                 echo "
                                     <tr>
-                                        <td>$complaint->status</td>
+                                        <td><span class='status'>$complaint->status</span></td>
                                         <td><span class = 'hand'>$complaint->complaints</span></td>
                                     </tr>
                                     ";
@@ -293,7 +305,7 @@
                             if($complaint->status=='Assist'){
                                 echo "
                                     <tr>
-                                        <td>$complaint->status</td>
+                                        <td><span class='status'>$complaint->status</span></td>
                                         <td><span class = 'ass'>$complaint->complaints</span></td>
                                     </tr>
                                     ";

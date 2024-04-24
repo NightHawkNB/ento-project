@@ -85,21 +85,24 @@ ul.main-tabs li {
     opacity: var(--filters-wrapper-opacity);
 }
 
-.filter-tabs {
+.filter-tabs,
+.filter-tabs-2 {
     border-radius: 1rem;
     padding: 0.3rem;
     overflow: hidden;
     background-color: #c7b2f1;
 }
 
-.filter-tabs li {
+.filter-tabs li ,
+.filter-tabs-2 li {
     position: relative;
     z-index: 1;
     display: flex;
     flex: 1 0 33.33%;
 }
 
-.filter-button {
+.filter-button,
+.filter-button-2 {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -118,7 +121,8 @@ ul.main-tabs li {
     color: #320249;
 }
 
-.filter-slider {
+.filter-slider,
+.filter-slider-2 {
     pointer-events: none;
     position: absolute;
     padding: 0.3rem;
