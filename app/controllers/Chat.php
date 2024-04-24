@@ -6,13 +6,13 @@ class Chat extends controller {
         // Constructor
     }
 
-    // $sen = user_id of the sender
-    // $rec = user_id of the receiver
+    // $sen = user_id of the sender -- Sender can be anyone but the client
+    // $rec = user_id of the receiver -- Client
     // $id = unique ID used to identify the chat and the reservation
 
 //    reserve($sen = null, $rec = null, $id = null, "reservations")
 
-    public function reserve($sen = null, $rec = null, $id = null, $folder_name = null): void
+    public function reserve($sen = null, $rec = null, $id = null): void
     {
         if((empty($sen) AND empty($rec)) OR empty($sen)) {
 
