@@ -13,37 +13,6 @@
 
             <div class="event-status-container">
 
-                <div style="text-align: center" class="progress-container-main">
-                    <div class="progress-container">
-                        <?php $progress_count = 3; ?>
-                        <div class="progress" id="progress" style="width: <?= $progress_count * 20 ?>%"></div>
-                        <div class="circle active">
-                            <span class="label">General Details</span>
-                        </div>
-                        <div class="circle <?= (empty($something)) ? 'active' : '' ?>">
-                            <span class="label">Venue</span>
-                            <p>2</p>
-                        </div>
-                        <div class="circle <?= (empty($something)) ? 'active' : '' ?>">
-                            <span class="label">Bands</span>
-                            <p>3</p>
-                        </div>
-                        <div class="circle <?= (empty($something)) ? 'active' : '' ?>">
-                            <span class="label">Singers</span>
-                            <p>4</p>
-                        </div>
-                        <div class="circle <?= (!empty($something)) ? 'active' : '' ?>">
-                            <span class="label">Ticketing Plan</span>
-                            <p>5</p>
-                        </div>
-                        <div class="circle <?= (!empty($something)) ? 'active' : '' ?>">
-                            <span class="label">Confirmation</span>
-                            <p>6</p>
-                        </div>
-                    </div>
-
-                </div>
-
                 <div class="participant-container">
                     <div class="participants">
                         <h2>Singers</h2>
@@ -51,86 +20,16 @@
                         <p>singer3</p>
                     </div>
 
+                    <?php show($data) ?>
+
                     <div class="temp-div dis-flex gap-10">
-                        <!-- Band Part -->
-                        <div class="participants band">
-                            <h2>Band</h2>
-                            <div>
-                                <img class="es-image"
-                                     src="<?= ($custom->band) ? ROOT . '/assets/images/bands/general.png' : ($reservations['band'] ? ROOT . $band->image : ROOT . '/assets/images/bands/general.png') ?>"
-                                     alt="band_image">
-                                <div class="es-content">
-
-                                    <?php
-                                    if (!$custom->band && $reservations['band']) {
-                                        switch ($band->status) {
-                                            case 'Pending':
-                                                $band_color = 'var(--status-pending-bg)';
-                                                break;
-
-                                            case 'Accepted':
-                                                $band_color = 'var(--status-approve-bg)';
-                                                break;
-
-                                            case 'Denied':
-                                                $band_color = 'var(--status-error-bg)';
-                                                break;
-
-                                            default:
-                                                $band_color = 'var(--status-unknown-bg)';
-                                                break;
-                                        }
-                                    } else {
-                                        $band_color = 'var(--status-unknown-bg)';
-                                    }
-                                    ?>
-
-                                    <div class="es-status">
-                                        <p> Request Status : </p>
-                                        <span style="background-color: <?= $band_color ?>"><?= ($custom->band) ? 'Unknown' : (($reservations['band']) ? $band->status : 'Not Selected') ?></span>
-                                    </div>
-
-                                    <div class="es-title">
-                                        <h3>Name : </h3>
-                                        <span><?= (!$reservations['band'] && $custom->band) ? $band : "Not Selected" ?></span>
-                                    </div>
-
-                                    <div class="es-buttons">
-
-                                        <button class="button-s2 es-button main-button"
-                                                data-req_id="<?= ($custom->band) ? 'NULL' : ($reservations['band'] ? $band->req_id : 'NULL') ?>"
-                                                data-type="band"
-                                                type="button" <?= ($custom->band) ? 'disabled' : '' ?> >
-                                            <svg class="feather feather-x" fill="none" stroke="currentColor"
-                                                 stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                 viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                                                <line x1="18" x2="6" y1="6" y2="18"/>
-                                                <line x1="6" x2="18" y1="6" y2="18"/>
-                                            </svg>
-                                            <span><?= ($custom->band) ? 'Remove' : ($reservations['band'] ? 'Cancel' : 'Add Band') ?></span>
-                                        </button>
-
-                                        <button class="button-s2 es-button"
-                                                type="button" <?= ($custom->band) ? 'disabled' : ($reservations['band'] ? '' : 'disabled') ?> >
-                                            <svg class="feather feather-phone" fill="none" stroke="currentColor"
-                                                 stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                 viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-                                            </svg>
-                                            <span>Call</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
 
                         <!-- Venue Part -->
                         <div class="participants venue">
                             <h2>Venue</h2>
                             <div>
                                 <img class="es-image"
-                                     src="<?= ($custom->venue) ? ROOT . '/assets/images/bands/general.png' : ($reservations['venue'] ? ROOT . $venue->image : ROOT . '/assets/images/bands/general.png') ?>"
+                                     src="<?= ROOT . '/assets/images/bands/general.png' ?>"
                                      alt="venue_image">
                                 <?php
                                 if (!$custom->venue && $reservations['venue']) {
@@ -163,7 +62,7 @@
 
                                     <div class="es-title">
                                         <h3>Name : </h3>
-                                        <span><?= (!$reservations['venue'] && $custom->venue) ? $venue : "Not Selected" ?></span>
+                                        <span><?= (!$reservations['venue'] && $custom->venue) ? $venue : (($reservations['venue'] && !$custom->venue) ? $venue->name : "Not Selected") ?></span>
                                     </div>
 
                                     <div class="es-buttons">
@@ -171,7 +70,7 @@
                                                 data-state="<?= ($custom->venue) ? 'custom' : ($reservations['venue'] ? 'selected' : 'choose') ?>"
                                                 data-req_id="<?= (!$custom->venue) ? ($reservations['venue'] ? $venue->req_id : 'NULL') : 'NULL' ?>"
                                                 data-type="venue"
-                                                type="button" <?= ($custom->venue) ? 'disabled' : '' ?> >
+                                                type="button" <?= ($event->time_left < 7) ? 'disabled' : '' ?> >
                                             <svg class="feather feather-x" fill="none" stroke="currentColor"
                                                  stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                  viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -194,26 +93,21 @@
                             </div>
                         </div>
                     </div>
-
-                </div>
-
-                <div>
-<!--                    --><?php //= show($data) ?>
                 </div>
 
             </div>
 
         </section>
-
     </main>
 
 
-    <div class="es-overlay"></div>
+    <div class="es-overlay hide"></div>
 
-    <div class="venue-popup popup open-popup">
+    <!--  Venue selection popup  -->
+    <div class="venue-popup popup">
         <!--        <input type="text" name="custom_band_name" id="custom_band_name" placeholder="Enter the name of the band ... ">-->
         <div class="dis-flex" style="justify-content: flex-end">
-            <button type="button" onclick="togglePopup('venue', false)">&cross;</button>
+            <button type="button" onclick="togglePopup(false)">&cross;</button>
         </div>
 
         <nav class="amazing-tabs">
@@ -241,13 +135,13 @@
         <div id="availableSection" class="es-popup-content">
 
             <?php
-                if(!empty($venue_set)) {
-                    foreach ($venue_set as $single_venue) {
-                        $this->view('common/events/components/venue_select', (array)$single_venue);
-                    };
-                } else {
-                    echo "No Venues to Display";
-                }
+            if(!empty($venue_set)) {
+                foreach ($venue_set as $single_venue) {
+                    $this->view('common/events/components/venue_select', (array)$single_venue);
+                };
+            } else {
+                echo "No Venues to Display";
+            }
             ?>
 
         </div>
@@ -298,7 +192,13 @@
 
                 let event_id = '<?= $event->event_id ?>'
 
-                let data = {req_id, event_id}
+                let data
+
+                if(element.dataset.state === "custom") {
+                    data = {event_id, type}
+                } else {
+                    data = {req_id, event_id, type}
+                }
 
                 fetch(`/ento-project/public/eventm/cancel_request/${req_id}`, {
                     method: "POST",
@@ -314,6 +214,7 @@
                     // (stopped printing all data in php file by using die command)
                     console.log(data)
                     if (data === 'success') {
+                        location.reload()
                         element.innerHTML = `<span>Choose ${type}</span>`;
                         const image = element.parentElement.parentElement.parentElement.querySelector('img')
                         const status = element.parentElement.parentElement.querySelector('.es-status span')
@@ -344,28 +245,10 @@
             }
         }
 
-        function togglePopup(type, open = true) {
-
-            let popup
+        function togglePopup(open = true) {
             const overlay = document.querySelector('.es-overlay')
 
-            switch (type) {
-                case 'venue':
-                    popup = document.querySelector('.venue-popup')
-                    break
-
-                case 'band':
-                    popup = document.querySelector('.band-popup')
-                    break
-
-                case 'singer':
-                    popup = document.querySelector('.singer-popup')
-                    break
-
-                default:
-                    alert('Invalid Popup Type')
-                    return
-            }
+            popup = document.querySelector('.popup')
 
 
             if (open) {
@@ -379,7 +262,7 @@
         }
 
 
-        // ##################################### Slider Script ###############################################
+        // ##################################### Slider Script for VENUE ###############################################
         document.addEventListener("DOMContentLoaded", function () {
             const filterTabs = document.querySelector(".filter-tabs");
             const filterButtons = document.querySelectorAll(".filter-button");

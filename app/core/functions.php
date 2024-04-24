@@ -61,7 +61,7 @@ function esc($str) {
 function resize_image($filename, $max_size = 700): void
 {
     $ext = mime_content_type($filename);
-    $ext = explode("/", $ext);;
+    $ext = explode("/", $ext);
     $ext = end($ext);
 
     if(file_exists($filename)) {
@@ -82,9 +82,9 @@ function resize_image($filename, $max_size = 700): void
 
         if($src_w > $src_h) {
             $dst_w = $max_size;
-            $dst_h = ($src_h/$src_w) * $max_size;
+            $dst_h = intval(($src_h/$src_w) * $max_size);
         } else {
-            $dst_w = ($src_w/$src_h) * $max_size;
+            $dst_w = intval(($src_w/$src_h) * $max_size);
             $dst_h = $max_size;
         }
 

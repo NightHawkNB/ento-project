@@ -92,8 +92,69 @@ class Controller
 
         }
 
+<<<<<<< HEAD
         if (empty($method)) redirect('client/profile/edit-profile');
         if ($method === 'edit-profile') $this->view('common/profile/edit', $data);
+=======
+        if (empty($method)) redirect($row->user_type . '/profile/edit-profile');
+        if ($method === 'edit-profile') {
+
+            if($row->user_type == 'singer') {
+                $data['past_events'] = $db->query("
+                    SELECT E.image, E.name, E.details
+                    FROM event E
+                    JOIN event_singer ES ON E.event_id = ES.event_id
+                    JOIN singer S ON ES.singer_id = S.singer_id
+                    JOIN serviceprovider SP ON S.sp_id = SP.sp_id
+                    JOIN user U ON SP.user_id = U.user_id
+                    WHERE E.status = 'Completed' AND U.user_id = :user_id AND E.end_time < CURRENT_TIMESTAMP
+                ", ['user_id' => Auth::getUser_id()]);
+            } else if($row->user_type == 'band') {
+                $data['past_events'] = $db->query("
+                    SELECT E.image, E.name, E.details
+                    FROM event E
+                    JOIN band B ON E.band_id = B.band_id
+                    JOIN serviceprovider SP ON B.sp_id = SP.sp_id
+                    JOIN user U ON SP.user_id = U.user_id
+                    WHERE E.status = 'Completed' AND U.user_id = :user_id AND E.end_time < CURRENT_TIMESTAMP
+                ", ['user_id' => Auth::getUser_id()]);
+            }
+
+            $data['reviews'] = $db->query("
+                SELECT *
+                FROM review R
+                JOIN user U1 ON R.creator_id = U1.user_id
+                JOIN user U2 ON R.creator_id = U2.user_id
+                WHERE R.target_id = :user_id
+            ", ['user_id' => Auth::getUser_id()]);
+
+            if($action == "visibility") {
+                // Updating the visibility of the user based on the toggle button in the public profile page
+
+                try {
+
+                    $row = $user->first(['user_id' => Auth::getUser_id()]);
+
+                    // Accessing the raw JSON data sent from the client
+                    $json_data = file_get_contents("php://input");
+
+                    // If the second argument is set to true, the function returns an array. Otherwise, it returns an object
+                    $php_data = json_decode($json_data);
+
+                    $user->update(Auth::getUser_id(), ['profile_visible' => $php_data->visibility]);
+                    $_SESSION['USER_DATA']->profile_visible = $php_data->visibility;
+
+                    echo "success";
+                } catch (Exception $e) {
+                    echo "failed";
+                }
+
+                die;
+            } else {
+                $this->view('common/profile/edit', $data);
+            }
+        }
+>>>>>>> 19e4d6aa5610f46aea5ed1ba5eec5a556f694cf1
         else if ($method === 'settings') $this->view('common/profile/settings', $data);
         else if ($method === 'verify') $this->view('common/profile/verify', $data);
         else if ($method === 'change-password') $this->view('common/profile/change-password', $data);
@@ -320,7 +381,11 @@ class Controller
             $data = get_all_ads();
             $this->view('common/ads/all-ads', $data);
         } else if ($method == "pending") {
-            $data = get_ads_where($user_data->user_id, 1);
+            $data = get_ads_where($user_data->user_id, 1, 0, 0);
+
+            show($data);
+            die;
+
             $this->view("common/ads/pending", $data);
         } else if ($method == 'create-ad') {
 
@@ -493,7 +558,7 @@ class Controller
                     }
 
                     message("Update successfully - Ad is now in Pending State", false, 'success');
-                    redirect(strtolower($user_data->user_type) . "/ads");
+                    redirect(strtolower($user_data->user_type) . "/ads/pending");
                 }
             } else if (empty($id)) {
                 message("No ad selected");
@@ -539,12 +604,79 @@ class Controller
                 message("Deleted successfully", false, 'success');
                 redirect(strtolower($user_data->user_type) . "/ads");
             }
+        } else if($method == 'update-visibility') {
+
+            $json_data = file_get_contents("php://input");
+
+            // If the second argument is set to true, the function returns an array. Otherwise, it returns an object
+            $php_data = json_decode($json_data);
+
+            try {
+                // Update the visible status of an advertisement
+                $ads = new Ad();
+
+                $ads->query("
+                    UPDATE ads
+                    SET visible = :visible
+                    WHERE ad_id = :ad_id
+                ", ['visible' => $php_data->visibility, 'ad_id' => $id]);
+
+                echo "success";
+            } catch (Exception $e) {
+                echo "failed";
+            }
+
+            die;
+
         } else {
             message("Page not found");
             redirect(strtolower($user_data->user_type) . '/ads');
         }
     }
 
+<<<<<<< HEAD
+=======
+
+    // Showing the user profiles to the public
+    public function user_profile($id = null): void
+    {
+        $user = new User();
+        $db = new Database();
+
+        $data['user'] = $row = $user->first(['user_id' => $id]);
+
+        if($row->user_type == 'singer') {
+            $data['past_events'] = $db->query("
+                SELECT E.image, E.name, E.details
+                FROM event E
+                JOIN event_singer ES ON E.event_id = ES.event_id
+                JOIN singer S ON ES.singer_id = S.singer_id
+                JOIN serviceprovider SP ON S.sp_id = SP.sp_id
+                JOIN user U ON SP.user_id = U.user_id
+                WHERE E.status = 'Completed' AND U.user_id = :user_id AND E.end_time < CURRENT_TIMESTAMP
+            ", ['user_id' => $id]);
+        } else if($row->user_type == 'band') {
+            $data['past_events'] = $db->query("
+                SELECT E.image, E.name, E.details
+                FROM event E
+                JOIN band B ON E.band_id = B.band_id
+                JOIN serviceprovider SP ON B.sp_id = SP.sp_id
+                JOIN user U ON SP.user_id = U.user_id
+                WHERE E.status = 'Completed' AND U.user_id = :user_id AND E.end_time < CURRENT_TIMESTAMP
+            ", ['user_id' => $id]);
+        }
+
+        $data['reviews'] = $db->query("
+            SELECT *
+            FROM review R
+            JOIN user U1 ON R.creator_id = U1.user_id
+            WHERE R.target_id = :user_id
+        ", ['user_id' => $id]);
+
+        $this->view('common/profile/edit', $data);
+    }
+
+>>>>>>> 19e4d6aa5610f46aea5ed1ba5eec5a556f694cf1
 }
 
 function get_all_ads($pending = 0, $deleted = 0): array
@@ -553,28 +685,65 @@ function get_all_ads($pending = 0, $deleted = 0): array
     $db = new Database();
 
     // Getting Singer Ads
+<<<<<<< HEAD
     $temp_arr_1 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'singer'];
     $data['ad_singer'] = $db->query("SELECT * FROM ads JOIN ad_singer ON ads.ad_id = ad_singer.ad_id WHERE deleted = :deleted and PENDING = :pending and category = :category", $temp_arr_1);
+=======
+    $temp_arr_1 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'singer', 'visible' => 1];
+    $data['ad_singer'] = $db->query("
+        SELECT *
+        FROM ads
+            JOIN ad_singer ON ads.ad_id = ad_singer.ad_id
+            JOIN user ON user.user_id = ads.user_id
+        WHERE ads.deleted = :deleted and ads.pending = :pending and ads.category = :category and ads.visible = :visible
+    ", $temp_arr_1);
+>>>>>>> 19e4d6aa5610f46aea5ed1ba5eec5a556f694cf1
     if(!$data['ad_singer']) $data['ad_singer'] = [];
     //show($data['ad_singer']);
     //die;
 
 
     // Getting Band Ads
+<<<<<<< HEAD
     $temp_arr_2 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'band'];
     $data['ad_band'] = $db->query("SELECT * FROM ads JOIN ad_band ON ads.ad_id = ad_band.ad_id WHERE deleted = :deleted and PENDING = :pending and category = :category", $temp_arr_2);
+=======
+    $temp_arr_2 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'band', 'visible' => 1];
+    $data['ad_band'] = $db->query("
+        SELECT *
+        FROM ads
+            JOIN ad_band ON ads.ad_id = ad_band.ad_id
+            JOIN user ON user.user_id = ads.user_id
+        WHERE ads.deleted = :deleted and ads.pending = :pending and ads.category = :category and ads.visible = :visible
+    ", $temp_arr_2);
+>>>>>>> 19e4d6aa5610f46aea5ed1ba5eec5a556f694cf1
     if(!$data['ad_band']) $data['ad_band'] = [];
 
     // Getting Venue Ads
-    $temp_arr_3 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'venue'];
+    $temp_arr_3 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'venue', 'visible' => 1];
     // LEFT join is set since we haven't added any data to the ad_band table
+<<<<<<< HEAD
     $data['ad_venue'] = $db->query("SELECT * FROM ads JOIN ad_venue ON ads.ad_id = ad_venue.ad_id WHERE deleted = :deleted and PENDING = :pending and category = :category", $temp_arr_3);
+=======
+    $data['ad_venue'] = $db->query("
+        SELECT *
+        FROM ads
+            JOIN ad_venue ON ads.ad_id = ad_venue.ad_id
+            JOIN user ON user.user_id = ads.user_id
+            JOIN venue ON venue.venue_id = ad_venue.venue_id
+        WHERE ads.deleted = :deleted 
+          AND ads.pending = :pending 
+          AND ads.category = :category 
+          AND ads.visible = :visible 
+          AND venue.verified = 1
+    ", $temp_arr_3);
+>>>>>>> 19e4d6aa5610f46aea5ed1ba5eec5a556f694cf1
     if(!$data['ad_venue']) $data['ad_venue'] = [];
 
     return $data;
 }
 
-function get_ads_where($user_id, $pending = 0, $deleted = 0): array
+function get_ads_where($user_id, $pending = 0, $deleted = 0, $verified = 1): array
 {
     $ads = new Ad();
     $db = new Database();
@@ -594,7 +763,31 @@ function get_ads_where($user_id, $pending = 0, $deleted = 0): array
     // Getting Venue Ads
     $temp_arr_3 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'venue', 'user_id' => $user_id];
     // LEFT join is set since we haven't added any data to the ad_band table
+<<<<<<< HEAD
     $data['ad_venue'] = $db->query("SELECT * FROM ads JOIN ad_venue ON ads.ad_id = ad_venue.ad_id WHERE deleted = :deleted and PENDING = :pending and category = :category and user_id = :user_id", $temp_arr_3);
+=======
+    $data['ad_venue'] = $db->query("
+        SELECT * 
+        FROM ads 
+            JOIN ad_venue ON ads.ad_id = ad_venue.ad_id
+            JOIN venue ON venue.venue_id = ad_venue.venue_id
+        WHERE ads.deleted = :deleted 
+          and ads.pending = :pending 
+          and ads.category = :category 
+          and ads.user_id = :user_id 
+          and venue.verified = 1
+    ", $temp_arr_3);
+>>>>>>> 19e4d6aa5610f46aea5ed1ba5eec5a556f694cf1
+
+    // Getting Event Manager Ads
+    $temp_arr_4 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'eventm', 'user_id' => $user_id];
+    // LEFT join is set since we haven't added any data to the ad_band table
+    $data['ad_eventm'] = $db->query("
+        SELECT * 
+        FROM ads 
+        JOIN user ON user.user_id = ads.user_id
+        WHERE ads.deleted = :deleted and ads.pending = :pending and ads.category = :category and ads.user_id = :user_id
+    ", $temp_arr_4);
 
     return $data;
 }

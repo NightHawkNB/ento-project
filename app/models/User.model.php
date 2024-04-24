@@ -19,6 +19,10 @@ class User extends Model{
         'contact_num',
         'image',
         'verified',
+<<<<<<< HEAD
+=======
+        'profile_visible',
+>>>>>>> 19e4d6aa5610f46aea5ed1ba5eec5a556f694cf1
         'joined_year_month'
     ];
 
