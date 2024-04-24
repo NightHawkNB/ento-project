@@ -18,7 +18,7 @@ class Client extends Controller
 
     public function index(): void
     {
-        $this->view('common/dashboard');
+        $this->view('client/dashboard');
     }
 
     public function event($page = null): void
@@ -207,7 +207,7 @@ class Client extends Controller
                 reservations r
                 JOIN resrequest rr
                 ON r.reservation_id= rr.reservation_id
-                WHERE (r.sp_id = :sp_id) ORDER BY rr.start_time DESC", ['sp_id' => $_SESSION['USER_DATA']->sp_id]);
+                WHERE (r.sp_id = :sp_id) ORDER BY rr.start_time", ['sp_id' => $_SESSION['USER_DATA']->sp_id]);
 
         $this->view('client/reservation_form', $data);
     }
@@ -217,13 +217,11 @@ class Client extends Controller
         $db = new Database();
 
         $data['bought_tickets'] = $db->query('SELECT 
-        event.name AS ename, tickets.ticket_id, event.details,event.start_time,event.end_time,event.image,tickets.hash, venue.name AS vname
-        FROM event
-        INNER JOIN  tickets
-        ON event.event_id = tickets.event_id
-        INNER JOIN venue
-        ON venue.venue_id = event.venue_id
-        WHERE tickets.user_id = :user_id ', ['user_id' => Auth::getUser_id()]);
+        E.name AS ename, T.ticket_id, E.details,E.start_time,E.end_time,E.image,T.hash, V.name AS vname, E.event_id     
+        FROM event E
+        JOIN  tickets T ON E.event_id = T.event_id
+        JOIN venue V ON V.venue_id = E.venue_id
+        WHERE T.user_id = :user_id ', ['user_id' => Auth::getUser_id()]);
 
         $data['currentTab'] = 'current';
 

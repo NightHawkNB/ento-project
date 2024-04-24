@@ -83,7 +83,7 @@
 
             <!--rating button-->
             <?php if (empty($content)): ?>
-                <button class="blue-btn" onclick="openRatingPopUp('<?= $review_id ?>')">Rate and review</button>
+                <button class="btn-lay-s pad-10 mar-10" style="width: fit-content; height: fit-content; background-color: #c1abec " onclick="openRatingPopUp('<?= $review_id ?>')">Rate and review</button>
             <?php endif; ?>
 
         </div>
@@ -95,7 +95,7 @@
 <?php if ($status == "Accepted"): ?>
     <div id="rating-<?= $review_id ?>" class="rating-container">
         <div class="rating-content">
-            <span class="close" onclick="closeRatingPopUp('<?= $review_id ?>')">&times;</span>
+            <div class="close" onclick="closeRatingPopUp('<?= $review_id ?>')"> x </div>
             <h6>Rate and review</h6>
             <div class="star-container">
                 <form method="post" action="<?= ROOT ?>/client/reservations/<?= $sp_id ?>/<?= $reservation_id ?>">

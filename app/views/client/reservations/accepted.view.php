@@ -50,62 +50,59 @@
             </nav>
             <!--////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
             <!--             for accepted reservations-->
-                <!--current reservations-->
-                <div id="current" class="reservation-section">
-                    <h1 class="mar-10-0 txt-c-black txt-w-bold" style="font-size: 1.5rem"> Accepted Reservations</h1>
+            <!--current reservations-->
+            <div id="current" class="reservation-section">
+                <h1 class="mar-10-0 txt-c-black txt-w-bold" style="font-size: 1.5rem"> Accepted Reservations</h1>
 
-                    <div class="res-container glass-bg">
-                            <div class="reservation txt-w-bold" style="background-color: #c7b2f1; border-radius: 10px 10px 0 0">
-                                <div>Service Provider</div>
-                                <div>Data/Time</div>
-                                <div>Location</div>
-                                <div>Remaining Time</div>
-                                <div>Action</div>
-                            </div>
-                            <!--                        --><?php //= show($data)?>
-
-                        <?php
-
-                        show($data);
-
-                        $currentDateTime = date('Y-m-d H:i:s');
-                        $count = 0;
-                        if (!empty($reservations)) {
-
-                            foreach ($reservations as $reservation) {
-                                $count += 1;
-                                if ($currentDateTime < $reservation->start_time && $reservation->status === "Accepted") {
-                                    $this->view('client/components/reservation_current', (array)$reservation);
-                                }
-                            }
-                        } else {
-                            echo "<h3 class='txt-c-white wid-100 dis-flex ju-co-ce'>No reservations to show</h3>";
-                        }
-                        ?>
+                <div class="res-container glass-bg">
+                    <div class="reservation txt-w-bold" style="background-color: #c7b2f1; border-radius: 10px 10px 0 0">
+                        <div>Service Provider</div>
+                        <div>Data/Time</div>
+                        <div>Location</div>
+                        <div>Remaining Time</div>
+                        <div>Action</div>
                     </div>
-                </div>
+                    <!--                        --><?php //= show($data)?>
 
-                <!--out dated reservations-->
+                    <?php
+                    $currentDateTime = date('Y-m-d H:i:s');
+                    $count = 0;
+                    if (!empty($reservations)) {
 
-                <div id="outdated" class="reservation-section">
-                    <h1 class="mar-10-0 txt-c-black txt-w-bold" style="font-size: 1.5rem"> Accepted Reservations</h1>
-
-                    <div class="res-container">
-                        <?php
-                        $currentDateTime = date('Y-m-d H:i:s');
-
-                        if (!empty($reservations)) {
-                            foreach ($reservations as $reservation) {
-                                if ($currentDateTime > $reservation->start_time && $reservation->status === "Accepted") {
-                                    $this->view('client/components/reservation_outdated', (array)$reservation);
-                                }
+                        foreach ($reservations as $reservation) {
+                            $count += 1;
+                            if ($currentDateTime < $reservation->start_time && $reservation->status === "Accepted") {
+                                $this->view('client/components/reservation_current', (array)$reservation);
                             }
-                        } else {
-                            echo "<h3 class='txt-c-white wid-100 dis-flex ju-co-ce'>No reservations to show</h3>";
                         }
-                        ?>
-                    </div>
+                    } else {
+                        echo "<h3 class='txt-c-white wid-100 dis-flex ju-co-ce'>No reservations to show</h3>";
+                    }
+                    ?>
                 </div>
+            </div>
+
+            <!--out dated reservations-->
+
+            <div id="outdated" class="reservation-section">
+                <h1 class="mar-10-0 txt-c-black txt-w-bold" style="font-size: 1.5rem"> Accepted Reservations</h1>
+
+                <div class="res-container">
+                    <?php
+                    $currentDateTime = date('Y-m-d H:i:s');
+
+                    if (!empty($reservations)) {
+                        foreach ($reservations as $reservation) {
+                            if ($currentDateTime > $reservation->start_time && $reservation->status === "Accepted") {
+                                $this->view('client/components/reservation_outdated', (array)$reservation);
+                            }
+                        }
+                    } else {
+                        echo "<h3 class='txt-c-white wid-100 dis-flex ju-co-ce'>No reservations to show</h3>";
+                    }
+                    ?>
+                </div>
+            </div>
 
         </section>
 
@@ -137,6 +134,8 @@
 
     <?=(!empty($content)) ? "showComment('$review_id')" : ''?>
 
+
+
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
     // toggle button
@@ -144,8 +143,8 @@
         const filterTabs = document.querySelector(".filter-tabs");
         const filterButtons = document.querySelectorAll(".filter-button");
         const adSections = {
-                current: document.getElementById('current'),
-                outdated: document.getElementById('outdated')
+            current: document.getElementById('current'),
+            outdated: document.getElementById('outdated')
         };
 
         // Initial setup to select the "current" tab
@@ -186,10 +185,10 @@
 
         // Initially hide outdated section
         adSections.outdated.style.display = 'none';
-        let currentTab="<?=$currentTab?>"
+        let currentTab = "<?=$currentTab?>"
         // console.log(filterTabs)
-        if(currentTab=='outdated'){
-            const targetTranslateValue =filterButtons[1].dataset.translateValue;
+        if (currentTab == 'outdated') {
+            const targetTranslateValue = filterButtons[1].dataset.translateValue;
             root.style.setProperty("--translate-filters-slider", targetTranslateValue);
             handleActiveTab(filterButtons[1])
             // console.log("fvdfd")
