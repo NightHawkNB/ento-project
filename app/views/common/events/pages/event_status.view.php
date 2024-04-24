@@ -198,8 +198,8 @@
 
                 </div>
 
-                <div>
-<!--                    --><?php //= show($data) ?>
+                <div style="width: 100%">
+                    <!--                    --><?php //= show($data) ?>
                 </div>
 
             </div>
@@ -211,7 +211,7 @@
 
     <div class="es-overlay"></div>
 
-<!--  Venue selection popup  -->
+    <!--  Venue selection popup  -->
     <div class="venue-popup popup">
         <!--        <input type="text" name="custom_band_name" id="custom_band_name" placeholder="Enter the name of the band ... ">-->
         <div class="dis-flex" style="justify-content: flex-end">
@@ -243,13 +243,13 @@
         <div id="availableSection" class="es-popup-content">
 
             <?php
-                if(!empty($venue_set)) {
-                    foreach ($venue_set as $single_venue) {
-                        $this->view('common/events/components/venue_select', (array)$single_venue);
-                    };
-                } else {
-                    echo "No Venues to Display";
-                }
+            if(!empty($venue_set)) {
+                foreach ($venue_set as $single_venue) {
+                    $this->view('common/events/components/venue_select', (array)$single_venue);
+                };
+            } else {
+                echo "No Venues to Display";
+            }
             ?>
 
         </div>
@@ -267,7 +267,7 @@
     </div>
 
 
-<!--  Band selection popup  -->
+    <!--  Band selection popup  -->
     <div class="band-popup popup open-popup">
         <!--        <input type="text" name="custom_band_name" id="custom_band_name" placeholder="Enter the name of the band ... ">-->
         <div class="dis-flex" style="justify-content: flex-end">
@@ -277,19 +277,19 @@
         <nav class="amazing-tabs">
             <div class="filters-container">
                 <div class="filters-wrapper">
-                    <ul class="filter-tabs-2">
+                    <ul class="filter-tabs">
                         <li>
-                            <button class="filter-button-2 filter-active" data-translate-value="0">
+                            <button class="filter-button filter-active" data-translate-value="0">
                                 Available
                             </button>
                         </li>
                         <li>
-                            <button class="filter-button-2" data-translate-value="100%">
+                            <button class="filter-button" data-translate-value="100%">
                                 Custom
                             </button>
                         </li>
                     </ul>
-                    <div class="filter-slider-2" aria-hidden="true">
+                    <div class="filter-slider" aria-hidden="true">
                         <div class="filter-slider-rect">&nbsp;</div>
                     </div>
                 </div>

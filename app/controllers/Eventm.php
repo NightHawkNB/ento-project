@@ -189,20 +189,18 @@ class Eventm extends controller{
         $db = new Database();
         $event = new Event();
 
-        $event_data = $event->where(['event_id' => $event_id])[0];
-
         if(empty($event_id)) {
             $data['events'] = $event->where(['creator_id' => Auth::getUser_id(), 'status' => 'Pending']);
             $data['events_completed'] = $event->where(['creator_id' => Auth::getUser_id(), 'status' => 'Completed']);
 
             $this->view('common/events/view_events', $data);
         } else if(empty($page)) {
-//            $event_data = $event->where(['event_id' => $event_id])[0];
+            $event_data = $event->where(['event_id' => $event_id])[0];
 
             // Provides the time remaining in days for the event to start
-            $event_data->time_left = (strtotime($event_data->start_time) - time()) / 60 / 60 / 24;
+            $timeleft = (strtotime($event_data->start_time) - time()) / 60 / 60 / 24;
 
-            if($event_data->time_left <= 0) {
+            if($timeleft <= 0) {
                 $event->update($event_id, ['status' => 'Completed']);
             }
 
@@ -229,6 +227,9 @@ class Eventm extends controller{
                 $band_data = $event_data->custom_band;
                 $custom->band = 1;
             }
+
+            $event_data = $event->where(['event_id' => $event_id])[0];
+            $event_data->time_left = $timeleft;
 
             if(empty($event_data->custom_venue)) {
                 $venue_data = $db->query('
