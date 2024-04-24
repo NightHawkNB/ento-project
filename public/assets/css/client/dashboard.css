@@ -83,6 +83,7 @@
 #slider figure img {
     float: left;
     width: 20%;
+    border-radius: 5px;
 }
 
 @keyframes slider {
