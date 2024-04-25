@@ -1,7 +1,7 @@
 <html lang="en">
 <?php $this->view('includes/head') ?>
 <style>
-    .complaint-container {
+    .verify-container {
         width: 100%;
         height: 100%;
         background: #fff;
@@ -18,7 +18,7 @@
         }
     }
 
-    .complaint-container header {
+    .verify-container header {
         font-size: 1.5rem;
         color: #333;
         font-weight: 500;
@@ -133,11 +133,12 @@
                         </div>
                     </div>
                 </form>
-                <div class="buttons">
-                    
-                             <button type="submit" class="btn">Verify</button>
-                             <button type="submit" class="btn">Declined</button>
-                        </div>
+<!--                    <div class="dis-flex gap-10 ju-co-ce al-it-ce pad-20 bor-rad-5 txt-c-black">-->
+<!--                        <a href="--><?php //= ROOT ?><!--/cca/complaints/accepted/assists/--><?php //= $comp->comp_id ?><!--">-->
+<!--                            <button class="btn-lay-2 hover-pointer btn-anima-hover">Assists</button>-->
+<!--                        </a>-->
+<!--                        <button class="btn-lay-2 hover-pointer btn-anima-hover" onclick="openPopup()">Handle</button>-->
+<!--                    </div>-->
             </div>
         </section>
     </main>

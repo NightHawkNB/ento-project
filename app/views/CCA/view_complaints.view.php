@@ -1,3 +1,7 @@
+
+
+
+
 <html lang="en">
 <?php $this->view('includes/head' ,['style'=>['cca/complaints.css']]) ?>
 <body>
@@ -45,6 +49,12 @@
                             </div>
                         </div>
                     </nav>
+                    <style>
+                        .head{
+                            color: #707070;
+                        }
+                    </style>
+                    <h3 class ='head'>click to view details</h3>
                     <div id="acceptedsection" class="complaint-section flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="max-height: 60vh; overflow:auto; padding-right: 10px">
 
                         <?php
@@ -60,7 +70,6 @@
                         ?>
 
                     </div>
-
                     <div id="idleSection" class="complaint-section flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="max-height: 60vh; overflow:auto; padding-right: 10px">
 
                         <?php
@@ -74,13 +83,15 @@
                         ?>
 
                     </div>
-
                     <div id="assistSection" class="complaint-section flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="max-height: 60vh; overflow:auto; padding-right: 10px">
 
                         <?php
                         if(!empty($assi)){
+
                             foreach ($assi as $complaint) {
+
                                 $this->view('CCA/components/complaint_filter/assists', (array)$complaint);
+
                             }
                         }else{
                             echo "no complaints";
@@ -109,15 +120,15 @@
         </section>
         <script>
 
-                document.addEventListener("DOMContentLoaded", function() {
+            document.addEventListener("DOMContentLoaded", function() {
                 const filterTabs = document.querySelector(".filter-tabs");
                 const filterButtons = document.querySelectorAll(".filter-button");
                 const adSections = {
-                accepted: document.getElementById('acceptedsection'),
-                idle: document.getElementById('idleSection'),
-                assists: document.getElementById('assistSection'),
-                handled: document.getElementById('handledsection')
-            };
+                    accepted: document.getElementById('acceptedsection'),
+                    idle: document.getElementById('idleSection'),
+                    assists: document.getElementById('assistSection'),
+                    handled: document.getElementById('handledsection')
+                };
 
                 // Initial setup to select the "Singer" tab
                 const initialTab = filterButtons[0]; // Select the first button (Singer)
@@ -129,31 +140,31 @@
 
                 // Function to handle active tab
                 const handleActiveTab = (targetTab) => {
-                filterButtons.forEach((tab) => {
-                tab.classList.remove("filter-active");
-            });
+                    filterButtons.forEach((tab) => {
+                        tab.classList.remove("filter-active");
+                    });
 
-                targetTab.classList.add("filter-active");
+                    targetTab.classList.add("filter-active");
 
-                // Show the corresponding ad section and hide others
-                const selectedCategory = targetTab.innerText.toLowerCase();
-                for (const category in adSections) {
-                if (category === selectedCategory) {
-                adSections[category].style.display = 'flex'; // Show selected section
-            } else {
-                adSections[category].style.display = 'none'; // Hide other sections
-            }
-            }
-            };
+                    // Show the corresponding ad section and hide others
+                    const selectedCategory = targetTab.innerText.toLowerCase();
+                    for (const category in adSections) {
+                        if (category === selectedCategory) {
+                            adSections[category].style.display = 'flex'; // Show selected section
+                        } else {
+                            adSections[category].style.display = 'none'; // Hide other sections
+                        }
+                    }
+                };
 
                 // Event listener for filter tabs
                 filterTabs.addEventListener("click", (event) => {
-                if (event.target.classList.contains("filter-button")) {
-                const targetTranslateValue = event.target.dataset.translateValue;
-                root.style.setProperty("--translate-filters-slider", targetTranslateValue);
-                handleActiveTab(event.target);
-            }
-            });
+                    if (event.target.classList.contains("filter-button")) {
+                        const targetTranslateValue = event.target.dataset.translateValue;
+                        root.style.setProperty("--translate-filters-slider", targetTranslateValue);
+                        handleActiveTab(event.target);
+                    }
+                });
 
                 // Initially hide band and venue sections
                 adSections.idle.style.display = 'none';
