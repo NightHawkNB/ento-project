@@ -9,6 +9,8 @@ $etime = $edateTime->format('H:i:s');
 ?>
 
 
+
+
 <div class="card txt-c-black">
     <div class="card-header">
         <h2><?= $ename?></h2>
@@ -35,45 +37,23 @@ $etime = $edateTime->format('H:i:s');
             <?= $vname ?>
         </div>
     </div>
-    <div class="footer" onclick="generateQR()">
+    <div class="footer" onclick="generateQR('<?= $ticket_id ?>','container_<?= $ticket_id ?>','<?=$hash?>')">
         <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M0 80C0 53.5 21.5 32 48 32h96c26.5 0 48 21.5 48 48v96c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80zM64 96v64h64V96H64zM0 336c0-26.5 21.5-48 48-48h96c26.5 0 48 21.5 48 48v96c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V336zm64 16v64h64V352H64zM304 32h96c26.5 0 48 21.5 48 48v96c0 26.5-21.5 48-48 48H304c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48zm80 64H320v64h64V96zM256 304c0-8.8 7.2-16 16-16h64c8.8 0 16 7.2 16 16s7.2 16 16 16h32c8.8 0 16-7.2 16-16s7.2-16 16-16s16 7.2 16 16v96c0 8.8-7.2 16-16 16H368c-8.8 0-16-7.2-16-16s-7.2-16-16-16s-16 7.2-16 16v64c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V304zM368 480a16 16 0 1 1 0-32 16 16 0 1 1 0 32zm64 0a16 16 0 1 1 0-32 16 16 0 1 1 0 32z"/></svg>
         View QR Code.
     </div>
 </div>
 
 <!--qr-->
-<div class="qr_container hide bg-white"  style="width: 300px; height: 300px; border-radius: 5px; ">
-    <div id="imgBox" class="wid-100 hei-100 dis-flex-col gap-10 ju-co-ce al-it-ce">
+<div id="container_<?= $ticket_id ?>" class="qr_container hide bg-white"  style="width: 300px; height: 300px; border-radius: 5px; z-index: 5">
+    <div id="imgBox" class="wid-100 hei-100 dis-flex-col gap-10 ju-co-ce al-it-ce" style="position: relative;">
         <!--        <img src="" id="qrImage" alt="qr" style="border: 1px solid black; padding: 10px">-->
         <div id="<?= $ticket_id ?>" style="border: 1px solid black; padding: 10px "></div>
-        <button class="btn-lay-2" onclick="close_popup()">Close</button>
+        <button class="btn-lay-2" onclick="close_popup('<?= $ticket_id ?>')">Close</button>
+        <div style="position: absolute; top: 0; right: 0; padding: 5px"  onclick="downloadQR('<?= $ticket_id ?>')">
+            <svg class="feather feather-download" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+        </div>
     </div>
 </div>
-<script>
-    // let qrImage = document.getElementById("qrImage");
-    // const qr_container = document.querySelector(".qr_container");
 
-    function close_popup() {
-        const qrImage = document.getElementById('<?= $ticket_id ?>')
-        const qr_container = qrImage.parentElement.parentElement
-        qr_container.classList.toggle("hide")
-    }
-
-    function generateQR(){
-
-        const qrImage = document.getElementById('<?= $ticket_id ?>')
-        const qr_container = qrImage.closest('.qr_container')
-
-        console.log(qr_container)
-
-        qr_container.classList.toggle("hide");
-        //qrImage.src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Example/<?php //=$serial_num?>//";
-        qrImage.innerHTML = "";
-        new QRCode(qrImage,
-            {text: "<?=$hash?>",
-                width:150,
-                height:150});
-    }
-</script>
 
 

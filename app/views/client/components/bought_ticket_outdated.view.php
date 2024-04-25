@@ -48,27 +48,8 @@ $etime = $edateTime->format('H:i:s');
         <div id="<?= $ticket_id ?>"  style="border: 1px solid black; padding: 10px "></div>
         <button class="btn-lay-2" onclick="close_popup()">Close</button>
     </div>
+    <div style="position: absolute; top: 0; right: 0; padding: 5px"  onclick="downloadQR()">
+        <svg class="feather feather-download" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+
+    </div>
 </div>
-<script>
-    function close_popup() {
-        const qrImage = document.getElementById('<?= $ticket_id ?>')
-        const qr_container = qrImage.parentElement.parentElement
-        qr_container.classList.toggle("hide")
-    }
-
-    function generateQR(){
-
-        const qrImage = document.getElementById('<?= $ticket_id ?>')
-        const qr_container = qrImage.closest('.qr_container')
-
-        console.log(qr_container)
-
-        qr_container.classList.toggle("hide");
-        //qrImage.src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Example/<?php //=$serial_num?>//";
-        qrImage.innerHTML = "";
-        new QRCode(qrImage,
-            {text: "<?=$hash?>",
-                width:150,
-                height:150});
-    }
-</script>
