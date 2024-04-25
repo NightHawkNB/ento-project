@@ -348,10 +348,6 @@ class Eventm extends controller{
 
     }
 
-    public function create_request():void {
-        // New Reservation Creation Page
-    }
-
     public function cancel_request(): void {
         try {
             $json_data = file_get_contents("php://input");
@@ -386,6 +382,26 @@ class Eventm extends controller{
             echo "success";
         } catch (Exception $error) {
             echo "failed";
+        }
+    }
+
+    // Function to add custom band
+    public function add_custom_band($page = null): void
+    {
+        $json_data = file_get_contents("php://input");
+        $php_data = json_decode($json_data);
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            try {
+                $event = new Event();
+                $event->update($php_data->event_id, ['band_id' => NULL, 'custom_band' => $php_data->custom_band]);
+
+                echo "success";
+            } catch (Exception $error) {
+                echo "failed";
+            }
+
         }
     }
 
@@ -427,6 +443,45 @@ class Eventm extends controller{
                 $_POST['start_time'] = $event_data->start_time;
                 $_POST['end_time'] = $event_data->end_time;
                 $_POST['venue_id'] = $php_data->venue_id;
+
+                createReservation($php_data->sp_id, $php_data->ad_id);
+
+                echo "success";
+            } catch (Exception $error) {
+                echo "failed";
+            }
+
+        }
+    }
+
+    public function add_band($page = null): void
+    {
+        $json_data = file_get_contents("php://input");
+        $php_data = json_decode($json_data);
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            try {
+                $event = new Event();
+
+                $db = new Database();
+                $band_data = $db->query("
+                    SELECT B.band_id, B.sp_id, ADS.ad_id
+                    FROM ads ADS
+                    JOIN serviceprovider SP ON ADS.user_id = SP.user_id
+                    JOIN band B ON SP.sp_id = B.sp_id
+                    WHERE ADS.ad_id = :ad_id 
+                      AND ADS.deleted = 0
+                ", ['ad_id' => $php_data->ad_id])[0];
+
+                $event->update($php_data->event_id, ['band_id' => $band_data->band_id, 'custom_band' => NULL]);
+                $event_data = $event->where(['event_id' => $php_data->event_id])[0];
+
+                $_POST['details'] = "Reservation for the event: ".$event_data->name;
+                $_POST['province'] = $event_data->province;
+                $_POST['district'] = $event_data->district;
+                $_POST['start_time'] = $event_data->start_time;
+                $_POST['end_time'] = $event_data->end_time;
 
                 createReservation($php_data->sp_id, $php_data->ad_id);
 
