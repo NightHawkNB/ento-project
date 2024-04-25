@@ -34,7 +34,8 @@ class Home extends Controller
            FROM event E
            JOIN venue V ON E.venue_id = V.venue_id
            WHERE event_id = :event_id
-       ", ['event_id' => $id])[0];
+       ", ['event_id' => $id]);
+            $data['venue'] = (!empty($data['venue'])) ? $data['venue'][0] : NULL;
 
             $data['band'] = $event->query("
            SELECT 
