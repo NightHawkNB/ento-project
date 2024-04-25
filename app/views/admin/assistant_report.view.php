@@ -12,7 +12,7 @@
 
         <style>
 
-            .report-container {
+            .report-container-3 {
                 width: 210mm; /* A4 width */
                 height: 297mm; /* A4 height */
                 max-height: 287mm;
@@ -47,7 +47,7 @@
             <div>
                 <button class="btn-lay-2" id="download1">Download</button>
             </div>
-            <div class="report-container">
+            <div class="report-container-3">
                 <div class="report-header dis-flex ju-co-sb">
                     <div class="txt-ali-lef">
                         <h1>Logo</h1>
@@ -153,7 +153,7 @@
 
 <script>
     document.getElementById("download1").addEventListener("click",()=>{
-        const invoice = document.querySelector(".report-container");
+        const invoice = document.querySelector(".report-container-3");
         html2pdf().from(invoice).save();
     })
 </script>
