@@ -11,6 +11,16 @@
         transition: transform 0.4s ease-in-out;
         transform: translateX(var(--translate-filters-slider));
     }
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Adjust the alpha value to change the opacity */
+        z-index: 14; /* Make sure it's on top of everything */
+        display: none; /* Initially hidden */
+    }
 </style>
 <body>
 <div class="main-wrapper">
@@ -114,16 +124,17 @@
 <script>
 
     // rating popup calling function
-    function openRatingPopUp(id) {
+    function openRatingPopUp(id,overlay) {
         let rating = document.getElementById('rating-' + id);
         if (!rating.classList.contains('active')) rating.classList.add('active')
-        // rating.classList.add('overlay')
+        document.getElementById(overlay).style.display = 'block';
+
     }
 
-    function closeRatingPopUp(id) {
+    function closeRatingPopUp(id,overlay) {
         let rating = document.getElementById('rating-' + id);
         if (rating.classList.contains('active')) rating.classList.remove('active')
-        // rating.classList.remove('overlay')
+        document.getElementById(overlay).style.display = 'none';
     }
 
     // to show comment when editing

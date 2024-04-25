@@ -128,6 +128,7 @@
   /* AFTER opening the sidebar */
   &.open {
     width: 175px;
+    z-index: 20;
 
     .nav-list {
       /*background-color: var(--purple-dark);*/
