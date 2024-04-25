@@ -1,3 +1,10 @@
 [2024-04-23 22:34:00] | sender : hi
 [2024-04-23 22:34:26] | receiver : hellow mister
 [2024-04-23 22:40:37] | sender : can i know more about your packages or rates ?
+[2024-04-24 10:51:38] | receiver : bla bla bla
+[2024-04-24 10:51:43] | sender : hi
+[2024-04-24 10:51:49] | sender : hihihihi
+[2024-04-24 10:51:53] | receiver : kokoks
+[2024-04-24 11:13:37] | receiver : dsadsa
+[2024-04-24 11:14:42] | sender : dsadsda
+[2024-04-24 11:15:31] | sender : dasd
