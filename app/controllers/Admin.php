@@ -461,6 +461,21 @@ GROUP BY
                       ORDER BY joined_year_month DESC
                   ", ['from_date' => $from_date, 'to_date' => $to_date]);
 
+                $data['user_count'] = $db->query("
+                    SELECT 
+                        COUNT(*) AS total_user_count 
+                    FROM 
+                        user 
+                    WHERE 
+                        joined_year_month BETWEEN :from_date AND :to_date
+                ", ['from_date' => $from_date, 'to_date' => $to_date]);
+
+
+
+
+                $data['from'] = $from_date;
+                $data['to'] = $to_date;
+
                 $this->view('admin/useraccount_report',$data);
             }
         }else if($method=='assistant_report'){

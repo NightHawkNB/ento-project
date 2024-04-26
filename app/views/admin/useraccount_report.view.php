@@ -80,7 +80,7 @@
                         tr {
 
                             display: grid;
-                            grid-template-columns: 30mm 45mm 25mm 35mm 30mm 35mm;
+                            grid-template-columns: 30mm 35mm 25mm 45mm 30mm 35mm;
                             padding-top: 10px;
 
                             th {
@@ -112,7 +112,20 @@
                                 border-right: none;
                             }
                         }
+
                     }
+                    .account-count{
+                        display: flex;
+                        justify-content: space-evenly ;
+                        background-color: var(--purple-tirtiary);
+                        padding: 10px;
+                        padding-left: unset;
+                        font-family: "Arial Black", serif;
+                        font-size: 1rem;
+                        color: white;
+
+                    }
+
                 </style>
 
                 <div class="report-content dis-flex-col ju-co-se">
@@ -140,6 +153,19 @@
 
 
                     </table>
+
+                    <div style="height: 20px;">
+
+                    </div>
+
+                    <div class="account-count">
+                        <div>
+                            <p>Total Number of user accounts from  &nbsp;&nbsp;  <?php echo $from?> &nbsp;&nbsp; to &nbsp;&nbsp; <?php echo $to ?> &nbsp;  :  </p>
+                        </div>
+                        <div class="">
+                            <p> <?php echo $user_count[0]->total_user_count; ?></p>
+                        </div>
+                    </div>
 
 <!--                    <hr>-->
 

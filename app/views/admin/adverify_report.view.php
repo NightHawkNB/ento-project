@@ -52,7 +52,7 @@
                     <div class="txt-ali-lef">
                         <h1>Logo</h1>
                         <br><br><br><br><br>
-                        <p>Date: April 11, 2024</p>
+                        <p>Date: April 25, 2024</p>
                     </div>
                     <div class="txt-ali-rig">
                         <h1>ENTO</h1>
@@ -80,7 +80,7 @@
                         tr {
 
                             display: grid;
-                            grid-template-columns: 30mm 45mm 25mm 35mm 30mm 35mm;
+                            grid-template-columns: 40mm 30mm 35mm 35mm 40mm 20mm;
                             padding-top: 10px;
 
                             th {
@@ -118,22 +118,22 @@
                 <div class="report-content dis-flex-col ju-co-se">
                     <table style="width: 100%">
                         <tr>
-                            <th>User ID</th>
+                            <th>AD ID</th>
+                            <th>Title</th>
                             <th>User Name</th>
-                            <th>User Type</th>
-                            <th>Email</th>
-                            <th>Contact No</th>
-                            <th>Joined Date</th>
+                            <th>Category</th>
+                            <th>Date</th>
+                            <th>Views</th>
                         </tr>
                         <?php
-                        foreach ($user as $row) {
+                        foreach ($adverify as $row) {
                             echo "<tr>";
+                            echo "<td>" . $row->ad_id . "</td>";
+                            echo "<td>" . $row->title. "</td>";
                             echo "<td>" . $row->user_id . "</td>";
-                            echo "<td>" . $row->fname. " " . $row->lname . "</td>";
-                            echo "<td>" . $row->user_type . "</td>";
-                            echo "<td>" . $row->email . "</td>";
-                            echo "<td>" . $row->contact_num . "</td>";
-                            echo "<td>" . $row->joined_year_month . "</td>";
+                            echo "<td>" . $row->category . "</td>";
+                            echo "<td>" . $row->datetime . "</td>";
+                            echo "<td>" . $row->views . "</td>";
                             echo "</tr>";
                         }
                         ?>
