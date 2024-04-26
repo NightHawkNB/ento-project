@@ -46,6 +46,16 @@
 
                 <div class="participant-container">
                     <div class="participants">
+
+                        <?php
+                        $new_data = [
+                            'event' => $event,
+                            'singers' => $singers
+                        ];
+
+                        $this->view('common/events/pages/details/singer_details', $new_data);
+                        ?>
+
                         <h2>Singers</h2>
                         <p>singer2</p>
                         <p>singer3</p>
