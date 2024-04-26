@@ -12,7 +12,7 @@ $dateTime = new DateTime($event->start_time);
         <!--        --><?php //=show($data)?>
 
         <div class="mar-10 bor-rad-5 dis-flex-col sh" style="overflow: auto">
-            <img src="<?= ROOT ?>/assets/images/events/event-01.cover.jpeg" alt="cover-image"
+            <img src="<?= ROOT . $event->image ?>" alt="cover-image"
                  class="wid-100 event-cover-image">
             <div class="dis-flex-col txt-c-black">
                 <div class="bg-black-1 txt-c-white pad-10-20 dis-flex gap-20 fill-white sh">
@@ -32,25 +32,16 @@ $dateTime = new DateTime($event->start_time);
                         <p><?= $dateTime->format("H:i") ?></p>
                     </div>
                 </div>
-                <div>
-                    <div class="dis-flex al-it-ce gap-10  pad-10 mar-0 ju-co-ce bg-indigo-alert txt-c-white flex-wrap">
-                        <h5 class="flex-1 mar-0 f-space-1">Buy Tickets</h5>
-                        <div class="dis-flex gap-10 al-it-ce">
-                            <a href=<?= ROOT."/home/events/".$event->event_id."/pay" ?>>
-                                <div class='bor-rad-10 bor-1-sol-white bg-trans pad-5-10 hover-pointer'>5000</div>
-                            </a>
-                            <a href=<?= ROOT."/home/events/".$event->event_id."/pay" ?>>
-                                <div class='bor-rad-10 bor-1-sol-white bg-trans pad-5-10 hover-pointer'>3000</div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                <a href="<?= ROOT . "/home/events/" . $event->event_id . "/pay" ?>">
+                    <button class="button-s2 mar-10 txt-w-bold" style="width: 250px;">Buy Tickets</button>
+                </a>
+
+
                 <div class="bg-white pad-20">
                     <p class="f-poppins pad-10">
                     <ul type="none" class="mar-0 dis-flex-col gap-10">
                         <li>01. All tickets purchased are non-refundable.</li>
                         <li>01. අන්තර්ජාල ප්‍රවේශපත්‍රය කිසිදු ආකාරයකින් නැවත ගෙවීමක් සිදු කරනු නොලැබේ.</li>
-
                         <li>02. Please note that our online tickets cannot be changed once purchased. This includes
                             changes to the category, show, seat, price, or any other aspects of the ticket. We highly
                             recommend that you carefully review your selection before completing your online purchase to
@@ -90,7 +81,8 @@ $dateTime = new DateTime($event->start_time);
                     <?php if (!empty($event->custom_band)): ?>
                         <a href="#user_03">
                             <div class="card-profile bg-black-2 pad-10 bor-rad-5 dis-flex-col al-it-ce">
-                                <img src="<?= ROOT ?>/assets/images/bands/general.png" alt="venue_01" class="venue-image">
+                                <img src="<?= ROOT ?>/assets/images/bands/general.png" alt="venue_01"
+                                     class="venue-image">
                                 <h3 class="mar-10"><?= $event->custom_band ?></h3>
                                 <h4 class="mar-10">Band</h4>
                             </div>
@@ -121,6 +113,21 @@ $dateTime = new DateTime($event->start_time);
                     <?php endif; ?>
 
                 </div>
+                <div>
+                    <div class="dis-flex al-it-ce gap-10  pad-10 mar-0 ju-co-ce bg-indigo-alert txt-c-white flex-wrap"
+                         style="height: fit-content">
+                        <h5 class="flex-1 mar-0 f-space-1">Buy Tickets</h5>
+                        <div class="dis-flex gap-10 al-it-ce">
+                            <a href=<?= ROOT . "/home/events/" . $event->event_id . "/pay" ?>>
+                                <div class='bor-rad-10 bor-1-sol-white bg-trans pad-5-10 hover-pointer'>5000</div>
+                            </a>
+                            <a href=<?= ROOT . "/home/events/" . $event->event_id . "/pay" ?>>
+                                <div class='bor-rad-10 bor-1-sol-white bg-trans pad-5-10 hover-pointer'>3000</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
