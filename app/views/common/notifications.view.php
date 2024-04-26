@@ -41,6 +41,7 @@
                     if(!empty($all_notifications)) {
                         foreach($all_notifications as $notification) {
                             if($notification->viewed == 1){
+                                show($all_notifications);
                                 $this->view('common/components/notification', (array)$notification);
                             }
                         }

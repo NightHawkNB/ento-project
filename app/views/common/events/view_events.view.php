@@ -14,6 +14,7 @@
                 <?php
                     if(!empty($events)) {
                         foreach ($events as $event) $this->view('common/events/components/event_listing_eventm', (array)$event);
+                        show($event);
                     } else {
                         echo "No events listed yet";
                     }

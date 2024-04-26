@@ -9,15 +9,42 @@
             <?php $this->view('includes/sidebar') ?>
         </section>
         <section class="pad-10 dis-flex-col al-it-ce wid-100">
-<!--            <h1 class="mar-10-0 txt-c-black txt-w-bold" style="font-size: 1.5rem">Dashboard</h1>-->
             <div id="slider">
                 <figure>
-                    <img src="<?=ROOT?>/assets/images/event/EVENT_11812_1708704770.png">
-                    <img src="<?=ROOT?>/assets/images/event/EVENT_13920_1710128400.png">
-                    <img src="<?=ROOT?>/assets/images/event/EVENT_11812_1708704770.png">
-                    <img src="<?=ROOT?>/assets/images/event/EVENT_13920_1710128400.png">
-                    <img src="<?=ROOT?>/assets/images/event/EVENT_11812_1708704770.png">
+                    <img src="<?= ROOT ?>/assets/images/event1.jpg">
+                    <img src="<?= ROOT ?>/assets/images/event2.jpg">
+                    <img src="<?= ROOT ?>/assets/images/event3.jpg">
+                    <img src="<?= ROOT ?>/assets/images/event4.jpg">
+                    <img src="<?= ROOT ?>/assets/images/event5.jpg">
                 </figure>
+            </div>
+
+            <div class="dis-flex al-it-ce">
+                <a href="<?= ROOT ?>/home/ads">
+
+                    <div class="other" style="background-image: url('<?= ROOT ?>/assets/images/singer.jpg');
+                            background-size: cover;
+                            background-position: center top -25px;
+                            color: white;">
+                        Book A Vocalist
+                    </div>
+                </a>
+                <a href="<?= ROOT ?>/home/ads">
+                    <div class="other" style="background-image: url('<?= ROOT ?>/assets/images/band.jpg');
+                            background-size: cover;
+                            background-position: center top -70px;
+                            color: white;">
+                        Book A Music Band
+                    </div>
+                </a>
+                <a href="<?= ROOT ?>/home/ads">
+                    <div class="other" style="background-image: url('<?= ROOT ?>/assets/images/venue.jpg');
+                            background-size: cover;
+                            background-position: center top 100px;
+                            color: white;">
+                        Book A Venue
+                    </div>
+                </a>
             </div>
 
         </section>

@@ -12,21 +12,19 @@
         transform: translateX(var(--translate-filters-slider));
     }
 
-     .overlay {
-         position: fixed;
-         top: 0;
-         left: 0;
-         width: 100%;
-         height: 100%;
-         background-color: rgba(0, 0, 0, 0.5); /* Adjust the alpha value to change the opacity */
-         z-index: 2; /* Make sure it's on top of everything */
-         display: none; /* Initially hidden */
-     }
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Adjust the alpha value to change the opacity */
+        z-index: 14; /* Make sure it's on top of everything */
+        display: none; /* Initially hidden */
+    }
 </style>
 
 <body>
-
-<div  class="overlay" ></div>
 
 <div class="main-wrapper">
     <?php $this->view('includes/header') ?>
@@ -169,14 +167,14 @@
     // let qrImage = document.getElementById("qrImage");
     // const qr_container = document.querySelector(".qr_container");
 
-    function close_popup(ticket_id) {
+    function close_popup(ticket_id, overlay) {
         const qrImage = document.getElementById(ticket_id)
         const qr_container = qrImage.parentElement.parentElement
         qr_container.classList.toggle("hide")
-        document.querySelector('.overlay').style.display = 'none';
+        document.getElementById(overlay).style.display = 'none';
     }
 
-    function generateQR(ticket_id, container_ticket_id, hash) {
+    function generateQR(ticket_id, container_ticket_id, hash, overlay) {
         const qrImage = document.getElementById(ticket_id);
         const qr_container = document.getElementById(container_ticket_id)
 
@@ -188,7 +186,7 @@
             height: 150
         });
 
-        document.querySelector('.overlay').style.display = 'block'; // Show the overlay
+        document.getElementById(overlay).style.display = 'block'; // Show the overlay
     }
 
     function downloadQR(ticket_id) {
