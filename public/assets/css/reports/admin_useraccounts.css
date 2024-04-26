@@ -1,0 +1,115 @@
+.download-btn {
+    position: fixed;
+    top: 90px;
+    right: 10px;
+}
+
+.report-container {
+    width: 210mm; /* A4 width */
+    height: 297mm; /* A4 height */
+    max-height: 287mm;
+    margin: 0;
+    padding: 5mm; /* Add padding to ensure content does not touch the edges */
+    /*box-sizing: border-box;*/
+    background-color: #fff; /* Optional: Set background color */
+
+    justify-content: stretch;
+    align-items: stretch;
+
+    .report-header {
+        height: 40mm;
+    }
+
+    .report-title {
+        display: flex;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 1.2rem;
+        margin: 5mm auto;
+        text-align: center;
+    }
+
+    .report-content {
+        min-height: 217mm;
+
+        .content-title {
+            font-weight: bold;
+        }
+    }
+
+    .report-footer {
+        /*background-color: red;*/
+        height: 5mm;
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.8rem;
+    }
+}
+
+
+hr {
+    margin: 10px 0;
+}
+
+table {
+    width: 100%;
+    border: none;
+
+    tr {
+
+        display: grid;
+        grid-template-columns: 45mm 30mm 20mm 50mm 30mm 25mm;
+        padding-top: 10px;
+
+        th {
+            font-size: 0.9rem;
+            border-right: 2px solid white;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            background-color: var(--purple-tirtiary);
+            color: white;
+            padding: 5px 0;
+        }
+
+        th:last-child {
+            border-right: none;
+        }
+
+        td {
+            font-size: 0.7rem;
+            /*text-align: center;*/
+            padding-left: 5px;
+            padding-right: 5px;
+            border-right: thin solid grey;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+        }
+
+        td:last-child {
+            border-right: none;
+        }
+    }
+
+}
+
+.account-count {
+    display: flex;
+    /*justify-content: space-evenly ;*/
+    padding: 10px;
+    padding-left: 0;
+    font-family: "Arial Black", serif;
+    font-size: 1rem;
+    color: black;
+    justify-content: end;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.count-value {
+    border: thin solid black;
+    min-width: 150px;
+    text-align: center;
+    padding: 2px;
+}

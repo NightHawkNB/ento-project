@@ -132,7 +132,7 @@
                         </div>
                     </div>
 
-                    <a href="<?= ROOT ?>/admin/reports/usertype_report">
+                    <a href="<?= ROOT ?>/admin/reports/usertypes_report">
                         <div class="report-tile report-t">
                             <div class="report-image">
                                 <img width="150" height="150" src="<?= ROOT ?>/assets/images/icons/admin/report/user_types.jpg" alt=""/>

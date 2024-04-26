@@ -1,5 +1,5 @@
 <html lang="en">
-<?php $this->view('includes/head',['style'=>['admin/adverification.css']]) ?>
+<?php $this->view('includes/head', ['style' => ['reports/admin_useraccounts.css']]) ?>
 <body>
 <div class="main-wrapper">
     <?php $this->view('includes/header') ?>
@@ -10,49 +10,19 @@
             <?php $this->view('includes/sidebar') ?>
         </section>
 
-        <style>
-
-            .report-container-1 {
-                width: 210mm; /* A4 width */
-                height: 297mm; /* A4 height */
-                max-height: 287mm;
-                margin: 20px auto;
-                padding: 5mm; /* Add padding to ensure content does not touch the edges */
-                /*box-sizing: border-box;*/
-                background-color: #fff; /* Optional: Set background color */
-
-                justify-content:stretch;
-                align-items:stretch;
-
-                .report-header {
-                    height: 40mm;
-                }
-
-                .report-content {
-                    min-height: 227mm;
-                }
-
-                .report-footer {
-                    background-color: red;
-                    height: 40mm;
-                }
-            }
-
-        </style>
-
-        <section class="cols-10 dis-flex wid-100">
+        <section class="cols-10 dis-flex-col gap-10 wid-100 pad-10 al-it-ce">
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.js"></script>
 
-            <div>
+            <div class="download-btn">
                 <button class="btn-lay-2" id="download1">Download</button>
             </div>
-            <div class="report-container-1">
+            <div class="report-container">
                 <div class="report-header dis-flex ju-co-sb">
                     <div class="txt-ali-lef">
                         <h1>Logo</h1>
                         <br><br><br><br><br>
-                        <p>Date: April 11, 2024</p>
+                        <p>Date: <span id="current_date"><?= date("M d, Y H:i a") ?></span></p>
                     </div>
                     <div class="txt-ali-rig">
                         <h1>ENTO</h1>
@@ -68,65 +38,10 @@
 
                 <hr>
 
-                <style>
-                    hr {
-                        margin: 10px 0;
-                    }
-
-                    table {
-                        width: 100%;
-                        border: none;
-
-                        tr {
-
-                            display: grid;
-                            grid-template-columns: 30mm 35mm 25mm 45mm 30mm 35mm;
-                            padding-top: 10px;
-
-                            th {
-                                font-size: 0.9rem;
-                                border-right: 2px solid white;
-                                overflow: hidden;
-                                text-overflow: ellipsis;
-                                background-color: var(--purple-tirtiary);
-                                color: white;
-                                padding: 5px 0;
-                            }
-
-                            th:last-child {
-                                border-right: none;
-                            }
-
-                            td {
-                                font-size: 0.7rem;
-                                /*text-align: center;*/
-                                padding-left: 5px;
-                                padding-right: 5px;
-                                border-right: thin solid grey;
-                                overflow: hidden;
-                                text-overflow: ellipsis;
-
-                            }
-
-                            td:last-child {
-                                border-right: none;
-                            }
-                        }
-
-                    }
-                    .account-count{
-                        display: flex;
-                        justify-content: space-evenly ;
-                        background-color: var(--purple-tirtiary);
-                        padding: 10px;
-                        padding-left: unset;
-                        font-family: "Arial Black", serif;
-                        font-size: 1rem;
-                        color: white;
-
-                    }
-
-                </style>
+                <span class="report-title ">
+                    DETAILED REPORT - USER ACCOUNTS<br>
+                    FROM <?php echo $from ?> TO <?php echo $to ?>
+                </span>
 
                 <div class="report-content dis-flex-col ju-co-se">
                     <table style="width: 100%">
@@ -139,10 +54,10 @@
                             <th>Joined Date</th>
                         </tr>
                         <?php
-                       foreach ($user as $row) {
+                        foreach ($user as $row) {
                             echo "<tr>";
                             echo "<td>" . $row->user_id . "</td>";
-                            echo "<td>" . $row->fname. " " . $row->lname . "</td>";
+                            echo "<td>" . $row->fname . " " . $row->lname . "</td>";
                             echo "<td>" . $row->user_type . "</td>";
                             echo "<td>" . $row->email . "</td>";
                             echo "<td>" . $row->contact_num . "</td>";
@@ -154,27 +69,28 @@
 
                     </table>
 
-                    <div style="height: 20px;">
+                    <div style="height: 10mm;">
 
                     </div>
 
                     <div class="account-count">
                         <div>
-                            <p>Total Number of user accounts from  &nbsp;&nbsp;  <?php echo $from?> &nbsp;&nbsp; to &nbsp;&nbsp; <?php echo $to ?> &nbsp;  :  </p>
+                            <p class="content-title">Total Number of User Accounts : </p>
                         </div>
-                        <div class="">
+                        <div class="count-value">
                             <p> <?php echo $user_count[0]->total_user_count; ?></p>
                         </div>
                     </div>
 
-<!--                    <hr>-->
+                    <!--                    <hr>-->
 
                     <div class="flex-1">&nbsp;</div>
 
-<!--                    <hr>-->
+                    <hr>
 
                     <div class="report-footer">
-                        Footer
+                        <div>&copy; All Rights Reserved</div>
+                        <div>Page 1 of 1</div>
                     </div>
                 </div>
 
@@ -185,8 +101,16 @@
 
 
 <script>
-    document.getElementById("download1").addEventListener("click",()=>{
-        const invoice = document.querySelector(".report-container-1");
+    window.onload = () => {
+        let currentDate = new Date();
+
+        // Format the date into Y-m-d format
+        document.getElementById('current_date').innerText = currentDate.getFullYear() + '-' + ('0' + (currentDate.getMonth() + 1)).slice(-2) + '-' + ('0' + currentDate.getDate()).slice(-2);
+    };
+
+
+    document.getElementById("download1").addEventListener("click", () => {
+        const invoice = document.querySelector(".report-container");
         html2pdf().from(invoice).save();
     })
 </script>

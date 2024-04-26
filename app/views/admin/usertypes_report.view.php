@@ -1,8 +1,21 @@
 <html lang="en">
-<?php $this->view('includes/head',['style'=>['admin/adverification.css']]) ?>
+<?php $this->view('includes/head', ['style' => ['reports/admin_useraccounts.css']]) ?>
 <body>
 <div class="main-wrapper">
     <?php $this->view('includes/header') ?>
+
+    <style>
+        table{
+            tr{
+                display: grid;
+                grid-template-columns: 80mm 60mm 60mm ;
+
+                td {
+                    text-align: center;
+                }
+            }
+        }
+    </style>
 
 
     <main class="dashboard-main">
@@ -10,56 +23,26 @@
             <?php $this->view('includes/sidebar') ?>
         </section>
 
-        <style>
-
-            .report-container-2{
-                width: 210mm; /* A4 width */
-                height: 297mm; /* A4 height */
-                max-height: 287mm;
-                margin: 20px auto;
-                padding: 5mm; /* Add padding to ensure content does not touch the edges */
-                /*box-sizing: border-box;*/
-                background-color: #fff; /* Optional: Set background color */
-
-                justify-content:stretch;
-                align-items:stretch;
-
-                .report-header {
-                    height: 40mm;
-                }
-
-                .report-content {
-                    min-height: 227mm;
-                }
-
-                .report-footer {
-                    background-color: red;
-                    height: 40mm;
-                }
-            }
-
-        </style>
-
-        <section class="cols-10 dis-flex wid-100">
+        <section class="cols-10 dis-flex-col gap-10 wid-100 pad-10 al-it-ce">
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.js"></script>
 
-            <div>
+            <div class="download-btn">
                 <button class="btn-lay-2" id="download1">Download</button>
             </div>
-            <div class="report-container-2">
+            <div class="report-container">
                 <div class="report-header dis-flex ju-co-sb">
                     <div class="txt-ali-lef">
                         <h1>Logo</h1>
                         <br><br><br><br><br>
-                        <p>Date: April 11, 2024</p>
+                        <p>Date: <span id="current_date"><?= date("M d, Y H:i a") ?></span></p>
                     </div>
                     <div class="txt-ali-rig">
                         <h1>ENTO</h1>
                         <br>
                         <p>Sri Lanka</p>
-                        <p>0752569841</p>
-                        <p>admin1@gmail.com</p>
+                        <p><?= $_SESSION['USER_DATA']->contact_num ?></p>
+                        <p><?php echo $_SESSION['USER_DATA']->email ?></p>
                         <br>
                         <p>www.ento.com</p>
                     </div>
@@ -68,87 +51,157 @@
 
                 <hr>
 
-                <style>
-                    hr {
-                        margin: 10px 0;
-                    }
-
-                    table {
-                        width: 100%;
-                        border: none;
-
-                        tr {
-
-                            display: grid;
-                            grid-template-columns: 30mm 45mm 25mm 35mm 30mm 35mm;
-                            padding-top: 10px;
-
-                            th {
-                                font-size: 0.9rem;
-                                border-right: 2px solid white;
-                                overflow: hidden;
-                                text-overflow: ellipsis;
-                                background-color: var(--purple-tirtiary);
-                                color: white;
-                                padding: 5px 0;
-                            }
-
-                            th:last-child {
-                                border-right: none;
-                            }
-
-                            td {
-                                font-size: 0.7rem;
-                                /*text-align: center;*/
-                                padding-left: 5px;
-                                padding-right: 5px;
-                                border-right: thin solid grey;
-                                overflow: hidden;
-                                text-overflow: ellipsis;
-
-                            }
-
-                            td:last-child {
-                                border-right: none;
-                            }
-                        }
-                    }
-                </style>
+                <span class="report-title ">
+                    DETAILED REPORT - USER TYPES
+                </span>
 
                 <div class="report-content dis-flex-col ju-co-se">
                     <table style="width: 100%">
                         <tr>
-                            <th>User ID</th>
-                            <th>User Name</th>
                             <th>User Type</th>
-                            <th>Email</th>
-                            <th>Contact No</th>
-                            <th>Joined Date</th>
+                            <th>No of Accounts</th>
+                            <th>Percentage</th>
                         </tr>
-                        <?php
-                        foreach ($user as $row) {
-                            echo "<tr>";
-                            echo "<td>" . $row->user_id . "</td>";
-                            echo "<td>" . $row->fname. " " . $row->lname . "</td>";
-                            echo "<td>" . $row->user_type . "</td>";
-                            echo "<td>" . $row->email . "</td>";
-                            echo "<td>" . $row->contact_num . "</td>";
-                            echo "<td>" . $row->joined_year_month . "</td>";
-                            echo "</tr>";
-                        }
-                        ?>
+
+                        <tr>
+                            <td>
+                                Administrator
+                            </td>
+
+                            <td>
+                                <?= $accounts[0]->count ?>
+                            </td>
+
+                            <td>
+                                <?= sprintf('%05.2f%%',($accounts[0]->count/$user_count) * 100) ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Customer Care Agents
+                            </td>
+
+                            <td>
+                                <?= $accounts[2]->count ?>
+                            </td>
+
+                            <td>
+                                <?= sprintf('%05.2f%%',($accounts[2]->count/$user_count) * 100) ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Event Manager
+                            </td>
+
+                            <td>
+                                <?= $accounts[4]->count ?>
+                            </td>
+
+                            <td>
+                                <?= sprintf('%05.2f%%',($accounts[4]->count/$user_count) * 100) ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Singer
+                            </td>
+
+                            <td>
+                                <?= $accounts[5]->count ?>
+                            </td>
+
+                            <td>
+                                <?= sprintf('%05.2f%%',($accounts[5]->count/$user_count) * 100) ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Band
+                            </td>
+
+                            <td>
+                                <?= $accounts[1]->count ?>
+                            </td>
+
+                            <td>
+                                <?= sprintf('%05.2f%%',($accounts[1]->count/$user_count) * 100) ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Venue Manager
+                            </td>
+
+                            <td>
+                                <?= $accounts[6]->count ?>
+                            </td>
+
+                            <td>
+                                <?= sprintf('%05.2f%%',($accounts[6]->count/$user_count) * 100) ?>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>
+                                Venue Operator
+                            </td>
+
+                            <td>
+                                <?= $accounts[7]->count ?>
+                            </td>
+
+                            <td>
+                                <?= sprintf('%05.2f%%',($accounts[7]->count/$user_count) * 100) ?>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>
+                                Client
+                            </td>
+
+                            <td>
+                                <?= $accounts[3]->count ?>
+                            </td>
+
+                            <td>
+                                <?= sprintf('%05.2f%%',($accounts[3]->count/$user_count) * 100) ?>
+                            </td>
+                        </tr>
 
 
                     </table>
+
+                    <div style="height: 10mm;">
+
+                    </div>
+
+                    <div class="account-count">
+                        <div>
+                            <p class="content-title">Total Number of User Accounts : </p>
+                        </div>
+                        <div class="count-value">
+                            <p> <?= $user_count ?></p>
+                        </div>
+                    </div>
 
                     <!--                    <hr>-->
 
                     <div class="flex-1">&nbsp;</div>
 
-                    <!--                    <hr>-->
+                    <hr>
 
                     <div class="report-footer">
-                        Footer
+                        <div>&copy; All Rights Reserved</div>
+                        <div>Page 1 of 1</div>
                     </div>
                 </div>
 
@@ -159,8 +212,16 @@
 
 
 <script>
-    document.getElementById("download1").addEventListener("click",()=>{
-        const invoice = document.querySelector(".report-container-2");
+    window.onload = () => {
+        let currentDate = new Date();
+
+        // Format the date into Y-m-d format
+        document.getElementById('current_date').innerText = currentDate.getFullYear() + '-' + ('0' + (currentDate.getMonth() + 1)).slice(-2) + '-' + ('0' + currentDate.getDate()).slice(-2);
+    };
+
+
+    document.getElementById("download1").addEventListener("click", () => {
+        const invoice = document.querySelector(".report-container");
         html2pdf().from(invoice).save();
     })
 </script>

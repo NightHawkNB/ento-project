@@ -489,7 +489,24 @@ GROUP BY
             $this->view('admin/adverify_report',$data);
 
         }else if($method=='usertypes_report'){
-            $data['adverify']=$db->query("SELECT * FROM user");
+            $data['accounts']=$db->query("
+                SELECT 
+                    user_type, 
+                    COUNT(*) AS count 
+                FROM user 
+                GROUP BY user_type 
+                ORDER BY user_type
+            ");
+
+            $data['user_count'] = $db->query("
+                SELECT 
+                    COUNT(*) AS count 
+                FROM 
+                    user
+            ")[0]->count;
+
+//            show($data);
+//            die;
 
             $this->view('admin/usertypes_report',$data);
         }
