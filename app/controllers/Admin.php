@@ -443,8 +443,75 @@ GROUP BY
 
         $db=new Database();
 
-        $data['assist']=$db->query("SELECT * FROM complaint_assist");
-        $this->view('admin/reports',$data);
+//        $data['assist']=$db->query("SELECT * FROM complaint_assist");
+
+        if(empty($method)) {
+            $this->view('admin/reports');
+
+        } else if($method=='useraccount_report') {
+
+            if($_SERVER['REQUEST_METHOD']='POST'){
+                $from_date = $_POST['from_date'];
+                $to_date = $_POST['to_date'];
+
+                $data['user']=$db-> query("
+                    SELECT * FROM user 
+                      WHERE joined_year_month 
+                      BETWEEN :from_date AND :to_date
+                      ORDER BY joined_year_month DESC
+                  ", ['from_date' => $from_date, 'to_date' => $to_date]);
+
+                $data['user_count'] = $db->query("
+                    SELECT 
+                        COUNT(*) AS total_user_count 
+                    FROM 
+                        user 
+                    WHERE 
+                        joined_year_month BETWEEN :from_date AND :to_date
+                ", ['from_date' => $from_date, 'to_date' => $to_date]);
+
+
+
+
+                $data['from'] = $from_date;
+                $data['to'] = $to_date;
+
+                $this->view('admin/useraccount_report',$data);
+            }
+        }else if($method=='assistant_report'){
+            $data['assist']=$db->query("SELECT * FROM complaint_assist");
+
+            $this->view('admin/assistant_report',$data);
+
+        }else if($method=='adverify_report'){
+            $data['adverify']=$db->query("SELECT * FROM ads");
+
+            $this->view('admin/adverify_report',$data);
+
+        }else if($method=='usertypes_report'){
+            $data['accounts']=$db->query("
+                SELECT 
+                    user_type, 
+                    COUNT(*) AS count 
+                FROM user 
+                GROUP BY user_type 
+                ORDER BY user_type
+            ");
+
+            $data['user_count'] = $db->query("
+                SELECT 
+                    COUNT(*) AS count 
+                FROM 
+                    user
+            ")[0]->count;
+
+//            show($data);
+//            die;
+
+            $this->view('admin/usertypes_report',$data);
+        }
+
+
     }
 
     public function advertisements($method = null)

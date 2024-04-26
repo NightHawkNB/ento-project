@@ -4,159 +4,170 @@
 <div class="main-wrapper">
     <?php $this->view('includes/header') ?>
 
+    <style>
+        .report-container {
+            width: 100%;
+            height: 100%;
+            /*padding: 10px;*/
+
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            /*align-items: stretch;*/
+
+            .report-tile-container {
+                flex: 1;
+                display: flex;
+                gap: 20px;
+                justify-content: center;
+                /*padding: 10px;*/
+
+                .report-tile {
+                    flex: 1;
+                    background-color: white;
+                    border-radius: 5px;
+                    padding: 10px;
+
+                    max-width: 420px;
+                    min-width: 420px;
+                    height: 250px;
+
+                    .report-image{
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                    }
+
+                    .report-name{
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: rebeccapurple;
+                        font-weight: bolder;
+                        height: 50px;
+                        font-size: 20px;
+                        font-family: "Poppins", sans-serif;
+                    }
+
+                    .date-form{
+
+                        form{
+                            gap:3px;
+                            width:100%;
+
+                        }
+
+                        form > div {
+                            display: flex;
+                            justify-content: space-between;
+                            width: 100%;
+                            align-items: center;
+                        }
+                        .btn{
+                            display: flex;
+                            justify-content: center;
+                            margin: 10px;
+                        }
+
+                        form > div > div {
+                            display: flex;
+                            align-items: center;
+                            width: fit-content;
+                            gap: 5px;
+                        }
+                    }
+
+                }
+
+                .report-t{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+
+                    .report-image{
+                        width: 150px;
+                        height: 150px;
+                        aspect-ratio : 1/1;
+
+                    }
+                }
+            }
+        }
+    </style>
 
     <main class="dashboard-main">
         <section class="cols-2 sidebar">
             <?php $this->view('includes/sidebar') ?>
         </section>
 
-        <style>
-
-            .report-container {
-                width: 210mm; /* A4 width */
-                height: 297mm; /* A4 height */
-                max-height: 287mm;
-                margin: 20px auto;
-                padding: 5mm; /* Add padding to ensure content does not touch the edges */
-                /*box-sizing: border-box;*/
-                background-color: #fff; /* Optional: Set background color */
-
-                justify-content:stretch;
-                align-items:stretch;
-
-                .report-header {
-                    height: 40mm;
-                }
-
-                .report-content {
-                    min-height: 227mm;
-                }
-
-                .report-footer {
-                    background-color: red;
-                    height: 40mm;
-                }
-            }
-
-        </style>
-
-        <section class="cols-10 dis-flex wid-100">
-
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.js"></script>
-
-            <div>
-                <button class="btn-lay-2" id="download1">Download</button>
-            </div>
+        <section class="cols-10 dis-flex wid-100 pad-10">
             <div class="report-container">
-                <div class="report-header dis-flex ju-co-sb">
-                    <div class="txt-ali-lef">
-                        <h1>Logo</h1>
-                        <br><br><br><br><br>
-                        <p>Date: April 11, 2024</p>
+                <div class="report-tile-container" style="align-items: end">
+
+                    <div class="report-tile">
+                        <div class="report-image">
+                            <img width="100" height="100" src="<?= ROOT ?>/assets/images/icons/admin/report/user_accounts.jpg" alt=""/>
+                        </div>
+                        <div class="report-name">
+                            User Account Details
+                        </div>
+                        <div class="date-form">
+                            <form action="<?=ROOT?>/admin/reports/useraccount_report" method="POST">
+                                <div>
+                                    <div>
+                                        <label for="from_date" style="color: black;">From:</label>
+                                        <input type="date" id="from_date" name="from_date">
+                                    </div>
+                                   <div>
+                                       <label for="to_date" style="color: black">To:</label>
+                                       <input type="date" id="to_date" name="to_date">
+                                   </div>
+                                </div>
+                                <div class="btn">
+                                    <button class="button-s2" style="width: 120px;padding:10px 20px;">Generate</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <div class="txt-ali-rig">
-                        <h1>ENTO</h1>
-                        <br>
-                        <p>Sri Lanka</p>
-                        <p>0752569841</p>
-                        <p>admin1@gmail.com</p>
-                        <br>
-                        <p>www.ento.com</p>
-                    </div>
 
+                    <a href="<?= ROOT ?>/admin/reports/usertypes_report">
+                        <div class="report-tile report-t">
+                            <div class="report-image">
+                                <img width="150" height="150" src="<?= ROOT ?>/assets/images/icons/admin/report/user_types.jpg" alt=""/>
+                            </div>
+                            <div class="report-name">
+                                User Type Details
+                            </div>
+                        </div>
+                    </a>
                 </div>
-
-                <hr>
-
-                <style>
-                    hr {
-                        margin: 10px 0;
-                    }
-
-                    table {
-                        width: 100%;
-                        border: none;
-
-                        tr {
-
-                            th#complaint_th {
-                                width: 30mm;
-                                background-color: red;
-                            }
-                            th#date_th{
-                                width:50mm;
-                                background-color: cornflowerblue;
-                            }
-                            th#status_th{
-                                width:30mm;
-                                background-color: greenyellow;
-                            }
-                            th#admin_th{
-                                width:30mm;
-                                background-color: gray;
-                            }
-                            th#comment_th{
-                                width:60mm;
-                                background-color: cornflowerblue;
-                            }
-
-                            th{
-                                font-size: 0.9rem;
-                            }
-
-                            td {
-                                font-size: 0.7rem;
-                                text-align: center;
-                            }
-                        }
-                    }
-                </style>
-
-                <div class="report-content dis-flex-col ju-co-se">
-                    <table style="width: 100%">
-                        <tr>
-                            <th id="complaint_th">Complaint id</th>
-                            <th id="date_th">Date & Time</th>
-                            <th id="status_th">Status</th>
-                            <th id="admin_th">Admin Id</th>
-                            <th id="comment_th">Comment</th>
-                        </tr>
-                        <?php
-                        foreach ($assist as $row) {
-                            echo "<tr>";
-                            echo "<td>" . $row->comp_id . "</td>";
-                            echo "<td>" . $row->created_at . "</td>";
-                            echo "<td>" . $row->status . "</td>";
-                            echo "<td>" . $row->admin_user_id . "</td>";
-                            echo "<td>" . $row->comment . "</td>";
-                            echo "</tr>";
-                        }
-                        ?>
-                    </table>
-
-                <hr>
-
-                <div class="flex-1">&nbsp;</div>
-
-                <hr>
-
-                <div class="report-footer">
-                    Footer
+                <div class="report-tile-container">
+                    <a href="<?= ROOT ?>/admin/reports/assistant_report">
+                        <div class="report-tile report-t">
+                            <div class="report-image">
+                                <img width="150" height="150" src="<?= ROOT ?>/assets/images/icons/admin/report/assistant_requests.jpg" alt=""/>
+                            </div>
+                            <div class="report-name">
+                                Asssistant Request Details
+                            </div>
+                        </div>
+                    </a>
+                    <a href="<?= ROOT ?>/admin/reports/adverify_report">
+                        <div class="report-tile report-t">
+                            <div class="report-image">
+                                <img width="150" height="150" src="<?= ROOT ?>/assets/images/icons/admin/report/ad_verification.jpg" alt=""/>
+                            </div>
+                            <div class="report-name">
+                                Ad Verification Details
+                            </div>
+                        </div>
+                    </a>
                 </div>
-                </div>
-
             </div>
         </section>
     </main>
 </div>
-
-
-<script>
-    document.getElementById("download1").addEventListener("click",()=>{
-        const invoice = document.querySelector(".report-container");
-        html2pdf().from(invoice).save();
-    })
-</script>
 </body>
 </html>
-
