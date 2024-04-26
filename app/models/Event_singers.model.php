@@ -7,7 +7,8 @@ class Event_singers extends Model {
 
     protected array $allowed_columns = [
         'event_id',
-        'singer_id'
+        'singer_id',
+        'custom_name'
     ];
 
 }
