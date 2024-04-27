@@ -223,8 +223,7 @@ class Home extends Controller
             $this->view('pages/advertisements/ads', $data);
         }
 
-        public
-        function complaint($method = NULL, $id = null): void
+        public function complaint($method = NULL, $id = null): void
         {
 
             if (empty($method)) {
