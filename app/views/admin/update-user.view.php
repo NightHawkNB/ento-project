@@ -9,6 +9,39 @@
             <?php $this->view('includes/sidebar') ?>
         </section>
 
+        <style>
+
+            legend{
+                color: black;
+            }
+            label{
+                color: black;
+            }
+
+            p{
+                color: black;
+            }
+            h2{
+                color: black;
+            }
+
+            input,
+            input:checked,
+            select,
+            textarea {
+                color: black;
+            }
+
+            input:not(:checked) ~ label:hover,
+            input:not(:checked) ~ label:hover ~ label{
+                color: var(--font-primary);
+            }
+            input:checked ~ label{
+                color: var(--font-primary);
+            }
+
+        </style>
+
         <section class="cols-10 dis-flex">
             <div class="mar-10 wid-100 dis-flex-col pad-20 gap-10 bor-rad-5" style="justify-content:stretch; align-items:stretch">
 
@@ -74,22 +107,22 @@
                         <legend>Account Details</legend>
                         <div class="dis-flex-col <?= (!empty($errors['email'])) ? 'error' : '' ?>">
                             <label for="email">Email</label>
-                            <input value=<?= $user->email ?> type="email" name="email" class="input" disabled style="color: white">
+                            <input value=<?= $user->email ?> type="email" name="email" class="input" disabled>
                             <i></i>
                         </div>
                         <div class="wid-100 dis-flex ju-co-ce al-it-ce">
-                            <input type="checkbox" name="change_pass" id="change_pass">
-                            <p>Change Password</p>
+                            <input type="checkbox" name="change_pass" id="change_pass" onclick="pass()">
+                            <label for="change_pass">Change Password</label>
                         </div>
                         <div class="dis-flex gap-20">
-                            <div class="dis-flex-col <?= (!empty($errors['password'])) ? 'error' : '' ?>">
+                            <div class="dis-flex-col hide js-pass <?= (!empty($errors['password'])) ? 'error' : '' ?>">
                                 <label for="password">Password</label>
-                                <input type="password" name="password" class="input" >
+                                <input type="password" name="password" class="input">
                                 <i></i>
                             </div>
-                            <div class="dis-flex-col <?= (!empty($errors['confirmPass'])) ? 'error' : '' ?>">
+                            <div class="dis-flex-col hide js-confirm <?= (!empty($errors['confirmPass'])) ? 'error' : '' ?>">
                                 <label for="confirmPass">Confirm Password</label>
-                                <input type="password" name="confirmPass" class="input" >
+                                <input type="password" name="confirmPass" class="input">
                                 <i></i>
                             </div>
                         </div>
@@ -111,6 +144,28 @@
                 </form>
 
                 <script>
+
+                    // Password field enabling and disabling function
+                    function pass() {
+                        const checkbox = document.querySelector('#change_pass')
+                        const password = document.querySelector('.js-pass')
+                        const confirm = document.querySelector('.js-confirm')
+
+                        console.log(checkbox.checked)
+
+                        if(checkbox.checked) {
+                            // password.disabled = false
+                            // confirm.disabled = false
+                            password.style.display = 'flex'
+                            confirm.style.display = 'flex'
+                        } else {
+                            // password.disabled = true
+                            // confirm.disabled = true
+                            password.style.display = 'none'
+                            confirm.style.display = 'none'
+                        }
+                    }
+
                     // City data for each province
                     const cityData = {
                         northern: ["Jaffna", "Kilinochchi", "Manner", "Mullaitivu", "Vavuniya"],

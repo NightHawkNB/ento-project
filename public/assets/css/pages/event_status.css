@@ -3,6 +3,7 @@
     --translate-main-slider: 100%;
     --main-slider-color: #e3f2fd;
     --translate-filters-slider: 0;
+    --translate-filters-slider-2: 0;
     --filters-container-height: 3.8rem;
     --filters-wrapper-opacity: 1;
 }
@@ -224,16 +225,31 @@
             .venue_label {
                 background-color: var(--white);
                 width: 100%;
-                height: fit-content;
                 padding: 10px;
                 border-radius: 10px;
                 border: 2px solid transparent;
+                max-height: 70px;
 
                 div {
-                    display: flex;
+
                     gap: 10px;
-                    justify-content: space-between;
                     align-items: center;
+
+                    .item-title {
+                        color: var(--font-primary);
+                        font-weight: bold;
+                        letter-spacing: 1px;
+                    }
+                }
+
+                .venue-item {
+                    display: grid;
+                    grid-template-columns: 70px 125px 50px auto 75px;
+                }
+
+                .band-item {
+                    display: grid;
+                    grid-template-columns: 70px 125px auto;
                 }
 
                 &:hover {
@@ -380,6 +396,16 @@
         box-shadow: 0 0.1rem 1rem -0.4rem rgba(0, 0, 0, 0.12);
         transition: transform 0.4s ease-in-out;
         transform: translateX(var(--translate-filters-slider));
+    }
+
+    .filter-slider-rect-2 {
+        height: 2rem;
+        width: 50%;
+        border-radius: 0.8rem;
+        background-color: var(--white);
+        box-shadow: 0 0.1rem 1rem -0.4rem rgba(0, 0, 0, 0.12);
+        transition: transform 0.4s ease-in-out;
+        transform: translateX(var(--translate-filters-slider-2));
     }
 }
 
