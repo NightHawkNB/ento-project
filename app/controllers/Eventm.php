@@ -287,10 +287,18 @@ class Eventm extends controller{
 
             // Getting the singer details relevant to the event
             $data['singers'] = $db->query("
-                SELECT *
+                SELECT 
+                    E.*, 
+                    ES.*, 
+                    S.*, 
+                    U.image AS singer_image,
+                    U.fname AS fname,
+                    U.lname AS lname
                 FROM event E
                 JOIN event_singer ES ON E.event_id = ES.event_id
                 JOIN singer S ON ES.singer_id = S.singer_id
+                JOIN serviceprovider SP ON S.sp_id = SP.sp_id
+                JOIN user U ON SP.user_id = U.user_id
                 WHERE E.event_id = :event_id
             ", ['event_id' => $event_id]);
 

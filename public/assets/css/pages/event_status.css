@@ -139,6 +139,18 @@
                     width: fit-content;
                 }
             }
+
+            .participants.singer {
+                background-color: var(--purple-4);
+                width: fit-content;
+                height: fit-content;
+            }
+
+            .singer-participants {
+                display: flex;
+                flex-direction: row;
+                gap: 10px;
+            }
         }
     }
 }
