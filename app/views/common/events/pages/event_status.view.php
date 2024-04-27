@@ -46,6 +46,16 @@
 
                 <div class="participant-container">
                     <div class="participants">
+
+                        <?php
+                        $new_data = [
+                            'event' => $event,
+                            'singers' => $singers
+                        ];
+
+                        $this->view('common/events/pages/details/singer_details', $new_data);
+                        ?>
+
                         <h2>Singers</h2>
                         <p>singer2</p>
                         <p>singer3</p>
@@ -198,8 +208,8 @@
 
                 </div>
 
-                <div>
-<!--                    --><?php //= show($data) ?>
+                <div style="width: 100%">
+                                        <?= show($data) ?>
                 </div>
 
             </div>
@@ -209,9 +219,9 @@
     </main>
 
 
-    <div class="es-overlay"></div>
+    <div class="es-overlay hide"></div>
 
-<!--  Venue selection popup  -->
+    <!--  Venue selection popup  -->
     <div class="venue-popup popup">
         <!--        <input type="text" name="custom_band_name" id="custom_band_name" placeholder="Enter the name of the band ... ">-->
         <div class="dis-flex" style="justify-content: flex-end">
@@ -243,20 +253,28 @@
         <div id="availableSection" class="es-popup-content">
 
             <?php
-                if(!empty($venue_set)) {
-                    foreach ($venue_set as $single_venue) {
-                        $this->view('common/events/components/venue_select', (array)$single_venue);
-                    };
-                } else {
-                    echo "No Venues to Display";
-                }
+            if(!empty($venue_set)) {
+                foreach ($venue_set as $single_venue) {
+                    $this->view('common/events/components/venue_select', (array)$single_venue);
+                };
+            } else {
+                echo "No Venues to Display";
+            }
             ?>
 
         </div>
 
+        <style>
+            input,
+            select,
+            textarea {
+                color: var(--font-primary);
+            }
+        </style>
+
         <div id="customSection" class="es-popup-content">
 
-            <div class="title">Add custom venue details</div>
+            <div class="title">Add Custom Venue Details</div>
             <input type="text" name="venue_name" id="custom_venue_input" placeholder="Enter the name of the venue ... ">
             <div class="button-container">
                 <button type="button" onclick="select_custom_venue()" class="button-s2">Add Custom Venue</button>
@@ -267,8 +285,8 @@
     </div>
 
 
-<!--  Band selection popup  -->
-    <div class="band-popup popup open-popup">
+    <!--  Band selection popup  -->
+    <div class="band-popup popup">
         <!--        <input type="text" name="custom_band_name" id="custom_band_name" placeholder="Enter the name of the band ... ">-->
         <div class="dis-flex" style="justify-content: flex-end">
             <button type="button" onclick="togglePopup('band', false)">&cross;</button>
@@ -277,20 +295,20 @@
         <nav class="amazing-tabs">
             <div class="filters-container">
                 <div class="filters-wrapper">
-                    <ul class="filter-tabs-2">
+                    <ul class="filter-tabs filter-tabs-2">
                         <li>
-                            <button class="filter-button-2 filter-active" data-translate-value="0">
+                            <button class="filter-button filter-button-2 filter-active" data-translate-value="0">
                                 Available
                             </button>
                         </li>
                         <li>
-                            <button class="filter-button-2" data-translate-value="100%">
+                            <button class="filter-button filter-button-2" data-translate-value="100%">
                                 Custom
                             </button>
                         </li>
                     </ul>
-                    <div class="filter-slider-2" aria-hidden="true">
-                        <div class="filter-slider-rect">&nbsp;</div>
+                    <div class="filter-slider" aria-hidden="true">
+                        <div class="filter-slider-rect-2">&nbsp;</div>
                     </div>
                 </div>
             </div>
@@ -312,10 +330,10 @@
 
         <div id="customSection2" class="es-popup-content">
 
-            <div class="title">Add custom venue details</div>
-            <input type="text" name="venue_name" id="custom_venue_input" placeholder="Enter the name of the venue ... ">
+            <div class="title">Add Custom Band Details</div>
+            <input type="text" name="venue_name" id="custom_band_input" placeholder="Enter the name of the band ... ">
             <div class="button-container">
-                <button type="button" onclick="select_custom_venue()" class="button-s2">Add Custom Venue</button>
+                <button type="button" onclick="select_custom_band()" class="button-s2">Add Custom Band</button>
             </div>
         </div>
     </div>
@@ -478,60 +496,60 @@
                 }
             };
 
-            // ##################################### Slider Script for BAND ###############################################
-            document.addEventListener("DOMContentLoaded", function () {
-                const filterTabs = document.querySelector(".filter-tabs");
-                const filterButtons = document.querySelectorAll(".filter-button");
-                const adSections = {
-                    available: document.getElementById('availableSection'),
-                    custom: document.getElementById('customSection'),
-                };
-
-                // Initial setup to select the "Available" tab
-                const initialTab = filterButtons[0]; // Select the first button (Available)
-                initialTab.classList.add("filter-active");
-
-                const root = document.documentElement;
-                const targetTranslateValue = initialTab.dataset.translateValue;
-                root.style.setProperty("--translate-filters-slider", targetTranslateValue);
-
-                // Function to handle active tab
-                const handleActiveTab = (targetTab) => {
-                    filterButtons.forEach((tab) => {
-                        tab.classList.remove("filter-active");
-                    });
-
-                    targetTab.classList.add("filter-active");
-
-                    // Show the corresponding ad section and hide others
-                    const selectedCategory = targetTab.innerText.toLowerCase();
-                    for (const category in adSections) {
-                        if (category === selectedCategory) {
-                            adSections[category].style.display = 'flex'; // Show selected section
-                        } else {
-                            adSections[category].style.display = 'none'; // Hide other sections
-                        }
-                    }
-                };
-
-                // Event listener for filter tabs
-                filterTabs.addEventListener("click", (event) => {
-                    if (event.target.classList.contains("filter-button")) {
-                        const targetTranslateValue = event.target.dataset.translateValue;
-                        root.style.setProperty("--translate-filters-slider", targetTranslateValue);
-                        handleActiveTab(event.target)
-                    }
-                })
-
-                // Initially hide band and venue sections
-                adSections.custom.style.display = 'none';
-            })
-
             // Event listener for filter tabs
             filterTabs.addEventListener("click", (event) => {
                 if (event.target.classList.contains("filter-button")) {
                     const targetTranslateValue = event.target.dataset.translateValue;
                     root.style.setProperty("--translate-filters-slider", targetTranslateValue);
+                    handleActiveTab(event.target)
+                }
+            })
+
+            // Initially hide band and venue sections
+            adSections.custom.style.display = 'none';
+        })
+
+        // ##################################### Slider Script for BAND ###############################################
+        document.addEventListener("DOMContentLoaded", function () {
+            const root = document.documentElement;
+            const filterTabs = document.querySelector(".filter-tabs-2");
+            const filterButtons = document.querySelectorAll(".filter-button-2");
+            const adSections = {
+                available: document.getElementById('availableSection2'),
+                custom: document.getElementById('customSection2'),
+            };
+
+            // Initial setup to select the "Available" tab
+            const initialTab = filterButtons[0]; // Select the first button (Available)
+            initialTab.classList.add("filter-active");
+
+            const targetTranslateValue = initialTab.dataset.translateValue;
+            root.style.setProperty("--translate-filters-slider-2", targetTranslateValue);
+
+            // Function to handle active tab
+            const handleActiveTab = (targetTab) => {
+                filterButtons.forEach((tab) => {
+                    tab.classList.remove("filter-active");
+                });
+
+                targetTab.classList.add("filter-active");
+
+                // Show the corresponding ad section and hide others
+                const selectedCategory = targetTab.innerText.toLowerCase();
+                for (const category in adSections) {
+                    if (category === selectedCategory) {
+                        adSections[category].style.display = 'flex'; // Show selected section
+                    } else {
+                        adSections[category].style.display = 'none'; // Hide other sections
+                    }
+                }
+            };
+
+            // Event listener for filter tabs
+            filterTabs.addEventListener("click", (event) => {
+                if (event.target.classList.contains("filter-button-2")) {
+                    const targetTranslateValue = event.target.dataset.translateValue;
+                    root.style.setProperty("--translate-filters-slider-2", targetTranslateValue);
                     handleActiveTab(event.target)
                 }
             })
@@ -574,6 +592,38 @@
             })
         }
 
+        function select_band(element) {
+            // send post with venue_id and event_id to update the event
+            let event_id = '<?= $event->event_id ?>'
+            let sp_id = element.dataset.spid
+            let ad_id = element.dataset.adid
+
+            let data = {event_id, sp_id, ad_id}
+
+            fetch(`/ento-project/public/eventm/add_band`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+                },
+                body: JSON.stringify(data)
+            }).then(res => {
+                // console.log(res)
+                return res.text()
+            }).then(data => {
+                // Shows the data printed by the targeted php file.
+                // (stopped printing all data in php file by using die command)
+                console.log(data)
+                if (data === 'success') {
+                    alert('Band Added Successfully')
+                    location.reload()
+                } else {
+                    alert("Error occurred. Try Again later or Contact Customer Care Agent")
+                }
+
+                console.log(data)
+            })
+        }
+
         function select_custom_venue() {
             let custom_venue = document.getElementById('custom_venue_input').value
             let event_id = '<?= $event->event_id ?>'
@@ -594,7 +644,37 @@
                 // (stopped printing all data in php file by using die command)
                 console.log(data)
                 if (data === 'success') {
-                    alert('Venue Added Successfully')
+                    alert('Custom Venue Added Successfully')
+                    location.reload()
+                } else {
+                    alert("Error occurred. Try Again later or Contact Customer Care Agent")
+                }
+
+                console.log(data)
+            })
+        }
+
+        function select_custom_band() {
+            let custom_band = document.getElementById('custom_band_input').value
+            let event_id = '<?= $event->event_id ?>'
+
+            let data = {custom_band, event_id}
+
+            fetch(`/ento-project/public/eventm/add_custom_band`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+                },
+                body: JSON.stringify(data)
+            }).then(res => {
+                // console.log(res)
+                return res.text()
+            }).then(data => {
+                // Shows the data printed by the targeted php file.
+                // (stopped printing all data in php file by using die command)
+                console.log(data)
+                if (data === 'success') {
+                    alert('Custom Band Added Successfully')
                     location.reload()
                 } else {
                     alert("Error occurred. Try Again later or Contact Customer Care Agent")

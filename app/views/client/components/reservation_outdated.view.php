@@ -64,7 +64,8 @@
                         <div style="width: 400px; height: 80px; background-color: #E8E9FF; position: relative;border-radius: 10px">
                             <p class="pad-5">Comment:</p>
                             <p class="pad-5"><?= $content ?></p>
-                            <button class="btn pad-5" onclick="openRatingPopUp('<?= $review_id ?>')"
+                            <button class="btn pad-5"
+                                    onclick="openRatingPopUp('<?= $review_id ?>','overlay_<?= $review_id ?>')"
                                     style="position: absolute; bottom: 0; right: 0; ">EDIT
                             </button>
                         </div>
@@ -83,7 +84,10 @@
 
             <!--rating button-->
             <?php if (empty($content)): ?>
-                <button class="blue-btn" onclick="openRatingPopUp('<?= $review_id ?>')">Rate and review</button>
+                <button class="btn-lay-s pad-10 mar-10"
+                        style="width: fit-content; height: fit-content; background-color: #c1abec "
+                        onclick="openRatingPopUp('<?= $review_id ?>','overlay_<?= $review_id ?>')">Rate and review
+                </button>
             <?php endif; ?>
 
         </div>
@@ -93,9 +97,9 @@
 
 <!--    Rating popup-->
 <?php if ($status == "Accepted"): ?>
-    <div id="rating-<?= $review_id ?>" class="rating-container">
+    <div id="rating-<?= $review_id ?>" class="rating-container" style="z-index: 15; overflow: hidden">
         <div class="rating-content">
-            <span class="close" onclick="closeRatingPopUp('<?= $review_id ?>')">&times;</span>
+            <div style="position: absolute; top: 0; right: 0; padding: 5px" onclick="closeRatingPopUp('<?= $review_id ?>','overlay_<?= $review_id ?>')"> x </div>
             <h6>Rate and review</h6>
             <div class="star-container">
                 <form method="post" action="<?= ROOT ?>/client/reservations/<?= $sp_id ?>/<?= $reservation_id ?>">
@@ -127,7 +131,7 @@
                                                                                       id="form-<?= $review_id ?>">
                             <!--                                <header>I don't like it</header>-->
                             <div class="textarea">
-                                <textarea name="content" id="" cols="30" rows="10"
+                                <textarea style="background-color: #E8E9FF; color: black" name="content" id="" cols="30" rows="10"
                                           placeholder="Describe your experience..."><?= $content ?></textarea>
                             </div>
                             <div class="btn">
@@ -141,5 +145,6 @@
             </div>
         </div>
     </div>
+    <div id="overlay_<?= $review_id ?>" class="overlay"></div>
 
 <?php endif; ?>

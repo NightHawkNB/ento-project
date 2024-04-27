@@ -7,11 +7,8 @@ class Tickets extends Model {
 
     protected array $allowed_columns = [
         'ticket_id',
-        'event_id',
         'user_id',
-        'hash',
-        'type',
-        'price',
+        'status',
         'deleted'
     ];
 }

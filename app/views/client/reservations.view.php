@@ -1,6 +1,5 @@
 <html lang="en">
-<?php $this->view('includes/head', ['style' => ['client/reservations.css']]) ?>
-<?php $this->view('includes/head', ['style' => ['admin/adverification.css']]) ?>
+<?php $this->view('includes/head', ['style' => ['client/reservations.css','admin/adverification.css']]) ?>
 <style>
     .filter-slider-rect {
         height: 2rem;
@@ -204,7 +203,7 @@
     function closeRatingPopUp(id) {
         let rating = document.getElementById('rating-' + id);
         if (rating.classList.contains('active')) rating.classList.remove('active')
-        // rating.classList.remove('overlay')
+        rating.classList.remove('overlay')
     }
 
     // to show comment when editing
