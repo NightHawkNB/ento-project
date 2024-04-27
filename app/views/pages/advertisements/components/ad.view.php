@@ -79,13 +79,11 @@
                 <!--                    <p>LKR --><?php //= number_format($rates) ?><!--</p>-->
                 <!--                </div>-->
 
-                <?php $rating = 3 ?>
-
                 <div class="horizontal stars">
 
                     <?php if($category != 'venue'): ?>
                         <span>★</span>
-                        <p> <?= number_format($rating, 1) ?></p>
+                        <p> <?= ($rating != 0) ? number_format($rating, 1) : 'No Reviews' ?></p>
                     <?php else: ?>
                         <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M340-720q-33 0-56.5-23.5T260-800q0-33 23.5-56.5T340-880q33 0 56.5 23.5T420-800q0 33-23.5 56.5T340-720Zm220 560H302q-33 0-60.5-23.5T207-240l-87-440h82l88 440h270v80Zm220 80L664-280H386q-29 0-50.5-17.5T308-344l-44-214q-11-48 22.5-85t81.5-37q35 0 63.5 21t36.5 57l44 202h130q21 0 39 11t29 29l140 240-70 40Z"/></svg>
                         <p><?= $seat_count ?></p>
@@ -187,15 +185,8 @@
                     <?php endif; ?>
                 </div>
 
-                <div>
-                    <audio controls>
-                        <source src="<?= ROOT ?>/assets/audio/sample.mp3" type="audio/mpeg">
-                        No audio supported
-                    </audio>
-                </div>
-
                 <div class="pad-20 wid-100 dis-flex-col gap-10">
-                    <h4 class="f-mooli">Details</h4>
+                    <h4>Details</h4>
                     <?= $details ?>
                 </div>
 
@@ -228,24 +219,17 @@
                     <img src="<?= ROOT.$image ?>" alt="Ad image" style="width: 150px; height: 150px; object-fit: cover" class="bor-rad-5">
                 </div>
 
-                <div>
-                    <audio controls>
-                        <source src="<?= ROOT ?>/assets/audio/sample.mp3" type="audio/mpeg">
-                        No audio supported
-                    </audio>
-                </div>
-
                 <div class="pad-20 wid-100 dis-flex ju-co-ce gap-10">
-                    <h4 class="f-mooli">Seat Count - </h4><?= $seat_count ?>
+                    <h4>Seat Count - </h4><?= $seat_count ?>
                 </div>
 
                 <div class="pad-20 wid-100 dis-flex-col gap-10">
-                    <h4 class="f-mooli">Details</h4>
+                    <h4>Details</h4>
                     <?= $details ?>
                 </div>
 
                 <div class="dis-flex-col gap-10 wid-100 pad-20">
-                    <h4 class="f-mooli">Seating Arrangements</h4>
+                    <h4>Seating Arrangements</h4>
                     <div class="dis-flex gap-10 flex-wrap ju-co-ce">
                         <img src="<?= ROOT.$image ?>" alt="Ad image" style="width: 100px; height: 100px; object-fit: cover" class="bor-rad-5">
                         <img src="<?= ROOT.$image ?>" alt="Ad image" style="width: 100px; height: 100px; object-fit: cover" class="bor-rad-5">
@@ -293,20 +277,13 @@
                     <?php endif; ?>
                 </div>
 
-                <div>
-                    <audio controls>
-                        <source src="<?= ROOT ?>/assets/audio/sample.mp3" type="audio/mpeg">
-                        No audio supported
-                    </audio>
-                </div>
-
                 <div class="pad-20 wid-100 dis-flex-col gap-10">
-                    <h4 class="f-mooli">Details</h4>
+                    <h4>Details</h4>
                     <?= $details ?>
                 </div>
 
                 <div class="pad-20 wid-100 dis-flex-col gap-10">
-                    <h4 class="f-mooli">Packages Available</h4>
+                    <h4>Packages Available</h4>
                     <?= $packages ?>
                 </div>
 
