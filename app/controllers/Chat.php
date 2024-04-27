@@ -243,7 +243,7 @@ function chat($sen, $rec, $id, $folder_name)
 
     } else {
 
-        $chat->insert(['sender_id' => $sen, 'receiver_id' => $rec, 'reservation_id' => $id]);
+        $chat->insert(['sender_id' => $sen, 'receiver_id' => $rec, 'id' => $id]);
         $chat_id = $chat->where(['sender_id' => $sen, 'receiver_id' => $rec, 'id' => $id])[0]->chat_id . "";
         $filepath = "../app/data/chats/". $folder_name ."/". $chat_id .".txt";
         $file = fopen($filepath, "w");
