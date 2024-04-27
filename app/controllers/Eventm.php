@@ -1,18 +1,18 @@
 <?php
-class Eventm extends controller{
+class Eventm extends controller
+{
     public function __construct()
     {
-        if(!Auth::logged_in())
-        {
+        if (!Auth::logged_in()) {
             message("please login");
             redirect('home');
         }
-        if(!Auth::is_eventm())
-        {
+        if (!Auth::is_eventm()) {
             message("Access Denied");
             redirect('home');
         }
     }
+
     public function index(): void
     {
         $this->view('common/dashboard');
@@ -22,7 +22,7 @@ class Eventm extends controller{
     {
         $db = new Database();
 
-        if($_SERVER['REQUEST_METHOD'] == 'GET') {
+        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $ads = new Ad();
 
             $data['venues'] = $ads->query('
@@ -51,17 +51,17 @@ class Eventm extends controller{
 
             $this->view('common/events/create_event', $data);
 
-        } else if($_SERVER['REQUEST_METHOD'] == "POST") {
+        } else if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
             $custom_band = true;
 
-            $_POST['event_id'] = "EVENT_".rand(1000, 100000) . "_" . time();
+            $_POST['event_id'] = "EVENT_" . rand(1000, 100000) . "_" . time();
             $ads = new Ad();
 
             $_POST['creator_id'] = Auth::getUser_id();
 
             // Adding the venue data
-            if($_POST['venue_id'] == 'custom') {
+            if ($_POST['venue_id'] == 'custom') {
                 $_POST['custom_venue'] = $_POST['custom_venue_address'];
                 unset($_POST['venue_id']);
             } else {
@@ -79,7 +79,7 @@ class Eventm extends controller{
 
             // Image Uploading part
             $allowed_types = ['image/jpeg', 'image/png'];
-            $direct_folder = getcwd() . "\assets\images".DIRECTORY_SEPARATOR."event" . DIRECTORY_SEPARATOR;
+            $direct_folder = getcwd() . "\assets\images" . DIRECTORY_SEPARATOR . "event" . DIRECTORY_SEPARATOR;
             $remote_folder = "/assets/images/event/";
 
             if (!empty($_FILES['image']['name'])) {
@@ -102,7 +102,7 @@ class Eventm extends controller{
                     redirect("eventm/create_event");
                 }
             } else {
-                if(empty($_POST['image'])) {
+                if (empty($_POST['image'])) {
                     $_POST['image'] = "/assets/images/event/event1.png";
                 }
             }
@@ -128,7 +128,7 @@ class Eventm extends controller{
                     // Inserting the data to the POST variable
                     $_POST['band_id'] = $band->band_id;
 
-                } else if(str_contains($key, 'SING_AD_')) {
+                } else if (str_contains($key, 'SING_AD_')) {
                     $singers[] = $ads->query('
                         SELECT S.singer_id, S.sp_id, ADS.ad_id
                         FROM ads ADS
@@ -138,12 +138,12 @@ class Eventm extends controller{
                     ', ['ad_id' => $value])[0];
                 }
             }
-            if(!$custom_band) unset($_POST['custom_band']);
+            if (!$custom_band) unset($_POST['custom_band']);
 
             // Adding the ticketing plan
             $ticketing = [];
-            if(!empty($_POST['basic_ticket_price'])) $ticketing[] = strval($_POST['basic_ticket_price']).'*'.strval($_POST['basic_ticket_count']);
-            if(!empty($_POST['premium_ticket_price'])) $ticketing[] = strval($_POST['premium_ticket_price']).'*'.strval($_POST['premium_ticket_count']);
+            if (!empty($_POST['basic_ticket_price'])) $ticketing[] = strval($_POST['basic_ticket_price']) . '*' . strval($_POST['basic_ticket_count']);
+            if (!empty($_POST['premium_ticket_price'])) $ticketing[] = strval($_POST['premium_ticket_price']) . '*' . strval($_POST['premium_ticket_count']);
 
             $_POST['ticketing_plan'] = implode("|", $ticketing);
 
@@ -165,14 +165,14 @@ class Eventm extends controller{
             message("Event Created Successfully", false, 'success');
             redirect('eventm');
 
-        } else if($_SERVER['REQUEST_METHOD'] == "PUT") {
+        } else if ($_SERVER['REQUEST_METHOD'] == "PUT") {
             $json_data = file_get_contents("php://input");
             $php_data = json_decode($json_data);
 
             $venues = new Venue();
 
             $data = $venues->where(['location' => strtolower($php_data->district)]);
-            if(!empty($data)) {
+            if (!empty($data)) {
                 echo json_encode($data);
             } else {
                 echo "no_venues";
@@ -189,7 +189,7 @@ class Eventm extends controller{
         $db = new Database();
         $event = new Event();
 
-        if(empty($event_id)) {
+        if (empty($event_id)) {
             $data['events'] = $event->where(['creator_id' => Auth::getUser_id(), 'status' => 'Pending']);
             $data['events_completed'] = $event->where(['creator_id' => Auth::getUser_id(), 'status' => 'Completed']);
 
@@ -200,7 +200,7 @@ class Eventm extends controller{
             // Provides the time remaining in days for the event to start
             $timeleft = (strtotime($event_data->start_time) - time()) / 60 / 60 / 24;
 
-            if($timeleft <= 0) {
+            if ($timeleft <= 0) {
                 $event->update($event_id, ['status' => 'Completed']);
             }
 
@@ -210,7 +210,7 @@ class Eventm extends controller{
             $reservations['band'] = 0;
             $reservations['venue'] = 0;
 
-            if(empty($event_data->custom_band)) {
+            if (empty($event_data->custom_band)) {
                 $band_data = $db->query('
                     SELECT *
                     FROM event E
@@ -221,7 +221,7 @@ class Eventm extends controller{
                     WHERE RR.user_id = :user_id AND RR.deleted = 0 && E.event_id = :event_id
                 ', ['user_id' => Auth::getUser_id(), 'event_id' => $event_id])[0] ?? [];
 
-                if(empty($band_data)) $reservations['band'] = 0;
+                if (empty($band_data)) $reservations['band'] = 0;
                 else $reservations['band'] = 1;
             } else {
                 $band_data = $event_data->custom_band;
@@ -231,7 +231,7 @@ class Eventm extends controller{
             $event_data = $event->where(['event_id' => $event_id])[0];
             $event_data->time_left = $timeleft;
 
-            if(empty($event_data->custom_venue)) {
+            if (empty($event_data->custom_venue)) {
                 $venue_data = $db->query('
                     SELECT V.name, E.province, E.district, V.image, V.seat_count,
                            V.packages, V.other, SP.last_response_time, ADS.views, 
@@ -246,7 +246,7 @@ class Eventm extends controller{
                     WHERE RR.user_id =:user_id AND RR.deleted = 0
                 ', ['user_id' => Auth::getUser_id()])[0] ?? [];
 
-                if(empty($venue_data)) $reservations['venue'] = 0;
+                if (empty($venue_data)) $reservations['venue'] = 0;
                 else $reservations['venue'] = 1;
             } else {
                 $venue_data = $event_data->custom_venue;
@@ -304,35 +304,35 @@ class Eventm extends controller{
         }
     }
 
-    public function cancel_request(): void {
+    public function cancel_request(): void
+    {
         try {
             $json_data = file_get_contents("php://input");
             $php_data = json_decode($json_data);
 
 //            show($php_data);
 
-            if(count((array)$php_data) == 3) {
+            if (count((array)$php_data) == 3) {
                 $rr = new Resrequest();
                 $rr->update($php_data->req_id, ['deleted' => 1]);
 
                 $event = new Event();
 
-                if($php_data->type == "venue") {
+                if ($php_data->type == "venue") {
                     $event->update($php_data->event_id, ['venue_id' => NULL]);
-                } else if($php_data->type == "band") {
+                } else if ($php_data->type == "band") {
                     $event->update($php_data->event_id, ['band_id' => NULL]);
                 }
 
-            } else if(count((array)$php_data) == 2) {
+            } else if (count((array)$php_data) == 2) {
                 $event = new Event();
 
-                if($php_data->type == "venue") {
+                if ($php_data->type == "venue") {
                     $event->update($php_data->event_id, ['custom_venue' => NULL]);
-                } else if($php_data->type == "band") {
+                } else if ($php_data->type == "band") {
                     $event->update($php_data->event_id, ['custom_band' => NULL]);
                 }
             }
-
 
 
             echo "success";
@@ -347,7 +347,7 @@ class Eventm extends controller{
         $json_data = file_get_contents("php://input");
         $php_data = json_decode($json_data);
 
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             try {
                 $event = new Event();
@@ -367,7 +367,7 @@ class Eventm extends controller{
         $json_data = file_get_contents("php://input");
         $php_data = json_decode($json_data);
 
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             try {
                 $event = new Event();
@@ -386,14 +386,14 @@ class Eventm extends controller{
         $json_data = file_get_contents("php://input");
         $php_data = json_decode($json_data);
 
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             try {
                 $event = new Event();
                 $event->update($php_data->event_id, ['venue_id' => $php_data->venue_id, 'custom_venue' => NULL]);
                 $event_data = $event->where(['event_id' => $php_data->event_id])[0];
 
-                $_POST['details'] = "Reservation for the event: ".$event_data->name;
+                $_POST['details'] = "Reservation for the event: " . $event_data->name;
                 $_POST['province'] = $event_data->province;
                 $_POST['district'] = $event_data->district;
                 $_POST['start_time'] = $event_data->start_time;
@@ -415,7 +415,7 @@ class Eventm extends controller{
         $json_data = file_get_contents("php://input");
         $php_data = json_decode($json_data);
 
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             try {
                 $event = new Event();
@@ -433,7 +433,7 @@ class Eventm extends controller{
                 $event->update($php_data->event_id, ['band_id' => $band_data->band_id, 'custom_band' => NULL]);
                 $event_data = $event->where(['event_id' => $php_data->event_id])[0];
 
-                $_POST['details'] = "Reservation for the event: ".$event_data->name;
+                $_POST['details'] = "Reservation for the event: " . $event_data->name;
                 $_POST['province'] = $event_data->province;
                 $_POST['district'] = $event_data->district;
                 $_POST['start_time'] = $event_data->start_time;
@@ -449,7 +449,68 @@ class Eventm extends controller{
         }
     }
 
+    //reports for event details
+    public function reports($id=NULL)
+    {
+        $event = new event();
+        if (empty($id)) {
+            $data['event'] = $event->query("
+            SELECT *
+            FROM event 
+            WHERE user_id = :user_id",
+                ['user_id' => Auth::getUser_id()]);
+
+            $this->view('eventm/reports', $data);
+        }
+//        }elseif (!empty($id)){
+//            $data['event'] = $event->query("
+//            SELECT *
+//            FROM event
+//            WHERE event_id = :event_id
+//        ", ['event_id' => $id])[0];
+//
+//            $data['venue'] = $event->query("
+//           SELECT
+//           V.name AS venue_name,
+//           V.image AS venue_image,
+//           E.custom_venue
+//           FROM event E
+//           JOIN venue V ON E.venue_id = V.venue_id
+//           WHERE event_id = :event_id
+//       ", ['event_id' => $id]);
+//            $data['venue'] = (!empty($data['venue'])) ? $data['venue'][0] : NULL;
+//
+//            $data['band'] = $event->query("
+//           SELECT
+//           CONCAT(U.fname,' ',U.lname) AS band_name,
+//           U.image AS band_image,
+//           E.custom_band
+//           FROM event E
+//           JOIN band B ON E.band_id = B.band_id
+//           JOIN serviceprovider SP ON B.sp_id = SP.sp_id
+//           JOIN user U ON SP.user_id = U.user_id
+//           WHERE event_id = :event_id
+//       ", ['event_id' => $id]);
+//            $data['band'] = (!empty($data['band'])) ? $data['band'][0] : NULL;
+//
+//            $data['singers'] = $event->query("
+//           SELECT
+//           CONCAT(U.fname, ' ', U.lname) AS singer_name,
+//           U.image AS singer_image
+//           FROM event E
+//           JOIN event_singer ES ON E.event_id = ES.event_id
+//           JOIN singer S ON ES.singer_id = S.singer_id
+//           JOIN serviceprovider SP ON S.sp_id = SP.sp_id
+//           JOIN user U ON SP.user_id = U.user_id
+//           WHERE E.event_id = :event_id
+//       ", ['event_id' => $id]);
+//        }
+
+
+    }
 }
+
+
 
 // Function to send a reservation request when creating an event
 function createReservation($sp_id, $ad_id) : void
