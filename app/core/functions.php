@@ -11,6 +11,10 @@ function set_activated($needle, $end = false) : string {
     else return preg_match('/'.$needle.'$/', $_SERVER['REQUEST_URI']) ? 'activated' : '';
 }
 
+function set_activated_regex($regex) : string {
+    return preg_match($regex, $_SERVER['REQUEST_URI']) ? 'activated' : '';
+}
+
 function set_value($default) {
     if(!empty($default)) return $default;
     else return '';
