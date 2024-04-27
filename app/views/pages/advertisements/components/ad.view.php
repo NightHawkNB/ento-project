@@ -74,16 +74,11 @@
 
             <div class="horizontal" style="justify-content: space-between; width: 100%">
 
-                <!--                <div class="horizontal" style="align-items: center">-->
-                <!--                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M444-200h70v-50q50-9 86-39t36-89q0-42-24-77t-96-61q-60-20-83-35t-23-41q0-26 18.5-41t53.5-15q32 0 50 15.5t26 38.5l64-26q-11-35-40.5-61T516-710v-50h-70v50q-50 11-78 44t-28 74q0 47 27.5 76t86.5 50q63 23 87.5 41t24.5 47q0 33-23.5 48.5T486-314q-33 0-58.5-20.5T390-396l-66 26q14 48 43.5 77.5T444-252v52Zm36 120q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>-->
-                <!--                    <p>LKR --><?php //= number_format($rates) ?><!--</p>-->
-                <!--                </div>-->
-
                 <div class="horizontal stars">
 
                     <?php if($category != 'venue'): ?>
                         <span>★</span>
-                        <p> <?= ($rating != 0) ? number_format($rating, 1) : 'No Reviews' ?></p>
+                        <p style="font-size: 0.8rem"> <?= ($rating != 0) ? number_format($rating, 1) : 'No Reviews' ?></p>
                     <?php else: ?>
                         <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M340-720q-33 0-56.5-23.5T260-800q0-33 23.5-56.5T340-880q33 0 56.5 23.5T420-800q0 33-23.5 56.5T340-720Zm220 560H302q-33 0-60.5-23.5T207-240l-87-440h82l88 440h270v80Zm220 80L664-280H386q-29 0-50.5-17.5T308-344l-44-214q-11-48 22.5-85t81.5-37q35 0 63.5 21t36.5 57l44 202h130q21 0 39 11t29 29l140 240-70 40Z"/></svg>
                         <p><?= $seat_count ?></p>
@@ -191,8 +186,8 @@
                 </div>
 
                 <div class="pad-20 wid-100 dis-flex gap-10 ju-co-sb">
-                    <p><span class="txt-w-bold f-mooli">Average rate : </span> <?= empty($rates) ? 'Not Set' : number_format($rates) ?></p>
-                    <p><span class="txt-w-bold f-mooli">Posted Date Time : </span> <?= $datetime ?></p>
+                    <p><h4>Average rate : </h4> <?= empty($rates) ? 'Not Set' : number_format($rates) ?></p>
+                    <p><h4>Posted Date Time : </h4> <?= $datetime ?></p>
                 </div>
 
             </div>
@@ -228,18 +223,9 @@
                     <?= $details ?>
                 </div>
 
-                <div class="dis-flex-col gap-10 wid-100 pad-20">
-                    <h4>Seating Arrangements</h4>
-                    <div class="dis-flex gap-10 flex-wrap ju-co-ce">
-                        <img src="<?= ROOT.$image ?>" alt="Ad image" style="width: 100px; height: 100px; object-fit: cover" class="bor-rad-5">
-                        <img src="<?= ROOT.$image ?>" alt="Ad image" style="width: 100px; height: 100px; object-fit: cover" class="bor-rad-5">
-                        <img src="<?= ROOT.$image ?>" alt="Ad image" style="width: 100px; height: 100px; object-fit: cover" class="bor-rad-5">
-                    </div>
-                </div>
-
                 <div class="pad-20 wid-100 dis-flex gap-10 ju-co-sb">
-                    <p><span class="txt-w-bold f-mooli">Average rate : </span> <?= empty($rates) ? 'Not Set' : number_format($rates) ?></p>
-                    <p><span class="txt-w-bold f-mooli">Posted Date Time : </span> <?= $datetime ?></p>
+                    <p><h4>Average rate : </h4> <?= empty($rates) ? 'Not Set' : number_format($rates) ?></p>
+                    <p><h4>Posted Date Time : </h4> <?= $datetime ?></p>
                 </div>
 
             </div>
@@ -288,8 +274,8 @@
                 </div>
 
                 <div class="pad-20 wid-100 dis-flex gap-10 ju-co-sb">
-                    <p><span class="txt-w-bold f-mooli">Average rate : </span> <?= empty($rates) ? 'Not Set' : number_format($rates) ?></p>
-                    <p><span class="txt-w-bold f-mooli">Posted Date Time : </span> <?= $datetime ?></p>
+                    <p><h4>Average rate : </h4> <?= empty($rates) ? 'Not Set' : number_format($rates) ?></p>
+                    <p><h4>Posted Date Time : </h4> <?= $datetime ?></p>
                 </div>
 
             </div>
