@@ -96,10 +96,11 @@ table {
 .account-count {
     display: flex;
     /*justify-content: space-evenly ;*/
-    padding: 10px;
+    padding: 5px;
     padding-left: 0;
+    padding-right: 10px;
     font-family: "Arial Black", serif;
-    font-size: 1rem;
+    font-size: 0.85rem;
     color: black;
     justify-content: end;
     align-items: center;
@@ -109,7 +110,7 @@ table {
 
 .count-value {
     border: thin solid black;
-    min-width: 150px;
+    min-width: 120px;
     text-align: center;
     padding: 2px;
 }
