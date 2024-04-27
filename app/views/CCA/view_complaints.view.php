@@ -1,3 +1,7 @@
+view_complaints.view   app/view/cca
+
+
+
 <html lang="en">
 <?php $this->view('includes/head', ['style' => ['cca/complaints.css']]) ?>
 <body>
@@ -177,3 +181,4 @@
 </div>
 </body>
 </html>
+

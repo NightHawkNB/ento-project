@@ -31,6 +31,25 @@ class Chat extends controller {
         }
     }
 
+    public function complaint($sen = null, $rec = null, $id = null): void
+    {
+        if((empty($sen) AND empty($rec)) OR empty($sen)) {
+
+            message("Invalid Link");
+            redirect("home");
+
+        } else if(empty($rec)) {
+
+            // View the list of possible receivers
+            message("No receiver specified");
+            redirect("home");
+
+        } else {
+            $data = chat($sen, $rec, $id, 'complaints');
+            $this->view("common/chat/chat", $data);
+        }
+    }
+
     public function resreq($sen = null, $rec = null, $id = null): void
     {
 

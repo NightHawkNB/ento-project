@@ -27,22 +27,27 @@
                     <p><?= $date_time ?></p>
                 </div>
 
-                                <div class="dis-flex-col txt-c-black gap-10 flex-1">
-                                    <p class="txt-w-bold">Status</p>
-                                    <p><?= $status ?></p>
-                                </div>
+                <div class="dis-flex-col txt-c-black gap-10 flex-1">
+                    <p class="txt-w-bold">Status</p>
+                    <p><?= $status ?></p>
+                </div>
             </div>
             <div class="dis-flex gap-10 ju-co-ce al-it-ce pad-10 bor-rad-5 txt-c-black">
                 <a href="<?= ROOT ?>/cca/complaints/complaintdetails/<?= $comp_id ?>">
                     <button class="btn-lay-2 hover-pointer btn-anima-hover">View</button>
                 </a>
             </div>
-<!--                        <div class="dis-flex gap-10 ju-co-ce al-it-ce pad-20 bor-rad-5 txt-c-black">-->
-<!--                            <a href="--><?php //= ROOT ?><!--/cca/complaints/accepted/assists/--><?php //= $comp_id ?><!--">-->
-<!--                                <button class="btn-lay-2 hover-pointer btn-anima-hover">Assists</button>-->
-<!--                            </a>-->
-<!--                            <button class="btn-lay-2 hover-pointer btn-anima-hover" onclick="openPopup()">Handle</button>-->
-<!--                        </div>-->
+            <div class="dis-flex gap-10 ju-co-ce al-it-ce pad-10 bor-rad-5 txt-c-black">
+                <a href="<?= ROOT ?>/chat/complaint/<?= $cca_user_id ?>/<?= $user_id ?>/<?= $comp_id ?>">
+                    <button class="btn-lay-2 hover-pointer btn-anima-hover">Chat</button>
+                </a>
+            </div>
+            <!--                        <div class="dis-flex gap-10 ju-co-ce al-it-ce pad-20 bor-rad-5 txt-c-black">-->
+            <!--                            <a href="--><?php //= ROOT ?><!--/cca/complaints/accepted/assists/--><?php //= $comp_id ?><!--">-->
+            <!--                                <button class="btn-lay-2 hover-pointer btn-anima-hover">Assists</button>-->
+            <!--                            </a>-->
+            <!--                            <button class="btn-lay-2 hover-pointer btn-anima-hover" onclick="openPopup()">Handle</button>-->
+            <!--                        </div>-->
         </div>
         <!--        <div class="popup" id="popup">-->
         <!--            <h2>Handle details</h2>-->

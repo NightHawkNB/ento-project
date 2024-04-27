@@ -25,11 +25,11 @@
                         <div class="inputflex">
                             <div class="input-box">
                                 <label>Seat Count</label>
-                                <div class="input-like"><?= $assists->seat_count?> </div>
+                                <div class="input-like"><?= $assists->seat_count ?> </div>
                             </div>
                             <div class="input-box">
                                 <label>Contact Number</label>
-                                <div class="input-like"><?= $assists->seat_count?> </div>
+                                <div class="input-like"><?= $assists->seat_count ?> </div>
                             </div>
                         </div>
                         <div class="input-box">
@@ -37,20 +37,19 @@
                             <div class="input-like"><?= $assists->location ?> </div>
                         </div>
                     </div>
-                    <?php
-                    if ($assists->status == 'New') {
-                        echo '
-                       <div class="dis-flex gap-10 ju-co-ce al-it-ce pad-20 bor-rad-5 txt-c-black">
-                        <a href="<?= ROOT ?>/cca/venue/verifydetails/<?= $assists->$venue_id ?>">
-                            <button class="btn-lay-2 hover-pointer btn-anima-hover">Verify</button>
-                        </a>
-                        <a href="<?= ROOT ?>/cca/venue/verifydetails/<?= $assists->$venue_id?>">
-                            <button class="btn-lay-2 hover-pointer btn-anima-hover">Declined</button>
-                        </a>
-                    </div>';
-                    }
-                    ?>
-            </div>
+                    <?php if ($assists->status == 'New'): ?>
+
+                        <div class="dis-flex gap-10 ju-co-ce al-it-ce pad-20 bor-rad-5 txt-c-black">
+                            <a href="<?= ROOT ?>/cca/venue/<?= $assists->venue_id  ?>/verified">
+                                <button class="btn-lay-2 hover-pointer btn-anima-hover">Verify</button>
+                            </a>
+                            <a href="<?= ROOT ?>/cca/venue/<?= $assists->venue_id ?>/declined">
+                                <button class="btn-lay-2 hover-pointer btn-anima-hover">Declined</button>
+                            </a>
+                        </div>
+
+                    <?php endif; ?>
+                </div>
         </section>
     </main>
 </div>

@@ -1,20 +1,22 @@
 <?php
 
-class CCA extends Controller{
-    public function __construct()
+class CCA extends Controller
 {
-    if (!Auth::logged_in()) {
-        message("Please Login");
-        redirect('home');
+    public function __construct()
+    {
+        if (!Auth::logged_in()) {
+            message("Please Login");
+            redirect('home');
+        }
+
+        if (!Auth::is_cca()) {
+            message("Access Denied");
+            redirect('home');
+        }
     }
 
-    if (!Auth::is_cca()) {
-        message("Access Denied");
-        redirect('home');
-    }
-}
-
-    public function index(){
+    public function index()
+    {
         $comp = new Complaint(); //get the complaint count
         $data["complaints"] = $comp->query("SELECT status, COUNT(*) AS complaints FROM complaints GROUP BY status");
         $uservreq = new Uservreq();
@@ -29,7 +31,7 @@ class CCA extends Controller{
         $data["venuecount"] = $venuecount->query("SELECT COUNT(*) as 'venuecount' FROM venue WHERE venue_id ")[0]->venuecount;
 
 
-        $this->view("CCA/dashboard",$data);
+        $this->view("CCA/dashboard", $data);
     }
 
     public function complaints($status = null, $action = null, $id = null)
@@ -63,7 +65,7 @@ class CCA extends Controller{
 //
 //                redirect('cca/complaints');
 //            }
-        else {
+            else {
                 // Redirect with error
             }
         } elseif ($status == 'accepted') {
@@ -110,10 +112,9 @@ class CCA extends Controller{
                 $data['hand'] = $complaints->where(['status' => 'Handled']);
                 $this->view("CCA/view_complaints", $data);
             }
-        }
-        elseif($status== 'complaintdetails'){
+        } elseif ($status == 'complaintdetails') {
             $status = new Complaint();
-            $data['status']= $status->first(['comp_id'=>$action]);
+            $data['status'] = $status->first(['comp_id' => $action]);
             $db = new Database();
             $data['comp'] = $db->query("
              SELECT *
@@ -122,9 +123,8 @@ class CCA extends Controller{
                 ON user.user_id = complaints.user_id
             WHERE complaints.comp_id = :comp_id
             ", ['comp_id' => $action])[0];
-            $this->view('cca/complaintdetails',$data);
-        }
-        else {
+            $this->view('cca/complaintdetails', $data);
+        } else {
 
 
             $complaints = new Complaint();
@@ -138,20 +138,23 @@ class CCA extends Controller{
         }
 
     }
-        public function chat(){
-            $this->view("CCA/chats");
-        }
 
-    public function verify($uservid=null, $action=null){
+    public function chat()
+    {
+        $this->view("CCA/chats");
+    }
 
-        if(empty($uservid)&&empty($action)){
+    public function verify($uservid = null, $action = null)
+    {
+
+        if (empty($uservid) && empty($action)) {
             $ur = new Uservreq();
             $data['new_requests'] = $ur->query("SELECT * FROM uservreq WHERE status = 'New'");
             $data['verified'] = $ur->query("SELECT * FROM uservreq WHERE status = 'Verified'");
             $data['declined'] = $ur->query("SELECT * FROM uservreq WHERE status = 'Declined'");
             $this->view("CCA/verify", $data);
 
-        }elseif(empty($action)){
+        } elseif (empty($action)) {
             $ur = new Uservreq();
 
             $data['assists'] = $ur->query("
@@ -162,39 +165,71 @@ class CCA extends Controller{
         ", ['userVreq_id' => $uservid])[0];
 
             $this->view("CCA/verifydetails", $data);
-        }else{
-            if($action=='verified'){
+        } else {
+            if ($action == 'verified') {
                 try {
-                    $ur =new Uservreq();
-                    $ur -> update($uservid,['status'=>'Verified']);
+                    $ur = new Uservreq();
+                    $ur->update($uservid, ['status' => 'Verified']);
                     message('User Verified', false, 'success');
-                }catch (Exception $e) {
-                    message('Complaint Failed to update', false, 'failure');
+                } catch (Exception $e) {
+                    message('User Failed to Verify', false, 'failure');
+                }
+            }else{
+                    try {
+                        $ur = new Uservreq();
+                        $ur->update($uservid, ['status' => 'declined']);
+                        message('User Declined', false, 'success');
+                    } catch (Exception $e) {
+                        message('User Failed to Declined', false, 'failure');
+                    }
                 }
 
                 redirect('cca/verify');
-            }
+
         }
     }
 
-    public function venue($venuevreqid=null){
-        if (empty($venuevreqid)){
+    public function venue($venuevreqid = null, $action = null)
+    {
+        if (empty($venuevreqid) && empty($action)) {
             $venue = new Venuevreq();
-            $data['newreq']= $venue->query("SELECT * FROM venuevreq WHERE status= 'new'");
-            $data['verify']=$venue->query("SELECT * FROM venuevreq WHERE status = 'verified'");
-            $data['decline']=$venue->query("SELECT * FROM venuevreq WHERE status = 'declined'");
-            $this->view("CCA/venue",$data);
-        }
-        else{
+            $data['newreq'] = $venue->query("SELECT * FROM venuevreq WHERE status= 'new'");
+            $data['verify'] = $venue->query("SELECT * FROM venuevreq WHERE status = 'verified'");
+            $data['decline'] = $venue->query("SELECT * FROM venuevreq WHERE status = 'declined'");
+            $this->view("CCA/venue", $data);
+        } elseif (empty($action)) {
             $vr = new Venuevreq();
             $data['assists'] = $vr->query("
             SELECT * FROM venuevreq
             JOIN venue
             ON venue.venue_id=venuevreq.venue_id
             WHERE venuevreq.venuevreq_id = :venuevreq_id
-            ",['venuevreq_id' => $venuevreqid])[0];
+            ", ['venuevreq_id' => $venuevreqid])[0];
             $this->view("CCA/venuedetails", $data);
+        } else {
+            if ($action == 'verified') {
+                try {
+                    $ur = new Venuevreq();
+                    $ur->update($venuevreqid, ['status' => 'Verified']);
+                    message('Venue Verified', false, 'success');
+                } catch (Exception $e) {
+                    message('Venue Failed to Verify', false, 'failure');
+                }
+                redirect('cca/venue');
+            }else{
+                    try {
+                        $ur = new Venuevreq();
+                        $ur->update($venuevreqid, ['status' => 'declined']);
+                        message('Venue Declined', false, 'success');
+                    } catch (Exception $e) {
+                        message('Venue Failed to Declined', false, 'failure');
+                    }
+
+                    redirect('cca/venue');
+
+            }
         }
     }
 }
+
 
