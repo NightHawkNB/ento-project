@@ -157,6 +157,30 @@ class Eventm extends controller{
 
             $event->insert($_POST);
 
+            // Ticket creation part
+            $all_tickets = new All_tickets();
+
+            for ($count = 0; $count < $_POST['basic_ticket_count']; $count++) {
+                $ticket_id = "T_".rand(1000, 100000) . "_" . time();
+                $all_tickets->insert([
+                    'ticket_id' => $ticket_id,
+                    'event_id' => $_POST['event_id'],
+                    'type' => 'basic',
+                    'price' => $_POST['basic_ticket_price']
+                ]);
+            }
+
+            for ($count = 0; $count < $_POST['premium_ticket_count']; $count++) {
+                $ticket_id = "T_".rand(1000, 100000) . "_" . time();
+                $all_tickets->insert([
+                    'ticket_id' => $ticket_id,
+                    'event_id' => $_POST['event_id'],
+                    'type' => 'premium',
+                    'price' => $_POST['premium_ticket_price']
+                ]);
+            }
+
+
             foreach ($singers as $singer) {
                 $event_singers->insert(['event_id' => $_POST['event_id'], 'singer_id' => $singer->singer_id]);
                 createReservation($singer->sp_id, $singer->ad_id);
