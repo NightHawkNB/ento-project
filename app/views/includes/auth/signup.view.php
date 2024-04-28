@@ -143,7 +143,7 @@
                         <div  class="group password">
                             <div class="input-box password-field <?= (!empty($errors['password'])) ? 'error' : '' ?>">
                                 <label for="password">Password</label>
-                                <input id="password" placeholder="Enter a strong password" onkeyup="trigger_password()" type="password" name="password" id="password-input" required>
+                                <input id="password" placeholder="Enter a strong password" onkeyup="trigger_password()" type="password" name="password" required>
                                 <span class="show-btn show">
                                 <img>
                             </span>

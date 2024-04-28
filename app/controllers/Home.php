@@ -217,11 +217,13 @@ class Home extends Controller
             // get_all_ads() function is declared in the controller within the core folder
             $data = get_all_ads();
 
+//            show($data);
+//            die;
+
             $this->view('pages/advertisements/ads', $data);
         }
 
-        public
-        function complaint($method = NULL, $id = null): void
+        public function complaint($method = NULL, $id = null): void
         {
 
             if (empty($method)) {

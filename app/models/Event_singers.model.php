@@ -6,6 +6,7 @@ class Event_singers extends Model {
 //    protected string $pk = "";
 
     protected array $allowed_columns = [
+        'es_id',
         'event_id',
         'singer_id',
         'custom_name'

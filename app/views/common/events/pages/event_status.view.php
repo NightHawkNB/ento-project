@@ -45,7 +45,9 @@
                 </div>
 
                 <div class="participant-container">
-                    <div class="participants">
+                    <div class="participants singer-participants">
+
+                        <h2>Singers</h2>
 
                         <?php
                         $new_data = [
@@ -55,10 +57,6 @@
 
                         $this->view('common/events/pages/details/singer_details', $new_data);
                         ?>
-
-                        <h2>Singers</h2>
-                        <p>singer2</p>
-                        <p>singer3</p>
                     </div>
 
                     <div class="temp-div dis-flex gap-10">
@@ -209,7 +207,7 @@
                 </div>
 
                 <div style="width: 100%">
-                                        <?= show($data) ?>
+<!--                                        --><?php //= show($data) ?>
                 </div>
 
             </div>

@@ -1,5 +1,5 @@
 <html lang="en">
-<?php $this->view('includes/head', ['style' => ['pages/edit_profile.css']]) ?>
+<?php $this->view('includes/head', ['style' => ['pages/profile/edit_profile.css']]) ?>
 <body>
 <div class="main-wrapper">
     <?php $this->view('includes/header') ?>
