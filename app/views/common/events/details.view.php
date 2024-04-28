@@ -9,10 +9,10 @@ $dateTime = new DateTime($event->start_time);
     <?php $this->view('includes/header') ?>
 
     <main class="dashboard-main">
-        <!--        --><?php //=show($data)?>
+        <!--                --><?php //=show($data)?>
 
         <div class="mar-10 bor-rad-5 dis-flex-col sh" style="overflow: auto">
-            <img src="<?= ROOT ?>/assets/images/events/event-01.cover.jpeg" alt="cover-image"
+            <img src="<?= ROOT . $event->image ?>" alt="cover-image"
                  class="wid-100 event-cover-image">
             <div class="dis-flex-col txt-c-black">
                 <div class="bg-black-1 txt-c-white pad-10-20 dis-flex gap-20 fill-white sh">
@@ -36,12 +36,11 @@ $dateTime = new DateTime($event->start_time);
                     <div class="dis-flex al-it-ce gap-10  pad-10 mar-0 ju-co-ce bg-indigo-alert txt-c-white flex-wrap">
                         <h5 class="flex-1 mar-0 f-space-1">Buy Tickets</h5>
                         <div class="dis-flex gap-10 al-it-ce">
-                            <a href=<?= ROOT."/home/events/".$event->event_id."/pay" ?>>
-                                <div class='bor-rad-10 bor-1-sol-white bg-trans pad-5-10 hover-pointer'>5000</div>
-                            </a>
-                            <a href=<?= ROOT."/home/events/".$event->event_id."/pay" ?>>
-                                <div class='bor-rad-10 bor-1-sol-white bg-trans pad-5-10 hover-pointer'>3000</div>
-                            </a>
+                            <?php foreach ($tickets as $ticket): ?>
+                                <a href="<?= ROOT ?>/home/events/<?= $event->event_id ?>/pay/<?= $ticket->type ?>">
+                                    <div class='bor-rad-10 bor-1-sol-white bg-trans pad-5-10 hover-pointer'><?= $ticket->price ?></div>
+                                </a>
+                            <?php endforeach; ?>
                         </div>
                     </div>
                 </div>
@@ -81,8 +80,8 @@ $dateTime = new DateTime($event->start_time);
                     <?php if (!empty($band)): ?>
                         <a href="#user_03">
                             <div class="card-profile bg-black-2 pad-10 bor-rad-5 dis-flex-col al-it-ce">
-                                <img src="<?= ROOT ?><?= $band->band_image ?>>" alt="user-03" class="profile-image-2">
-                                <h3 class="mar-10"><?= $band->$band_name ?></h3>
+                                <img src="<?= ROOT ?><?= $band->band_image ?>" alt="user-03" class="profile-image-2">
+                                <h3 class="mar-10"><?= $band->band_name ?></h3>
                                 <h4 class="mar-10">Band</h4>
                             </div>
                         </a>
@@ -90,7 +89,8 @@ $dateTime = new DateTime($event->start_time);
                     <?php if (!empty($event->custom_band)): ?>
                         <a href="#user_03">
                             <div class="card-profile bg-black-2 pad-10 bor-rad-5 dis-flex-col al-it-ce">
-                                <img src="<?= ROOT ?>/assets/images/bands/general.png" alt="venue_01" class="venue-image">
+                                <img src="<?= ROOT ?>/assets/images/bands/general.png" alt="venue_01"
+                                     class="venue-image">
                                 <h3 class="mar-10"><?= $event->custom_band ?></h3>
                                 <h4 class="mar-10">Band</h4>
                             </div>
