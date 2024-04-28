@@ -248,10 +248,12 @@ if (message()) {
             const dropdown = document.querySelector('.dropdown');
 
             // Add a click event listener to the notifications container
-            notificationsContainer.addEventListener('click', function () {
-                // Toggle the 'open' class on the dropdown
-                dropdown.classList.toggle('hide');
-            });
+            if(notificationsContainer) {
+                notificationsContainer.addEventListener('click', function () {
+                    // Toggle the 'open' class on the dropdown
+                    dropdown.classList.toggle('hide');
+                });
+            }
 
             // Close the dropdown when clicking outside of it
             // window.addEventListener('click', function(event) {

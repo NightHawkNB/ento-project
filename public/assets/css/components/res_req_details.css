@@ -1,0 +1,51 @@
+h3 {
+    color: var(--purple-tirtiary);
+    font-weight: bold;
+}
+
+h4 {
+    color: var(--font-primary);
+}
+
+p {
+    font-family: Calibri, sans-serif;
+}
+
+button {
+    border: 1px solid var(--line-primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.client_data {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    .client_image {
+        img {
+            width: 50px;
+            max-width: 50px;
+            min-width: 50px;
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+        }
+    }
+}
+
+.cs-buttons {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    .button-s2 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+}
