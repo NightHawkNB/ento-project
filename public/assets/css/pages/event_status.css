@@ -240,6 +240,7 @@
                 padding: 10px;
                 border-radius: 10px;
                 border: 2px solid transparent;
+                height: 70px;
                 max-height: 70px;
 
                 div {

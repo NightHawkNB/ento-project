@@ -2,6 +2,13 @@ input[type=file] {
     border: none;
 }
 
+h3 {
+    font-weight: normal;
+    padding-left: 10px;
+    font-family: Poppins, sans-serif;
+    font-size: 0.8rem;
+}
+
 #svg-01 {
     height: 1.4rem;
 }
@@ -28,8 +35,6 @@ input[type=file] {
 /* SLIDE STYLES ---------------------------------------------------------------------------- */
 
 .slide-container {
-    /*background-color: black;*/
-
 
     .slide {
         width: 100%;
@@ -184,6 +189,31 @@ input[type=file] {
                     color: red;
                     font-family: Consolas, Serif;
                 }
+            }
+        }
+    }
+
+    .sp-details {
+        max-width: 400px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+
+    .venue_label {
+        max-height: 70px;
+        overflow: hidden;
+
+        .venue-item {
+            display: grid;
+            gap: 10px;
+            grid-template-columns: 70px 100px auto;
+            overflow: hidden;
+
+            .sp-details {
+                max-height: 50px;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
         }
     }
