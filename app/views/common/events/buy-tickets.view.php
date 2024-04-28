@@ -28,6 +28,7 @@
                     document.getElementById('amount').value = totalAmount.toFixed(2); // Fixed to 2 decimal places
                 }
             </script>
+s
 
 
             <div class="ticket-form flex-1">
