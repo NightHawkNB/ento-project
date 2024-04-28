@@ -39,7 +39,7 @@
         <?php $this->view('includes/header') ?>
 
         <main>
-            <div class="dis-flex gap-20 pad-20 flex-wrap">
+            <div class="dis-flex ju-co-ce gap-20 pad-20 flex-wrap">
                 <?php
                     if(!empty($record)) {
                         foreach ($record as $event) $this->view('common/events/components/list-item', (array)$event);

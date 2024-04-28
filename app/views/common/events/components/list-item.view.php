@@ -4,7 +4,7 @@ $dateTime = new DateTime($start_time);
 <div class="dis-flex-col bg-white bor-rad-5 f-poppins over-hide event-card sh"
      style="width: 350px; height: 400px">
     <!-- Wrap the image and hover effect in a container -->
-    <div class="image-container" style="width: 100%; height: 250px">
+    <div class="image-container" style="width: fit-content; height: 250px">
         <a href=<?= ROOT . "/home/events/" . $event_id ?>>
             <!-- Add a class to the image for styling -->
             <img src="<?= ROOT . $image ?>" alt="<?= $name ?>" class="event-image" style="object-fit: cover; width: 100%; height: 250px">
@@ -34,19 +34,7 @@ $dateTime = new DateTime($start_time);
         <h3 class="mar-0 f-mooli f-space-1 txt-w-bold"><?= ucfirst($name) ?></h3>
         <h5 class="f-inter flex-grow"><?= $details ?></h5>
     </div>
-
 </div>
-<!--<a href=--><?php //= ROOT . "/home/events/" . $event_id . "/pay" ?><!-->-->
-<!--    <div class="dis-flex-col gap-10  pad-10 mar-0 ju-co-ce bg-primary txt-c-white flex-wrap">-->
-<!--        <h5 class="flex-1 mar-0 f-space-1">Buy Tickets</h5>-->
-<!--        <div class="dis-flex gap-10 al-it-ce">-->
-<!--            --><?php
-//            $ticketing_plan = explode("|", $ticketing_plan);
-//            foreach ($ticketing_plan as $ticket) {
-//                $item = explode("*", $ticket);
-//                echo "<div class='bor-rad-10 bor-1-sol-white bg-trans pad-5-10 hover-pointer'>$item[0]</div>";
-//            }
-//            ?>
-<!--        </div>-->
-<!--    </div>-->
-<!--</a>-->
+
+
+
