@@ -7,9 +7,11 @@ class Home extends Controller
         $this->view('home');
     }
 
-    public function events($id = null, $method = null): void
+    public function events($id = null, $method = null, $type = null): void
     {
         $event = new Event();
+        $db = new Database();
+
         $data['record'] = $event->query("
             SELECT *
             FROM event
@@ -20,6 +22,7 @@ class Home extends Controller
         if (empty($id)) $this->view('events', $data);
 
         else if (empty($method)) {
+
             $data['event'] = $event->query("
             SELECT *
             FROM event 
@@ -62,6 +65,16 @@ class Home extends Controller
            WHERE E.event_id = :event_id
        ", ['event_id' => $id]);
 
+            // Getting the ticket details
+        $data['tickets'] = $db->query("
+            SELECT type, price
+            FROM all_tickets
+            WHERE event_id = :event_id
+            GROUP BY price
+        ", ['event_id' => $id]);
+
+            //            show($data);
+            //            die;
 
             $this->view('common/events/details', $data);
 
@@ -69,6 +82,9 @@ class Home extends Controller
         } else if ($method == "pay") {
 
             if ($_SERVER['REQUEST_METHOD'] == "POST") {
+
+                show($_POST);
+                die;
 
                 // Constants
                 $merchant_id = "1224517";
@@ -98,11 +114,11 @@ class Home extends Controller
                 $generated_hash = strtoupper(
                     md5(
                         $ticket_data->ticket_id .
-                        $_POST['event_id'] .
-                        Auth::getUser_id() .
-                        $ticket_data->type .
-                        $ticket_data->price .
-                        strtoupper(md5($ticket_secret))
+                            $_POST['event_id'] .
+                            Auth::getUser_id() .
+                            $ticket_data->type .
+                            $ticket_data->price .
+                            strtoupper(md5($ticket_secret))
                     )
                 );
 
@@ -123,169 +139,185 @@ class Home extends Controller
                 $data['hash'] = strtoupper(
                     md5(
                         $merchant_id .
-                        $order_id .
-                        number_format($amount, 2, '.', '') .
-                        $currency .
-                        strtoupper(md5($merchant_secret))
+                            $order_id .
+                            number_format($amount, 2, '.', '') .
+                            $currency .
+                            strtoupper(md5($merchant_secret))
                     )
                 );
 
                 $this->view("common/events/buy-tickets-confirm", $data);
             } else {
+                $data = NULL;
+
+                // Getting the event details
+                $data['event'] = $db->query("
+                    SELECT *
+                    FROM event
+                    WHERE event_id = :event_id
+                ", ['event_id' => $id])[0];
+
+                // Getting the ticket details
+                $data['tickets'] = $db->query("
+                    SELECT type, price
+                    FROM all_tickets
+                    WHERE event_id = :event_id
+                    GROUP BY price
+                ", ['event_id' => $id]);
+
                 $this->view("common/events/buy-tickets", $data);
             }
-        }elseif ($method = "return") {
-                message("Failed");
-                $this->view('common/events/buy-tickets');
-            } else if ($method = "notify") {
-                $merchant_id = $_POST['merchant_id'];
-                $order_id = $_POST['order_id'];
-                $payhere_amount = $_POST['payhere_amount'];
-                $payhere_currency = $_POST['payhere_currency'];
-                $status_code = $_POST['status_code'];
-                $md5sig = $_POST['md5sig'];
+        } elseif ($method = "return") {
+            message("Failed");
+            $this->view('common/events/buy-tickets');
+        } else if ($method = "notify") {
+            $merchant_id = $_POST['merchant_id'];
+            $order_id = $_POST['order_id'];
+            $payhere_amount = $_POST['payhere_amount'];
+            $payhere_currency = $_POST['payhere_currency'];
+            $status_code = $_POST['status_code'];
+            $md5sig = $_POST['md5sig'];
 
-                $merchant_secret = 'MTAyMTQ4NTEyNzM0ODAwNzU2NDgxODk4ODgyNzQyMjg1ODU1NjA4OQ=='; // Replace with your Merchant Secret
+            $merchant_secret = 'MTAyMTQ4NTEyNzM0ODAwNzU2NDgxODk4ODgyNzQyMjg1ODU1NjA4OQ=='; // Replace with your Merchant Secret
 
-                $local_md5sig = strtoupper(
-                    md5(
-                        $merchant_id .
+            $local_md5sig = strtoupper(
+                md5(
+                    $merchant_id .
                         $order_id .
                         $payhere_amount .
                         $payhere_currency .
                         $status_code .
                         strtoupper(md5($merchant_secret))
-                    )
-                );
+                )
+            );
 
-                if (($local_md5sig === $md5sig) and ($status_code == 2)) {
-                    message("Payment Successful");
-                    $payment = new Payment();
+            if (($local_md5sig === $md5sig) and ($status_code == 2)) {
+                message("Payment Successful");
+                $payment = new Payment();
 
-                    $_POST['user_id'] = Auth::getUser_id();
-                    $_POST['event_id'] = $id;
-                    $_POST['amount'] = $_POST['tickets'] * $_POST['count'];
+                $_POST['user_id'] = Auth::getUser_id();
+                $_POST['event_id'] = $id;
+                $_POST['amount'] = $_POST['tickets'] * $_POST['count'];
 
-                    $payment->insert($_POST);
-                } else {
-                    message("Payment Failed");
-                }
-
-                $this->view('common/events/buy-tickets');
+                $payment->insert($_POST);
+            } else {
+                message("Payment Failed");
             }
 
+            $this->view('common/events/buy-tickets');
         }
+    }
 
-        public
-        function ads($method = null, $id = null): void
-        {
+    public
+    function ads($method = null, $id = null): void
+    {
 
-            if ($_SERVER['REQUEST_METHOD'] == "PATCH") {
-                // Content
-                $json_data = file_get_contents("php://input");
+        if ($_SERVER['REQUEST_METHOD'] == "PATCH") {
+            // Content
+            $json_data = file_get_contents("php://input");
 
-                // If the second argument is set to true, the function returns an array. Otherwise, it returns an object
-                $php_data = json_decode($json_data);
+            // If the second argument is set to true, the function returns an array. Otherwise, it returns an object
+            $php_data = json_decode($json_data);
 
 
-                $ad = new Ad();
-                $data = $ad->first(['ad_id' => $php_data->ad_id]);
+            $ad = new Ad();
+            $data = $ad->first(['ad_id' => $php_data->ad_id]);
 
-                $user_id = $data->user_id;
-//            show($data);
+            $user_id = $data->user_id;
+            //            show($data);
 
-                $ad->update($php_data->ad_id, ['ad_id' => $php_data->ad_id, 'views' => ($data->views + 1)]);
+            $ad->update($php_data->ad_id, ['ad_id' => $php_data->ad_id, 'views' => ($data->views + 1)]);
 
-                // Get current month and year
-                $currentYear = date('Y');
-                $currentMonth = date('n');
+            // Get current month and year
+            $currentYear = date('Y');
+            $currentMonth = date('n');
 
-                $views = new Ad_view();
-                $ad_view = $views->first(['user_id' => $user_id, 'month' => $currentMonth, 'year' => $currentYear]) ?: NULL;
+            $views = new Ad_view();
+            $ad_view = $views->first(['user_id' => $user_id, 'month' => $currentMonth, 'year' => $currentYear]) ?: NULL;
 
-//            show($ad_view);
+            //            show($ad_view);
 
-                if ($ad_view) {
-                    $views->update($ad_view->id, ['count' => $ad_view->count + 1, 'id' => $ad_view->id]);
-                } else {
-                    $views->insert(['user_id' => $user_id, 'count' => $data->views + 1, 'month' => $currentMonth, 'year' => $currentYear]);
-                }
-
-                die;
+            if ($ad_view) {
+                $views->update($ad_view->id, ['count' => $ad_view->count + 1, 'id' => $ad_view->id]);
+            } else {
+                $views->insert(['user_id' => $user_id, 'count' => $data->views + 1, 'month' => $currentMonth, 'year' => $currentYear]);
             }
 
-            // get_all_ads() function is declared in the controller within the core folder
-            $data = get_all_ads();
-
-//            show($data);
-//            die;
-
-            $this->view('pages/advertisements/ads', $data);
+            die;
         }
 
-        public function complaint($method = NULL, $id = null): void
-        {
+        // get_all_ads() function is declared in the controller within the core folder
+        $data = get_all_ads();
 
-            if (empty($method)) {
-                if ($_SERVER['REQUEST_METHOD'] == "POST") {
-                    $_POST['user_id'] = Auth::getUser_id();
-                    $complain = new Complaint();
-                    $complain->insert($_POST);
-                    message("Complaint Created Successfully");
-                    redirect('support');
-                }
+        //            show($data);
+        //            die;
 
-                $this->view('pages/complaints/create_complaint');
-            } else if ($method == "list_complaint") {
+        $this->view('pages/advertisements/ads', $data);
+    }
 
+    public function complaint($method = NULL, $id = null): void
+    {
+
+        if (empty($method)) {
+            if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                $_POST['user_id'] = Auth::getUser_id();
                 $complain = new Complaint();
-                $data['complaints'] = (Auth::is_admin() || Auth::is_cca()) ? $complain->get_all() : $complain->where(['user_id' => Auth::getUser_id()]);
+                $complain->insert($_POST);
+                message("Complaint Created Successfully");
+                redirect('support');
+            }
 
-                $this->view('pages/complaints/list_complaint', $data);
-            } else if ($method == "update_complaint") {
-                if (empty($id)) {
-                    message("No complaint selected");
-                    redirect('support');
-                }
+            $this->view('pages/complaints/create_complaint');
+        } else if ($method == "list_complaint") {
 
-                $complain = new Complaint();
+            $complain = new Complaint();
+            $data['complaints'] = (Auth::is_admin() || Auth::is_cca()) ? $complain->get_all() : $complain->where(['user_id' => Auth::getUser_id()]);
 
-                if ($_SERVER['REQUEST_METHOD'] == "POST") {
-                    $db = new Database();
-                    $_POST['comp_id'] = $id;
-                    $db->query("UPDATE complaints SET details = :details WHERE comp_id = :comp_id", $_POST);
-                    message("Complaint Updated Successfully");
-                    redirect('support');
-                }
+            $this->view('pages/complaints/list_complaint', $data);
+        } else if ($method == "update_complaint") {
+            if (empty($id)) {
+                message("No complaint selected");
+                redirect('support');
+            }
+
+            $complain = new Complaint();
+
+            if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                $db = new Database();
+                $_POST['comp_id'] = $id;
+                $db->query("UPDATE complaints SET details = :details WHERE comp_id = :comp_id", $_POST);
+                message("Complaint Updated Successfully");
+                redirect('support');
+            }
 
 
-                $data['row'] = $complain->first(['comp_id' => $id]);
+            $data['row'] = $complain->first(['comp_id' => $id]);
 
-                $this->view('pages/complaints/update_complaint', $data);
-            } else if ($method == "delete_complaint") {
-                if ($_SERVER['REQUEST_METHOD'] == "GET") {
-                    $db = new Database();
-                    $_POST['comp_id'] = $id;
-                    $db->query("DELETE FROM complaints WHERE comp_id = :comp_id", $_POST);
-                    message("Complaint Deleted Successfully");
-                    redirect('support');
-                }
+            $this->view('pages/complaints/update_complaint', $data);
+        } else if ($method == "delete_complaint") {
+            if ($_SERVER['REQUEST_METHOD'] == "GET") {
+                $db = new Database();
+                $_POST['comp_id'] = $id;
+                $db->query("DELETE FROM complaints WHERE comp_id = :comp_id", $_POST);
+                message("Complaint Deleted Successfully");
+                redirect('support');
             }
         }
+    }
 
-//    notification
-        public
-        function notification($method = NULL): void
-        {
-            if (empty($method)) {
-                $this->view('common/notifications');
-            } else if ($_SERVER['REQUEST_METHOD'] == 'PATCH' && $method == 'fetch') {
-                $result = [];
-                $reservation_notifications = [];
-                $reminder_notifications = [];
-                $db = new database();
-//for type = Reservation(Res_Accepted,Res_Denied)
-                $reservation_notifications = $db->query("SELECT *,
+    //    notification
+    public
+    function notification($method = NULL): void
+    {
+        if (empty($method)) {
+            $this->view('common/notifications');
+        } else if ($_SERVER['REQUEST_METHOD'] == 'PATCH' && $method == 'fetch') {
+            $result = [];
+            $reservation_notifications = [];
+            $reminder_notifications = [];
+            $db = new database();
+            //for type = Reservation(Res_Accepted,Res_Denied)
+            $reservation_notifications = $db->query("SELECT *,
                 rr.type AS reservation_type,
                 n.type AS type
                 FROM
@@ -295,13 +327,13 @@ class Home extends Controller
                 JOIN ads a
                 ON rr.ad_id = a.ad_id
                 WHERE (n.user_id = :user_id AND (n.type = 'Res_Accepted' OR n.type = 'Res_Denied'))", ['user_id' => Auth::getUser_id()]);
-                if ($reservation_notifications !== false) {
-                    foreach ($reservation_notifications as $reservation_notification) {
-                        $result[] = $reservation_notification;
-                    }
+            if ($reservation_notifications !== false) {
+                foreach ($reservation_notifications as $reservation_notification) {
+                    $result[] = $reservation_notification;
                 }
-//for type = Reminder
-                $reminder_notifications = $db->query("SELECT *,
+            }
+            //for type = Reminder
+            $reminder_notifications = $db->query("SELECT *,
                 rr.type AS reservation_type,
                 n.type AS type
                 FROM
@@ -313,49 +345,49 @@ class Home extends Controller
                 JOIN ads a
                 ON rr.ad_id = a.ad_id
                 WHERE n.user_id = :user_id && n.type = 'Reminder'", ['user_id' => Auth::getUser_id()]);
-                if ($reminder_notifications !== false) {
-                    foreach ($reminder_notifications as $reminder_notification) {
-                        $result[] = $reminder_notification;
-                    }
+            if ($reminder_notifications !== false) {
+                foreach ($reminder_notifications as $reminder_notification) {
+                    $result[] = $reminder_notification;
                 }
-//for type = other
-                $notify = new Notifications();
-                $other_notifications = $notify->query("
+            }
+            //for type = other
+            $notify = new Notifications();
+            $other_notifications = $notify->query("
                 SELECT *
                 FROM notifications
                 WHERE user_id = :user_id AND type != :type1 AND type != :type2 AND type != :type3
             ", ['user_id' => Auth::getUser_id(), 'type1' => 'Res_Accepted', 'type2' => 'Res_Denied', 'type3' => 'Reminder']);
-                if ($other_notifications !== false) {
-                    foreach ($other_notifications as $notification) {
-                        $result[] = $notification;
-                    }
+            if ($other_notifications !== false) {
+                foreach ($other_notifications as $notification) {
+                    $result[] = $notification;
                 }
-
-
-                if (!empty($result)) {
-                    echo json_encode($result); // Encode retrieved data as JSON
-                } else {
-                    echo "no-new-notifications";
-                }
-            } else if ($_SERVER['REQUEST_METHOD'] == 'PUT' && $method == 'fetch') {
-                $json_data = file_get_contents("php://input");
-                // If the second argument is set to true, the function returns an array. Otherwise, it returns an object
-                $php_data = json_decode($json_data);//json object
-
-                $notify = new Notifications();
-                $dataToUpdate = ['viewed' => 1];
-                $notify->update($php_data->notification_id, $dataToUpdate);
-                echo "Notification viewed status updated successfully.";
             }
+
+
+            if (!empty($result)) {
+                echo json_encode($result); // Encode retrieved data as JSON
+            } else {
+                echo "no-new-notifications";
+            }
+        } else if ($_SERVER['REQUEST_METHOD'] == 'PUT' && $method == 'fetch') {
+            $json_data = file_get_contents("php://input");
+            // If the second argument is set to true, the function returns an array. Otherwise, it returns an object
+            $php_data = json_decode($json_data); //json object
+
+            $notify = new Notifications();
+            $dataToUpdate = ['viewed' => 1];
+            $notify->update($php_data->notification_id, $dataToUpdate);
+            echo "Notification viewed status updated successfully.";
         }
+    }
 
-//notifications details for page
-        public
-        function all_notifications($method = null, $id = null, $action = null): void
-        {
-            $db = new Database();
+    //notifications details for page
+    public
+    function all_notifications($method = null, $id = null, $action = null): void
+    {
+        $db = new Database();
 
-            $data['all_notifications'] = $db->query("SELECT *,
+        $data['all_notifications'] = $db->query("SELECT *,
                 rr.type AS reservation_type,
                 n.type AS type
                 FROM
@@ -366,8 +398,6 @@ class Home extends Controller
                 ON rr.ad_id = a.ad_id
                 WHERE (n.user_id = :user_id AND (n.type = 'Res_Accepted' OR n.type = 'Res_Denied'))", ['user_id' => Auth::getUser_id()]);
 
-            $this->view('common/notifications', $data);
-        }
-
-
+        $this->view('common/notifications', $data);
     }
+}
