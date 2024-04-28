@@ -73,157 +73,157 @@ function validate(page) {
     if(prev.style.display !== 'flex') prev.style.display = 'flex'
 
     switch (page) {
-        // case 1 :
-        //
-        //     prev.style.display = 'none'
-        //
-        //     let minimum_starting_time
-        //     let maximum_ending_time
-        //     let minimum_ending_time
-        //
-        //     if(event_name.value === "") {
-        //         errors.push("event_name")
-        //         event_name.nextElementSibling.textContent = "Event name cannot be empty"
-        //     }
-        //
-        //     if(details.value === "") {
-        //         errors.push("details")
-        //         details.nextElementSibling.textContent = "Event details cannot be empty"
-        //     }
-        //
-        //     if(start_time.value === "") {
-        //         errors.push("start_time")
-        //         start_time.nextElementSibling.textContent = "Enter the event starting time"
-        //     } else {
-        //         // Converting the datetime to a JS Date object
-        //         starting_time = new Date(start_time.value)
-        //
-        //         let currentDate = new Date()
-        //
-        //         minimum_ending_time = new Date(starting_time.getTime() + (2 * 60 * 60 * 1000))
-        //         minimum_starting_time = new Date(currentDate.getTime() + (24 * 60 * 60 * 1000))
-        //
-        //         // console.log(starting_time)
-        //     }
-        //
-        //     if(end_time.value === "") {
-        //         errors.push("end_time")
-        //         end_time.nextElementSibling.textContent = "Enter the event ending time"
-        //     } else {
-        //         // Converting the datetime to a JS Date object
-        //         ending_time = new Date(end_time.value)
-        //         maximum_ending_time = new Date(starting_time.getTime() + (10 * 60 * 60 * 1000))
-        //         // console.log(ending_time)
-        //     }
-        //
-        //     if(start_time.value !== "" && end_time.value !== "") {
-        //         if(starting_time < minimum_starting_time) {
-        //             errors.push("minimum starting time error")
-        //             end_time.nextElementSibling.textContent = "The event should be created at least one day before the starting time"
-        //         }else if(ending_time <= minimum_ending_time) {
-        //             errors.push("invalid_duration")
-        //             end_time.nextElementSibling.textContent = "The minimum time duration for an event is 2 Hours"
-        //         } else if(ending_time >= maximum_ending_time) {
-        //             errors.push("invalid_duration")
-        //             end_time.nextElementSibling.textContent = "The maximum time duration for an event is 10 Hours"
-        //         }
-        //     }
-        //
-        //     break
-        //
-        // case 2:
-        //     selected = false
-        //
-        //     for(let i = 0;i < venue_labels.length; i++) {
-        //         // console.log(venue_labels[i])
-        //         if(venue_labels[i].querySelector('input').checked) {
-        //             selected = true
-        //             break
-        //         }
-        //     }
-        //
-        //     if(!selected) {
-        //         errors.push("no venue selected")
-        //         slide2.querySelector('.error').textContent = "Please Select a venue or Add a custom venue"
-        //     }
-        //
-        //     break
-        //
-        //
-        // case 3:
-        //     selected = false
-        //
-        //     for(let i = 0;i < venue_labels.length; i++) {
-        //         // console.log(venue_labels[i])
-        //         if(venue_labels[i].querySelector('input').checked) {
-        //             selected = true
-        //             break
-        //         }
-        //     }
-        //     if(!selected) {
-        //         errors.push("Please select a band or Add custom band details")
-        //         slide3.querySelector('.error').textContent = "Please Select a venue or Add a custom venue"
-        //     }
-        //     break
-        //
-        //
-        // case 4:
-        //     selected = false
-        //     let singer_count = 0
-        //
-        //     for(let i = 0;i < venue_labels.length; i++) {
-        //         // console.log(venue_labels[i])
-        //         if(venue_labels[i].querySelector('input').checked) {
-        //             selected = true
-        //             singer_count++
-        //             break
-        //         }
-        //     }
-        //     if(!selected) {
-        //         errors.push("Please select at least one Singer or Add custom singer details")
-        //         slide4.querySelector('.error').textContent = "Please Select a venue or Add a custom venue"
-        //     }
-        //
-        //     if(singer_count>3) {
-        //         errors.push("Maximum number of singers is 3")
-        //         slide4.querySelector('.error').textContent = "Please select only 3 singers"
-        //     }
-        //
-        //     break
-        //
-        //
-        // case 5:
-        //     selected = false
-        //
-        //     for(let i = 0;i < venue_labels.length; i++) {
-        //         // console.log(venue_labels[i])
-        //
-        //         console.log(venue_labels[i])
-        //
-        //         if(venue_labels[i].querySelector('input').checked) {
-        //             selected = true
-        //             const inputs = venue_labels[i].querySelectorAll('input')
-        //
-        //             if(inputs[0].value === '' || inputs[1].value === '') {
-        //
-        //                 if (!errors.includes("Invalid ticket data inputs")) {
-        //                     errors.push("Invalid ticket data inputs");
-        //                 }
-        //
-        //                 slide5.querySelector('.error').textContent = "Please fill the details for the tickets"
-        //             }
-        //         }
-        //     }
-        //
-        //     if(!selected) {
-        //         if (!errors.includes("Not selected any ticket type")) {
-        //             errors.push("Not selected any ticket type");
-        //         }
-        //
-        //         slide5.querySelector('.error').textContent = "Please select at least one Ticket type"
-        //     }
-        //
-        //     break
+        case 1 :
+
+            prev.style.display = 'none'
+
+            let minimum_starting_time
+            let maximum_ending_time
+            let minimum_ending_time
+
+            if(event_name.value === "") {
+                errors.push("event_name")
+                event_name.nextElementSibling.textContent = "Event name cannot be empty"
+            }
+
+            if(details.value === "") {
+                errors.push("details")
+                details.nextElementSibling.textContent = "Event details cannot be empty"
+            }
+
+            if(start_time.value === "") {
+                errors.push("start_time")
+                start_time.nextElementSibling.textContent = "Enter the event starting time"
+            } else {
+                // Converting the datetime to a JS Date object
+                starting_time = new Date(start_time.value)
+
+                let currentDate = new Date()
+
+                minimum_ending_time = new Date(starting_time.getTime() + (2 * 60 * 60 * 1000))
+                minimum_starting_time = new Date(currentDate.getTime() + (24 * 60 * 60 * 1000))
+
+                // console.log(starting_time)
+            }
+
+            if(end_time.value === "") {
+                errors.push("end_time")
+                end_time.nextElementSibling.textContent = "Enter the event ending time"
+            } else {
+                // Converting the datetime to a JS Date object
+                ending_time = new Date(end_time.value)
+                maximum_ending_time = new Date(starting_time.getTime() + (10 * 60 * 60 * 1000))
+                // console.log(ending_time)
+            }
+
+            if(start_time.value !== "" && end_time.value !== "") {
+                if(starting_time < minimum_starting_time) {
+                    errors.push("minimum starting time error")
+                    end_time.nextElementSibling.textContent = "The event should be created at least one day before the starting time"
+                }else if(ending_time <= minimum_ending_time) {
+                    errors.push("invalid_duration")
+                    end_time.nextElementSibling.textContent = "The minimum time duration for an event is 2 Hours"
+                } else if(ending_time >= maximum_ending_time) {
+                    errors.push("invalid_duration")
+                    end_time.nextElementSibling.textContent = "The maximum time duration for an event is 10 Hours"
+                }
+            }
+
+            break
+
+        case 2:
+            selected = false
+
+            for(let i = 0;i < venue_labels.length; i++) {
+                // console.log(venue_labels[i])
+                if(venue_labels[i].querySelector('input').checked) {
+                    selected = true
+                    break
+                }
+            }
+
+            if(!selected) {
+                errors.push("no venue selected")
+                slide2.querySelector('.error').textContent = "Please Select a venue or Add a custom venue"
+            }
+
+            break
+
+
+        case 3:
+            selected = false
+
+            for(let i = 0;i < venue_labels.length; i++) {
+                // console.log(venue_labels[i])
+                if(venue_labels[i].querySelector('input').checked) {
+                    selected = true
+                    break
+                }
+            }
+            if(!selected) {
+                errors.push("Please select a band or Add custom band details")
+                slide3.querySelector('.error').textContent = "Please Select a venue or Add a custom venue"
+            }
+            break
+
+
+        case 4:
+            selected = false
+            let singer_count = 0
+
+            for(let i = 0;i < venue_labels.length; i++) {
+                // console.log(venue_labels[i])
+                if(venue_labels[i].querySelector('input').checked) {
+                    selected = true
+                    singer_count++
+                    break
+                }
+            }
+            if(!selected) {
+                errors.push("Please select at least one Singer or Add custom singer details")
+                slide4.querySelector('.error').textContent = "Please Select a venue or Add a custom venue"
+            }
+
+            if(singer_count>3) {
+                errors.push("Maximum number of singers is 3")
+                slide4.querySelector('.error').textContent = "Please select only 3 singers"
+            }
+
+            break
+
+
+        case 5:
+            selected = false
+
+            for(let i = 0;i < venue_labels.length; i++) {
+                // console.log(venue_labels[i])
+
+                console.log(venue_labels[i])
+
+                if(venue_labels[i].querySelector('input').checked) {
+                    selected = true
+                    const inputs = venue_labels[i].querySelectorAll('input')
+
+                    if(inputs[0].value === '' || inputs[1].value === '') {
+
+                        if (!errors.includes("Invalid ticket data inputs")) {
+                            errors.push("Invalid ticket data inputs");
+                        }
+
+                        slide5.querySelector('.error').textContent = "Please fill the details for the tickets"
+                    }
+                }
+            }
+
+            if(!selected) {
+                if (!errors.includes("Not selected any ticket type")) {
+                    errors.push("Not selected any ticket type");
+                }
+
+                slide5.querySelector('.error').textContent = "Please select at least one Ticket type"
+            }
+
+            break
 
 
         default:
@@ -394,6 +394,8 @@ function radio_check(element, slide = 2) {
 }
 
 function checkbox_select(slide = 4) {
+
+    console.log("ran")
 
     const singer_labels = (slide === 4) ? slide4.querySelectorAll('.venue_label') : slide5.querySelectorAll('.venue_label')
     slide4.querySelector('.error').textContent = ""

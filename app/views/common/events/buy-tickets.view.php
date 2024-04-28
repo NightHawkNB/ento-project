@@ -28,7 +28,7 @@
                     document.getElementById('amount').value = totalAmount.toFixed(2); // Fixed to 2 decimal places
                 }
             </script>
-s
+
 
             <div class="ticket-form flex-1">
                 <form method="post" class="pad-20 dis-flex-col ju-co-ce al-it-ce">
@@ -43,7 +43,7 @@ s
                             <label class="min-w-150" for="tickets">Ticket Price</label>
                             <select name="tickets" id="tickets" class="input wid-100 txt-ali-cen" onChange="calc_total()">
                                 <?php foreach ($tickets as $ticket): ?>
-                                    <option data-value="<?= $ticket->price ?>" value="<?= $ticket->type ?>"><?= ucfirst($ticket->type). " - LKR " .$ticket->price ?></option>
+                                    <option <?= $selected == strtolower($ticket->type) ? 'selected' : ''  ?> data-value="<?= $ticket->price ?>" value="<?= $ticket->type ?>"><?= ucfirst($ticket->type). " - LKR " .$ticket->price ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>

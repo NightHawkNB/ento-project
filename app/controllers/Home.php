@@ -66,7 +66,7 @@ class Home extends Controller
        ", ['event_id' => $id]);
 
             // Getting the ticket details
-        $data['tickets'] = $db->query("
+            $data['tickets'] = $db->query("
             SELECT type, price
             FROM all_tickets
             WHERE event_id = :event_id
@@ -83,8 +83,13 @@ class Home extends Controller
 
             if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-                show($_POST);
-                die;
+                $selected_ticket_price = $db->query("
+                    SELECT price
+                    FROM all_tickets
+                    WHERE event_id = :event_id
+                    AND type = :type LIMIT 1
+                ", ['event_id' => $id, 'type' => $_POST['tickets']])[0]->price;
+
 
                 // Constants
                 $merchant_id = "1224517";
@@ -93,36 +98,63 @@ class Home extends Controller
 
                 $_POST['user_id'] = Auth::getUser_id();
                 $_POST['event_id'] = $id;
-                $_POST['amount'] = $_POST['tickets'] * $_POST['count'];
-                $_POST['type'] = 'default';
+                $_POST['amount'] = $selected_ticket_price * $_POST['count'];
+                $_POST['type'] = $_POST['tickets'];
+
 
                 $payment = new Payment();
                 $payment->insert($_POST);
                 $order = $payment->first(['event_id' => $_POST['event_id'], 'user_id' => $_POST['user_id']]);
 
                 $ticket = new Tickets();
+                $all_tickets = new All_tickets();
 
                 $ticket_secret = "AkilaHansiThisaraNipun";
 
-                $ticket_data = $ticket->query("
-                    SELECT * 
-                    FROM tickets T
-                    JOIN all_tickets AT ON T.ticket_id = AT.ticket_id
-                    WHERE AT.status = 'New' LIMIT 1
-                ")[0] ?: NULL;
+                $count = (int)$_POST['count'];
 
-                $generated_hash = strtoupper(
-                    md5(
-                        $ticket_data->ticket_id .
-                            $_POST['event_id'] .
+
+
+
+//                show($ticket_data);
+//                die;
+
+
+                for ($i = 0;$i < $count; $i++) {
+                    $ticket_data = $ticket->query("
+                        SELECT * 
+                        FROM all_tickets
+                        WHERE status = 'New' 
+                          AND event_id = :event_id 
+                          AND type = :type
+                        LIMIT 1
+                    ", ['event_id' => $_POST['event_id'], 'type' => $_POST['tickets']])[0] ?? NULL;
+
+                    $generated_hash = strtoupper(
+                        md5(
+                            $ticket_data->ticket_id .
+                            $ticket_data->event_id .
                             Auth::getUser_id() .
                             $ticket_data->type .
                             $ticket_data->price .
                             strtoupper(md5($ticket_secret))
-                    )
-                );
+                        )
+                    );
 
-                $ticket->update($ticket_data->ticket_id, ['hash' => $generated_hash, 'ticket_id' => $ticket_data->ticket_id]);
+                    $all_tickets->update($ticket_data->ticket_id, ['status' => 'Bought']);
+
+                    $ticket->insert([
+                        'ticket_id' => $ticket_data->ticket_id,
+                        'user_id' => Auth::getUser_id(),
+                        'hash' => $generated_hash,
+                    ]);
+                }
+
+//                show($ticket_data);
+//                show($generated_hash);
+//                show($_POST);
+//die;
+
 
                 if (empty($order)) {
                     message("Order Creation Failed - Payment was not performed");
@@ -139,16 +171,18 @@ class Home extends Controller
                 $data['hash'] = strtoupper(
                     md5(
                         $merchant_id .
-                            $order_id .
-                            number_format($amount, 2, '.', '') .
-                            $currency .
-                            strtoupper(md5($merchant_secret))
+                        $order_id .
+                        number_format($amount, 2, '.', '') .
+                        $currency .
+                        strtoupper(md5($merchant_secret))
                     )
                 );
 
                 $this->view("common/events/buy-tickets-confirm", $data);
             } else {
                 $data = NULL;
+
+                $data['selected'] = strtolower($type);
 
                 // Getting the event details
                 $data['event'] = $db->query("
@@ -183,11 +217,11 @@ class Home extends Controller
             $local_md5sig = strtoupper(
                 md5(
                     $merchant_id .
-                        $order_id .
-                        $payhere_amount .
-                        $payhere_currency .
-                        $status_code .
-                        strtoupper(md5($merchant_secret))
+                    $order_id .
+                    $payhere_amount .
+                    $payhere_currency .
+                    $status_code .
+                    strtoupper(md5($merchant_secret))
                 )
             );
 
