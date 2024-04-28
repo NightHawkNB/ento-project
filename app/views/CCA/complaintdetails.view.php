@@ -76,16 +76,24 @@
                         </div>
                     </div>
                     <!--                    accepted buttons-->
-                    <?php
-                    if ($status->status == 'Accepted') {
-                        echo '<div class="dis-flex gap-10 ju-co-ce al-it-ce pad-20 bor-rad-5 txt-c-black">
+                    <?php if ($status->status == 'Accepted') :?>
+                        <div class="dis-flex gap-10 ju-co-ce al-it-ce pad-20 bor-rad-5 txt-c-black">
                                 <a href="' . ROOT . '/cca/complaints/accepted/assists/' . $comp->comp_id . '">
                                     <button class="btn-lay-2 hover-pointer btn-anima-hover">Assists</button>
                                 </a>
                                 <button class="btn-lay-2 hover-pointer btn-anima-hover" onclick="openPopup()">Handle</button>
-                              </div>';
-                    }
-                    ?>
+                            <div class="popup" id="popup">
+                                <form method="post" action="' . ROOT . '/cca/complaints/accepted/handle/' . $comp->comp_id . '">
+                                    <div class="input-box">
+                                        <label>Handle Details</label>
+                                        <textarea id="comment" name="comment"> </textarea>
+                                    </div>
+                                    <button type="submit" onclick="closePopup()">Ok</button>
+                                </form>
+                            </div>
+                        </div>
+
+                    <?php endif; ?>
                     <!--                    idle buttons-->
                     <?php
                     if ($status->status == 'Idle') {
@@ -136,27 +144,13 @@
     </main>
 </div>
 <script>
-    // let popup = document.getElementById('popup');
-    // function openPopup() {
-    //     popup.classList.add("open-popup");
-    // }
-    // function closePopup() {
-    //     popup.classList.remove("open-popup");
-    // }
-    //
-    // openPopup();
     let popup = document.getElementById('popup');
-
     function openPopup() {
         popup.classList.add("open-popup");
     }
-
     function closePopup() {
         popup.classList.remove("open-popup");
     }
-
-    // Call openPopup somewhere, for example:
-    openPopup();
 </script>
 </body>
 </html>

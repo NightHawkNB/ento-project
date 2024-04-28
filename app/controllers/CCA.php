@@ -27,9 +27,8 @@ class CCA extends Controller
         $data["count"] = $count->query("SELECT COUNT(*) as 'count' FROM complaints WHERE status = 'Idle'")[0]->count;
         $vcount = new Uservreq(); //get new user count
         $data["vcount"] = $vcount->query("SELECT COUNT(*) as 'vcount' FROM uservreq WHERE status = 'new' ")[0]->vcount;
-        $venuecount = new Uservreq();//get new venue count
+        $venuecount = new Venuevreq();//get new venue count
         $data["venuecount"] = $venuecount->query("SELECT COUNT(*) as 'venuecount' FROM venue WHERE venue_id ")[0]->venuecount;
-
 
         $this->view("CCA/dashboard", $data);
     }
@@ -83,7 +82,7 @@ class CCA extends Controller
                 //handle complaint
                 try {
                     $comp = new Complaint();
-                    $comp->update($id, ['status' => 'Handled']);
+                    $comp->update($id, ['status' => 'Handled','comment' => $_POST['comment']]);
                     message('Complaint Handled', false, 'success');
                 } catch (Exception $e) {
                     message('Complaint Failed to Handled', false, 'failure');
@@ -128,7 +127,7 @@ class CCA extends Controller
 
 
             $complaints = new Complaint();
-            $data['acc'] = $complaints->where(['status' => 'Accepted']);
+            $data['acc'] = $complaints->query("SELECT * FROM complaints JOIN user ON user.user_id = complaints.user_id where status = 'Accepted'");
             $data['idl'] = $complaints->where(['status' => 'Idle']);
             $data['assi'] = $complaints->where(['status' => 'Assist']);
             $data['hand'] = $complaints->where(['status' => 'Handled']);
@@ -177,7 +176,7 @@ class CCA extends Controller
             }else{
                     try {
                         $ur = new Uservreq();
-                        $ur->update($uservid, ['status' => 'declined', 'comment' => $_POST['comment']]);
+                        $ur->update($uservid, ['status' => 'Declined', 'comment' => $_POST['comment']]);
                         message('User Declined', false, 'success');
                     } catch (Exception $e) {
                         message('User Failed to Declined', false, 'failure');
@@ -193,10 +192,11 @@ class CCA extends Controller
     {
         if (empty($venuevreqid) && empty($action)) {
             $venue = new Venuevreq();
-            $data['newreq'] = $venue->query("SELECT * FROM venuevreq WHERE status= 'new'");
-            $data['verify'] = $venue->query("SELECT * FROM venuevreq WHERE status = 'verified'");
-            $data['decline'] = $venue->query("SELECT * FROM venuevreq WHERE status = 'declined'");
+            $data['newreq'] = $venue->query("SELECT * FROM venuevreq JOIN venue ON venue.venue_id=venuevreq.venue_id WHERE status= 'new'");
+            $data['verify'] = $venue->query("SELECT * FROM venuevreq JOIN venue ON venue.venue_id=venuevreq.venue_id WHERE status = 'verified'");
+            $data['decline'] = $venue->query("SELECT * FROM venuevreq JOIN venue ON venue.venue_id=venuevreq.venue_id WHERE status = 'declined'");
             $this->view("CCA/venue", $data);
+
         } elseif (empty($action)) {
             $vr = new Venuevreq();
             $data['assists'] = $vr->query("
@@ -205,6 +205,7 @@ class CCA extends Controller
             ON venue.venue_id=venuevreq.venue_id
             WHERE venuevreq.venuevreq_id = :venuevreq_id
             ", ['venuevreq_id' => $venuevreqid])[0];
+
             $this->view("CCA/venuedetails", $data);
         } else {
             if ($action == 'verified') {
@@ -217,13 +218,13 @@ class CCA extends Controller
                 }
                 redirect('cca/venue');
             }else{
-                    try {
-                        $ur = new Venuevreq();
-                        $ur->update($venuevreqid, ['status' => 'declined']);
-                        message('Venue Declined', false, 'success');
-                    } catch (Exception $e) {
-                        message('Venue Failed to Declined', false, 'failure');
-                    }
+                try {
+                    $ur = new Venuevreq();
+                    $ur->update($venuevreqid, ['status' => 'Declined','comment' => $_POST['comment']]);
+                    message('Venue Declined', false, 'success');
+                } catch (Exception $e) {
+                    message('Venue Failed to Decline', false, 'failure');
+                }
 
                     redirect('cca/venue');
 
@@ -234,7 +235,7 @@ class CCA extends Controller
     public function report()
     {
         $comp = new Complaint(); //get the complaint count
-        $data["complaints"] = $comp->query("SELECT status, COUNT(*) AS complaints FROM complaints GROUP BY status");
+        $data["complaints"] = $comp->query("SELECT * FROM complaints JOIN user ON complaints.user_id= user.user_id ORDER BY date_time ");
         $uservreq = new Uservreq();
         $data["uservreqs"] = $uservreq->query("SELECT status, COUNT(*) AS uservreqs FROM uservreq GROUP BY status");
         $venuevreq = new Venuevreq();

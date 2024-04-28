@@ -213,12 +213,10 @@
             <?php $this->view('includes/sidebar') ?>
         </section>
         <section class="cols-10 pad-20 dis-flex wid-100 hei-100 ju-co-ce al-it-ce">
-
-            <button class="button-s2" onclick="goBack()">Back</button>
-
             <div class="complaint-container ">
                 <div class="form" style="width: 100%">
                     <div class="content">
+                        <button class="button-s2" onclick="goBack()">Back</button>
                         <h1 class="dis-flex ju-co-ce pad-20 head">User Details</h1>
                         <div class="inputflex">
                             <div class="input-box">
@@ -255,12 +253,12 @@
                         <a href="<?= ROOT ?>/cca/verify/<?= $assists->userVreq_id ?>/verified">
                             <button class="btn-lay-2 hover-pointer btn-anima-hover">Verify</button>
                         </a>
-                            <button type="button" class="btn" style="background-color: var(--purple-4)" onclick="openPopup()">Declined</button>
+                            <button type="button" class="btn-lay-2 hover-pointer btn-anima-hover"  onclick="openPopup()">Declined</button>
                             <div class="popup" id="popup">
                                 <form method="post" action="<?= ROOT ?>/cca/verify/<?= $assists->userVreq_id ?>/declined">
 
                                     <div class="input-box">
-                                        <label>Comment</label>
+                                        <label>Reason for Declined</label>
                                         <textarea id="comment" name="comment"> </textarea>
                                     </div>
                                     <button type="submit" onclick="closePopup()">Ok</button>
@@ -274,13 +272,6 @@
     </main>
 </div>
 <script>
-    // let popup = document.getElementById('popup');
-    // function openPopup() {
-    //     popup.classList.add("open-popup");
-    // }
-    // function closePopup() {
-    //     popup.classList.remove("open-popup");
-    // }
     let popup = document.getElementById('popup');
     function openPopup() {
         popup.classList.add("open-popup");

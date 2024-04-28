@@ -39,7 +39,6 @@
                             </div>
                         </div>
                     </nav>
-
                     <div id="newsection" class="complaint-section flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="max-height: 60vh; overflow:auto; padding-right: 10px">
 
                         <?php

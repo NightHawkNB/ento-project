@@ -18,6 +18,12 @@
                     <p><?= $venue_id ?></p>
                 </div>
 
+
+                <div class="dis-flex-col txt-c-black gap-10 flex-1">
+                    <h4>Name</h4>
+                    <p><?= $name ?></p>
+                </div>
+
                 <div class="dis-flex-col txt-c-black gap-10">
                     <h4>Timestamp</h4>
                     <p><?=$created_at?></p>

@@ -11,7 +11,8 @@ class Uservreq extends Model {
         'cust_id',
         'timestamps',
         'resources',
-        'status'
+        'status',
+        'comment'
     ];
 }
 ?>

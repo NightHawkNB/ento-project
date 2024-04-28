@@ -14,9 +14,9 @@
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.js"></script>
 
-            <div class="download-btn">
-                <button class="btn-lay-2" id="download1">Download</button>
-            </div>
+<!--            <div class="download-btn">-->
+<!--                <button class="btn-lay-2" id="download1">Download</button>-->
+<!--            </div>-->
             <div class="report-container">
                 <div class="report-header dis-flex ju-co-sb">
                     <div class="txt-ali-lef">
@@ -46,9 +46,10 @@
                 <div class="report-content dis-flex-col ju-co-se">
                     <table style="width: 100%">
                         <tr>
-                            <th>Complaint ID</th>
-<!--                            <th>Cca user id</th>-->
+                            <th>User</th>
+                            <th>Cca user id</th>
                             <th>status</th>
+                            <th>Date & Time</th>
 <!--                            <th>Email</th>-->
 <!--                            <th>Contact No</th>-->
 <!--                            <th>Joined Date</th>-->
@@ -57,14 +58,13 @@
                         foreach ($complaints as $comp) {
 
                             echo "<tr>";
-                            echo "<td>" . $comp->complaints . "</td>";
-//                            echo "<td>" . $comp->cca_user_id . "</td>";
+                            echo "<td>" . $comp->user_type . "</td>";
+                            echo "<td>" . $comp->cca_user_id . "</td>";
                             echo "<td>" . $comp->status . "</td>";
-//                            echo "<td>" . $data->contact_num . "</td>";
-//                            echo "<td>" . $data->joined_year_month . "</td>";
+                            echo "<td>" . $comp->date_time . "</td>";
                             echo "</tr>";
                         }
-                        ?>
+//                        ?>
 
 
                     </table>
@@ -73,16 +73,17 @@
 
                     </div>
 
-                    <div class="account-count">
-                        <div>
-                            <p class="content-title">Total Number of User Accounts : </p>
-                        </div>
-                        <div class="count-value">
-                            <p> <?php
-                                show($count);
-                                echo $count; ?></p>
-                        </div>
-                    </div>
+<!--                    <div class="account-count">-->
+<!--                        <div>-->
+<!--                            <p class="content-title">Total Number of User Accounts : </p>-->
+<!--                        </div>-->
+<!--                        <div class="count-value">-->
+<!--                            <p> --><?php
+////                                show($count);
+////                                echo $count;
+//                                ?><!--</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
                     <!--                    <hr>-->
 
@@ -111,10 +112,10 @@
     };
 
 
-    document.getElementById("download1").addEventListener("click", () => {
-        const invoice = document.querySelector(".report-container");
-        html2pdf().from(invoice).save();
-    })
+    // document.getElementById("download1").addEventListener("click", () => {
+    //     const invoice = document.querySelector(".report-container");
+    //     html2pdf().from(invoice).save();
+    // })
 </script>
 </body>
 </html>

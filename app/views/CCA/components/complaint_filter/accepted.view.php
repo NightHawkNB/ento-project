@@ -1,6 +1,6 @@
 <style>
     .cc{
-        border-left: 5px solid #110f29;
+        border-left: 5px solid #7d38ff;
     }
 </style>
 <a href="<?= ROOT ?>/cca/complaints/complaintdetails/<?= $comp_id ?>">
@@ -14,7 +14,7 @@
 
                 <div class="dis-flex-col txt-c-black gap-10">
                     <h4>User Type</h4>
-                    <p><?= $comp_id ?></p>
+                    <p><?= $user_type ?></p>
                 </div>
 
                 <div class="dis-flex-col txt-c-black gap-10 flex-1">
