@@ -1,4 +1,5 @@
 <?php
+
 class Eventm extends controller
 {
     public function __construct()
@@ -450,70 +451,77 @@ class Eventm extends controller
     }
 
     //reports for event details
-    public function reports($id=NULL)
+    public function reports($id = NULL)
     {
-        $event = new event();
+        $event = new Event();
         if (empty($id)) {
-            $data['event'] = $event->query("
+            $data['events'] = $event->query("
             SELECT *
             FROM event 
-            WHERE user_id = :user_id",
+            WHERE creator_id = :user_id",
                 ['user_id' => Auth::getUser_id()]);
 
-            $this->view('eventm/reports', $data);
+            $this->view('eventm/events_details', $data);
+        } elseif (!empty($id)) {
+            $data['event'] = $event->query("
+            SELECT *
+            FROM event
+            WHERE event_id = :event_id
+        ", ['event_id' => $id])[0];
+
+            $data['venue'] = $event->query("
+           SELECT
+           V.name AS venue_name,
+           V.image AS venue_image,
+           E.custom_venue
+           FROM event E
+           JOIN venue V ON E.venue_id = V.venue_id
+           WHERE E.event_id = :event_id
+       ", ['event_id' => $id]);
+            $data['venue'] = (!empty($data['venue'])) ? $data['venue'][0] : NULL;
+
+            $data['band'] = $event->query("
+           SELECT
+           CONCAT(U.fname,' ',U.lname) AS band_name,
+           U.image AS band_image,
+           E.custom_band
+           FROM event E
+           JOIN band B ON E.band_id = B.band_id
+           JOIN serviceprovider SP ON B.sp_id = SP.sp_id
+           JOIN user U ON SP.user_id = U.user_id
+           WHERE E.event_id = :event_id
+       ", ['event_id' => $id]);
+            $data['band'] = (!empty($data['band'])) ? $data['band'][0] : NULL;
+
+            $data['singers'] = $event->query("
+           SELECT
+           CONCAT(U.fname, ' ', U.lname) AS singer_name,
+           U.image AS singer_image
+           FROM event E
+           JOIN event_singer ES ON E.event_id = ES.event_id
+           JOIN singer S ON ES.singer_id = S.singer_id
+           JOIN serviceprovider SP ON S.sp_id = SP.sp_id
+           JOIN user U ON SP.user_id = U.user_id
+           WHERE E.event_id = :event_id
+       ", ['event_id' => $id]);
+
+
+            $data['payment'] = $event->query("
+        SELECT *
+        FROM event E
+        JOIN payment_log P ON E.event_id = P.event_id
+        WHERE E.event_id = :id", ['id' => $id]);
+
+            $this->view('eventm/reports',$data);
         }
-//        }elseif (!empty($id)){
-//            $data['event'] = $event->query("
-//            SELECT *
-//            FROM event
-//            WHERE event_id = :event_id
-//        ", ['event_id' => $id])[0];
-//
-//            $data['venue'] = $event->query("
-//           SELECT
-//           V.name AS venue_name,
-//           V.image AS venue_image,
-//           E.custom_venue
-//           FROM event E
-//           JOIN venue V ON E.venue_id = V.venue_id
-//           WHERE event_id = :event_id
-//       ", ['event_id' => $id]);
-//            $data['venue'] = (!empty($data['venue'])) ? $data['venue'][0] : NULL;
-//
-//            $data['band'] = $event->query("
-//           SELECT
-//           CONCAT(U.fname,' ',U.lname) AS band_name,
-//           U.image AS band_image,
-//           E.custom_band
-//           FROM event E
-//           JOIN band B ON E.band_id = B.band_id
-//           JOIN serviceprovider SP ON B.sp_id = SP.sp_id
-//           JOIN user U ON SP.user_id = U.user_id
-//           WHERE event_id = :event_id
-//       ", ['event_id' => $id]);
-//            $data['band'] = (!empty($data['band'])) ? $data['band'][0] : NULL;
-//
-//            $data['singers'] = $event->query("
-//           SELECT
-//           CONCAT(U.fname, ' ', U.lname) AS singer_name,
-//           U.image AS singer_image
-//           FROM event E
-//           JOIN event_singer ES ON E.event_id = ES.event_id
-//           JOIN singer S ON ES.singer_id = S.singer_id
-//           JOIN serviceprovider SP ON S.sp_id = SP.sp_id
-//           JOIN user U ON SP.user_id = U.user_id
-//           WHERE E.event_id = :event_id
-//       ", ['event_id' => $id]);
-//        }
 
 
     }
 }
 
 
-
 // Function to send a reservation request when creating an event
-function createReservation($sp_id, $ad_id) : void
+function createReservation($sp_id, $ad_id): void
 {
 
     $resreq = new Resrequest();
@@ -525,8 +533,8 @@ function createReservation($sp_id, $ad_id) : void
         'ad_id' => $ad_id,
         'type' => 'Event',
         'details' => $_POST['details'],
-        'location' => $_POST['province'].", ".$_POST['district'],
-        'location_id' => (array_key_exists('venue_id', $_POST) AND is_numeric($_POST['venue_id'])) ? $_POST['venue_id'] : NULL,
+        'location' => $_POST['province'] . ", " . $_POST['district'],
+        'location_id' => (array_key_exists('venue_id', $_POST) and is_numeric($_POST['venue_id'])) ? $_POST['venue_id'] : NULL,
         'start_time' => $_POST['start_time'],
         'end_time' => $_POST['end_time']
     ];

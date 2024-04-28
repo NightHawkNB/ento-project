@@ -52,130 +52,94 @@
                 <hr>
 
                 <span class="report-title ">
-                    DETAILED REPORT - USER TYPES
+                    <?=$event->name?> - Event Report
+                </span>
+
+                <div ><h3><?=$event->name?> event details</h3></div>
+                <div class="dis-flex-col gap-10 pad-5">
+<!--                    singers-->
+                    <div class="dis-flex gap-10">
+                        <h4>Singers:</h4>
+                            <div >
+                                <?php
+                                if (!empty($singers)){
+                                foreach ($singers as $singer){
+                                    echo '<p>'.$singer->singer_name.'</p>';}
+                                } else{
+                                    echo "No singers allocated for this event.";
+                                }
+                                ?>
+                        </div >
+                    </div>
+<!--                    band-->
+                    <div class="dis-flex gap-10">
+                        <h4>Music Band:</h4>
+                        <div>
+                            <?php
+                            if (!empty($band)){
+                                echo $band->name;
+                            }elseif (!empty($event->custom_band)){
+                                echo $event->custom_band;
+                            }else{
+                                echo "No music bands allocated for this event.";
+                            }
+                            ?>
+                        </div>
+                    </div>
+<!--                    venue-->
+                    <div class="dis-flex gap-10">
+                        <h4>Venue:</h4>
+                        <div>
+                            <?php
+                            if (!empty($venue)){
+                                echo $venue->name;
+                            }elseif (!empty($event->custom_venue)){
+                                echo $event->custom_venue;
+                            }
+                            ?>
+                        </div>
+                    </div>
+<!--                    Date/Time-->
+                    <div>
+                        <h4>Date and Time:</h4>
+                        <div>
+                            <?php
+                            $start_dateTime = new DateTime("$event->start_time");
+                            $end_dateTime = new DateTime("$event->end_time");
+                            echo $start_dateTime->format("Y-m-d")." ";
+                            echo $start_dateTime->format("H:i")."-".$end_dateTime->format("H:i");
+                            ?>
+                        </div>
+                    </div>
+                </div>
+
+                <span class="report-title ">
+                     Ticket Details.
                 </span>
 
                 <div class="report-content dis-flex-col ju-co-se">
+
+
                     <table style="width: 100%">
                         <tr>
-                            <th>User Type</th>
-                            <th>No of Accounts</th>
-                            <th>Percentage</th>
+                            <th>Total Tickets</th>
+                            <th>Available Tickets</th>
+                            <th>Total Income</th>
                         </tr>
 
-                        <tr>
-                            <td>
-                                Administrator
-                            </td>
-
-                            <td>
-                                <?= $accounts[0]->count ?>
-                            </td>
-
-                            <td>
-                                <?= sprintf('%05.2f%%',($accounts[0]->count/$user_count) * 100) ?>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                Customer Care Agents
-                            </td>
-
-                            <td>
-                                <?= $accounts[2]->count ?>
-                            </td>
-
-                            <td>
-                                <?= sprintf('%05.2f%%',($accounts[2]->count/$user_count) * 100) ?>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                Event Manager
-                            </td>
-
-                            <td>
-                                <?= $accounts[4]->count ?>
-                            </td>
-
-                            <td>
-                                <?= sprintf('%05.2f%%',($accounts[4]->count/$user_count) * 100) ?>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                Singer
-                            </td>
-
-                            <td>
-                                <?= $accounts[5]->count ?>
-                            </td>
-
-                            <td>
-                                <?= sprintf('%05.2f%%',($accounts[5]->count/$user_count) * 100) ?>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                Band
-                            </td>
-
-                            <td>
-                                <?= $accounts[1]->count ?>
-                            </td>
-
-                            <td>
-                                <?= sprintf('%05.2f%%',($accounts[1]->count/$user_count) * 100) ?>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                Venue Manager
-                            </td>
-
-                            <td>
-                                <?= $accounts[6]->count ?>
-                            </td>
-
-                            <td>
-                                <?= sprintf('%05.2f%%',($accounts[6]->count/$user_count) * 100) ?>
-                            </td>
-                        </tr>
-
-
-                        <tr>
-                            <td>
-                                Venue Operator
-                            </td>
-
-                            <td>
-                                <?= $accounts[7]->count ?>
-                            </td>
-
-                            <td>
-                                <?= sprintf('%05.2f%%',($accounts[7]->count/$user_count) * 100) ?>
-                            </td>
-                        </tr>
-
-
-                        <tr>
-                            <td>
-                                Client
-                            </td>
-
-                            <td>
-                                <?= $accounts[3]->count ?>
-                            </td>
-
-                            <td>
-                                <?= sprintf('%05.2f%%',($accounts[3]->count/$user_count) * 100) ?>
-                            </td>
-                        </tr>
+<!--                        <tr>-->
+<!--                            <td>-->
+<!--                                Administrator-->
+<!--                            </td>-->
+<!---->
+<!--                            <td>-->
+<!--                                --><?php //= $accounts[0]->count ?>
+<!--                            </td>-->
+<!---->
+<!--                            <td>-->
+<!--                                --><?php //= sprintf('%05.2f%%',($accounts[0]->count/$user_count) * 100) ?>
+<!--                            </td>-->
+<!--                        </tr>-->
 
 
                     </table>
@@ -184,14 +148,6 @@
 
                     </div>
 
-                    <div class="account-count">
-                        <div>
-                            <p class="content-title">Total Number of User Accounts : </p>
-                        </div>
-                        <div class="count-value">
-                            <p> <?= $user_count ?></p>
-                        </div>
-                    </div>
 
                     <!--                    <hr>-->
 
@@ -206,6 +162,11 @@
                 </div>
 
             </div>
+
+
+            <?=show($data)?>
+
+
         </section>
     </main>
 </div>
