@@ -2,7 +2,7 @@
 .switch {
     position: relative;
     display: inline-block;
-    width: 40px;
+    width: 34px;
     height: 20px;
   }
   
@@ -39,7 +39,7 @@
   }
   
   input:checked + .slider {
-    background-color: #2196F3;
+    background-color: var(--purple-tirtiary);
   }
   
   input:focus + .slider {

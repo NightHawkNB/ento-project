@@ -10,7 +10,7 @@
         </section>
         <section class="wid-100 pad-10 dis-flex-col al-it-ce">
 
-            <h1 class="mar-10-0 txt-c-white txt-w-bold" style="font-size: 1.5rem">Current Reservations</h1>
+            <h1 class="mar-10-0 txt-c-black txt-w-bold" style="font-size: 1.5rem">Current Reservations</h1>
 
             <div class="pad-20 glass-bg wid-100 bor-rad-10 hei-100 dis-flex-col gap-10" style="overflow: auto">
                 <?php

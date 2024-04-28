@@ -50,7 +50,7 @@
 
                             <div class="panel">
                                 <div class="cover-image">
-                                    <img id="image-ad" class="bor-rad-5" src="<?= ROOT.'/assets/images/ads/general.png' ?>" alt="general image">
+                                    <img id="image-ad" class="bor-rad-5" src="<?= ROOT.'/assets/images/event/general.png' ?>" alt="general image">
                                     <label for="image" class="pos-abs bor-rad-5 pad-10 bg-grey hover-pointer">
                                         <svg class="feather txt-c-white feather-upload" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
                                         <input onchange="load_image(this.files[0])" type="file" id="image" name="image" class="hide">
@@ -93,12 +93,15 @@
                                 </div>
                                 <div class="item">
                                     <label for="start_time">Starting Date & Time</label>
-                                    <input type="datetime-local" id="start_time" name="start_time">
+
+                                    <?php $currentDatetime = new DateTime(); ?>
+
+                                    <input type="datetime-local" id="start_time" name="start_time" min="<?= $formattedDatetime = $currentDatetime->format('Y-m-d\TH:i') ?>">
                                     <div class="error"></div>
                                 </div>
                                 <div class="item">
                                     <label for="end_time">Ending Date & Time</label>
-                                    <input type="datetime-local" id="end_time" name="end_time">
+                                    <input type="datetime-local" id="end_time" name="end_time" >
                                     <div class="error"></div>
                                 </div>
                             </div>
@@ -186,7 +189,7 @@
 
                             <div class="slide-inner">
                                 <!-- Basic Ticket Template -->
-                                <label for="ticket_01" class="venue_label" onclick="checkbox_select(5)">
+                                <label for="ticket_01" class="ticket" onclick="checkbox_select(5)">
                                     <input type="checkbox" name="ticket_01" class="ticket_checkbox" id="ticket_01" value="ticket_01" style="display: none">
                                     <div class="venue-item">
                                         <img src="<?= ROOT ?>/assets/images/event/event1.png" alt="singer-image" style="width: 150px; aspect-ratio: 1/1; border-radius: 5px">
@@ -206,7 +209,7 @@
                                 </label>
 
                                 <!-- Premium Ticket Template -->
-                                <label for="ticket_02" class="venue_label" onclick="checkbox_select(5)">
+                                <label for="ticket_02" class="ticket" onclick="checkbox_select(5)">
                                     <input type="checkbox" name="ticket_02" class="ticket_checkbox" id="ticket_02" value="ticket_02" style="display: none">
                                     <div class="venue-item">
 
