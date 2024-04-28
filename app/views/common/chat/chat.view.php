@@ -94,6 +94,7 @@
 
             if(link.includes("resreq")) path = 'resreq'
             else if(link.includes("reserve")) path = 'reserve'
+            else if(link.includes("complaint")) path = 'complaint'
 
             try {
                 fetch(`/ento-project/public/chat/${path}/${sender_id}/${receiver_id}/${reservation_id}`, {

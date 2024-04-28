@@ -1,12 +1,14 @@
-view_complaints.view   app/view/cca
-
-
-
 <html lang="en">
 <?php $this->view('includes/head', ['style' => ['cca/complaints.css']]) ?>
 <body>
 <div class="main-wrapper">
     <?php $this->view('includes/header') ?>
+
+    <style>
+        h4 {
+            font-weight: bolder;
+        }
+    </style>
 
     <main class="dashboard-main">
         <?php if (Auth::logged_in()): ?>

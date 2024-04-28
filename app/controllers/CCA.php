@@ -177,7 +177,7 @@ class CCA extends Controller
             }else{
                     try {
                         $ur = new Uservreq();
-                        $ur->update($uservid, ['status' => 'declined']);
+                        $ur->update($uservid, ['status' => 'declined', 'comment' => $_POST['comment']]);
                         message('User Declined', false, 'success');
                     } catch (Exception $e) {
                         message('User Failed to Declined', false, 'failure');
@@ -229,6 +229,20 @@ class CCA extends Controller
 
             }
         }
+    }
+
+    public function report()
+    {
+        $comp = new Complaint(); //get the complaint count
+        $data["complaints"] = $comp->query("SELECT status, COUNT(*) AS complaints FROM complaints GROUP BY status");
+        $uservreq = new Uservreq();
+        $data["uservreqs"] = $uservreq->query("SELECT status, COUNT(*) AS uservreqs FROM uservreq GROUP BY status");
+        $venuevreq = new Venuevreq();
+        $data["venuevreqs"] = $venuevreq->query("SELECT status, COUNT(*) AS venuevreqs FROM venuevreq GROUP BY status");
+        $count = new Complaint();//get new complaint count
+        $data["count"] = $count->query("SELECT COUNT(*) as 'count' FROM complaints WHERE status = 'Idle'")[0]->count;
+
+        $this->view("cca/report",$data);
     }
 }
 

@@ -97,41 +97,56 @@
 <!--</body>-->
 <!--</html>-->
 
-
 <style>
+    .btn{
+        padding: 10px 20px;
+        background: #fff;
+        border: 0;
+        outline: none;
+        cursor: pointer;
+        border-radius: 30px;
+        font-size: 22px;
+        font-weight: 500;
+    }
 
-    .popup {
+    .popup{
         width: 400px;
         background: #fff;
         border-radius: 6px;
         position: absolute;
         top: 0;
         left: 50%;
-        transform: translate(-50%, -50%) scale(0.1);
+        transform: translate(-50%, -50%) scale(0.1) ;
         text-align: center;
-        padding: 0 30px 30px;
+        padding: 0 30px 30px ;
         color: #333;
-        visibility: hidden;
-        transition: transform 0.4s, top 0.4s;
+        /*visibility: hidden;*/
+        /*transition: transform 0.4s, top 0.4s;*/
+        display: none; /* Change visibility to display */
+        transition: transform 0.4s, top 0.4s, display 0s 0.4s;
     }
 
-    .open-popup {
-        visibility: visible;
+    .open-popup{
+        /*visibility: visible;*/
+        /*top: 50%;*/
+        /*transform: translate(-50%, -50%) scale(1);*/
+        display: block; /* Change visibility to display */
         top: 50%;
         transform: translate(-50%, -50%) scale(1);
+        transition: transform 0.4s, top 0.4s, display 0s; /* Reset delay for the display property */
     }
 
 
-    .popup h2 {
+        .popup h2{
         margin: 30px 0 10px;
         font-size: 38px;
         font-weight: 500;
     }
 
-    .popup button {
+    .popup button{
         width: 100%;
         padding: 10px 0;
-        background: #5b00ee;
+        background: #6fd649;
         border: 0;
         outline: none;
         cursor: pointer;
@@ -139,10 +154,55 @@
         font-size: 18px;
         color: #fff;
         margin-top: 50px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
-
 </style>
+<!--<style>-->
+<!---->
+<!--    .popup {-->
+<!--        width: 400px;-->
+<!--        background: #fff;-->
+<!--        border-radius: 6px;-->
+<!--        position: absolute;-->
+<!--        top: 0;-->
+<!--        left: 50%;-->
+<!--        transform: translate(-50%, -50%) scale(0.1);-->
+<!--        text-align: center;-->
+<!--        padding: 0 30px 30px;-->
+<!--        color: #333;-->
+<!--        visibility: hidden;-->
+<!--        transition: transform 0.4s, top 0.4s;-->
+<!--    }-->
+<!---->
+<!--    .open-popup {-->
+<!--        visibility: visible;-->
+<!--        top: 50%;-->
+<!--        transform: translate(-50%, -50%) scale(1);-->
+<!--    }-->
+<!---->
+<!---->
+<!--    .popup h2 {-->
+<!--        margin: 30px 0 10px;-->
+<!--        font-size: 38px;-->
+<!--        font-weight: 500;-->
+<!--    }-->
+<!---->
+<!--    .popup button {-->
+<!--        width: 100%;-->
+<!--        padding: 10px 0;-->
+<!--        background: #5b00ee;-->
+<!--        border: 0;-->
+<!--        outline: none;-->
+<!--        cursor: pointer;-->
+<!--        border-radius: 4px;-->
+<!--        font-size: 18px;-->
+<!--        color: #fff;-->
+<!--        margin-top: 50px;-->
+<!--        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);-->
+<!--    }-->
+<!---->
+<!--</style>-->
+<!--user verify details-->
 <html lang="en">
 <?php $this->view('includes/head', ['style' => ['cca/complaintdetails.css']]) ?>
 <body>
@@ -153,6 +213,9 @@
             <?php $this->view('includes/sidebar') ?>
         </section>
         <section class="cols-10 pad-20 dis-flex wid-100 hei-100 ju-co-ce al-it-ce">
+
+            <button class="button-s2" onclick="goBack()">Back</button>
+
             <div class="complaint-container ">
                 <div class="form" style="width: 100%">
                     <div class="content">
@@ -192,14 +255,40 @@
                         <a href="<?= ROOT ?>/cca/verify/<?= $assists->userVreq_id ?>/verified">
                             <button class="btn-lay-2 hover-pointer btn-anima-hover">Verify</button>
                         </a>
-                        <a href="<?= ROOT ?>/cca/verify/<?= $assists->userVreq_id ?>/declined">
-                            <button class="btn-lay-2 hover-pointer btn-anima-hover">Declined</button>
-                        </a>
+                            <button type="button" class="btn" style="background-color: var(--purple-4)" onclick="openPopup()">Declined</button>
+                            <div class="popup" id="popup">
+                                <form method="post" action="<?= ROOT ?>/cca/verify/<?= $assists->userVreq_id ?>/declined">
+
+                                    <div class="input-box">
+                                        <label>Comment</label>
+                                        <textarea id="comment" name="comment"> </textarea>
+                                    </div>
+                                    <button type="submit" onclick="closePopup()">Ok</button>
+                                </form>
+                            </div>
+
                     </div>
                 <?php endif; ?>
             </div>
         </section>
     </main>
 </div>
+<script>
+    // let popup = document.getElementById('popup');
+    // function openPopup() {
+    //     popup.classList.add("open-popup");
+    // }
+    // function closePopup() {
+    //     popup.classList.remove("open-popup");
+    // }
+    let popup = document.getElementById('popup');
+    function openPopup() {
+        popup.classList.add("open-popup");
+    }
+    function closePopup() {
+        popup.classList.remove("open-popup");
+    }
+</script>
 </body>
 </html>
+
