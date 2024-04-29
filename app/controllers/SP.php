@@ -23,13 +23,6 @@ class SP extends Controller {
 
         $db = new Database();
 
-        // Query to get the total views of the ads owned by this user
-        // They will be automatically ordered based on the id which is an auto incremented field
-
-        $ad_views = new Ad_view();
-        $data['views'] = $ad_views->where(['user_id' => Auth::getUser_id()]) ?: 0;
-        if($data['views']) $data['views'] = json_encode($data['views']);
-
         // Inserting the custom events to the database
         if($_SERVER['REQUEST_METHOD'] == "POST") {
 
