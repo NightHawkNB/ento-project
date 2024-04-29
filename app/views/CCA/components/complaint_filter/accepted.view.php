@@ -1,6 +1,14 @@
 <style>
     .cc{
         border-left: 5px solid #7d38ff;
+        border: 0.5px solid black;
+    }
+    .cc:hover{
+        /*background-image: linear-gradient(to right, #7d38ff, #be9bf8);*/
+        background-color: #e6dff1;
+        /*border-left: 5px solid #110f29;*/
+        border-left: 5px solid #110f29;
+        box-shadow: 1px 2px 3px #110f29;
     }
 </style>
 <a href="<?= ROOT ?>/cca/complaints/complaintdetails/<?= $comp_id ?>">
@@ -19,18 +27,25 @@
 
                 <div class="dis-flex-col txt-c-black gap-10 flex-1">
                     <h4>Details</h4>
-                    <p><?= ($details) ? $details : "No details" ?></p>
+                    <?php
+                    if (strlen($details) > 10) {
+                        $shortDetails = substr($details, 0, 10) . '...';
+                    } else {
+                        $shortDetails = $details;
+                    }
+                    ?>
+                    <p><?= ($details) ? $shortDetails : "No details" ?></p>
                 </div>
 
-                <div class="dis-flex-col txt-c-black gap-10 flex-1">
+                <div class="dis-flex-col txt-c-black gap-10">
                     <h4>Timestamp</h4>
-                    <p><?= $date_time ?></p>
+                    <p><?=$date_time?></p>
                 </div>
-
-                <div class="dis-flex-col txt-c-black gap-10 flex-1">
-                    <p class="txt-w-bold">Status</p>
-                    <p><?= $status ?></p>
-                </div>
+<!---->
+<!--                <div class="dis-flex-col txt-c-black gap-10 flex-1">-->
+<!--                    <p class="txt-w-bold">Status</p>-->
+<!--                    <p>--><?php //= $status ?><!--</p>-->
+<!--                </div>-->
             </div>
             <div class="dis-flex gap-10 ju-co-ce al-it-ce pad-10 bor-rad-5 txt-c-black">
                 <a href="<?= ROOT ?>/cca/complaints/complaintdetails/<?= $comp_id ?>">
@@ -39,7 +54,7 @@
             </div>
             <div class="dis-flex gap-10 ju-co-ce al-it-ce pad-10 bor-rad-5 txt-c-black">
                 <a href="<?= ROOT ?>/chat/complaint/<?= $cca_user_id ?>/<?= $user_id ?>/<?= $comp_id ?>">
-                    <button class="btn-lay-2 hover-pointer btn-anima-hover">Chat</button>
+                    <button class="btn-lay-2 hover-pointer btn-anima-hover ">Chat</button>
                 </a>
             </div>
             <!--                        <div class="dis-flex gap-10 ju-co-ce al-it-ce pad-20 bor-rad-5 txt-c-black">-->

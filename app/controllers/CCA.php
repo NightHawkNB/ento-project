@@ -72,7 +72,7 @@ class CCA extends Controller
                 //get assist request
                 try {
                     $comp = new Complaint();
-                    $comp->update($id, ['status' => 'Assist']);
+                    $comp->update($id, ['status' => 'Assist','comment' => $_POST['comment']]);
                     message('Complaint assist', false, 'success');
                 } catch (Exception $e) {
                     message('Complaint Failed to assists', false, 'failure');
@@ -127,10 +127,11 @@ class CCA extends Controller
 
 
             $complaints = new Complaint();
-            $data['acc'] = $complaints->query("SELECT * FROM complaints JOIN user ON user.user_id = complaints.user_id where status = 'Accepted'");
-            $data['idl'] = $complaints->where(['status' => 'Idle']);
-            $data['assi'] = $complaints->where(['status' => 'Assist']);
-            $data['hand'] = $complaints->where(['status' => 'Handled']);
+            $data['acc'] = $complaints->query("SELECT * FROM complaints JOIN user ON user.user_id = complaints.user_id where status = 'Accepted' AND cca_user_id=:cca_user_id",['cca_user_id'=>Auth::getUser_id()]);
+            $data['idl'] = $complaints->query("SELECT * FROM complaints JOIN user ON user.user_id = complaints.user_id where status = 'Idle'");
+//            $data['idl'] = $complaints->where(['status' => 'Idle']);
+            $data['assi'] = $complaints->query("SELECT * FROM complaints JOIN user ON user.user_id = complaints.user_id where status = 'Assist'");
+            $data['hand'] = $complaints->query("SELECT * FROM complaints JOIN user ON user.user_id = complaints.user_id where status = 'Handled'");
             $this->view("CCA/view_complaints", $data);
 
 

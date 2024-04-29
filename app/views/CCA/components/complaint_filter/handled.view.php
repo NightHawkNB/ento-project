@@ -1,6 +1,13 @@
 <style>
     .cc{
+        border: 0.5px solid black;
         border-left: 5px solid #7d38ff;
+    }
+    .cc:hover{
+        /*background-image: linear-gradient(to right, #7d38ff, #be9bf8);*/
+        background-color: #e6dff1;
+        border-left: 5px solid #ffffff;
+        box-shadow: 1px 2px 3px #110f29;
     }
 </style>
 <a href="<?= ROOT ?>/cca/complaints/complaintdetails/<?= $comp_id ?>">
@@ -16,10 +23,21 @@
 <!--                    <h4>Comment</h4>-->
 <!--                    <p>--><?php //= ($comment) ? $comment : "No comments yet" ?><!--</p>-->
 <!--                </div>-->
+                <div class="dis-flex-col txt-c-black gap-10">
+                    <h4>User Type</h4>
+                    <p><?= $user_type ?></p>
+                </div>
 
                 <div class="dis-flex-col txt-c-black gap-10 flex-1">
-                    <h4>details</h4>
-                    <p><?= ($details) ? $details : "No details" ?></p>
+                    <h4>Details</h4>
+                    <?php
+                    if (strlen($details) > 10) {
+                        $shortDetails = substr($details, 0, 10) . '...';
+                    } else {
+                        $shortDetails = $details;
+                    }
+                    ?>
+                    <p><?= ($details) ? $shortDetails : "No details" ?></p>
                 </div>
 
                 <div class="dis-flex-col txt-c-black gap-10">
@@ -27,10 +45,10 @@
                     <p><?=$date_time?></p>
                 </div>
 
-                <div class="dis-flex-col txt-c-black gap-10">
-                    <p class="txt-w-bold">Status</p>
-                    <p><?= $status ?></p>
-                </div>
+<!--                <div class="dis-flex-col txt-c-black gap-10">-->
+<!--                    <p class="txt-w-bold">Status</p>-->
+<!--                    <p>--><?php //= $status ?><!--</p>-->
+<!--                </div>-->
 
             </div>
             

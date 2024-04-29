@@ -1,0 +1,58 @@
+.btn{
+    padding: 10px 20px;
+    background: #fff;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+    border-radius: 30px;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.popup{
+    width: 400px;
+    background: #e3e3e3;
+    border-radius: 6px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1) ;
+    text-align: center;
+    padding: 0 30px 30px ;
+    color: #333;
+    /*visibility: hidden;*/
+    /*transition: transform 0.4s, top 0.4s;*/
+    display: none; /* Change visibility to display */
+    transition: transform 0.4s, top 0.4s, display 0s 0.4s;
+}
+
+.open-popup{
+    /*visibility: visible;*/
+    /*top: 50%;*/
+    /*transform: translate(-50%, -50%) scale(1);*/
+    display: block; /* Change visibility to display */
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    transition: transform 0.4s, top 0.4s, display 0s; /* Reset delay for the display property */
+}
+
+
+.popup h2{
+    margin: 30px 0 10px;
+    font-size: 38px;
+    font-weight: 500;
+}
+
+.popup button{
+    width: 100%;
+    padding: 10px 0;
+    background: #c8aaff;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 18px;
+    color: #fff;
+    margin-top: 50px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}

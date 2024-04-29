@@ -41,7 +41,7 @@
                     <?php if ($assists->status == 'New'): ?>
 
                         <div class="dis-flex gap-10 ju-co-ce al-it-ce pad-20 bor-rad-5 txt-c-black">
-                            <a href="<?= ROOT ?>/cca/venue/<?= $assists->venue_id  ?>/verified">
+                            <a href="<?= ROOT ?>/cca/venue/<?= $assists->venuevreq_id  ?>/verified">
                                 <button class="btn-lay-2 hover-pointer btn-anima-hover">Verify</button>
                             </a>
 <!--                            <a href="--><?php //= ROOT ?><!--/cca/venue/--><?php //= $assists->venue_id  ?><!--/declined">-->
@@ -49,7 +49,7 @@
 <!--                            </a>-->
                             <button type="button" class="btn-lay-2 hover-pointer btn-anima-hover"  onclick="openPopup()">Decline</button>
                             <div class="popup" id="popup">
-                                <form method="post" action="<?= ROOT ?>/cca/venue/<?=$assists->venue_id ?>/declined">
+                                <form method="post"  action="<?= ROOT ?>/cca/venue/<?=$assists->venuevreq_id ?>/declined">
                                     <div class="input-box">
                                         <label>Reason for Declined</label>
                                         <textarea id="comment" name="comment"> </textarea>

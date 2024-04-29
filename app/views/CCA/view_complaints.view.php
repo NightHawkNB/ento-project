@@ -56,7 +56,7 @@
                             color: #707070;
                         }
                     </style>
-                    <div id="acceptedsection" class="complaint-section flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10"
+                    <div id="acceptedsection" class="complaint-section flex-1 pad-5 dis-flex-col gap-10 mar-bot-10 mar-top-10"
                          style="max-height: 60vh; overflow:auto; padding-right: 10px">
 
                         <?php
@@ -72,7 +72,7 @@
                         ?>
 
                     </div>
-                    <div id="idleSection" class="complaint-section flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10"
+                    <div id="idleSection" class="complaint-section flex-1 pad-5 dis-flex-col gap-10 mar-bot-10 mar-top-10"
                          style="max-height: 60vh; overflow:auto; padding-right: 10px">
 
                         <?php
@@ -86,7 +86,7 @@
                         ?>
 
                     </div>
-                    <div id="assistSection" class="complaint-section flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10"
+                    <div id="assistSection" class="complaint-section flex-1 pad-5 dis-flex-col gap-10 mar-bot-10 mar-top-10"
                          style="max-height: 60vh; overflow:auto; padding-right: 10px">
 
                         <?php
@@ -104,7 +104,7 @@
 
                     </div>
 
-                    <div id="handledsection" class="complaint-section flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10"
+                    <div id="handledsection" class="complaint-section flex-1 pad-5 dis-flex-col gap-10 mar-bot-10 mar-top-10"
                          style="max-height: 60vh; overflow:auto; padding-right: 10px">
 
                         <?php

@@ -53,6 +53,8 @@
         </section>
         <section class="cols-10 pad-20 dis-flex wid-100 hei-100 ju-co-ce al-it-ce">
             <div class="complaint-container">
+
+                <button class="btn-lay-2 hover-pointer btn-anima-hover"  onclick="goBack()">Back</button>
                 <div class="form" style="width: 100%">
                     <div class="content">
                         <h1 class="dis-flex ju-co-ce pad-20 head">Complaint Details</h1>
@@ -74,32 +76,59 @@
                             <label>Timestamp</label>
                             <div class="input-like"><?= $comp->date_time ?> </div>
                         </div>
+                        <?php if ($comp->status == 'Handled') :?>
+                            <div class="input-box">
+                                <label>Comment</label>
+                                <div class="input-like"><?= $comp->comment?> </div>
+                            </div>
+
+                        <?php endif; ?>
                     </div>
+
                     <!--                    accepted buttons-->
                     <?php if ($status->status == 'Accepted') :?>
                         <div class="dis-flex gap-10 ju-co-ce al-it-ce pad-20 bor-rad-5 txt-c-black">
-                                <a href="' . ROOT . '/cca/complaints/accepted/assists/' . $comp->comp_id . '">
-                                    <button class="btn-lay-2 hover-pointer btn-anima-hover">Assists</button>
-                                </a>
-                                <button class="btn-lay-2 hover-pointer btn-anima-hover" onclick="openPopup()">Handle</button>
+<!--                                <a href="' . ROOT . '/cca/complaints/accepted/assists/' . $comp->comp_id . '">-->
+<!--                                    <button class="btn-lay-2 hover-pointer btn-anima-hover">Assists</button>-->
+<!--                                </a>-->
+<!--                                <button class="btn-lay-2 hover-pointer btn-anima-hover" onclick="openPopup()">Handle</button>-->
+<!--                            <div class="popup" id="popup">-->
+<!--                                <form method="post" action="' . ROOT . '/cca/complaints/accepted/handle/' . $comp->comp_id . '">-->
+<!--                                    <div class="input-box">-->
+<!--                                        <label>Handle Details</label>-->
+<!--                                        <textarea id="comment" name="comment"> </textarea>-->
+<!--                                    </div>-->
+<!--                                    <button type="submit" onclick="closePopup()">Ok</button>-->
+<!--                                </form>-->
+<!--                            </div>-->
+                            <button type="button" class="btn-lay-2 hover-pointer btn-anima-hover"  onclick="openPopup()">Assists</button>
                             <div class="popup" id="popup">
-                                <form method="post" action="' . ROOT . '/cca/complaints/accepted/handle/' . $comp->comp_id . '">
+                                <form method="post"  action="<?= ROOT ?>/cca/complaints/accepted/assists/<?=$comp->comp_id ?>">
                                     <div class="input-box">
-                                        <label>Handle Details</label>
+                                        <label>Reason for Assists </label>
+                                        <textarea id="comment" name="comment"> </textarea>
+                                    </div>
+                                    <button type="submit" onclick="closePopup()">Ok</button>
+                                </form>
+                            </div>
+                            <button type="button" class="btn-lay-2 hover-pointer btn-anima-hover"  onclick="openPopup()">Handle</button>
+                            <div class="popup" id="popup">
+                                <form method="post"  action="<?= ROOT ?>/cca/complaints/accepted/handle/<?=$comp->comp_id ?>">
+                                    <div class="input-box">
+                                        <label>Handled Details</label>
                                         <textarea id="comment" name="comment"> </textarea>
                                     </div>
                                     <button type="submit" onclick="closePopup()">Ok</button>
                                 </form>
                             </div>
                         </div>
-
                     <?php endif; ?>
                     <!--                    idle buttons-->
                     <?php
                     if ($status->status == 'Idle') {
                         echo '
                         <div class="dis-flex gap-10 ju-co-ce al-it-ce pad-20 bor-rad-5 txt-c-black">
-                        <a href="<?= ROOT ?>/cca/complaints/idle/accept/<?= $comp->$comp_id ?>">
+                        <a href="<?= ROOT ?>/cca/complaints/accepted/handle/<?=$comp->comp_id ?>">
                             <button class="btn-lay-2 hover-pointer btn-anima-hover">Accept</button>
                         </a>
                     </div>';
