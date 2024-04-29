@@ -54,6 +54,9 @@ class Eventm extends controller
 
         } else if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
+//            show($_POST);
+//            die;
+
             $custom_band = true;
 
             $_POST['event_id'] = "EVENT_" . rand(1000, 100000) . "_" . time();
@@ -161,24 +164,40 @@ class Eventm extends controller
             // Ticket creation part
             $all_tickets = new All_tickets();
 
-            for ($count = 0; $count < $_POST['basic_ticket_count']; $count++) {
-                $ticket_id = "T_".rand(1000, 100000) . "_" . time();
-                $all_tickets->insert([
-                    'ticket_id' => $ticket_id,
-                    'event_id' => $_POST['event_id'],
-                    'type' => 'basic',
-                    'price' => $_POST['basic_ticket_price']
-                ]);
+            if($_POST['basic_ticket_count'] > 0) {
+                for ($count = 0; $count < $_POST['basic_ticket_count']; $count++) {
+                    $ticket_id = "T_".rand(1000, 100000) . "_" . time();
+                    $all_tickets->insert([
+                        'ticket_id' => $ticket_id,
+                        'event_id' => $_POST['event_id'],
+                        'type' => $_POST['basic_ticket_name'],
+                        'price' => $_POST['basic_ticket_price']
+                    ]);
+                }
             }
 
-            for ($count = 0; $count < $_POST['premium_ticket_count']; $count++) {
-                $ticket_id = "T_".rand(1000, 100000) . "_" . time();
-                $all_tickets->insert([
-                    'ticket_id' => $ticket_id,
-                    'event_id' => $_POST['event_id'],
-                    'type' => 'premium',
-                    'price' => $_POST['premium_ticket_price']
-                ]);
+            if($_POST['intermediate_ticket_count'] > 0) {
+                for ($count = 0; $count < $_POST['intermediate_ticket_count']; $count++) {
+                    $ticket_id = "T_".rand(1000, 100000) . "_" . time();
+                    $all_tickets->insert([
+                        'ticket_id' => $ticket_id,
+                        'event_id' => $_POST['event_id'],
+                        'type' => $_POST['intermediate_ticket_name'],
+                        'price' => $_POST['intermediate_ticket_price']
+                    ]);
+                }
+            }
+
+            if($_POST['premium_ticket_count'] > 0) {
+                for ($count = 0; $count < $_POST['premium_ticket_count']; $count++) {
+                    $ticket_id = "T_".rand(1000, 100000) . "_" . time();
+                    $all_tickets->insert([
+                        'ticket_id' => $ticket_id,
+                        'event_id' => $_POST['event_id'],
+                        'type' => $_POST['premium_ticket_name'],
+                        'price' => $_POST['premium_ticket_price']
+                    ]);
+                }
             }
 
 
@@ -186,6 +205,10 @@ class Eventm extends controller
                 $event_singers->insert(['event_id' => $_POST['event_id'], 'singer_id' => $singer->singer_id]);
                 createReservation($singer->sp_id, $singer->ad_id);
             }
+
+            // Inserting bank details to the table
+            $bank = new Event_bank();
+            $bank->insert($_POST);
 
             message("Event Created Successfully", false, 'success');
             redirect('eventm');

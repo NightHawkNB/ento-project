@@ -111,40 +111,50 @@ class Home extends Controller
 
                 $ticket_secret = "AkilaHansiThisaraNipun";
 
-                $ticket_data = $ticket->query("
-                    SELECT * 
-                    FROM all_tickets
-                    WHERE status = 'New' 
-                      AND event_id = :event_id 
-                      AND type = :type
-                    LIMIT 1
-                ", ['event_id' => $_POST['event_id'], 'type' => $_POST['tickets']])[0] ?? NULL;
+                $count = (int)$_POST['count'];
 
 
 
-                $generated_hash = strtoupper(
-                    md5(
-                        $ticket_data->ticket_id .
-                        $ticket_data->event_id .
-                        Auth::getUser_id() .
-                        $ticket_data->type .
-                        $ticket_data->price .
-                        strtoupper(md5($ticket_secret))
-                    )
-                );
+
+//                show($ticket_data);
+//                die;
+
+
+                for ($i = 0;$i < $count; $i++) {
+                    $ticket_data = $ticket->query("
+                        SELECT * 
+                        FROM all_tickets
+                        WHERE status = 'New' 
+                          AND event_id = :event_id 
+                          AND type = :type
+                        LIMIT 1
+                    ", ['event_id' => $_POST['event_id'], 'type' => $_POST['tickets']])[0] ?? NULL;
+
+                    $generated_hash = strtoupper(
+                        md5(
+                            $ticket_data->ticket_id .
+                            $ticket_data->event_id .
+                            Auth::getUser_id() .
+                            $ticket_data->type .
+                            $ticket_data->price .
+                            strtoupper(md5($ticket_secret))
+                        )
+                    );
+
+                    $all_tickets->update($ticket_data->ticket_id, ['status' => 'Bought']);
+
+                    $ticket->insert([
+                        'ticket_id' => $ticket_data->ticket_id,
+                        'user_id' => Auth::getUser_id(),
+                        'hash' => $generated_hash,
+                    ]);
+                }
 
 //                show($ticket_data);
 //                show($generated_hash);
 //                show($_POST);
 //die;
 
-                $all_tickets->update($ticket_data->ticket_id, ['status' => 'Bought']);
-
-                $ticket->insert([
-                    'ticket_id' => $ticket_data->ticket_id,
-                    'user_id' => Auth::getUser_id(),
-                    'hash' => $generated_hash,
-                ]);
 
                 if (empty($order)) {
                     message("Order Creation Failed - Payment was not performed");
@@ -171,6 +181,8 @@ class Home extends Controller
                 $this->view("common/events/buy-tickets-confirm", $data);
             } else {
                 $data = NULL;
+
+                $data['selected'] = strtolower($type);
 
                 // Getting the event details
                 $data['event'] = $db->query("
