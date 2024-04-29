@@ -19,8 +19,11 @@
                 <div class="res-container glass-bg">
                     <div class="reservation txt-w-bold" style="background-color: #c7b2f1; border-radius: 10px 10px 0 0">
                         <div>Event Name</div>
-                        <div>Data/Time</div>
+                        <div>Data</div>
+                        <div>Start Time</div>
+                        <div>End Time</div>
                         <div>Action</div>
+
                     </div>
 
                     <?php
