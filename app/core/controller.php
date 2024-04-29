@@ -810,8 +810,7 @@ function get_ads_where($user_id, $pending = 0, $deleted = 0, $verified = 1): arr
     $temp_arr_3 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'venue', 'user_id' => $user_id];
     // LEFT join is set since we haven't added any data to the ad_band table
     $data['ad_venue'] = $db->query("
-        SELECT *,
-               COALESCE((SELECT AVG(rating) FROM review WHERE target_id = user.user_id), 0) AS rating
+        SELECT *
         FROM ads 
             JOIN ad_venue ON ads.ad_id = ad_venue.ad_id
             JOIN venue ON venue.venue_id = ad_venue.venue_id
