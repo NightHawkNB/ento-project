@@ -9,6 +9,39 @@
                 <?php $this->view('includes/sidebar') ?>
             </section>
 
+            <style>
+
+                legend{
+                    color: black;
+                }
+                label{
+                    color: black;
+                }
+
+                p{
+                    color: black;
+                }
+                h2{
+                    color: black;
+                }
+
+                input,
+                input:checked,
+                select,
+                textarea {
+                    color: black;
+                }
+
+                input:not(:checked) ~ label:hover,
+                input:not(:checked) ~ label:hover ~ label{
+                    color: var(--font-primary);
+                }
+                input:checked ~ label{
+                    color: var(--font-primary);
+                }
+
+            </style>
+
             <section class="cols-10 dis-flex">
                 <div class=" mar-10 wid-100 dis-flex-col pad-20 gap-10 bor-rad-5" style="justify-content:stretch; align-items:stretch">
                     
@@ -94,10 +127,11 @@
                             </div>
                         </fieldset>
 
-                        <button type="submit" class="btn-lay-2 hover-pointer btn-anima-hover">Add user</button>
-                    </form>   
-                    
-                
+                        <button type="submit" class="button-s2 hover-pointer btn-anima-hover">Add user</button>
+                </form>
+                <div class="pad-10">
+
+                </div>
                 </div >
             </section>
         </main>

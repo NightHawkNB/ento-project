@@ -14,10 +14,10 @@
         </div>
         <div class="dis-flex gap-10" style="margin-left:auto">
             <a href="<?= ROOT ?>/admin/usermng/update-user/<?= $user_id ?>">
-                <button class="btn-lay-2 push-right hover-pointer "  style="background-color:black; text-align:center; border: none" >Update</button>    
+                <button class="btn-lay-2 push-right hover-pointer "  style="background-color:#7b51d3; text-align:center; border: none" >Update</button>
             </a>
             <a href="<?= ROOT ?>/admin/usermng/delete-user/<?= $user_id ?>">
-                <button class="btn-lay-2 push-right hover-pointer "  style="background-color:black; text-align:center; border: none" >Delete</button>    
+                <button class="btn-lay-2 push-right hover-pointer "  style="background-color:#7b51d3; text-align:center; border: none" >Delete</button>
             </a>
         </div>
     </div>
