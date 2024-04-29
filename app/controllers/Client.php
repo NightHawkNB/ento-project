@@ -1,4 +1,5 @@
 <?php
+
 class Client extends Controller
 {
 
@@ -19,7 +20,7 @@ class Client extends Controller
     {
         $event = new event();
         $data['events'] = $event->query('SELECT * FROM event');
-        $this->view('client/dashboard',$data);
+        $this->view('client/dashboard', $data);
     }
 
     public function event($page = null): void
@@ -228,23 +229,75 @@ class Client extends Controller
 //
 //        $this->view('client/bought_tickets', $data);
 //    }
-    public function bought_tickets($method = null, $id = null, $action = null): void
+    public function bought_tickets($id = null): void
     {
         $db = new Database();
 
-        $data['bought_tickets'] = $db->query('SELECT 
-        event.name AS ename, AT.ticket_id, event.details,event.start_time,event.end_time,event.image, tickets.hash, venue.name AS vname
-        FROM event
-        INNER JOIN  all_tickets AT
-        ON event.event_id = AT.event_id
-        JOIN tickets ON tickets.ticket_id = AT.ticket_id
-        INNER JOIN venue
-        ON venue.venue_id = event.venue_id
-        WHERE tickets.user_id = :user_id ', ['user_id' => Auth::getUser_id()]);
+//        $data['bought_tickets'] = $db->query('SELECT
+//        event.name AS ename, AT.ticket_id, event.details,event.start_time,event.end_time,event.image, tickets.hash, venue.name AS vname
+//        FROM event
+//        INNER JOIN  all_tickets AT
+//        ON event.event_id = AT.event_id
+//        JOIN tickets ON tickets.ticket_id = AT.ticket_id
+//        INNER JOIN venue
+//        ON venue.venue_id = event.venue_id
+//        WHERE tickets.user_id = :user_id ', ['user_id' => Auth::getUser_id()]);
 
-        $data['currentTab'] = 'current';
+        if (empty($id)) {
+            $data['bought_tickets'] = $db->query("
+        SELECT *
+        FROM event E
+        JOIN all_tickets AT ON E.event_id = AT.event_id
+        JOIN tickets T ON AT.ticket_id = T.ticket_id
+        WHERE user_id = :user_id", ['user_id' => Auth::getUser_id()]);
 
-        $this->view('client/bought_tickets', $data);
+            $this->view('client/all_tickets', $data);
+        } else if (!empty($id)) {
+
+//            $data['bought_tickets'] = $db->query("
+//        SELECT *
+//        FROM event E
+//        JOIN all_tickets AT ON E.event_id = AT.event_id
+//        JOIN tickets T ON AT.ticket_id = T.ticket_id
+//        WHERE user_id = :user_id", ['user_id' => Auth::getUser_id()]);
+//
+//            $data['venue'] = $db->query("
+//           SELECT
+//           V.name AS venue_name
+//           FROM event E
+//           JOIN venue V ON E.venue_id = V.venue_id
+//           WHERE event_id = :event_id
+//       ", ['event_id' => $id]);
+//
+//            $data['venue'] = (!empty($data['venue'])) ? $data['venue'][0] : NULL;
+
+            $data['bought_tickets'] = $db->query("SELECT *,
+    E.name AS ename,
+    AT.ticket_id,
+    E.details,
+    E.start_time,
+    E.end_time,
+    E.image,
+    T.hash,
+    V.name AS vname
+FROM
+    event E
+INNER JOIN
+    all_tickets AT ON E.event_id = AT.event_id
+JOIN
+    tickets T ON T.ticket_id = AT.ticket_id
+LEFT JOIN
+    venue V ON V.venue_id = E.venue_id
+WHERE E.event_id = :event_id
+    
+",['event_id'=>$id]);
+
+
+            $data['currentTab'] = 'current';
+
+            $this->view('client/bought_tickets', $data);
+
+        }
     }
 
 }
