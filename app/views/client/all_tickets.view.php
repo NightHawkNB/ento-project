@@ -20,8 +20,6 @@
                     <div class="reservation txt-w-bold" style="background-color: #c7b2f1; border-radius: 10px 10px 0 0">
                         <div>Event Name</div>
                         <div>Data/Time</div>
-                        <div>Price</div>
-                        <div>Type</div>
                         <div>Action</div>
                     </div>
 
