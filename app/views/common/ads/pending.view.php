@@ -12,8 +12,8 @@
 
             <?php
 
-                show($data);
-                show($_SESSION['USER_DATA']->user_id);
+//                show($data);
+//                show($_SESSION['USER_DATA']->user_id);
 
                 // Merging the category separated ads(arrays) to a single array
                 $ads = [];

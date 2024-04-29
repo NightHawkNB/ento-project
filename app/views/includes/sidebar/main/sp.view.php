@@ -176,7 +176,7 @@
     <li class="nav-item special <?= set_activated($_SESSION['USER_DATA']->user_type.'/stat') ?>">
         <a class="nav-link" href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/stat">
             <svg class="feather feather-bar-chart-2" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
-            <span class="link-name">Statistics</span>
+            <span class="link-name">Reports</span>
         </a>
     </li>
 

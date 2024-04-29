@@ -108,6 +108,7 @@ class Eventm extends controller
                 }
             }
 
+            $singers = [];
 
             // Adding the band and the singer list
             foreach ($_POST as $key => $value) {
@@ -124,7 +125,7 @@ class Eventm extends controller
                     ', ['ad_id' => $value])[0];
 
                     // Creating the reservation for the band
-                    createReservation($band->sp_id, $band->ad_id);
+//                    createReservation($band->sp_id, $band->ad_id);
 
                     // Inserting the data to the POST variable
                     $_POST['band_id'] = $band->band_id;
@@ -180,6 +181,7 @@ class Eventm extends controller
                     'price' => $_POST['premium_ticket_price']
                 ]);
             }
+
 
 
             foreach ($singers as $singer) {
