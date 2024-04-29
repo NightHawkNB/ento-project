@@ -60,7 +60,7 @@
                         <?php
                         if(!empty($verified)) {
                             foreach($verified as $verify){
-                                $this->view('CCA/components/verify_filter/verified', (array)$verify);
+                                $this->view('CCA/components/verification', (array)$verify);
                             }
                         } else {
                             echo "No Verified Users";
@@ -76,7 +76,7 @@
                         <?php
                         if(!empty($declined)) {
                             foreach($declined as $decline){
-                                $this->view('CCA/components/verify_filter/declined', (array)$decline);
+                                $this->view('CCA/components/verification', (array)$decline);
                             }
                         } else {
                             echo "No Declined Users";
