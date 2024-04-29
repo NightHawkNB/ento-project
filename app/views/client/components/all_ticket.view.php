@@ -1,4 +1,4 @@
-<div class="reservation">
+<div class="reservation mar-10">
     <div>
         <p><?=$name?></p>
     </div>
