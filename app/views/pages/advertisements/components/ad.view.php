@@ -131,6 +131,12 @@
         <?php endif; ?>
 
         <button class="button-s2" data-modal-target="#<?= $ad_id ?>" onclick="update_viewCount('<?= $ad_id ?>')">More Info</button>
+
+        <?php if($pending != 1 && Auth::logged_in() && (!Auth::is_client()) && !str_contains($_SERVER['QUERY_STRING'], "home/ads") && !str_contains($_SERVER['QUERY_STRING'], "/ads/all-ads") ): ?>
+            <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/ads/promote-ad/<?= $ad_id ?>">
+                <button class="button-s2">Promote</button>
+            </a>
+        <?php endif; ?>
     </div>
 
     <?php if(Auth::logged_in() && (!Auth::is_client()) && !str_contains($_SERVER['QUERY_STRING'], "home/ads") && !str_contains($_SERVER['QUERY_STRING'], "/ads/all-ads") ): ?>
