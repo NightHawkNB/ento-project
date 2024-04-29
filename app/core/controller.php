@@ -408,8 +408,8 @@ class Controller
         } else if ($method == "pending") {
             $data = get_ads_where($user_data->user_id, 1, 0, 0);
 
-            show($data);
-            die;
+//            show($data);
+//            die;
 
             $this->view("common/ads/pending", $data);
         } else if ($method == 'create-ad') {
@@ -807,7 +807,7 @@ function get_ads_where($user_id, $pending = 0, $deleted = 0, $verified = 1): arr
 
 
     // Getting Venue Ads
-    $temp_arr_3 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'venue', 'user_id' => $user_id];
+    $temp_arr_3 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'venue'];
     // LEFT join is set since we haven't added any data to the ad_band table
     $data['ad_venue'] = $db->query("
         SELECT *
@@ -817,7 +817,6 @@ function get_ads_where($user_id, $pending = 0, $deleted = 0, $verified = 1): arr
         WHERE ads.deleted = :deleted 
           and ads.pending = :pending 
           and ads.category = :category 
-          and ads.user_id = :user_id 
           and venue.verified = 1
     ", $temp_arr_3);
 
