@@ -91,7 +91,7 @@
                     labels: labels,
                     datasets: [{
                         label: ['new'],
-                        data: [<?= $venuevreqs[0]->venuevreqs?>,<?= $venuevreqs[1]->venuevreqs?>],
+                        data: [<?= $uservreqs[0]->uservreqs?>,<?= $uservreqs[1]->uservreqs?>],
                         backgroundColor: 'rgba(255, 99, 132, 0.2)',
                         borderColor: 'rgba(255, 99, 132, 1)',
                         borderWidth: 1

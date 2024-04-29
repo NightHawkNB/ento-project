@@ -13,10 +13,10 @@
                     <p><?= $venuevreq_id ?></p>
                 </div>
 
-                <div class="dis-flex-col txt-c-black gap-10 flex-1">
-                    <h4>Venue Id</h4>
-                    <p><?= $venue_id ?></p>
-                </div>
+<!--                <div class="dis-flex-col txt-c-black gap-10 flex-1">-->
+<!--                    <h4>Venue Id</h4>-->
+<!--                    <p>--><?php //= $venue_id ?><!--</p>-->
+<!--                </div>-->
 
 
                 <div class="dis-flex-col txt-c-black gap-10 flex-1">
@@ -31,7 +31,7 @@
             </div>
             <div class="dis-flex gap-10 ju-co-ce al-it-ce pad-10 bor-rad-5 txt-c-black">
                 <a href="<?= ROOT ?>/cca/venue/<?= $venuevreq_id ?>">
-                    <button class="btn-lay-2 hover-pointer btn-anima-hover">View</button>
+                    <button class="button-s2">View</button>
                 </a>
             </div>
         </div>

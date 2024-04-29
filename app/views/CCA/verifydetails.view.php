@@ -216,7 +216,7 @@
             <div class="complaint-container ">
                 <div class="form" style="width: 100%">
                     <div class="content">
-                        <button class="button-s2" onclick="goBack()">Back</button>
+
                         <h1 class="dis-flex ju-co-ce pad-20 head">User Details</h1>
                         <div class="inputflex">
                             <div class="input-box">
@@ -251,9 +251,9 @@
                 <?php if ($assists->status == 'New') : ?>
                     <div class="dis-flex gap-10 ju-co-ce al-it-ce pad-20 bor-rad-5 txt-c-black">
                         <a href="<?= ROOT ?>/cca/verify/<?= $assists->userVreq_id ?>/verified">
-                            <button class="btn-lay-2 hover-pointer btn-anima-hover">Verify</button>
+                            <button class="button-s2 ">Verify</button>
                         </a>
-                            <button type="button" class="btn-lay-2 hover-pointer btn-anima-hover"  onclick="openPopup()">Declined</button>
+                            <button type="button" class="button-s2"  onclick="openPopup()">Declined</button>
                             <div class="popup" id="popup">
                                 <form method="post" action="<?= ROOT ?>/cca/verify/<?= $assists->userVreq_id ?>/declined">
 
@@ -261,10 +261,14 @@
                                         <label>Reason for Declined</label>
                                         <textarea id="comment" name="comment"> </textarea>
                                     </div>
-                                    <button type="submit" onclick="closePopup()">Ok</button>
+                                    <button type="submit" class="button-s2" onclick="closePopup()">Ok</button>
                                 </form>
                             </div>
-
+                        <button class="button-s2" onclick="goBack()">Back</button>
+                    </div>
+                <?php else : ?>
+                    <div class="dis-flex gap-10 ju-co-ce al-it-ce pad-20 bor-rad-5 txt-c-black">
+                    <button class="button-s2" onclick="goBack()">Back</button>
                     </div>
                 <?php endif; ?>
             </div>

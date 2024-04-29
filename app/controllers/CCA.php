@@ -116,12 +116,13 @@ class CCA extends Controller
             $data['status'] = $status->first(['comp_id' => $action]);
             $db = new Database();
             $data['comp'] = $db->query("
-             SELECT *
-             FROM complaints
-             JOIN user
-                ON user.user_id = complaints.user_id
+            SELECT *
+            FROM complaints
+            JOIN user
+            ON user.user_id = complaints.user_id
             WHERE complaints.comp_id = :comp_id
             ", ['comp_id' => $action])[0];
+            show($action);
             $this->view('cca/complaintdetails', $data);
         } else {
 

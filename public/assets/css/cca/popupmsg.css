@@ -1,13 +1,13 @@
-.btn{
-    padding: 10px 20px;
-    background: #fff;
-    border: 0;
-    outline: none;
-    cursor: pointer;
-    border-radius: 30px;
-    font-size: 22px;
-    font-weight: 500;
-}
+/*.btn{*/
+/*    padding: 10px 20px;*/
+/*    background: #fff;*/
+/*    border: 0;*/
+/*    outline: none;*/
+/*    cursor: pointer;*/
+/*    border-radius: 30px;*/
+/*    font-size: 22px;*/
+/*    font-weight: 500;*/
+/*}*/
 
 .popup{
     width: 400px;
@@ -46,13 +46,13 @@
 .popup button{
     width: 100%;
     padding: 10px 0;
-    background: #c8aaff;
+    /*background: #c8aaff;*/
     border: 0;
     outline: none;
     cursor: pointer;
     border-radius: 4px;
     font-size: 18px;
-    color: #fff;
+    /*color: #fff;*/
     margin-top: 50px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
