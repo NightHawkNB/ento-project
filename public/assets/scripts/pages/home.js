@@ -1,7 +1,7 @@
 const typedTextSpan =document.querySelector('.typed-text')
 const cursor =document.querySelector('.cursor')
 
-let words = ["Singers.", "Bands.", "locations."]
+let words = ["Singers", "Bands", "Venues"]
 
 const typingDelay = 200;
 const eraseDelay = 200;

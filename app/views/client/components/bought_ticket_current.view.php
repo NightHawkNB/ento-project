@@ -1,11 +1,11 @@
 <?php
 $sdateTime = new DateTime($start_time);
 $sdate = $sdateTime->format('Y-m-d');
-$stime = $sdateTime->format('H:i:s');
+$stime = $sdateTime->format('H:i');
 
 $edateTime = new DateTime($end_time);
 $edate = $edateTime->format('Y-m-d');
-$etime = $edateTime->format('H:i:s');
+$etime = $edateTime->format('H:i');
 ?>
 
 
@@ -40,7 +40,10 @@ $etime = $edateTime->format('H:i:s');
                 echo $custom_venue;
             }
                 ?>
-
+        </div>
+        <div class="ticket-details dis-flex gap-10 txt-w-bold">
+            <p>Type:<?=$type?></p>
+            <p>Price:<?=$price?></p>
         </div>
     </div>
     <div class="footer" onclick="generateQR('<?= $ticket_id ?>','container_<?= $ticket_id ?>','<?=$hash?>', '<?= $event_id ?>')">

@@ -1,22 +1,20 @@
+
+
+
+
 <html lang="en">
-<?php $this->view('includes/head', ['style' => ['cca/complaints.css']]) ?>
+<?php $this->view('includes/head' ,['style'=>['cca/complaints.css']]) ?>
 <body>
 <div class="main-wrapper">
     <?php $this->view('includes/header') ?>
 
-    <style>
-        h4 {
-            font-weight: bolder;
-        }
-    </style>
-
     <main class="dashboard-main">
-        <?php if (Auth::logged_in()): ?>
+        <?php if(Auth::logged_in()): ?>
             <section class="cols-2 sidebar">
                 <?php $this->view('includes/sidebar') ?>
             </section>
         <?php endif; ?>
-        <section class="cols-10 pad-20 mar-bot-10" 　 style="width: 100%">
+        <section class="cols-10 pad-20 mar-bot-10"　 style="width: 100%">
             <div class="bg-trans dis-flex-col gap-20 bg-lightgray flex-1 pad-20">
                 <div class="dis-flex-col bg-trans gap-10 pad-20 txt-ali-cen">
                     <nav class="amazing-tabs">
@@ -52,16 +50,16 @@
                         </div>
                     </nav>
                     <style>
-                        .head {
+                        .head{
                             color: #707070;
                         }
                     </style>
-                    <div id="acceptedsection" class="complaint-section flex-1 pad-5 dis-flex-col gap-10 mar-bot-10 mar-top-10"
-                         style="max-height: 60vh; overflow:auto; padding-right: 10px">
+                    <h3 class ='head'>click to view details</h3>
+                    <div id="acceptedsection" class="complaint-section flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="max-height: 60vh; overflow:auto; padding-right: 10px">
 
                         <?php
-                        if (!empty($acc)) {
-                            foreach ($acc as $complaint) {
+                        if(!empty($acc)) {
+                            foreach($acc as $complaint){
                                 $this->view('CCA/components/complaint_filter/accepted', (array)$complaint);
                             }
                         } else {
@@ -72,44 +70,41 @@
                         ?>
 
                     </div>
-                    <div id="idleSection" class="complaint-section flex-1 pad-5 dis-flex-col gap-10 mar-bot-10 mar-top-10"
-                         style="max-height: 60vh; overflow:auto; padding-right: 10px">
+                    <div id="idleSection" class="complaint-section flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="max-height: 60vh; overflow:auto; padding-right: 10px">
 
                         <?php
-                        if (!empty($idl)) {
+                        if(!empty($idl)){
                             foreach ($idl as $complaint) {
                                 $this->view('CCA/components/complaint_filter/idle', (array)$complaint);
                             }
-                        } else {
+                        }else{
                             echo "no complaints";
                         }
                         ?>
 
                     </div>
-                    <div id="assistSection" class="complaint-section flex-1 pad-5 dis-flex-col gap-10 mar-bot-10 mar-top-10"
-                         style="max-height: 60vh; overflow:auto; padding-right: 10px">
+                    <div id="assistSection" class="complaint-section flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="max-height: 60vh; overflow:auto; padding-right: 10px">
 
                         <?php
-                        if (!empty($assi)) {
+                        if(!empty($assi)){
 
                             foreach ($assi as $complaint) {
 
                                 $this->view('CCA/components/complaint_filter/assists', (array)$complaint);
 
                             }
-                        } else {
+                        }else{
                             echo "no complaints";
                         }
                         ?>
 
                     </div>
 
-                    <div id="handledsection" class="complaint-section flex-1 pad-5 dis-flex-col gap-10 mar-bot-10 mar-top-10"
-                         style="max-height: 60vh; overflow:auto; padding-right: 10px">
+                    <div id="handledsection" class="complaint-section flex-1 dis-flex-col gap-10 mar-bot-10 mar-top-10" style="max-height: 60vh; overflow:auto; padding-right: 10px">
 
                         <?php
-                        if (!empty($hand)) {
-                            foreach ($hand as $complaint) {
+                        if(!empty($hand)) {
+                            foreach($hand as $complaint){
                                 $this->view('CCA/components/complaint_filter/handled', (array)$complaint);
                             }
                         } else {
@@ -120,13 +115,12 @@
                         ?>
 
                     </div>
-
                 </div>
             </div>
         </section>
         <script>
 
-            document.addEventListener("DOMContentLoaded", function () {
+            document.addEventListener("DOMContentLoaded", function() {
                 const filterTabs = document.querySelector(".filter-tabs");
                 const filterButtons = document.querySelectorAll(".filter-button");
                 const adSections = {
@@ -183,4 +177,3 @@
 </div>
 </body>
 </html>
-

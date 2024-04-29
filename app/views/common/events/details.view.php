@@ -32,24 +32,24 @@ $dateTime = new DateTime($event->start_time);
                         <p><?= $dateTime->format("H:i") ?></p>
                     </div>
                 </div>
-<!--                <a href="--><?php //= ROOT . "/home/events/" . $event->event_id . "/pay" ?><!--">-->
-<!--                    <button class="button-s2 mar-10 txt-w-bold" style="width: 250px;">Buy Tickets</button>-->
-<!--                </a>-->
+                <a href="<?= ROOT . "/home/events/" . $event->event_id . "/pay" ?>">
+                    <button class="button-s2 mar-10 txt-w-bold" style="width: 250px;">Buy Tickets</button>
+                </a>
 <!--                --><?php //if ()?>
-                <div>
-                    <div class="dis-flex al-it-ce gap-10  pad-10 mar-0 ju-co-ce bg-indigo-alert txt-c-white flex-wrap"
-                         style="height: fit-content">
-                        <h5 class="flex-1 mar-0 f-space-1">Buy Tickets</h5>
-                        <div class="dis-flex gap-10 al-it-ce">
-                            <a href=<?= ROOT . "/home/events/" . $event->event_id . "/pay" ?>>
-                                <div class='bor-rad-10 bor-1-sol-white bg-trans pad-5-10 hover-pointer'>5000</div>
-                            </a>
-                            <a href=<?= ROOT . "/home/events/" . $event->event_id . "/pay" ?>>
-                                <div class='bor-rad-10 bor-1-sol-white bg-trans pad-5-10 hover-pointer'>3000</div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+<!--                <div>-->
+<!--                    <div class="dis-flex al-it-ce gap-10  pad-10 mar-0 ju-co-ce bg-indigo-alert txt-c-white flex-wrap"-->
+<!--                         style="height: fit-content">-->
+<!--                        <h5 class="flex-1 mar-0 f-space-1">Buy Tickets</h5>-->
+<!--                        <div class="dis-flex gap-10 al-it-ce">-->
+<!--                            <a href=--><?php //= ROOT . "/home/events/" . $event->event_id . "/pay" ?><!-->-->
+<!--                                <div class='bor-rad-10 bor-1-sol-white bg-trans pad-5-10 hover-pointer'>5000</div>-->
+<!--                            </a>-->
+<!--                            <a href=--><?php //= ROOT . "/home/events/" . $event->event_id . "/pay" ?><!-->-->
+<!--                                <div class='bor-rad-10 bor-1-sol-white bg-trans pad-5-10 hover-pointer'>3000</div>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
 
 
                 <div class="bg-white pad-20">
