@@ -38,6 +38,7 @@
   transition: 200ms ease-in-out;
   overflow-y: auto;
   overflow-x: hidden;
+  font-family: Poppins, sans-serif;
 }
 
 .modal.active {
@@ -76,6 +77,10 @@
   padding: 10px;
   font-size: 0.9rem;
   font-family: Poppins, sans-serif;
+
+  h4 {
+    color: var(--purple-primary);
+  }
 }
 
 #overlay {

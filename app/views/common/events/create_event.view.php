@@ -38,7 +38,7 @@
                                 <p>5</p>
                             </div>
                             <div class="circle">
-                                <span class="label">Confirmation</span>
+                                <span class="label">Banking Details</span>
                                 <p>6</p>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
 
                             <div class="panel">
                                 <div class="cover-image">
-                                    <img id="image-ad" class="bor-rad-5" src="<?= ROOT.'/assets/images/ads/general.png' ?>" alt="general image">
+                                    <img id="image-ad" class="bor-rad-5" src="<?= ROOT.'/assets/images/event/general.png' ?>" alt="general image">
                                     <label for="image" class="pos-abs bor-rad-5 pad-10 bg-grey hover-pointer">
                                         <svg class="feather txt-c-white feather-upload" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
                                         <input onchange="load_image(this.files[0])" type="file" id="image" name="image" class="hide">
@@ -93,12 +93,15 @@
                                 </div>
                                 <div class="item">
                                     <label for="start_time">Starting Date & Time</label>
-                                    <input type="datetime-local" id="start_time" name="start_time">
+
+                                    <?php $currentDatetime = new DateTime(); ?>
+
+                                    <input type="datetime-local" id="start_time" name="start_time" min="<?= $formattedDatetime = $currentDatetime->format('Y-m-d\TH:i') ?>">
                                     <div class="error"></div>
                                 </div>
                                 <div class="item">
                                     <label for="end_time">Ending Date & Time</label>
-                                    <input type="datetime-local" id="end_time" name="end_time">
+                                    <input type="datetime-local" id="end_time" name="end_time" >
                                     <div class="error"></div>
                                 </div>
                             </div>
@@ -125,7 +128,7 @@
                                     <input type="radio" name="venue_id" id="custom_venue" value="custom" style="display: none">
                                     <h3>Add Custom Venue</h3>
 
-                                    <input type="text" name="custom_venue_address" placeholder="Address">
+                                    <input class="custom-input" type="text" name="custom_venue_address" placeholder="Address">
 
                                 </div>
                             </label>
@@ -152,7 +155,7 @@
                                 <div class="venue-item" style="display: flex; justify-content: space-between; gap: 10px">
 
                                     <h3>Add Custom Band</h3>
-                                    <input type="text" name="custom_band" placeholder="Enter the band name">
+                                    <input class="custom-input" type="text" name="custom_band" placeholder="Enter the band name">
                                 </div>
                             </label>
                         </div>
@@ -175,7 +178,7 @@
                                 <input type="checkbox" name="singer_checkbox" id="singer_checkbox" value="custom_singer" style="display: none">
                                 <div class="venue-item" style="display: flex; justify-content: space-between; gap: 10px">
                                     <h3>Add Custom Singer</h3>
-                                    <input type="text" name="custom_singer" placeholder="Sadun kalhara, Rodriges">
+                                    <input class="custom-input" type="text" name="custom_singer" placeholder="Sadun kalhara, Rodriges">
                                 </div>
                             </label>
                         </div>
@@ -185,53 +188,157 @@
                             <div class="error"></div>
 
                             <div class="slide-inner">
-                                <!-- Basic Ticket Template -->
-                                <label for="ticket_01" class="venue_label" onclick="checkbox_select(5)">
+
+                                <!-- Ticket Template 01 -->
+                                <label for="ticket_01" class="ticket venue_label" onclick="checkbox_select(5)">
                                     <input type="checkbox" name="ticket_01" class="ticket_checkbox" id="ticket_01" value="ticket_01" style="display: none">
-                                    <div class="venue-item">
-                                        <img src="<?= ROOT ?>/assets/images/event/event1.png" alt="singer-image" style="width: 150px; aspect-ratio: 1/1; border-radius: 5px">
-                                        <h3>Basic Ticket</h3>
+                                    <div class="ticket">
+                                        <h3>Ticket - 01</h3>
+
+                                        <img src="<?= ROOT ?>/assets/images/events/ticket-icons/ticket.jpg" alt="ticket-image">
+
+                                        <div>
+                                            <p>Reference Name</p>
+                                            <input type="text" id="basic_ticket_name" name="basic_ticket_name" value="Basic" placeholder="Basic">
+                                        </div>
 
                                         <div>
                                             <p>Price</p>
-                                            <input type="number" id="basic_ticket_price" name="basic_ticket_price" placeholder="Basic ticket price in LKR">
+                                            <input type="number" min="0" id="basic_ticket_price" name="basic_ticket_price" placeholder="Price in LKR">
                                         </div>
 
                                         <div>
                                             <p>Count</p>
-                                            <input type="number" id="basic_ticket_count" name="basic_ticket_count" placeholder="Basic ticket count">
+                                            <input type="number" min="1" id="basic_ticket_count" name="basic_ticket_count" placeholder="Number of Tickets">
                                         </div>
 
                                     </div>
                                 </label>
 
-                                <!-- Premium Ticket Template -->
-                                <label for="ticket_02" class="venue_label" onclick="checkbox_select(5)">
+                                <!-- Ticket Template 02 -->
+                                <label for="ticket_02" class="ticket venue_label" onclick="checkbox_select(5)">
                                     <input type="checkbox" name="ticket_02" class="ticket_checkbox" id="ticket_02" value="ticket_02" style="display: none">
-                                    <div class="venue-item">
+                                    <div class="ticket">
 
-                                        <img src="<?= ROOT ?>/assets/images/event/event2.png" alt="singer-image" style="width: 150px; aspect-ratio: 1/1; border-radius: 5px">
+                                        <h3>Ticket - 02</h3>
 
-                                        <h3>Premium Ticket</h3>
+                                        <img src="<?= ROOT ?>/assets/images/events/ticket-icons/ticket.jpg" alt="ticket-image">
+
+                                        <div>
+                                            <p>Reference Name</p>
+                                            <input type="text" id="intermediate_ticket_name" name="intermediate_ticket_name" value="Intermediate" placeholder="Intermediate">
+                                        </div>
 
                                         <div>
                                             <p>Price</p>
-                                            <input type="number" id="premium_ticket_price" name="premium_ticket_price" placeholder="Premium ticket price in LKR">
+                                            <input type="number" min="0" id="intermediate_ticket_price" name="intermediate_ticket_price" placeholder="Price in LKR">
                                         </div>
 
                                         <div>
                                             <p>Count</p>
-                                            <input type="number" id="premium_ticket_count" name="premium_ticket_count" placeholder="Premium ticket count">
+                                            <input type="number" min="1" id="intermediate_ticket_count" name="intermediate_ticket_count" placeholder="Number of Tickets">
                                         </div>
 
                                     </div>
                                 </label>
+
+                                <!-- Ticket Template 03 -->
+                                <label for="ticket_03" class="ticket venue_label" onclick="checkbox_select(5)">
+                                    <input type="checkbox" name="ticket_03" class="ticket_checkbox" id="ticket_03" value="ticket_01" style="display: none">
+                                    <div class="ticket">
+
+                                        <h3>Ticket - 03</h3>
+
+                                        <img src="<?= ROOT ?>/assets/images/events/ticket-icons/ticket.jpg" alt="ticket-image">
+
+                                        <div>
+                                            <p>Reference Name</p>
+                                            <input type="text" id="premium_ticket_name" name="premium_ticket_name" value="Premium" placeholder="Premium">
+                                        </div>
+
+                                        <div>
+                                            <p>Price</p>
+                                            <input type="number" min="0" id="premium_ticket_price" name="premium_ticket_price" placeholder="Price in LKR">
+                                        </div>
+
+                                        <div>
+                                            <p>Count</p>
+                                            <input type="number" min="1" id="premium_ticket_count" name="premium_ticket_count" placeholder="Number of Tickets">
+                                        </div>
+
+                                    </div>
+                                </label>
+
                             </div>
 
                         </div>
 
                         <div class="slide" id="slide-6">
-                            Slide 06
+                            <div class="banking-form" style="overflow-y: auto; overflow-x: hidden;">
+
+                                <div class="item">
+                                    <label for="account_number">Account Number</label>
+                                    <input required minlength="8" type="text" id="account_number" name="account_number" placeholder="Enter the Account Number">
+                                </div>
+
+                                <div class="item">
+                                    <label for="account_name">Account Holder's Name</label>
+                                    <input required minlength="5" type="text" id="account_name" name="account_name" placeholder="Enter the Name of the Account Holder">
+                                </div>
+
+                                <div class="item">
+                                    <label for="bank">Bank</label>
+                                    <select name="bank" id="bank">
+                                        <option value="BOC">Bank of Ceylon</option>
+                                        <option value="Sampath">Sampath Bank</option>
+                                        <option value="HNB">Hatton National Bank</option>
+                                        <option value="Commercial">Commercial Bank</option>
+                                        <option value="Peoples">Peoples Bank</option>
+                                        <option value="NDB">National Development Bank</option>
+                                        <option value="Seylan">Seylan Bank</option>
+                                        <option value="DFCC">DFCC Bank</option>
+                                        <option value="PanAsia">Pan Asia Bank</option>
+                                        <option value="Union">Union Bank</option>
+                                        <option value="NTB">Nations Trust Bank</option>
+                                        <option value="SDB">Sanasa Development Bank</option>
+                                        <option value="LB">Lankaputhra Bank</option>
+                                        <option value="Cargills">Cargills Bank</option>
+                                        <option value="SDB">Sampath Development Bank</option>
+                                        <option value="HDFC">HDFC Bank</option>
+                                        <option value="ICICI">ICICI Bank</option>
+                                        <option value="HSBC">HSBC Bank</option>
+                                        <option value="Citi">Citi Bank</option>
+                                        <option value="Standard">Standard Chartered Bank</option>
+                                        <option value="Deutsche">Deutsche Bank</option>
+                                        <option value="UBS">UBS Bank</option>
+                                        <option value="Barclays">Barclays Bank</option>
+                                        <option value="Credit">Credit Suisse Bank</option>
+                                        <option value="UBS">UBS Bank</option>
+                                        <option value="Barclays">Barclays Bank</option>
+                                        <option value="Credit">Credit Suisse Bank</option>
+                                    </select>
+                                </div>
+
+                                <div class="item">
+                                    <label for="branch">Branch Name</label>
+                                    <input required type="text" id="branch" name="branch" placeholder="Enter the Branch Name">
+                                </div>
+
+                                <div class="notice">
+                                    <h2>Refund Policy and Processing Fee Notice:</h2>
+
+                                    <li>Please note that a processing fee of 6% will be applied to each ticket purchase. This fee covers transaction processing costs, with 3% allocated to banking fees and 3% to ENTO for website maintenance and processing.</li>
+
+                                    <li>Additionally, the refund policy for events listed on this website is determined by the event organizer or creator. ENTO is a platform for event promotion and ticket sales, and we are not directly involved in the organization or management of individual events.</li>
+
+                                    <li>Any requests for refunds, cancellations, or changes to ticket purchases should be directed to the event organizer or creator. They are solely responsible for handling refund requests and determining their refund policy.</li>
+
+                                    <li>ENTO is not responsible for any refunds or disputes related to ticket purchases. We recommend contacting the event organizer directly for assistance with any refund or ticketing issues.</li>
+
+                                    <li>Thank you for your understanding.</li>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
 
@@ -290,11 +397,24 @@
                         const newElement = document.createElement('div')
                         newElement.innerHTML = `
                         <label for="VEN_${item.venue_id}" class="venue_label removable" onclick="radio_check(this)">
-                            <div class="venue-item" data-location="${item.location}">
+                            <div class="venue-item venue-only" data-location="${item.location}" style="grid-template-columns: 70px 100px 80px auto !important;">
                                 <img src="${ROOT + item.image}" alt="venue-image" style="width: 50px; aspect-ratio: 1/1; border-radius: 50%">
-                                <p>${item.name}</p>
-                                <p>${item.seat_count}</p>
-                                <p>${item.location}</p>
+                                <div>
+                                    <span class="headings">Name</span>
+                                    <p>${item.name}</p>
+                                </div>
+
+                                <div>
+                                    <span class="headings">Seat Count</span>
+                                    <p>${item.seat_count}</p>
+                                </div>
+
+                                <div>
+                                    <span class="headings">Location</span>
+                                    <p>${item.location}</p>
+                                </div>
+
+
                             </div>
                             <input type="radio" name="venue_id" id="VEN_${item.venue_id}" value="${item.venue_id}" style="display: none">
                         </label>

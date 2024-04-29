@@ -37,6 +37,9 @@ let currentActive = 1
 
 errors = []
 
+// Hiding the previous button on the first slide
+if(prev.style.display !== 'none') prev.style.display = 'none'
+
 // Validation function
 function validate(page) {
     let errors = []
@@ -64,11 +67,15 @@ function validate(page) {
             currentSlide = slide2
             break
     }
-    
+
     const venue_labels = currentSlide.querySelectorAll('.venue_label')
+
+    if(prev.style.display !== 'flex') prev.style.display = 'flex'
 
     switch (page) {
         case 1 :
+
+            prev.style.display = 'none'
 
             let minimum_starting_time
             let maximum_ending_time
@@ -387,6 +394,8 @@ function radio_check(element, slide = 2) {
 }
 
 function checkbox_select(slide = 4) {
+
+    console.log("ran")
 
     const singer_labels = (slide === 4) ? slide4.querySelectorAll('.venue_label') : slide5.querySelectorAll('.venue_label')
     slide4.querySelector('.error').textContent = ""

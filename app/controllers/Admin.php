@@ -448,11 +448,14 @@ GROUP BY
         if(empty($method)) {
             $this->view('admin/reports');
 
+
+
         } else if($method=='useraccount_report') {
 
             if($_SERVER['REQUEST_METHOD']='POST'){
                 $from_date = $_POST['from_date'];
                 $to_date = $_POST['to_date'];
+
 
                 $data['user']=$db-> query("
                     SELECT * FROM user 
@@ -460,6 +463,7 @@ GROUP BY
                       BETWEEN :from_date AND :to_date
                       ORDER BY joined_year_month DESC
                   ", ['from_date' => $from_date, 'to_date' => $to_date]);
+
 
                 $data['user_count'] = $db->query("
                     SELECT 
@@ -471,24 +475,170 @@ GROUP BY
                 ", ['from_date' => $from_date, 'to_date' => $to_date]);
 
 
-
-
                 $data['from'] = $from_date;
                 $data['to'] = $to_date;
 
                 $this->view('admin/useraccount_report',$data);
             }
+
+
         }else if($method=='assistant_report'){
-            $data['assist']=$db->query("SELECT * FROM complaint_assist");
+            $data['assist'] = $db->query("
+                SELECT 
+                    complaint_assist.comp_id, 
+                    complaint_assist.created_at, 
+                    complaints.cca_user_id,
+                    complaint_assist.status,
+                    complaint_assist.admin_user_id,
+                    complaint_assist.handled_at,
+                    CONCAT(u1.fname,' ',u1.lname) AS admin_name,
+                    CONCAT(u2.fname,' ',u2.lname) AS cca_name
+                FROM 
+                    complaint_assist
+                INNER JOIN 
+                    complaints ON complaints.comp_id = complaint_assist.comp_id
+                JOIN 
+                    user u2 ON u2.user_id = complaints.cca_user_id
+                LEFT JOIN
+                    user u1 ON u1.user_id = complaint_assist.admin_user_id 
+                ORDER BY 
+                    complaint_assist.created_at DESC
+            ");
+
+
+            $data['complaint_count'] = $db->query("
+                    SELECT 
+                        COUNT(*) AS total_complaint_count 
+                    FROM 
+                        complaints ")[0]->total_complaint_count;
+
+
+            $data['assistant_count'] = $db->query("
+                    SELECT 
+                        COUNT(*) AS total_assistant_count 
+                    FROM 
+                        complaint_assist ")[0]->total_assistant_count;
+
+            $data['idle_count'] = $db->query("
+                    SELECT 
+                        COUNT(*) AS idle_count 
+                    FROM 
+                        complaint_assist 
+                    WHERE 
+                        status='Idle'
+            ")[0]->idle_count;
+
+            $data['todo_count'] = $db->query("
+                    SELECT 
+                        COUNT(*) AS todo_count 
+                    FROM 
+                        complaint_assist 
+                    WHERE 
+                        status='Todo'
+            ")[0]->todo_count;
+
+            $data['handled_count'] = $db->query("
+                    SELECT 
+                        COUNT(*) AS handled_count 
+                    FROM 
+                        complaint_assist 
+                    WHERE 
+                        status='Handled'
+            ")[0]->handled_count;
+
+
+
 
             $this->view('admin/assistant_report',$data);
 
+
+
         }else if($method=='adverify_report'){
-            $data['adverify']=$db->query("SELECT * FROM ads");
+
+            $data['adverify']=$db->query("
+                    SELECT 
+                        ads.ad_id, 
+                        ads.datetime, 
+                        ads.title,
+                        ads.category,
+                        CONCAT(user.fname, ' ', user.lname) AS username
+                    FROM 
+                        ads
+                    INNER JOIN 
+                        user ON ads.user_id = user.user_id 
+                    WHERE
+                        pending='1'
+                    ORDER BY 
+                        ads.datetime DESC
+            ");
+
+            $data['singer_count'] = $db->query("
+                    SELECT 
+                        COUNT(*) AS singer_count 
+                    FROM 
+                        ads 
+                    WHERE 
+                        pending='1'
+                    AND
+                        category='singer'
+            ")[0]->singer_count;
+
+            $data['band_count'] = $db->query("
+                    SELECT 
+                        COUNT(*) AS band_count 
+                    FROM 
+                        ads 
+                    WHERE 
+                        pending='1'
+                    AND
+                        category='band'
+            ")[0]->band_count;
+
+            $data['venue_count'] = $db->query("
+                    SELECT 
+                        COUNT(*) AS venue_count 
+                    FROM 
+                        ads 
+                    WHERE 
+                        pending='1'
+                    AND
+                        category='venue'
+            ")[0]->venue_count;
+
+            $data['total_count'] = $db->query("
+                    SELECT 
+                        COUNT(*) AS total_count 
+                    FROM 
+                        ads 
+                    WHERE 
+                        pending='1'
+            ")[0]->total_count;
+
+            $data['decline_count'] = $db->query("
+                    SELECT 
+                        COUNT(*) AS decline_count 
+                    FROM 
+                        ad_verification_requests 
+                    WHERE 
+                        comment IS NOT NULL
+            ")[0]->decline_count;
+
+            $data['approved_count'] = $db->query("
+                    SELECT 
+                        COUNT(*) AS approved_count 
+                    FROM 
+                        ads 
+                    WHERE 
+                        pending='0'
+            ")[0]->approved_count;
+
 
             $this->view('admin/adverify_report',$data);
 
+
+
         }else if($method=='usertypes_report'){
+
             $data['accounts']=$db->query("
                 SELECT 
                     user_type, 
@@ -497,6 +647,7 @@ GROUP BY
                 GROUP BY user_type 
                 ORDER BY user_type
             ");
+
 
             $data['user_count'] = $db->query("
                 SELECT 

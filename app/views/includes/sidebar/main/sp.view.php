@@ -173,11 +173,9 @@
 <!-- The report button will only be shown to the Singer for now -->
 <?php if ($_SESSION['USER_DATA']->user_type == 'singer'): ?>
 
-    <li class="nav-item <?= set_activated($_SESSION['USER_DATA']->user_type.'/stat') ?>">
+    <li class="nav-item special <?= set_activated($_SESSION['USER_DATA']->user_type.'/stat') ?>">
         <a class="nav-link" href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/stat">
-            <svg xmlns="http://www.w3.org/2000/svg" style="fill: white" height="24" viewBox="0 -960 960 960" width="24">
-                <path d="M120-120v-80l80-80v160h-80Zm160 0v-240l80-80v320h-80Zm160 0v-320l80 81v239h-80Zm160 0v-239l80-80v319h-80Zm160 0v-400l80-80v480h-80ZM120-327v-113l280-280 160 160 280-280v113L560-447 400-607 120-327Z"/>
-            </svg>
+            <svg class="feather feather-bar-chart-2" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
             <span class="link-name">Statistics</span>
         </a>
     </li>
