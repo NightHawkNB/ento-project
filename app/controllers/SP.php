@@ -23,15 +23,6 @@ class SP extends Controller {
 
         $db = new Database();
 
-        // Calling a Stored procedure named 'report_singer(user_id)'
-        $data['stats'] = $db->query("CALL report_singer(:user_id)",['user_id' => Auth::getUser_id()])[0] ?: NULL;
-
-        $data['rate'] = $db->query('
-            SELECT rate FROM singer
-            JOIN serviceprovider ON serviceprovider.sp_id = singer.sp_id
-            WHERE serviceprovider.user_id = :user_id
-            ', ['user_id' => Auth::getUser_id()])[0]->rate;
-
         // Query to get the total views of the ads owned by this user
         // They will be automatically ordered based on the id which is an auto incremented field
 
