@@ -30,7 +30,7 @@
                     <div class="dis-flex-col" style="position: relative">
                         <div class="res-title"><?= $title ?></div>
                         <img src="<?= ROOT . $image ?>" alt="service provider image"
-                             style="border-radius: 10px; width: 400px; aspect-ratio: 16/9;">
+                             style="border-radius: 10px; width: 300px; aspect-ratio: 4/3;">
                     </div>
                     <div class="gap-10 mar-0-20" style="overflow: auto; height: 100%">
                         <h4 class="gap-10  mar-bot-10">Already Reserved Dates</h4>

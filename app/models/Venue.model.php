@@ -11,7 +11,6 @@ class Venue extends model {
         'location',
         'image',
         'seat_count',
-        'contact_num',
         'packages',
         'other',
         'venueM_id',

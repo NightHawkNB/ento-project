@@ -2,7 +2,8 @@
 
 /** @noinspection ALL */
 
-class Venuem extends SP {
+class Venuem extends SP
+{
 
     public function __construct()
     {
@@ -25,7 +26,7 @@ class Venuem extends SP {
         if (empty($method)) {
             $data['records'] = $db->query("SELECT * FROM event");
 
-            if($data['records']) {
+            if ($data['records']) {
                 $this->view('venuem/events/your-events', $data);
             } else {
                 message("Fetching data failure", false, 'failed');
@@ -38,20 +39,21 @@ class Venuem extends SP {
         }
     }
 
-    public function staff($method = null, $id = null) {
+    public function staff($method = null, $id = null)
+    {
 
         $user = new User();
         $db = new Database();
         $venue = new Venue();
 
-        if ($method == 'insert'){
+        if ($method == 'insert') {
             // Handles staff insertion requests
 
-            if($_SERVER['REQUEST_METHOD'] == "POST"){
+            if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-                if($user->validate_vo($_POST)){
+                if ($user->validate_vo($_POST)) {
 
-                    $_POST['user_id'] = "USER_".rand(1000, 100000) . "_" . time();
+                    $_POST['user_id'] = "USER_" . rand(1000, 100000) . "_" . time();
                     $_POST['user_type'] = 'venueo';
                     $user_id = $_POST['user_id'];
 
@@ -62,7 +64,7 @@ class Venuem extends SP {
                         WHERE user.user_id = :user_id
                         ", ['user_id' => Auth::getUser_id()]);
 
-                    if($venueM_id) {
+                    if ($venueM_id) {
                         $venueM_id = $venueM_id[0]->venueM_id;
                     } else {
                         message("Cannot find Venue Manager ID", false, "failed");
@@ -87,10 +89,10 @@ class Venuem extends SP {
 
             $this->view('venuem/staff/insert_staff');
 
-        } else if ($method == 'delete'){
+        } else if ($method == 'delete') {
             // Handles staff deletion requests
 
-            if(!empty($id)) {
+            if (!empty($id)) {
                 $user->query("DELETE FROM user WHERE user_id = :user_id", ['user_id' => $id]);
                 message("User deleted !", false, "success");
             } else {
@@ -99,21 +101,21 @@ class Venuem extends SP {
 
             redirect("venuem/staff");
 
-        } else if ($method == 'update'){
+        } else if ($method == 'update') {
             // Handles staff updating requests
 
-            if(!empty($id)) {
+            if (!empty($id)) {
 
                 $data['user'] = $user->first(['user_id' => $id]);
 
-                if($_SERVER['REQUEST_METHOD'] == "POST"){
+                if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-                    if(!$data['user']) {
+                    if (!$data['user']) {
                         message("Invalid User ID", false, "failed");
                         redirect('venuem/staff');
                     }
 
-                    if($user->validate_vo($_POST)){
+                    if ($user->validate_vo($_POST)) {
                         $_POST['user_id'] = $id;
 
                         $user->update($id, $_POST);
@@ -137,7 +139,7 @@ class Venuem extends SP {
             // Handles staff viewing
             // BUG Possible vulnarability
 
-            if($_SERVER['REQUEST_METHOD'] == "POST") {
+            if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
                 $json_data = file_get_contents("php://input");
 
@@ -146,7 +148,7 @@ class Venuem extends SP {
 
                 $venueO_id = $php_data->venueO_id;
 
-                if($php_data->venue_id != "not-set") {
+                if ($php_data->venue_id != "not-set") {
                     $venue_id = $php_data->venue_id;
                 } else {
                     $venue_id = NULL;
@@ -169,7 +171,7 @@ class Venuem extends SP {
                 WHERE user.user_id = :user_id
                 ", ['user_id' => Auth::getUser_id()]);
 
-            if($venuem_data) $venuem_data = $venuem_data[0];
+            if ($venuem_data) $venuem_data = $venuem_data[0];
             else {
                 message("Couldn't fetch Venue Manager Data", false, "failed");
                 redirect('venuem/index');
@@ -181,12 +183,12 @@ class Venuem extends SP {
                          JOIN venueoperator ON serviceprovider.sp_id = venueoperator.sp_id
                          WHERE venueoperator.venueM_id = :venueM_id", ['venueM_id' => $venuem_data->venueM_id]);
 
-            if(empty($data['users'])) {
+            if (empty($data['users'])) {
                 message("No Users Available");
             } else {
                 $data['venues'] = $venue->where(['venueM_id' => $venuem_data->venueM_id]);
 
-                if(empty($data['venues'])) {
+                if (empty($data['venues'])) {
                     message("Couldn't fetch Venue Details", false, "failed");
                     $data['venues'] = [];
                 }
@@ -196,12 +198,13 @@ class Venuem extends SP {
         }
     }
 
-    public function venues ($method = null, $id = null) {
+    public function venues($method = null, $id = null)
+    {
 
         $user = new User();
         $venue = new Venue();
 
-        if(empty($method)) {
+        if (empty($method)) {
 
             try {
                 // Getting the venue manager ID
@@ -219,7 +222,7 @@ class Venuem extends SP {
                 $this->view("venuem/venues/manage_venues");
             }
 
-            if(empty($data['venues'])) {
+            if (empty($data['venues'])) {
                 message("No venues registered");
             }
 
@@ -227,12 +230,12 @@ class Venuem extends SP {
 
             $this->view("venuem/venues/manage_venues", $data);
 
-        } else if($method == "update") {
+        } else if ($method == "update") {
 
-            if($_SERVER['REQUEST_METHOD'] == "POST") {
+            if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
                 $allowed_types = ['image/jpeg', 'image/png'];
-                $direct_folder = getcwd() . "\assets\images".DIRECTORY_SEPARATOR."venues" . DIRECTORY_SEPARATOR;
+                $direct_folder = getcwd() . "\assets\images" . DIRECTORY_SEPARATOR . "venues" . DIRECTORY_SEPARATOR;
                 $remote_folder = ROOT . "/assets/images/venues/";
 
                 /*  IMPORTANT requires adding enctype="multipart/form-data" to form tag
@@ -275,8 +278,8 @@ class Venuem extends SP {
                 } else {
                     $data = $venue->where(['venue_id' => $id])[0];
 
-                    if(empty($_POST['image']) && empty($data->image)) {
-                        $_POST['image'] = ROOT."/assets/images/venues/venue.png";
+                    if (empty($_POST['image']) && empty($data->image)) {
+                        $_POST['image'] = ROOT . "/assets/images/venues/venue.png";
                     }
                 }
 
@@ -317,11 +320,11 @@ class Venuem extends SP {
                 'errors' => []
             ];
 
-            if($_SERVER['REQUEST_METHOD'] == "POST") {
+            if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
                 $_POST['venueM_id'] = $_SESSION['USER_DATA']->venueM_id;
 
-                if($venue->validate($_POST)) {
+                if ($venue->validate($_POST)) {
                     $venue->insert($_POST);
                 } else {
                     $data = $_POST;
@@ -331,10 +334,10 @@ class Venuem extends SP {
                 }
 
                 $venue_id = $venue->where($_POST);
-                if($venue_id) $venue_id = $venue_id[0]->venue_id;
+                if ($venue_id) $venue_id = $venue_id[0]->venue_id;
 
                 $allowed_types = ['image/jpeg', 'image/png'];
-                $direct_folder = getcwd() . "\assets\images".DIRECTORY_SEPARATOR."venues" . DIRECTORY_SEPARATOR;
+                $direct_folder = getcwd() . "\assets\images" . DIRECTORY_SEPARATOR . "venues" . DIRECTORY_SEPARATOR;
                 $remote_folder = ROOT . "/assets/images/venues/";
 
                 if (!empty($_FILES['image']['name'])) {
@@ -357,8 +360,8 @@ class Venuem extends SP {
                         redirect(strtolower($_SESSION['USER_DATA']->user_type) . "/venues");
                     }
                 } else {
-                    if(empty($_POST['image'])) {
-                        $_POST['image'] = ROOT."/assets/images/venues/venue.png";
+                    if (empty($_POST['image'])) {
+                        $_POST['image'] = ROOT . "/assets/images/venues/venue.png";
                     }
                 }
 

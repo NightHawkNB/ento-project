@@ -9,7 +9,7 @@ $dateTime = new DateTime($event->start_time);
     <?php $this->view('includes/header') ?>
 
     <main class="dashboard-main">
-        <!--                --><?php //=show($data)?>
+        <!--        --><?php //=show($data)?>
 
         <div class="mar-10 bor-rad-5 dis-flex-col sh" style="overflow: auto">
             <img src="<?= ROOT . $event->image ?>" alt="cover-image"
@@ -32,24 +32,31 @@ $dateTime = new DateTime($event->start_time);
                         <p><?= $dateTime->format("H:i") ?></p>
                     </div>
                 </div>
-                <div>
-                    <div class="dis-flex al-it-ce gap-10  pad-10 mar-0 ju-co-ce bg-indigo-alert txt-c-white flex-wrap">
-                        <h5 class="flex-1 mar-0 f-space-1">Buy Tickets</h5>
-                        <div class="dis-flex gap-10 al-it-ce">
-                            <?php foreach ($tickets as $ticket): ?>
-                                <a href="<?= ROOT ?>/home/events/<?= $event->event_id ?>/pay/<?= $ticket->type ?>">
-                                    <div class='bor-rad-10 bor-1-sol-white bg-trans pad-5-10 hover-pointer'><?= $ticket->price ?></div>
-                                </a>
-                            <?php endforeach; ?>
-                        </div>
-                    </div>
-                </div>
+                <a href="<?= ROOT . "/home/events/" . $event->event_id . "/pay" ?>">
+                    <button class="button-s2 mar-10 txt-w-bold" style="width: 250px;">Buy Tickets</button>
+                </a>
+<!--                --><?php //if ()?>
+<!--                <div>-->
+<!--                    <div class="dis-flex al-it-ce gap-10  pad-10 mar-0 ju-co-ce bg-indigo-alert txt-c-white flex-wrap"-->
+<!--                         style="height: fit-content">-->
+<!--                        <h5 class="flex-1 mar-0 f-space-1">Buy Tickets</h5>-->
+<!--                        <div class="dis-flex gap-10 al-it-ce">-->
+<!--                            <a href=--><?php //= ROOT . "/home/events/" . $event->event_id . "/pay" ?><!-->-->
+<!--                                <div class='bor-rad-10 bor-1-sol-white bg-trans pad-5-10 hover-pointer'>5000</div>-->
+<!--                            </a>-->
+<!--                            <a href=--><?php //= ROOT . "/home/events/" . $event->event_id . "/pay" ?><!-->-->
+<!--                                <div class='bor-rad-10 bor-1-sol-white bg-trans pad-5-10 hover-pointer'>3000</div>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+
                 <div class="bg-white pad-20">
                     <p class="f-poppins pad-10">
                     <ul type="none" class="mar-0 dis-flex-col gap-10">
                         <li>01. All tickets purchased are non-refundable.</li>
                         <li>01. අන්තර්ජාල ප්‍රවේශපත්‍රය කිසිදු ආකාරයකින් නැවත ගෙවීමක් සිදු කරනු නොලැබේ.</li>
-
                         <li>02. Please note that our online tickets cannot be changed once purchased. This includes
                             changes to the category, show, seat, price, or any other aspects of the ticket. We highly
                             recommend that you carefully review your selection before completing your online purchase to
@@ -80,8 +87,8 @@ $dateTime = new DateTime($event->start_time);
                     <?php if (!empty($band)): ?>
                         <a href="#user_03">
                             <div class="card-profile bg-black-2 pad-10 bor-rad-5 dis-flex-col al-it-ce">
-                                <img src="<?= ROOT ?><?= $band->band_image ?>" alt="user-03" class="profile-image-2">
-                                <h3 class="mar-10"><?= $band->band_name ?></h3>
+                                <img src="<?= ROOT ?><?= $band->band_image ?>>" alt="user-03" class="profile-image-2">
+                                <h3 class="mar-10"><?= $band->$band_name ?></h3>
                                 <h4 class="mar-10">Band</h4>
                             </div>
                         </a>
@@ -121,6 +128,8 @@ $dateTime = new DateTime($event->start_time);
                     <?php endif; ?>
 
                 </div>
+
+
             </div>
         </div>
 

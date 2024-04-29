@@ -9,8 +9,8 @@ class Venuevreq extends Model {
         'venuevreq_id',
         'venue_id',
         'created_at',
-        'status',
-        'comment'
+        'comment',
+        'status'
     ];
 }
 ?>
