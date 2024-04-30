@@ -9,6 +9,39 @@
                 <?php $this->view('includes/sidebar') ?>
             </section>
 
+            <style>
+
+                legend{
+                    color: black;
+                }
+                label{
+                    color: black;
+                }
+
+                p{
+                    color: black;
+                }
+                h2{
+                    color: black;
+                }
+
+                input,
+                input:checked,
+                select,
+                textarea {
+                    color: black;
+                }
+
+                input:not(:checked) ~ label:hover,
+                input:not(:checked) ~ label:hover ~ label{
+                    color: var(--font-primary);
+                }
+                input:checked ~ label{
+                    color: var(--font-primary);
+                }
+
+            </style>
+
             <section class="cols-10 dis-flex">
                 <div class=" mar-10 wid-100 dis-flex-col pad-20 gap-10 bor-rad-5" style="justify-content:stretch; align-items:stretch">
                     
@@ -47,15 +80,24 @@
                                     </div>
                                 </div>
                                 <div class="dis-flex gap-20">
-                                    <div class="dis-flex-col <?= (!empty($errors['city'])) ? 'error' : '' ?>">
-                                        <label for="city">City</label>
-                                        <input type="text" name="city" class="input" required>
-                                        <i></i>
+                                    <div class="dis-flex-col">
+                                        <label for="province">Province</label>
+                                        <select name="province" class="input" id="province" onchange="updateDistrict()">
+                                            <option value="central">Central</option>
+                                            <option value="eastern">Eastern</option>
+                                            <option value="northCentral">North Central</option>
+                                            <option value="northern">Northern</option>
+                                            <option value="northWestern">North Western</option>
+                                            <option value="sabaragamuwa">Sabaragamuwa</option>
+                                            <option value="southern">Southern</option>
+                                            <option value="uva">Uva</option>
+                                            <option value="western">Western</option>
+                                        </select>
                                     </div>
                                     <div class="dis-flex-col <?= (!empty($errors['district'])) ? 'error' : '' ?>">
                                         <label for="district">District</label>
-                                        <input type="text" name="district" class="input" required>
-                                        <i></i>
+                                        <select name="district" class="input" id="district"></select>
+                                        <i><?= (!empty($user->errors['district'])) ? $user->errors['district'] : '' ?></i>
                                     </div>
                                 </div>
                             </div>
@@ -94,11 +136,64 @@
                             </div>
                         </fieldset>
 
-                        <button type="submit" class="btn-lay-2 hover-pointer btn-anima-hover">Add user</button>
-                    </form>   
-                    
-                
+                        <button type="submit" class="button-s2 hover-pointer btn-anima-hover">Add user</button>
+                </form>
+                <div class="pad-10">
+
+                </div>
                 </div >
+
+                <script>
+
+                    // City data for each province
+                    const cityData = {
+                        northern: ["Jaffna", "Kilinochchi", "Manner", "Mullaitivu", "Vavuniya"],
+                        northWestern: ["Puttalam", "Kurunegala"],
+                        western: ["Colombo", "Gampaha", "Kalutara"],
+                        northCentral: ["Anuradhapura", "Polonnaruwa"],
+                        central: ["Kandy", "Nuwara Eliya", "Matale"],
+                        sabaragamuwa: ["Kegalle", "Ratnapura"],
+                        eastern: ["Trincomalee", "Batticaloa", "Ampara"],
+                        uva: ["Badulla", "Monaragala"],
+                        southern: ["Hambantota", "Matara", "Galle"]
+                    };
+
+                    // Function to update the district options based on the selected province
+                    function updateDistrict() {
+
+                        const provinceSelect = document.getElementById("province")
+                        const districtSelect = document.getElementById("district")
+
+                        districtSelect.innerHTML = ""
+
+                        // Currently selected district
+
+
+                        const selectedProvince = provinceSelect.value
+
+                        const districts = cityData[selectedProvince]
+
+                        if (districts) {
+                            districts.forEach(district => {
+                                const option = document.createElement("option")
+                                option.value = district
+                                option.textContent = district
+
+                                // Selecting the currently selected district
+
+                                districtSelect.appendChild(option)
+                            });
+                        } else {
+                            const option = document.createElement("option")
+                            option.textContent = "No cities available"
+                            districtSelect.appendChild(option)
+                        }
+                    }
+
+                    updateDistrict()
+
+
+                </script>
             </section>
         </main>
     </div>

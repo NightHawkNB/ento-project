@@ -13,6 +13,7 @@
         <style>
             .fa.fa-search {
                 color: white;
+
             }
             .fa
             .select-menu-container{
@@ -44,7 +45,7 @@
                     <div class="dis-flex ju-co-se">
                         <div id="search-container" style="width: 50%; min-width: 525px">
                             <i class="fa fa-search"></i>
-                            <input type="search" id="search-input" class='js-search' placeholder="search product name here..."/>
+                            <input style="color: black" type="search" id="search-input" class='js-search' placeholder="search product name here..."/>
                         </div>
                         <div class=" select-menu-container style="width: 50%; background-color: #1a9be6;">
                         <div class="select-menu" style="">
@@ -61,7 +62,7 @@
                                     <span class="option-text">Client</span>
                                 </li>
                                 <li class="option" data-category="admin">
-                                    <span class="option-text">Admin</span>
+                                    <span class="option-text">Administrator</span>
                                 </li>
                                 <li class="option" data-category="singer">
                                     <span class="option-text">Singer</span>
@@ -70,13 +71,16 @@
                                     <span class="option-text">Band</span>
                                 </li>
                                 <li class="option" data-category="cca">
-                                    <span class="option-text">CCA</span>
+                                    <span class="option-text">Customer Care</span>
                                 </li>
                                 <li class="option" data-category="venueo">
                                     <span class="option-text">Venue Operator</span>
                                 </li>
                                 <li class="option" data-category="venuem">
-                                    <span class="option-text">Venue manager</span>
+                                    <span class="option-text">Venue Manager</span>
+                                </li>
+                                <li class="option" data-category="eventm">
+                                    <span class="option-text">Event Manager</span>
                                 </li>
                             </ul>
                         </div>

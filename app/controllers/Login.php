@@ -11,20 +11,25 @@ class Login extends Controller{
             $row = $user->first([
                 'email' => $_POST['email']
             ]);
-            
+
             if($row) {
                 $pass = $_POST['password'];
-                if(password_verify($pass, $row->password)) {
-                    // For Authentication
-                    Auth::authenticate($row);
+                if($row->disabled == 0) {
+                    if(password_verify($pass, $row->password)) {
+                        // For Authentication
+                        Auth::authenticate($row);
 
-                    message("Logged in Successfully", false, 'success');
-                    redirect("$row->user_type");
+                        message("Logged in Successfully", false, 'success');
+                        redirect("$row->user_type");
+                    } else {
+                        $data['errors']['email'] = "Wrong email or password";
+                        $data['errors']['password'] = "Wrong email or password";
+
+                        message("Logging Failed | Incorrect Email or Password");
+                    }
                 } else {
-                    $data['errors']['email'] = "Wrong email or password";
-                    $data['errors']['password'] = "Wrong email or password";
-
-                    message("Logging Failed | Incorrect Email or Password");
+                    message("Account Disabled");
+                    redirect("login");
                 }
             } else {
                 $data['errors']['email'] = "Wrong email or password";

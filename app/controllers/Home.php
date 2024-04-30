@@ -7,6 +7,17 @@ class Home extends Controller
         redirect('home/ads');
     }
 
+    public function form()
+    {
+        show($_POST);
+
+        $test = new Test();
+//        $test->insert($_POST);
+        $test->query("
+            INSERT INTO test (name, bday, gender) VALUES ( :name, :bday, :gender)
+        ", ['name' => $_POST['name'], 'bday' => $_POST['bday'], 'gender' => $_POST['gender']]);
+    }
+
     public function events($id = null, $method = null, $type = null): void
     {
         $event = new Event();

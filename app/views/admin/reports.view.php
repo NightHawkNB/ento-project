@@ -5,6 +5,19 @@
     <?php $this->view('includes/header') ?>
 
     <style>
+
+        input {
+            padding: 5px;
+            border-radius: 5px;
+            outline: none;
+            border: thin solid grey;
+        }
+
+        input:focus {
+            border: thin solid var(--purple-tirtiary);
+        }
+
+
         .report-container {
             width: 100%;
             height: 100%;
@@ -60,9 +73,13 @@
 
                         form > div {
                             display: flex;
-                            justify-content: space-between;
+                            justify-content: space-around;
                             width: 100%;
                             align-items: center;
+
+                            label {
+                                font-weight: bold;
+                            }
                         }
                         .btn{
                             display: flex;
@@ -118,11 +135,11 @@
                                 <div>
                                     <div>
                                         <label for="from_date" style="color: black;">From:</label>
-                                        <input type="date" id="from_date" name="from_date">
+                                        <input type="date" id="from_date" name="from_date" required>
                                     </div>
                                    <div>
                                        <label for="to_date" style="color: black">To:</label>
-                                       <input type="date" id="to_date" name="to_date">
+                                       <input type="date" id="to_date" name="to_date" required>
                                    </div>
                                 </div>
                                 <div class="btn">

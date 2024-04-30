@@ -19,7 +19,7 @@
             </div>
 
             <div class="dis-flex-col txt-c-black gap-10 flex-1">
-                <p class="txt-w-bold" style="color: brown"><?= $category ?></p>
+                <p class="txt-w-bold" style="color: brown"><?= strtoupper($category )?></p>
             </div>
 
         </div>
