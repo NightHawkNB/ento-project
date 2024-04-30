@@ -30,7 +30,6 @@
             </script>
 
 
-
             <div class="ticket-form flex-1">
                 <form method="post" class="pad-20 dis-flex-col ju-co-ce al-it-ce">
                     <div class="txt-c-black f-mooli txt-w-bolder dis-flex gap-10 ju-co-ce al-it-ce pt-10">
@@ -65,7 +64,7 @@
                         </div>
                     </fieldset>
 
-                    <button type="submit" class="btn-lay-2 btn-anima-hover min-w-150">Pay</button>
+                    <button type="submit" class="button-s2 min-w-150">Pay</button>
                 </form>
             </div>
         </div>

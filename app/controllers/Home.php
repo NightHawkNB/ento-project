@@ -178,6 +178,15 @@ class Home extends Controller
                     )
                 );
 
+                $data['record'] = NULL;
+
+                // Getting the event details
+                $data['event'] = $db->query("
+                    SELECT *
+                    FROM event
+                    WHERE event_id = :event_id
+                ", ['event_id' => $id])[0];
+
                 $this->view("common/events/buy-tickets-confirm", $data);
             } else {
                 $data = NULL;

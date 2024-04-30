@@ -54,8 +54,10 @@
             }).then(data => {
 
                 if(data !== "success") {
+                    alert("Visibility Update Failed");
                     console.log("Visibility Update Failed")
                 } else {
+                    alert("Visibility Update Successful")
                     console.log("Visibility Update Successful")
                 }
 

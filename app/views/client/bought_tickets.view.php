@@ -72,7 +72,7 @@
                         foreach ($bought_tickets as $bought_ticket) {
 //                            show($bought_ticket->start_time);
                             if ($currentDateTime < $bought_ticket->start_time) {
-                    show($bought_ticket);
+//                    show($bought_ticket);
                                 $this->view('client/components/bought_ticket_current', (array)$bought_ticket);
                             }
                         }

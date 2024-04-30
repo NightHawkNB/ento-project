@@ -137,7 +137,7 @@ class Signup extends Controller{
                                 // Inserting the default ad for this user upon account creation with visibility set to 1 by default
                                 $db->query("
                                     INSERT INTO ads VALUES
-                                        (:ad_id, :user_id, :name, :category, :details, NULL, 0, 0, NULL, CURRENT_TIMESTAMP, 0, NULL, NULL, 1)
+                                        (:ad_id, :user_id, :name, :category, :details, '/assets/images/ads/general.png', 0, 0, NULL, CURRENT_TIMESTAMP, 0, NULL, NULL, 1)
                                 ", [
                                     'ad_id' => $ad_id,
                                     'user_id' => $user_id,
@@ -146,9 +146,9 @@ class Signup extends Controller{
                                     'details' => $details
                                 ]);
 
-                                $db->query("
-                                    INSERT INTO ad_singer VALUES (:ad_id, NULL)
-                                ", ['ad_id' => $ad_id]);
+//                                $db->query("
+//                                    INSERT INTO ad_singer VALUES (:ad_id, NULL)
+//                                ", ['ad_id' => $ad_id]);
                                 break;
 
                             default:

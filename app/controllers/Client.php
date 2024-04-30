@@ -245,11 +245,14 @@ class Client extends Controller
 
         if (empty($id)) {
             $data['bought_tickets'] = $db->query("
-        SELECT *
+        SELECT E.*
         FROM event E
         JOIN all_tickets AT ON E.event_id = AT.event_id
         JOIN tickets T ON AT.ticket_id = T.ticket_id
-        WHERE user_id = :user_id", ['user_id' => Auth::getUser_id()]);
+        WHERE user_id = :user_id
+        GROUP BY E.event_id
+        ", ['user_id' => Auth::getUser_id()]);
+
 
             $this->view('client/all_tickets', $data);
         } else if (!empty($id)) {

@@ -20,16 +20,16 @@
             <div class="report-container">
                 <div class="report-header dis-flex ju-co-sb">
                     <div class="txt-ali-lef">
-                        <h1>Logo</h1>
+<!--                        <h1>Logo</h1>-->
                         <br><br><br><br><br>
-                        <p>Date: <span id="current_date"><?= date("M d, Y H:i a") ?></span></p>
+                        <p>Generated Date: <span id="current_date"><?= date("M d, Y H:i a") ?></span></p>
                     </div>
                     <div class="txt-ali-rig">
                         <h1>ENTO</h1>
                         <br>
                         <p>Sri Lanka</p>
-                        <p>0752569841</p>
-                        <p>admin1@gmail.com</p>
+                        <p>0752569842</p>
+                        <p>cca1@gmail.com</p>
                         <br>
                         <p>www.ento.com</p>
                     </div>
@@ -38,49 +38,51 @@
 
                 <hr>
 
-<!--                <span class="report-title ">-->
-<!--                    DETAILED REPORT - USER ACCOUNTS<br>-->
+                <span class="report-title ">
+<!--                   COUNT OF COMPLAINTS GROUP BY USER TYPE FROM LAST 6 MONTH-->
+                    COMPLAINT COUNT BY USER TYPE FOR THE LAST SIX MONTHS
 <!--                    FROM --><?php //echo $from ?><!-- TO --><?php //echo $to ?>
-<!--                </span>-->
+                </span>
 
-                <div class="report-content dis-flex-col ju-co-se">
+                <div class="report-content dis-flex-col ">
                     <table style="width: 100%">
                         <tr>
-                            <th>User</th>
-                            <th>Cca user id</th>
-                            <th>status</th>
-                            <th>Date & Time</th>
+                            <th>User type</th>
+<!--                            <th>Cca user id</th>-->
+                            <th>Complaints Count</th>
+<!--                            <th>Date & Time</th>-->
 <!--                            <th>Email</th>-->
 <!--                            <th>Contact No</th>-->
 <!--                            <th>Joined Date</th>-->
 <!--                        </tr>-->
                         <?php
-                        foreach ($complaints as $comp) {
+                        foreach ($count as $comp) {
 
                             echo "<tr>";
                             echo "<td>" . $comp->user_type . "</td>";
-                            echo "<td>" . $comp->cca_user_id . "</td>";
-                            echo "<td>" . $comp->status . "</td>";
-                            echo "<td>" . $comp->date_time . "</td>";
+//                            echo "<td>" . $comp->cca_user_id . "</td>";
+//                            echo "<td>" . $comp->status . "</td>";
+                            echo "<td>" . $comp->count . "</td>";
                             echo "</tr>";
                         }
-//                        ?>
+                        ?>
 
 
                     </table>
-
+                </div>
+<!--
                     <div style="height: 10mm;">
 
                     </div>
 
 <!--                    <div class="account-count">-->
 <!--                        <div>-->
-<!--                            <p class="content-title">Total Number of User Accounts : </p>-->
+<!--                            <p class="content-title">Total Number of complaints in last 6 month : </p>-->
 <!--                        </div>-->
 <!--                        <div class="count-value">-->
 <!--                            <p> --><?php
-////                                show($count);
-////                                echo $count;
+//                                show($comp);
+//                                echo $comp;
 //                                ?><!--</p>-->
 <!--                        </div>-->
 <!--                    </div>-->

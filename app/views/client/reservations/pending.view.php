@@ -1,6 +1,5 @@
 <html lang="en">
-<?php $this->view('includes/head', ['style' => ['client/reservations.css']]) ?>
-<?php $this->view('includes/head', ['style' => ['admin/adverification.css']]) ?>
+<?php $this->view('includes/head', ['style' => ['client/reservations.css', 'admin/adverification.css']]) ?>
 <style>
     .filter-slider-rect {
         height: 2rem;
