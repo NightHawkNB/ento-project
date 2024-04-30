@@ -32,7 +32,7 @@
         </div>
     </a>
 
-    <a class="card" href="<?= ROOT ?>/signup/band"">
+    <a class="card" href="<?= ROOT ?>/signup/band">
     <div class="front" style="background-image: url(<?= ROOT ?>/assets/images/icons/auth/band.jpg)">
         <p>Band</p>
     </div>

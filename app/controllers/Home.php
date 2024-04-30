@@ -4,7 +4,7 @@ class Home extends Controller
 {
     public function index(): void
     {
-        $this->view('home');
+        redirect('home/ads');
     }
 
     public function events($id = null, $method = null, $type = null): void
