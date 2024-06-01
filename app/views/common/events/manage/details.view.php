@@ -111,13 +111,6 @@
                     <?php if(!empty($events)) show($events); else echo "Empty"; ?>
                 </p>
 
-                <p>
-                    <?php
-                        $event = $events[0];
-                        show($event);
-                    ?>
-                </p>
-
                 <div class="wid-100 dis-flex ju-co-ce">
                     <a href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>/event/manage/confirm">
                         <span class="btn-lay-2 btn-anima-hover f-space-2 txt-w-normal min-w-150">Next</span>

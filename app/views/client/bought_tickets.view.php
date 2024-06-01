@@ -97,7 +97,6 @@
 //                            show($currentDateTime);
 //                            show($bought_ticket->start_time);
                             if ($currentDateTime > $bought_ticket->start_time) {
-                                show($bought_ticket);
                                 $this->view('client/components/bought_ticket_current', (array)$bought_ticket);
                             }
                         }
@@ -178,10 +177,12 @@
         const qrImage = document.getElementById(ticket_id);
         const qr_container = document.getElementById(container_ticket_id)
 
+        let formattedText = ticket_id + "/" + hash
+
         qr_container.classList.toggle("hide");
         qrImage.innerHTML = "";
         new QRCode(qrImage, {
-            text: hash,
+            text: formattedText,
             width: 150,
             height: 150
         });
