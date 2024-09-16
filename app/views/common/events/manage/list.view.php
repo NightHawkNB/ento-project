@@ -10,6 +10,8 @@
         height: 1.4rem;
     }
 
+    .new {}
+
     .add-btn {
         height: 40px;
         width: 40px;

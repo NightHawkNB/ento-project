@@ -167,7 +167,7 @@ class Chat extends controller {
 
         } else {
 
-            $file = fopen($chat_location, "r") or die("Unable to open file!");
+            $file = fopen($chat_location, "w+") or die("Unable to open file!");
 
             $content = array();
 

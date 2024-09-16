@@ -15,7 +15,7 @@
                 <form method="post" class="pad-20 dis-flex-col ju-co-ce al-it-ce">
                     <div class="txt-c-black f-mooli txt-w-bolder dis-flex gap-10 ju-co-ce al-it-ce pt-10">
                         <h3 class="txt-w-normal">Event Name : </h3>
-                        <h1>Yaathra</h1>
+                        <h1><?= $event->name ?></h1>
                     </div>
 
                     <fieldset class="bor-rad-5 dis-flex-col gap-10 min-w-400">
@@ -31,7 +31,7 @@
                 </form>
 
                 <div class="wid-100 dis-flex ju-co-ce bg-white pb-10">
-                    <button type="submit" id="payhere-payment" class="mar-bot-10 btn-lay-2 btn-anima-hover hover-pointer">PayHere Pay</button>
+                    <button type="submit" id="payhere-payment" class=" button-s2 min-w-150 hover-pointer">PayHere Pay</button>
                 </div>
 
                 <script>

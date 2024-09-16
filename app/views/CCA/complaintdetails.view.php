@@ -1,49 +1,49 @@
-<style>
-
-    .popup {
-        width: 400px;
-        background: #fff;
-        border-radius: 6px;
-        position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translate(-50%, -50%) scale(0.1);
-        text-align: center;
-        padding: 0 30px 30px;
-        color: #333;
-        visibility: hidden;
-        transition: transform 0.4s, top 0.4s;
-    }
-
-    .open-popup {
-        visibility: visible;
-        top: 50%;
-        transform: translate(-50%, -50%) scale(1);
-    }
-
-
-    .popup h2 {
-        margin: 30px 0 10px;
-        font-size: 38px;
-        font-weight: 500;
-    }
-
-    .popup button {
-        width: 100%;
-        padding: 10px 0;
-        background: #5b00ee;
-        border: 0;
-        outline: none;
-        cursor: pointer;
-        border-radius: 4px;
-        font-size: 18px;
-        color: #fff;
-        margin-top: 50px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    }
-</style>
+<!--<style>-->
+<!---->
+<!--    .popup {-->
+<!--        width: 400px;-->
+<!--        background: #fff;-->
+<!--        border-radius: 6px;-->
+<!--        position: absolute;-->
+<!--        top: 0;-->
+<!--        left: 50%;-->
+<!--        transform: translate(-50%, -50%) scale(0.1);-->
+<!--        text-align: center;-->
+<!--        padding: 0 30px 30px;-->
+<!--        color: #333;-->
+<!--        visibility: hidden;-->
+<!--        transition: transform 0.4s, top 0.4s;-->
+<!--    }-->
+<!---->
+<!--    .open-popup {-->
+<!--        visibility: visible;-->
+<!--        top: 50%;-->
+<!--        transform: translate(-50%, -50%) scale(1);-->
+<!--    }-->
+<!---->
+<!---->
+<!--    .popup h2 {-->
+<!--        margin: 30px 0 10px;-->
+<!--        font-size: 38px;-->
+<!--        font-weight: 500;-->
+<!--    }-->
+<!---->
+<!--    .popup button {-->
+<!--        width: 100%;-->
+<!--        padding: 10px 0;-->
+<!--        /*background: #5b00ee;*/-->
+<!--        border: 0;-->
+<!--        outline: none;-->
+<!--        cursor: pointer;-->
+<!--        border-radius: 4px;-->
+<!--        font-size: 18px;-->
+<!--        color: #fff;-->
+<!--        margin-top: 50px;-->
+<!--        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);-->
+<!--    }-->
+<!--</style>-->
 <html lang="en">
-<?php $this->view('includes/head', ['style' => ['cca/complaintdetails.css']]) ?>
+<?php $this->view('includes/head', ['style' => ['cca/complaintdetails.css','cca/popupmsg.css']]) ?>
 <body>
 <div class="main-wrapper">
     <?php $this->view('includes/header') ?>
@@ -53,8 +53,7 @@
         </section>
         <section class="cols-10 pad-20 dis-flex wid-100 hei-100 ju-co-ce al-it-ce">
             <div class="complaint-container">
-
-                <button class="btn-lay-2 hover-pointer btn-anima-hover"  onclick="goBack()">Back</button>
+                <button class="button-s2 "  onclick="goBack()">Back</button>
                 <div class="form" style="width: 100%">
                     <div class="content">
                         <h1 class="dis-flex ju-co-ce pad-20 head">Complaint Details</h1>
@@ -84,24 +83,10 @@
 
                         <?php endif; ?>
                     </div>
-
                     <!--                    accepted buttons-->
                     <?php if ($status->status == 'Accepted') :?>
                         <div class="dis-flex gap-10 ju-co-ce al-it-ce pad-20 bor-rad-5 txt-c-black">
-<!--                                <a href="' . ROOT . '/cca/complaints/accepted/assists/' . $comp->comp_id . '">-->
-<!--                                    <button class="btn-lay-2 hover-pointer btn-anima-hover">Assists</button>-->
-<!--                                </a>-->
-<!--                                <button class="btn-lay-2 hover-pointer btn-anima-hover" onclick="openPopup()">Handle</button>-->
-<!--                            <div class="popup" id="popup">-->
-<!--                                <form method="post" action="' . ROOT . '/cca/complaints/accepted/handle/' . $comp->comp_id . '">-->
-<!--                                    <div class="input-box">-->
-<!--                                        <label>Handle Details</label>-->
-<!--                                        <textarea id="comment" name="comment"> </textarea>-->
-<!--                                    </div>-->
-<!--                                    <button type="submit" onclick="closePopup()">Ok</button>-->
-<!--                                </form>-->
-<!--                            </div>-->
-                            <button type="button" class="btn-lay-2 hover-pointer btn-anima-hover"  onclick="openPopup()">Assists</button>
+                            <button type="button" class="button-s2 "  onclick="openPopup()">Assists</button>
                             <div class="popup" id="popup">
                                 <form method="post"  action="<?= ROOT ?>/cca/complaints/accepted/assists/<?=$comp->comp_id ?>">
                                     <div class="input-box">
@@ -111,63 +96,44 @@
                                     <button type="submit" onclick="closePopup()">Ok</button>
                                 </form>
                             </div>
-                            <button type="button" class="btn-lay-2 hover-pointer btn-anima-hover"  onclick="openPopup()">Handle</button>
+                            <button type="button" class="button-s2"  onclick="openPopup()">Handle</button>
                             <div class="popup" id="popup">
                                 <form method="post"  action="<?= ROOT ?>/cca/complaints/accepted/handle/<?=$comp->comp_id ?>">
                                     <div class="input-box">
-                                        <label>Handled Details</label>
+                                        <label >Handled Details</label>
                                         <textarea id="comment" name="comment"> </textarea>
                                     </div>
-                                    <button type="submit" onclick="closePopup()">Ok</button>
+                                    <button type="submit" class="button-s2" onclick="closePopup()">Ok</button>
                                 </form>
                             </div>
                         </div>
-                    <?php endif; ?>
+                    <?php endif ?>
                     <!--                    idle buttons-->
-                    <?php
-                    if ($status->status == 'Idle') {
-                        echo '
+
+                    <?php if ($status->status == 'Idle') : ?>
                         <div class="dis-flex gap-10 ju-co-ce al-it-ce pad-20 bor-rad-5 txt-c-black">
-                        <a href="<?= ROOT ?>/cca/complaints/accepted/handle/<?=$comp->comp_id ?>">
-                            <button class="btn-lay-2 hover-pointer btn-anima-hover">Accept</button>
+                        <a href="<?= ROOT ?>/cca/complaints/idle/accept/<?=$comp->comp_id ?>">
+                            <button class="button-s2">Accept</button>
                         </a>
-                    </div>';
-                    }
-                    ?>
+                    </div>
+                    <?php endif ?>
+
+
+
                     <!--                    assist button-->
-                    <?php
-                    if ($status->status == 'Assist') {
-                        echo '
-                       <div class="dis-flex gap-10 ju-co-ce al-it-ce pad-20 bor-rad-5 txt-c-black">
-                        <a href="<?= ROOT ?>/cca/complaints/assists/update/<?= $comp->$comp_id ?>">
-                            <button class="btn-lay-2 hover-pointer btn-anima-hover">Update</button>
-                        </a>
-                    </div>';
-                    }
-                    ?>
+                    <?php if ($status->status == 'Assist') : ?>
+                        <button type="button" class="button-s2 "  onclick="openPopup()">Update</button>
+                        <div class="popup" id="popup">
+                            <form method="post"  action="<?= ROOT ?>/cca/complaints/assists/update/<?=$comp->comp_id ?>">
+                                <div class="input-box">
+                                    <label>Assist Details</label>
+                                    <textarea id="comment" name="comment"><?=$comp->comment ?> </textarea>
+                                </div>
+                                <button type="submit" class="button-s2" onclick="closePopup()">Ok</button>
+                            </form>
+                        </div>
+                    <?php endif ?>
                 </div>
-                <!--                <div class="dis-flex gap-10 ju-co-ce al-it-ce pad-20 bor-rad-5 txt-c-black">-->
-                <!--                    <a href="--><?php //= ROOT ?><!--/cca/complaints/accepted/assists/-->
-                <?php //= $comp->comp_id ?><!--">-->
-                <!--                        <button class="btn-lay-2 hover-pointer btn-anima-hover">Assists</button>-->
-                <!--                    </a>-->
-                <!--                </div>-->
-                <!--                    <div class="popup" id="popup">-->
-                <!--                        <h2>Handle details</h2>-->
-                <!--                            <input type = "text" >-->
-                <!--                        <a href="--><?php //= ROOT ?><!--/cca/complaints/accepted/handle/-->
-                <?php //= $comp->comp_id ?><!--">-->
-                <!--                            <button type="button" onclick="closePopup()">Ok</button>-->
-                <!--                        </a>-->
-                <!--                    </div>-->
-                <!--                    <div class="popup" id="popup">-->
-                <!--                        <h2>Handle details</h2>-->
-                <!--                        <input type="text">-->
-                <!--                        <a href="--><?php //= ROOT ?><!--/cca/complaints/accepted/handle/-->
-                <?php //= $comp->comp_id?><!--">-->
-                <!--                            <button type="button" onclick="closePopup()">Ok</button>-->
-                <!--                        </a>-->
-                <!--                    </div>-->
             </div>
         </section>
     </main>

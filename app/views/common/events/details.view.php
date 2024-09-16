@@ -9,7 +9,7 @@ $dateTime = new DateTime($event->start_time);
     <?php $this->view('includes/header') ?>
 
     <main class="dashboard-main">
-        <!--        --><?php //=show($data)?>
+        <!--                --><?php //= show($data) ?>
 
         <div class="mar-10 bor-rad-5 dis-flex-col sh" style="overflow: auto">
             <img src="<?= ROOT . $event->image ?>" alt="cover-image"
@@ -32,22 +32,23 @@ $dateTime = new DateTime($event->start_time);
                         <p><?= $dateTime->format("H:i") ?></p>
                     </div>
                 </div>
-<!--                <a href="--><?php //= ROOT . "/home/events/" . $event->event_id . "/pay" ?><!--">-->
-<!--                    <button class="button-s2 mar-10 txt-w-bold" style="width: 250px;">Buy Tickets</button>-->
-<!--                </a>-->
-<!--                --><?php //if ()?>
-                <div>
-                    <div class="dis-flex al-it-ce gap-10  pad-10 mar-0 ju-co-ce bg-indigo-alert txt-c-white flex-wrap"
-                         style="height: fit-content">
-                        <h5 class="flex-1 mar-0 f-space-1">Buy Tickets</h5>
-                        <div class="dis-flex gap-10 al-it-ce">
-                            <a href=<?= ROOT . "/home/events/" . $event->event_id . "/pay" ?>>
-                                <div class='bor-rad-10 bor-1-sol-white bg-trans pad-5-10 hover-pointer'>5000</div>
-                            </a>
-                            <a href=<?= ROOT . "/home/events/" . $event->event_id . "/pay" ?>>
-                                <div class='bor-rad-10 bor-1-sol-white bg-trans pad-5-10 hover-pointer'>3000</div>
-                            </a>
-                        </div>
+                <!--                <a href="--><?php //= ROOT . "/home/events/" . $event->event_id . "/pay" ?><!--">-->
+                <!--                    <button class="button-s2 mar-10 txt-w-bold" style="width: 250px;">Buy Tickets</button>-->
+                <!--                </a>-->
+                <!--                for tickets-->
+
+                <div class="dis-flex al-it-ce gap-10  pad-10 mar-0 ju-co-ce bg-indigo-alert txt-c-white flex-wrap"
+                     style="height: fit-content">
+                    <h5 class="flex-1 mar-0 f-space-1">Buy Tickets</h5>
+                    <div class="dis-flex gap-10 al-it-ce">
+                        <?php if (!empty($tickets)): ?>
+                            <?php foreach ($tickets as $ticket): ?>
+                                <a href="<?= ROOT . "/home/events/" . $event->event_id . "/pay/". strtolower($ticket->type) ?>">
+                                    <div class="bor-rad-10 bor-1-sol-white bg-trans pad-5-10 hover-pointer"><?= $ticket->price ?></div>
+                                </a>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+
                     </div>
                 </div>
 
@@ -88,11 +89,12 @@ $dateTime = new DateTime($event->start_time);
                         <a href="#user_03">
                             <div class="card-profile bg-black-2 pad-10 bor-rad-5 dis-flex-col al-it-ce">
                                 <img src="<?= ROOT ?><?= $band->band_image ?>>" alt="user-03" class="profile-image-2">
-                                <h3 class="mar-10"><?= $band->$band_name ?></h3>
+                                <h3 class="mar-10"><?= $band->band_name ?></h3>
                                 <h4 class="mar-10">Band</h4>
                             </div>
                         </a>
                     <?php endif; ?>
+
                     <?php if (!empty($event->custom_band)): ?>
                         <a href="#user_03">
                             <div class="card-profile bg-black-2 pad-10 bor-rad-5 dis-flex-col al-it-ce">
@@ -128,8 +130,6 @@ $dateTime = new DateTime($event->start_time);
                     <?php endif; ?>
 
                 </div>
-
-
             </div>
         </div>
 
@@ -137,3 +137,4 @@ $dateTime = new DateTime($event->start_time);
 </div>
 </body>
 </html>
+

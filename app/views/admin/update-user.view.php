@@ -140,7 +140,7 @@
                         </div>
                     </fieldset>
 
-                    <button type="submit" class="btn-lay-2 hover-pointer btn-anima-hover">Update User</button>
+                    <button type="submit" style="min-width: 150px; margin-bottom: 20px;" class="button-s2">Update User</button>
                 </form>
 
                 <script>

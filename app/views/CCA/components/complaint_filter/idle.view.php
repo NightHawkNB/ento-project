@@ -3,12 +3,12 @@
         border-left: 5px solid #7d38ff;
         border: 0.5px solid black;
     }
-    .cc:hover{
-        /*background-image: linear-gradient(to right, #7d38ff, #be9bf8);*/
-        background-color: #e6dff1;
-        border-left: 5px solid #ffffff;
-        box-shadow: 1px 2px 3px #110f29;
-    }
+    /*.cc:hover{*/
+    /*    !*background-image: linear-gradient(to right, #7d38ff, #be9bf8);*!*/
+    /*    background-color: #e6dff1;*/
+    /*    border-left: 5px solid #ffffff;*/
+    /*    box-shadow: 1px 2px 3px #110f29;*/
+    /*}*/
 </style>
 <a href="<?= ROOT ?>/cca/complaints/complaintdetails/<?= $comp_id ?>">
     <div class="dis-flex wid-100">
@@ -52,7 +52,7 @@
             </div>
             <div class="dis-flex gap-10 ju-co-ce al-it-ce pad-10 bor-rad-5 txt-c-black">
                 <a href="<?= ROOT ?>/cca/complaints/complaintdetails/<?= $comp_id ?>">
-                    <button class="btn-lay-2 hover-pointer btn-anima-hover">View</button>
+                    <button class="button-s2 ">View</button>
                 </a>
             </div>
 <!--            <div class="dis-flex gap-10 ju-co-ce al-it-ce pad-20 bor-rad-5 txt-c-black">-->

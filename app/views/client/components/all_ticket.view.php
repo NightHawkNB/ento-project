@@ -1,4 +1,4 @@
-<div class="reservation">
+<div class="reservation mar-10">
     <div>
         <p><?=$name?></p>
     </div>
@@ -6,14 +6,14 @@
         <?php
         $start_dateTime = new DateTime($start_time);
         $end_dateTime = new DateTime($end_time);
-        echo $start_dateTime->format("Y-m-d")." ".$start_dateTime->format("H:i")."-".$end_dateTime->format("H:i");
+        echo $start_dateTime->format("Y-m-d");
         ?>
     </div>
     <div>
-        <p><?=$price?></p>
+        <p><?=$start_dateTime->format("H:i")?></p>
     </div>
     <div>
-        <p><?=$type?></p>
+        <p><?=$end_dateTime->format("H:i")?></p>
     </div>
     <div>
         <a href="<?=ROOT?>/client/bought_tickets/<?=$event_id?>">

@@ -408,8 +408,8 @@ class Controller
         } else if ($method == "pending") {
             $data = get_ads_where($user_data->user_id, 1, 0, 0);
 
-            show($data);
-            die;
+//            show($data);
+//            die;
 
             $this->view("common/ads/pending", $data);
         } else if ($method == 'create-ad') {
@@ -712,7 +712,12 @@ function get_all_ads($pending = 0, $deleted = 0): array
     // Getting Singer Ads
     $temp_arr_1 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'singer', 'visible' => 1];
     $data['ad_singer'] = $db->query("
-        SELECT *,
+        SELECT ads.*,
+               user.fname,
+               user.lname,
+               user.profile_visible,
+               ad_singer.*,
+               user.image as user_image,
             COALESCE((SELECT AVG(rating) FROM review WHERE target_id = user.user_id), 0) AS rating
         FROM ads
         JOIN ad_singer ON ads.ad_id = ad_singer.ad_id
@@ -730,7 +735,12 @@ function get_all_ads($pending = 0, $deleted = 0): array
     // Getting Band Ads
     $temp_arr_2 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'band', 'visible' => 1];
     $data['ad_band'] = $db->query("
-        SELECT *,
+        SELECT ads.*,
+               user.fname,
+               user.lname,
+               user.profile_visible,
+               user.image as user_image,
+               ad_band.*,
             COALESCE((SELECT AVG(rating) FROM review WHERE target_id = user.user_id), 0) AS rating
         FROM ads
         JOIN ad_band ON ads.ad_id = ad_band.ad_id
@@ -746,8 +756,7 @@ function get_all_ads($pending = 0, $deleted = 0): array
     $temp_arr_3 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'venue', 'visible' => 1];
     // LEFT join is set since we haven't added any data to the ad_band table
     $data['ad_venue'] = $db->query("
-        SELECT *,
-            COALESCE((SELECT AVG(rating) FROM review WHERE target_id = user.user_id), 0) AS rating
+        SELECT *
         FROM ads
         JOIN ad_venue ON ads.ad_id = ad_venue.ad_id
         JOIN user ON user.user_id = ads.user_id
@@ -764,7 +773,11 @@ function get_all_ads($pending = 0, $deleted = 0): array
     $temp_arr_4 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'eventm'];
     // LEFT join is set since we haven't added any data to the ad_band table
     $data['ad_eventm'] = $db->query("
-        SELECT *,
+        SELECT ads.*,
+               user.fname,
+               user.lname,
+               user.profile_visible,
+               user.image as user_image,
                COALESCE((SELECT AVG(rating) FROM review WHERE target_id = user.user_id), 0) AS rating
         FROM ads 
         JOIN user ON user.user_id = ads.user_id
@@ -783,7 +796,12 @@ function get_ads_where($user_id, $pending = 0, $deleted = 0, $verified = 1): arr
     // Getting Singer Ads
     $temp_arr_1 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'singer', 'user_id' => $user_id];
     $data['ad_singer'] = $db->query("
-        SELECT *,
+        SELECT ads.*,
+               user.fname,
+               user.lname,
+               user.profile_visible,
+               user.image as user_image,
+               ad_singer.*,
                COALESCE((SELECT AVG(rating) FROM review WHERE target_id = user.user_id), 0) AS rating
         FROM ads 
             JOIN ad_singer ON ads.ad_id = ad_singer.ad_id
@@ -797,7 +815,12 @@ function get_ads_where($user_id, $pending = 0, $deleted = 0, $verified = 1): arr
     // Getting Band Ads
     $temp_arr_2 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'band', 'user_id' => $user_id];
     $data['ad_band'] = $db->query("
-        SELECT *,
+        SELECT ads.*,
+               user.fname,
+               user.lname,
+               user.profile_visible,
+               user.image as user_image,
+               ad_band.*,
                COALESCE((SELECT AVG(rating) FROM review WHERE target_id = user.user_id), 0) AS rating
         FROM ads 
             JOIN ad_band ON ads.ad_id = ad_band.ad_id
@@ -807,18 +830,16 @@ function get_ads_where($user_id, $pending = 0, $deleted = 0, $verified = 1): arr
 
 
     // Getting Venue Ads
-    $temp_arr_3 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'venue', 'user_id' => $user_id];
+    $temp_arr_3 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'venue'];
     // LEFT join is set since we haven't added any data to the ad_band table
     $data['ad_venue'] = $db->query("
-        SELECT *,
-               COALESCE((SELECT AVG(rating) FROM review WHERE target_id = user.user_id), 0) AS rating
+        SELECT *
         FROM ads 
             JOIN ad_venue ON ads.ad_id = ad_venue.ad_id
             JOIN venue ON venue.venue_id = ad_venue.venue_id
         WHERE ads.deleted = :deleted 
           and ads.pending = :pending 
           and ads.category = :category 
-          and ads.user_id = :user_id 
           and venue.verified = 1
     ", $temp_arr_3);
 
@@ -826,7 +847,11 @@ function get_ads_where($user_id, $pending = 0, $deleted = 0, $verified = 1): arr
     $temp_arr_4 = ['deleted' => $deleted, 'pending' => $pending, 'category' => 'eventm', 'user_id' => $user_id];
     // LEFT join is set since we haven't added any data to the ad_band table
     $data['ad_eventm'] = $db->query("
-        SELECT *,
+        SELECT ads.*,
+               user.fname,
+               user.lname,
+               user.profile_visible,
+               user.image as user_image,
                COALESCE((SELECT AVG(rating) FROM review WHERE target_id = user.user_id), 0) AS rating
         FROM ads 
         JOIN user ON user.user_id = ads.user_id

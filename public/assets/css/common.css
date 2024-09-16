@@ -251,6 +251,12 @@ body::-webkit-scrollbar-thumb {
 .fill-white {fill: white}
 
 
+.two-line {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2; /* Limiting to 2 lines */
+      -webkit-box-orient: vertical;
 
+  }
 
 /* ----- END OF CSS FRAMEWORK ----- */

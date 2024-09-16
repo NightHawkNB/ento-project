@@ -44,49 +44,16 @@ if (message()) {
                             class="fa fa-close"> </i></button>
             </div>
             <ul class="menu">
-                <li><a class="<?= (str_ends_with($_SERVER['REQUEST_URI'], "home")) ? 'active' : '' ?>"
-                       href="<?= ROOT ?>/home">Home</a></li>
                 <li><a class="<?= (str_contains($_SERVER['REQUEST_URI'], '/home/events')) ? 'active' : '' ?>"
                        href="<?= ROOT ?>/home/events">Events</a></li>
                 <li><a class="<?= (str_contains($_SERVER['REQUEST_URI'], '/home/ads')) ? 'active' : '' ?>"
                        href="<?= ROOT ?>/home/ads">Advertisements</a></li>
-                <li><a class="<?= (str_contains($_SERVER['REQUEST_URI'], '/home/about')) ? 'active' : '' ?>"
-                       href="<?= ROOT ?>/home/about">About Us</a></li>
                 <li>
                     <?php if (Auth::logged_in()): ?>
                         <a class="<?= (str_contains($_SERVER['REQUEST_URI'], '/' . strtolower($_SESSION['USER_DATA']->user_type))) ? 'active' : '' ?>"
                            href="<?= ROOT ?>/<?= strtolower($_SESSION['USER_DATA']->user_type) ?>">Dashboard</a>
                     <?php endif; ?>
                 </li>
-                <li><a href="#">Services</a>
-                    <ul class="submenu">
-                        <li><a href="#">Web Dev</a></li>
-                        <li><a href="#">Mobile App Dev</a></li>
-                        <li><a href="#">Desktop App Dev</a></li>
-                    </ul>
-                </li>
-
-                <!--                <li><a href="#">Portfolio</a></li>-->
-                <!--                <li><a href="#">Blog</a>-->
-                <!--                    <ul class="submenu">-->
-                <!--                        <li><a href="#">Categories</a>-->
-                <!--                            <ul class="submenu">-->
-                <!--                                <li><a href="#">Wordpress</a></li>-->
-                <!--                                <li><a href="#">Bootstrap</a></li>-->
-                <!--                                <li><a href="#">Javascript</a></li>-->
-                <!--                            </ul>-->
-                <!--                        </li>-->
-                <!--                        <li><a href="#">Series</a>-->
-                <!--                            <ul class="submenu" style="--navbar-submenu-width: 250px">-->
-                <!--                                <li><a href="#">Intro to Web Dev</a></li>-->
-                <!--                                <li><a href="#">Data Structures &amp; Algo</a></li>-->
-                <!--                                <li><a href="#">Deep Dive Into Cybersecurity</a></li>-->
-                <!--                            </ul>-->
-                <!--                        </li>-->
-                <!--                        <li><a href="#">Tips &amp; Tricks</a></li>-->
-                <!--                    </ul>-->
-                <!--                </li>-->
-
             </ul>
         </div>
     </div>

@@ -39,7 +39,7 @@
                         break;
                 }
                 ?>
-                <p class="<?= $statusColor ?> txt-w-bold"><?= $status ?></p>
+                <p class="<?= $statusColor ?> txt-w-bold"><?= strtoupper($status) ?></p>
 
             </div>
 

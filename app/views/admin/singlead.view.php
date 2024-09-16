@@ -87,7 +87,7 @@
                         </div>
                         <div class="" style="height: 25%">
                             <p class="txt-ali-lef txt-d-none" style=" "><?= $ads[0]->datetime ?>
-                                | <?= $ads[0]->category ?></p>
+                                | <?= strtoupper($ads[0]->category) ?></p>
                         </div>
                     </div>
                     <div class="dis-flex-col ju-co-se  " style="width: 50%;align-items: flex-end">
@@ -160,6 +160,25 @@
                         popup.classList.remove('active');
                         overlay.style.display = 'none';
                     }
+
+
+                    function validateForm(event) {
+                        // Get a reference to the form
+                        const form = event.target;
+
+                        // Example validation: Check if a required field is empty
+                        const requiredField = form.querySelector('#declineComment');
+
+                        if (!requiredField.value.trim()) {
+                            event.preventDefault();
+                            alert("Comment cannot be empty");
+                        }
+                    }
+
+                    document.addEventListener("DOMContentLoaded", function() {
+                        const form = document.querySelector('form');
+                        form.addEventListener("submit", validateForm);
+                    });
                 </script>
 
             </div>

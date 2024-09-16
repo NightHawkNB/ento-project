@@ -20,7 +20,7 @@
             <div class="report-container">
                 <div class="report-header dis-flex ju-co-sb">
                     <div class="txt-ali-lef">
-                        <h1>Logo</h1>
+                        <h1></h1>
                         <br><br><br><br><br>
                         <p>Date: <span id="current_date"><?= date("M d, Y H:i a") ?></span></p>
                     </div>

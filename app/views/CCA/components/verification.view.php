@@ -1,6 +1,7 @@
 <style>
     .cc{
         border-left: 5px solid #7d38ff;
+        border: 0.5px solid black;
     }
 </style>
 <a href="<?= ROOT ?>/cca/verify/<?= $userVreq_id ?>">
@@ -24,7 +25,7 @@
             </div>
             <div class="dis-flex gap-10 ju-co-ce al-it-ce pad-10 bor-rad-5 txt-c-black">
                 <a href="<?= ROOT ?>/cca/verify/<?= $userVreq_id ?>">
-                    <button class="btn-lay-2 hover-pointer btn-anima-hover">View</button>
+                    <button class="button-s2">View</button>
                 </a>
             </div>
         </div>
