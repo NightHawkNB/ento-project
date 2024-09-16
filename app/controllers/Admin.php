@@ -491,7 +491,6 @@ GROUP BY
         $db = new Database();
 
         if (empty($method)) {
-//            Getting all reservations for listing
             $data['records'] = $db->query("SELECT * FROM reservations");
             $this->view('common/reservations/your-reservations', $data);
         }

@@ -117,10 +117,6 @@ class Client extends Controller
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $target_id = $db->query('SELECT * FROM serviceprovider WHERE sp_id=:sp_id', ['sp_id' => $method])[0]->user_id;
-//          show($target_id);
-//          show($target_id[0]);
-//          show($target_id[0]->user_id);
-//          die;
             $_POST['reservation_id'] = $id;
             $_POST['creator_id'] = Auth::getUser_id();
             $_POST['target_id'] = $target_id;

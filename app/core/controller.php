@@ -280,9 +280,6 @@ class Controller
                         'reservation_id' => $new_id,
                         'req_id' => $id,
                         'respondedDate' => date('Y-m-d H:i:s')];
-
-//                    show($id);
-//                    die;
                     $request->update($id, $input);
 
 
