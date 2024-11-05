@@ -29,6 +29,14 @@ class CCA extends Controller
         $data["vcount"] = $vcount->query("SELECT COUNT(*) as 'vcount' FROM uservreq WHERE status = 'new' ")[0]->vcount;
         $venuecount = new Venuevreq();//get new venue count
         $data["venuecount"] = $venuecount->query("SELECT COUNT(*) as 'venuecount' FROM venue WHERE venue_id ")[0]->venuecount;
+//        $uservreqst = new Venuevreq();
+//        $data["uservreqst"] = $uservreqst->query("SELECT timestamps, COUNT(*) AS uservreqst FROM uservreq GROUP BY timestamps");
+        $uservreqst = new Venuevreq();
+        $data["uservreqst"] = $uservreqst->query("SELECT DATE_FORMAT(timestamps, '%Y-%m') AS month, COUNT(*) AS uservreqst
+                FROM uservreq
+                WHERE timestamps >= DATE_FORMAT(NOW() - INTERVAL 5 MONTH, '%Y-%m-01')
+                GROUP BY DATE_FORMAT(timestamps, '%Y-%m')
+");
 
         $this->view("CCA/dashboard", $data);
     }
@@ -41,7 +49,7 @@ class CCA extends Controller
 
                 try {
                     $comp = new Complaint();
-                    $comp->update($id, ['status' => 'Accepted']);
+                    $comp->update($id, ['status' => 'Accepted', 'cca_user_id' => Auth::getUser_id()]);
                     message('Complaint Accepted', false, 'success');
                 } catch (Exception $e) {
                     message('Complaint Failed to Accept', false, 'failure');
@@ -72,7 +80,7 @@ class CCA extends Controller
                 //get assist request
                 try {
                     $comp = new Complaint();
-                    $comp->update($id, ['status' => 'Assist','comment' => $_POST['comment']]);
+                    $comp->update($id, ['status' => 'Assist', 'comment' => $_POST['comment']]);
                     message('Complaint assist', false, 'success');
                 } catch (Exception $e) {
                     message('Complaint Failed to assists', false, 'failure');
@@ -82,10 +90,10 @@ class CCA extends Controller
                 //handle complaint
                 try {
                     $comp = new Complaint();
-                    $comp->update($id, ['status' => 'Handled','comment' => $_POST['comment']]);
+                    $comp->update($id, ['status' => 'Handled', 'comment' => $_POST['comment']]);
                     message('Complaint Handled', false, 'success');
                 } catch (Exception $e) {
-                    message('Complaint Failed to Handled', false, 'failure');
+                    message('Complaint Failed to Handled', false, 'failed');
                 }
                 redirect('cca/complaints');
             }
@@ -95,10 +103,10 @@ class CCA extends Controller
                 //get assist request
                 try {
                     $comp = new Complaint();
-                    $comp->update($id, ['status' => 'Update']);
+                    $comp->update($id, [ 'comment' => $_POST['comment']]);
                     message('Complaint update', false, 'success');
                 } catch (Exception $e) {
-                    message('Complaint Failed to update', false, 'failure');
+                    message('Complaint Failed to update', false, 'failed');
                 }
                 redirect('cca/complaints/assist');
             } elseif ($action == 'handle') {
@@ -122,28 +130,29 @@ class CCA extends Controller
             ON user.user_id = complaints.user_id
             WHERE complaints.comp_id = :comp_id
             ", ['comp_id' => $action])[0];
-            show($action);
             $this->view('cca/complaintdetails', $data);
         } else {
 
 
             $complaints = new Complaint();
-            $data['acc'] = $complaints->query("SELECT * FROM complaints JOIN user ON user.user_id = complaints.user_id where status = 'Accepted' AND cca_user_id=:cca_user_id",['cca_user_id'=>Auth::getUser_id()]);
+            $data['acc'] = $complaints->query("SELECT * FROM complaints JOIN user ON user.user_id = complaints.user_id where status = 'Accepted' AND cca_user_id=:cca_user_id", ['cca_user_id' => Auth::getUser_id()]);
             $data['idl'] = $complaints->query("SELECT * FROM complaints JOIN user ON user.user_id = complaints.user_id where status = 'Idle'");
 //            $data['idl'] = $complaints->where(['status' => 'Idle']);
-            $data['assi'] = $complaints->query("SELECT * FROM complaints JOIN user ON user.user_id = complaints.user_id where status = 'Assist'");
+            $data['idll'] = $complaints->query("SELECT color,status FROM complaints where color >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)AND status='Idle'");
+//            $data['idlecolor'] = $complaints->query("SELECT COUNT(*) as 'idlecolor' FROM complaints WHERE complaints.date_time >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH");
+
+
+            $data['assi'] = $complaints->query("SELECT * FROM complaints JOIN user ON user.user_id = complaints.user_id where status = 'Assist'AND cca_user_id=:cca_user_id", ['cca_user_id' => Auth::getUser_id()]);
             $data['hand'] = $complaints->query("SELECT * FROM complaints JOIN user ON user.user_id = complaints.user_id where status = 'Handled'");
             $this->view("CCA/view_complaints", $data);
-
+//            $this->view("CCA/complaints/idle", $data);
+            $this->view('CCA/components/complaint_filter/idle', $idll);
 
         }
 
     }
 
-    public function chat()
-    {
-        $this->view("CCA/chats");
-    }
+
 
     public function verify($uservid = null, $action = null)
     {
@@ -175,17 +184,17 @@ class CCA extends Controller
                 } catch (Exception $e) {
                     message('User Failed to Verify', false, 'failure');
                 }
-            }else{
-                    try {
-                        $ur = new Uservreq();
-                        $ur->update($uservid, ['status' => 'Declined', 'comment' => $_POST['comment']]);
-                        message('User Declined', false, 'success');
-                    } catch (Exception $e) {
-                        message('User Failed to Declined', false, 'failure');
-                    }
+            } else {
+                try {
+                    $ur = new Uservreq();
+                    $ur->update($uservid, ['status' => 'Declined', 'comment' => $_POST['comment']]);
+                    message('User Declined', false, 'success');
+                } catch (Exception $e) {
+                    message('User Failed to Declined', false, 'failure');
                 }
+            }
 
-                redirect('cca/verify');
+            redirect('cca/verify');
 
         }
     }
@@ -219,16 +228,16 @@ class CCA extends Controller
                     message('Venue Failed to Verify', false, 'failure');
                 }
                 redirect('cca/venue');
-            }else{
+            } else {
                 try {
                     $ur = new Venuevreq();
-                    $ur->update($venuevreqid, ['status' => 'Declined','comment' => $_POST['comment']]);
+                    $ur->update($venuevreqid, ['status' => 'Declined', 'comment' => $_POST['comment']]);
                     message('Venue Declined', false, 'success');
                 } catch (Exception $e) {
                     message('Venue Failed to Decline', false, 'failure');
                 }
 
-                    redirect('cca/venue');
+                redirect('cca/venue');
 
             }
         }
@@ -236,16 +245,28 @@ class CCA extends Controller
 
     public function report()
     {
-        $comp = new Complaint(); //get the complaint count
-        $data["complaints"] = $comp->query("SELECT * FROM complaints JOIN user ON complaints.user_id= user.user_id ORDER BY date_time ");
+//        $comp = new Complaint(); //get the complaint count
+//        $data["complaints"] = $comp->query("SELECT * FROM complaints JOIN user ON complaints.user_id= user.user_id ORDER BY date_time ");
         $uservreq = new Uservreq();
-        $data["uservreqs"] = $uservreq->query("SELECT status, COUNT(*) AS uservreqs FROM uservreq GROUP BY status");
-        $venuevreq = new Venuevreq();
-        $data["venuevreqs"] = $venuevreq->query("SELECT status, COUNT(*) AS venuevreqs FROM venuevreq GROUP BY status");
-        $count = new Complaint();//get new complaint count
-        $data["count"] = $count->query("SELECT COUNT(*) as 'count' FROM complaints WHERE status = 'Idle'")[0]->count;
+        $data["uservreqs"] = $uservreq->query("SELECT user.user_type, COUNT(*) as 'count' 
+        FROM uservreq
+        JOIN user ON uservreq.user_id = user.user_id
+        WHERE uservreq.timestamps >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH)
+        GROUP BY user.user_type;");
+//        $venuevreq = new Venuevreq();
+//        $data["venuevreqs"] = $venuevreq->query("SELECT status, COUNT(*) AS venuevreqs FROM venuevreq GROUP BY status");
+        $comp = new Complaint();//get new complaint count
+        $data["comp"] = $comp->query("SELECT COUNT(*) as 'comp' FROM complaints WHERE complaints.date_time >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH)");
+        $count = new Complaint();
+        $data["count"] = $count->query("
+        SELECT user.user_type, COUNT(*) as 'count' 
+        FROM complaints
+        JOIN user ON complaints.user_id = user.user_id
+        WHERE complaints.date_time >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH)
+        GROUP BY user.user_type;
+        ");
 
-        $this->view("cca/report",$data);
+        $this->view("cca/report", $data);
     }
 }
 

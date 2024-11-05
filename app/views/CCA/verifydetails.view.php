@@ -96,67 +96,67 @@
 <!--</div>-->
 <!--</body>-->
 <!--</html>-->
-
-<style>
-    .btn{
-        padding: 10px 20px;
-        background: #fff;
-        border: 0;
-        outline: none;
-        cursor: pointer;
-        border-radius: 30px;
-        font-size: 22px;
-        font-weight: 500;
-    }
-
-    .popup{
-        width: 400px;
-        background: #fff;
-        border-radius: 6px;
-        position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translate(-50%, -50%) scale(0.1) ;
-        text-align: center;
-        padding: 0 30px 30px ;
-        color: #333;
-        /*visibility: hidden;*/
-        /*transition: transform 0.4s, top 0.4s;*/
-        display: none; /* Change visibility to display */
-        transition: transform 0.4s, top 0.4s, display 0s 0.4s;
-    }
-
-    .open-popup{
-        /*visibility: visible;*/
-        /*top: 50%;*/
-        /*transform: translate(-50%, -50%) scale(1);*/
-        display: block; /* Change visibility to display */
-        top: 50%;
-        transform: translate(-50%, -50%) scale(1);
-        transition: transform 0.4s, top 0.4s, display 0s; /* Reset delay for the display property */
-    }
-
-
-        .popup h2{
-        margin: 30px 0 10px;
-        font-size: 38px;
-        font-weight: 500;
-    }
-
-    .popup button{
-        width: 100%;
-        padding: 10px 0;
-        background: #6fd649;
-        border: 0;
-        outline: none;
-        cursor: pointer;
-        border-radius: 4px;
-        font-size: 18px;
-        color: #fff;
-        margin-top: 50px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
-</style>
+<!---->
+<!--<style>-->
+<!--    .btn{-->
+<!--        padding: 10px 20px;-->
+<!--        background: #fff;-->
+<!--        border: 0;-->
+<!--        outline: none;-->
+<!--        cursor: pointer;-->
+<!--        border-radius: 30px;-->
+<!--        font-size: 22px;-->
+<!--        font-weight: 500;-->
+<!--    }-->
+<!---->
+<!--    .popup{-->
+<!--        width: 400px;-->
+<!--        background: #fff;-->
+<!--        border-radius: 6px;-->
+<!--        position: absolute;-->
+<!--        top: 0;-->
+<!--        left: 50%;-->
+<!--        transform: translate(-50%, -50%) scale(0.1) ;-->
+<!--        text-align: center;-->
+<!--        padding: 0 30px 30px ;-->
+<!--        color: #333;-->
+<!--        /*visibility: hidden;*/-->
+<!--        /*transition: transform 0.4s, top 0.4s;*/-->
+<!--        display: none; /* Change visibility to display */-->
+<!--        transition: transform 0.4s, top 0.4s, display 0s 0.4s;-->
+<!--    }-->
+<!---->
+<!--    .open-popup{-->
+<!--        /*visibility: visible;*/-->
+<!--        /*top: 50%;*/-->
+<!--        /*transform: translate(-50%, -50%) scale(1);*/-->
+<!--        display: block; /* Change visibility to display */-->
+<!--        top: 50%;-->
+<!--        transform: translate(-50%, -50%) scale(1);-->
+<!--        transition: transform 0.4s, top 0.4s, display 0s; /* Reset delay for the display property */-->
+<!--    }-->
+<!---->
+<!---->
+<!--        .popup h2{-->
+<!--        margin: 30px 0 10px;-->
+<!--        font-size: 38px;-->
+<!--        font-weight: 500;-->
+<!--    }-->
+<!---->
+<!--    .popup button{-->
+<!--        width: 100%;-->
+<!--        padding: 10px 0;-->
+<!--        background: #6fd649;-->
+<!--        border: 0;-->
+<!--        outline: none;-->
+<!--        cursor: pointer;-->
+<!--        border-radius: 4px;-->
+<!--        font-size: 18px;-->
+<!--        color: #fff;-->
+<!--        margin-top: 50px;-->
+<!--        box-shadow: 0 2px 5px rgba(0,0,0,0.2);-->
+<!--    }-->
+<!--</style>-->
 <!--<style>-->
 <!---->
 <!--    .popup {-->
@@ -204,7 +204,7 @@
 <!--</style>-->
 <!--user verify details-->
 <html lang="en">
-<?php $this->view('includes/head', ['style' => ['cca/complaintdetails.css']]) ?>
+<?php $this->view('includes/head', ['style' => ['cca/complaintdetails.css','cca/popupmsg.css']]) ?>
 <body>
 <div class="main-wrapper">
     <?php $this->view('includes/header') ?>
@@ -262,7 +262,9 @@
                                         <textarea id="comment" name="comment"> </textarea>
                                     </div>
                                     <button type="submit" class="button-s2" onclick="closePopup()">Ok</button>
+
                                 </form>
+<!--                                <button class="dis-flex gap-10 ju-co-ce al-it-ce pad-20 bor-rad-5 txt-c-black button-s2 "  onclick="goBack()">Back</button>-->
                             </div>
                         <button class="button-s2" onclick="goBack()">Back</button>
                     </div>
@@ -283,6 +285,7 @@
     function closePopup() {
         popup.classList.remove("open-popup");
     }
+
 </script>
 </body>
 </html>

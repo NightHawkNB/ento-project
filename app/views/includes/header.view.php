@@ -44,14 +44,10 @@ if (message()) {
                             class="fa fa-close"> </i></button>
             </div>
             <ul class="menu">
-                <li><a class="<?= (str_ends_with($_SERVER['REQUEST_URI'], "home")) ? 'active' : '' ?>"
-                       href="<?= ROOT ?>/home">Home</a></li>
                 <li><a class="<?= (str_contains($_SERVER['REQUEST_URI'], '/home/events')) ? 'active' : '' ?>"
                        href="<?= ROOT ?>/home/events">Events</a></li>
                 <li><a class="<?= (str_contains($_SERVER['REQUEST_URI'], '/home/ads')) ? 'active' : '' ?>"
                        href="<?= ROOT ?>/home/ads">Advertisements</a></li>
-                <li><a class="<?= (str_contains($_SERVER['REQUEST_URI'], '/home/about')) ? 'active' : '' ?>"
-                       href="<?= ROOT ?>/home/about">About Us</a></li>
                 <li>
                     <?php if (Auth::logged_in()): ?>
                         <a class="<?= (str_contains($_SERVER['REQUEST_URI'], '/' . strtolower($_SESSION['USER_DATA']->user_type))) ? 'active' : '' ?>"

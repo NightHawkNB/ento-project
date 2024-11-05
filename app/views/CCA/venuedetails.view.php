@@ -9,7 +9,7 @@
         </section>
         <section class="cols-10 pad-20 dis-flex wid-100 hei-100 ju-co-ce al-it-ce">
             <div class="complaint-container">
-                <button class="button-s2 hover-pointer btn-anima-hover"  onclick="goBack()">Back</button>
+                <button class="button-s2 "  onclick="goBack()">Back</button>
                 <div class="form" style="width: 100%">
                     <div class="content">
                         <h1 class="dis-flex ju-co-ce pad-20 head">Venue Details</h1>
@@ -42,12 +42,12 @@
 
                         <div class="dis-flex gap-10 ju-co-ce al-it-ce pad-20 bor-rad-5 txt-c-black">
                             <a href="<?= ROOT ?>/cca/venue/<?= $assists->venuevreq_id  ?>/verified">
-                                <button class="button-s2 hover-pointer btn-anima-hover">Verify</button>
+                                <button class="button-s2 ">Verify</button>
                             </a>
 <!--                            <a href="--><?php //= ROOT ?><!--/cca/venue/--><?php //= $assists->venue_id  ?><!--/declined">-->
 <!--                                <button class="btn-lay-2 hover-pointer btn-anima-hover">decline</button>-->
 <!--                            </a>-->
-                            <button type="button" class="button-s2 hover-pointer btn-anima-hover"  onclick="openPopup()">Decline</button>
+                            <button type="button" class="button-s2"  onclick="openPopup()">Decline</button>
                             <div class="popup" id="popup">
                                 <form method="post"  action="<?= ROOT ?>/cca/venue/<?=$assists->venuevreq_id ?>/declined">
                                     <div class="input-box">

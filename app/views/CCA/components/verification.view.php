@@ -1,6 +1,7 @@
 <style>
     .cc{
         border-left: 5px solid #7d38ff;
+        border: 0.5px solid black;
     }
 </style>
 <a href="<?= ROOT ?>/cca/verify/<?= $userVreq_id ?>">

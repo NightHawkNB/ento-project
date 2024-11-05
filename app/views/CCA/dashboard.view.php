@@ -44,6 +44,7 @@
             </div>
 
             <!--chart-->
+
             <div class="dis-flex wid-100 pad-10 gap-10 charts">
 
                 <div class="box">
@@ -63,7 +64,7 @@
                     labels: ['Handled', 'Assist', 'Idle', 'Accepted'],
                     datasets: [{
                         label: 'Counts',
-                        data: [<?php for ($x = 0; $x < 4; $x++) {
+                        data: [<?php for ($x = 0; $x < 3; $x++) {
                             echo $complaints[$x]->complaints . ', ';
                         }?>],
                         backgroundColor: [
@@ -91,7 +92,7 @@
                     labels: labels,
                     datasets: [{
                         label: ['new'],
-                        data: [<?= $uservreqs[0]->uservreqs?>,<?= $uservreqs[1]->uservreqs?>],
+                        data: [<?= $uservreqst[0]->uservreqst?>,<?= $uservreqst[1]->uservreqst?>],
                         backgroundColor: 'rgba(255, 99, 132, 0.2)',
                         borderColor: 'rgba(255, 99, 132, 1)',
                         borderWidth: 1
@@ -121,7 +122,7 @@
                 <div class="extra">
                     <div class="cardheader">
                         <h2>Complaints</h2>
-                        <a href="<?= ROOT ?>/cca/complaints/" class="btn-lay-2 hover-pointer btn-anima-hover chbtn">View
+                        <a href="<?= ROOT ?>/cca/complaints/" class="button-s2 chbtn">View
                             All</a>
                     </div>
 
@@ -183,7 +184,7 @@
 
                     <div class="cardheader">
                         <h2>Users</h2>
-                        <a href="<?= ROOT ?>/cca/verify/" class="btn-lay-2 hover-pointer btn-anima-hover chbtn">View
+                        <a href="<?= ROOT ?>/cca/verify/" class="button-s2 chbtn">View
                             All</a>
                     </div>
                     <table>
@@ -232,7 +233,7 @@
 
                     <div class="cardheader">
                         <h2>Venues</h2>
-                        <a href="<?= ROOT ?>/cca/venue/" class="btn-lay-2 hover-pointer btn-anima-hover">View All</a>
+                        <a href="<?= ROOT ?>/cca/venue/" class="button-s2 chbtn">View All</a>
                     </div>
                     <table>
                         <thead>
@@ -286,9 +287,11 @@
                 let toggle = document.querySelector('.toggle');
                 let navigation = document.querySelector('.navigation');
                 let main = document.querySelector('.main');
-                toggle.onclick = function () {
-                    navigation.classList.toggle('active');
-                    main.classList.toggle('active');
+                if(toggle){
+                    toggle.onclick = function () {
+                        navigation.classList.toggle('active');
+                        main.classList.toggle('active');
+                    }
                 }
 
                 //add hovered class in selected listitem

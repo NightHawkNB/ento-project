@@ -9,10 +9,11 @@
 /*    font-weight: 500;*/
 /*}*/
 
-.popup{
+.popup,.popup1{
     width: 400px;
-    background: #e3e3e3;
+    background: #ffffff;
     border-radius: 6px;
+    border: 2px solid #565657;
     position: absolute;
     top: 0;
     left: 50%;
@@ -23,7 +24,7 @@
     /*visibility: hidden;*/
     /*transition: transform 0.4s, top 0.4s;*/
     display: none; /* Change visibility to display */
-    transition: transform 0.4s, top 0.4s, display 0s 0.4s;
+    transition: transform 0.4s,  display 0s 0.4s;
 }
 
 .open-popup{
@@ -37,13 +38,15 @@
 }
 
 
-.popup h2{
+.popup label,
+.popup1 label{
     margin: 30px 0 10px;
-    font-size: 38px;
-    font-weight: 500;
+    font-size: 20px;
+    font-weight: 100;
 }
 
-.popup button{
+.popup button,
+.popup1 button{
     width: 100%;
     padding: 10px 0;
     /*background: #c8aaff;*/
@@ -54,5 +57,5 @@
     font-size: 18px;
     /*color: #fff;*/
     margin-top: 50px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    /*box-shadow: 0 2px 5px rgba(0,0,0,0.2);*/
 }

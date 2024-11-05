@@ -45,6 +45,27 @@
                     <p><?=$date_time?></p>
                 </div>
 
+                <div class="dis-flex-col txt-c-black gap-10">
+                    <h4>color</h4>
+                    <p>
+                        <?php
+                        $day=3;
+                        if($color<checkdate(0,4,0)){
+                            echo"red";
+
+                        }else{
+                            echo "green";
+                        }
+                        ?>
+<!--                        <script>-->
+<!--                            const today = new Date();-->
+<!--                            const lastMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1).toLocaleDateString(undefined, {month: 'long'});-->
+<!---->
+<!--                        </script>-->
+
+                    </p>
+                </div>
+
 <!--                <div class="dis-flex-col txt-c-black gap-10">-->
 <!--                    <p class="txt-w-bold">Status</p>-->
 <!--                    <p>--><?php //= $status ?><!--</p>-->
@@ -66,3 +87,4 @@
         </div>
     </div>
 </a>
+

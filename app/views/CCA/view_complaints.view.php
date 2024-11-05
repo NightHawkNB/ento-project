@@ -76,6 +76,7 @@
                          style="max-height: 60vh; overflow:auto; padding-right: 10px">
 
                         <?php
+                        show($idll);
                         if (!empty($idl)) {
                             foreach ($idl as $complaint) {
                                 $this->view('CCA/components/complaint_filter/idle', (array)$complaint);
@@ -136,8 +137,8 @@
                     handled: document.getElementById('handledsection')
                 };
 
-                // Initial setup to select the "Singer" tab
-                const initialTab = filterButtons[0]; // Select the first button (Singer)
+                // Initial setup to select the "accepted" tab
+                const initialTab = filterButtons[0]; // Select the first button (accepted)
                 initialTab.classList.add("filter-active");
 
                 const root = document.documentElement;
@@ -172,7 +173,7 @@
                     }
                 });
 
-                // Initially hide band and venue sections
+                // Initially hide idle and assist and handled sections
                 adSections.idle.style.display = 'none';
                 adSections.assists.style.display = 'none';
                 adSections.handled.style.display = 'none';
